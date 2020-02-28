@@ -4,14 +4,9 @@ const regex = new RegExp(
 
 const themeKeys = [`background`,`font`,`border`];
 
-let count = 0;
-
-function resolveReference(value, tokens, currentTheme) {
-	// count = count + 1;
-	// console.log(`Ran ${count} times`);
-	
+function resolveReference(value, tokens, currentTheme, refs = []) {
 	if (value.indexOf(`{`) < 0) {
-		return value;
+		return [value];
 	}
 	
 	let obj, resolvedRef;
@@ -35,9 +30,9 @@ function resolveReference(value, tokens, currentTheme) {
 	});
 	
 	if (resolvedRef.indexOf(`{`) >= 0) {
-		return resolveReference(resolvedRef, tokens, currentTheme);
+		return resolveReference(resolvedRef, tokens, currentTheme, refs.concat(resolvedRef));
 	} else {
-		return resolvedRef;
+		return refs.concat(resolvedRef);
 	}
 }
 

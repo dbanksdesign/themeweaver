@@ -1,13 +1,50 @@
+:root {
+	/* Sizes */
+	--size-padding-xs: 0.125rem;
+	--size-padding-tiny: 0.25rem;
+	--size-padding-small: 0.5rem;
+	--size-padding-base: 1rem;
+	--size-padding-large: 1.5rem;
+	--size-padding-xl: 2.5rem;
+
+	--size-border-base: 0.125rem;
+	--size-border-large: 0.5rem;
+
+	--size-font-small: 0.875rem;
+	--size-font-base: 1rem;
+	--size-font-large: 1.25rem;
+	--size-font-xl: 1.75rem;
+	--size-font-xxl: 2.5rem;
+
+	--size-breakpoint-small : 400px;
+	--size-breakpoint-medium : 1000px;
+	--size-breakpoint-large : 1400px;
+
+	--time-duration-base: 0.2s;
+
+	--font-family-mono: 'Source Code Pro', monospace;
+	--font-family-primary: 'Source Sans Pro', 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;
+	padding-left: 7rem;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-family-mono);
+}
+
+.swatch {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.active {
+	color: pink;
 }

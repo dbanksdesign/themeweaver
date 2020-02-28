@@ -1,0 +1,15 @@
+.app-nav {
+	z-index: 200;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 6rem;
+	background-color: var(--application-activityBar-background);
+}
+
+.app-nav-item {
+	display: block;
+	padding: var(--size-padding-base);
+	text-decoration: none;
+}

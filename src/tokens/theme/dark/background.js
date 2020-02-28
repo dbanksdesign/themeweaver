@@ -3,8 +3,7 @@ export default {
   "secondary": { "value": "{core.grey.90.value}" },
   "tertiary": { "value": "{core.grey.80.value}" },
   "quaternary": { "value": "{core.grey.60.value}" },
-  
-  "drop": { "value": "{core.teal.light.value}66" },
+
   "badge": { "value": "{core.teal.darker.value}" },
   "debug": { "value": "{core.purple.dark.value}" },
   
