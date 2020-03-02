@@ -3,9 +3,9 @@
 export default {
 	"titleBar": {
 		"border": { "value": "#0000" },
-		"activeBackground": { "value": "{color.background.quaternary.value}" },
-		"activeForeground": { "value": "{color.font.primary.value}" },
-		"inactiveBackground": { "value": "{color.background.secondary.value}" },
-		"inactiveForeground": { "value": "{color.font.secondary.value}" }
+		"activeBackground": { "value": "{background.quaternary.value}" },
+		"activeForeground": { "value": "{font.primary.value}" },
+		"inactiveBackground": { "value": "{background.secondary.value}" },
+		"inactiveForeground": { "value": "{font.secondary.value}" }
 	}
 }

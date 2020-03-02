@@ -1,5 +1,5 @@
 export default {
-  "primary": { "value": "{core.grey.100.value}33" },
+  "primary": { "value": "{core.grey.100.value}" },
   "secondary": { "value": "{core.grey.90.value}" },
   "tertiary": { "value": "{core.grey.80.value}" },
   "quaternary": { "value": "{core.grey.60.value}" },

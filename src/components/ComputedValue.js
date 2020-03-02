@@ -5,8 +5,8 @@ class ComputedValue extends React.PureComponent {
 		const { refs } = this.props;
 		return (
 			<div className="token-references">
-				{refs.map((ref) => (
-					<span className="token-reference" key={ref}>{ref}</span>
+				{refs.map((ref,i) => (
+					<span className="token-reference" key={`${ref}${i}`}>{ref}</span>
 				))}
 			</div>
 		)

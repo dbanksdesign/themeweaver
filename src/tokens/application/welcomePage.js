@@ -1,0 +1,10 @@
+export default {
+	"welcomePage": {
+		"background": { "value": "{color.background.primary.value}" },
+		"buttonBackground": { "value": "{color.background.secondary.value}" },
+		"buttonHoverBackground": { "value": "{color.background.tertiary.value}" },
+	},
+	"walkThrough": {
+		"embeddedEditorBackground": { "value": "{color.background.secondary.value}" }
+	}
+}

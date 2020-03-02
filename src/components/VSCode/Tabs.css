@@ -1,0 +1,89 @@
+.tabs-and-actions-container {
+	display: flex;
+}
+
+.tabs-container {
+	display: flex;
+	height: 35px;
+	overflow: hidden;
+}
+
+.tabs-container>.tab.sizing-shrink {
+	min-width: 60px;
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: fit-content;
+	padding-left: 5px;
+	position: relative;
+	display: flex;
+	white-space: nowrap;
+	cursor: pointer;
+	height: 35px;
+	box-sizing: border-box;
+}
+
+.tab-border-top-container {
+	display: none;
+}
+
+.monaco-action-bar {
+	text-align: right;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.monaco-action-bar .actions-container {
+	display: flex;
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	justify-content: flex-end;
+}
+
+.monaco-action-bar .action-item {
+	cursor: pointer;
+	display: inline-block;
+	transition: transform 50ms ease;
+	position: relative;
+}
+
+.tab-close .action-label.codicon {
+	color: inherit;
+	font-size: 16px;
+}
+
+.tab .tab-label {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.content .editor-group-container>.title .title-label {
+	white-space: nowrap;
+	flex: 1;
+	margin-top: auto;
+	margin-bottom: auto;
+	position: relative;
+}
+
+.tab-close {
+	flex: 0;
+	overflow: hidden;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 28px;
+}
+
+.tab:hover .tab-close {
+	overflow: visible;
+}
+
+.editor-group-container {
+	height: 100%;
+	flex: 1;
+}
+
+.vscode {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}

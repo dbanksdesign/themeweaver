@@ -32,7 +32,9 @@ body {
   font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	padding-left: 7rem;
+	padding-left: 6rem;
+	background-color: var(--application-editor-background);
+	color: var(--application-editor-foreground);
 }
 
 code {
@@ -47,4 +49,49 @@ code {
 
 .active {
 	color: pink;
+}
+
+input {
+	background-color: var(--application-input-background);
+	color: var(--application-input-foreground);
+	border-color: var(--application-input-border);
+	padding: var(--size-padding-small);
+	font-size: 1rem;
+}
+
+label {
+	display: block;
+}
+
+
+
+.group {
+	padding-left: var(--size-padding-base);
+	border-left: 2px solid var(--application-focusBorder);
+}
+
+.app-page {
+	padding: var(--size-padding-xl);
+}
+
+.app {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: row;
+}
+
+.editor-pane {
+	flex: 1;
+	overflow-y: auto;
+	position: relative;
+}
+
+.preview-pane {
+	flex: 1;
+	overflow-y: auto;
+	position: relative;
 }

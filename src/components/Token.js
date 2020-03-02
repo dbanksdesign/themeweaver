@@ -1,7 +1,7 @@
 import React from 'react';
 import ComputedValue from './ComputedValue';
 import Swatch from './Swatch';
-
+import './Token.css';
 class Token extends React.Component {
 	shouldComponentUpdate(nextProps, nextState) {
 		const { name, value, refs } = this.props;
@@ -19,13 +19,19 @@ class Token extends React.Component {
 		const computedValue = refs[refs.length-1];
 		
 		return (
-			<div>
-				<label>
+			<div className="token-field-wrapper">
+				<label className="token-field-label" htmlFor={path}>
 					{name}
-					<input type="text" value={value} onChange={(e) => updateToken({path, value: e.target.value})} />
-					<Swatch value={computedValue || value} />
-					{refs && <ComputedValue refs={refs} />}
 				</label>
+				<div className="token-field">
+					<input className="token-field-input"
+						type="text"
+						id={path}
+						value={value}
+						onChange={(e) => updateToken({path, value: e.target.value})} />
+					<Swatch value={computedValue || value} />
+				</div>
+				{computedValue !== value && <ComputedValue refs={refs} />}
 			</div>
 		)
 	}

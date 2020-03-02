@@ -1,0 +1,16 @@
+export default {
+	"menu": {
+		"foreground": {},
+		"background": {},
+		"selectionForeground": {},
+		"selectionBackground": {},
+		"selectionBorder": {},
+		"separatorBackground": {},
+		"border": {}
+	},
+	"menubar": {
+		"selectionForeground": {},
+		"selectionBackground": {},
+		"selectionBorder": {}
+	}
+}

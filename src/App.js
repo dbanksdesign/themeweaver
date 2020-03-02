@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { monaco } from "@monaco-editor/react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as immutable from 'object-path-immutable';
 import tokens from './tokens';
 import Group from './components/Group';
-import Editor from './components/Editor';
 import VSEditor from './components/VSEditor';
 import Nav from './components/Nav';
 import CSSVars from './components/CSSVars';
+import Workbench from './components/VSCode/Workbench';
+import Page from './components/Page';
+import AboutPage from './components/AboutPage';
 import resolveReference from './helpers/resolveReference';
 import flattenObject from './helpers/flattenObject';
+import download from './helpers/download';
 
 const resolveAllRefs = ( object, tokens, currentTheme ) => {
 	const toRet = {};
@@ -24,6 +26,20 @@ const resolveAllRefs = ( object, tokens, currentTheme ) => {
 		}
 	}
 	return toRet;
+}
+
+const createResolvedTokenObject = (resolvedTokens, startsWith) => {
+	return Object.keys(resolvedTokens)
+		.filter(key => key.startsWith(startsWith))
+		.reduce((prev, curr) => {
+			const refs = resolvedTokens[curr];
+			const key = curr.replace(`${startsWith}.`,``).replace(`.value`,``);
+			const value = refs[refs.length-1];
+			if (value) {
+				prev[key] = value;
+			}
+			return prev;
+		}, {});
 }
 
 class App extends Component {
@@ -42,8 +58,7 @@ class App extends Component {
 		};
 	}
 	
-	handleEditorChange = (ev, newValue) => {
-		// console.log(newValue);
+	handleEditorChange = (e, newValue) => {
 		try {
 			const newState = JSON.parse(newValue);
 			this.setState({
@@ -88,40 +103,97 @@ class App extends Component {
 		})
 	}
 	
+	downloadTheme = () => {
+		// const theme = {
+		// 	name: ``,
+		// 	type: ``,
+		// 	colors: Object.keys(this.state.resolvedTokens)
+		// 		.filter(key => key.beginsWith(`application`))
+		// }
+		console.log(Object.keys(this.state.resolvedTokens)
+			.filter(key => key.startsWith(`application`))
+			.reduce((toRet, curr) => {
+				const refs = this.state.resolvedTokens[curr];
+				const name = curr.replace(/application\.|\.value/gi, ``);
+				toRet[name] = refs[refs.length-1];
+				return toRet;
+			}, {})
+		);
+		// download(`${this.state.currentTheme}.json`, JSON.stringify(this.state.tokens, null, 2));
+	}
+	
 	render() {
+		const syntaxTokens = createResolvedTokenObject(this.state.resolvedTokens, `syntax`);
+		const applicationTokens = createResolvedTokenObject(this.state.resolvedTokens, `application`);
+
 		return (
 			<Router>
+				<div className="app">
 				<Nav />
-				<div onClick={this.changeTheme}>Current theme: {this.state.currentTheme}</div>
+				{/* <div onClick={this.changeTheme}>Current theme: {this.state.currentTheme}</div> */}
 				
 				<CSSVars tokens={this.state.resolvedTokens} />
 				
+				<div className="editor-pane">
 				<Switch>
 					<Route exact path="/">
-						<Group object={this.state.tokens} updateToken={this.updateToken} resolveReference={this.resolveReference} currentTheme={this.state.currentTheme} />
+						<Page title="About">
+							<AboutPage applicationBackground={this.state.tokens.application.primaryBackground} />
+						</Page>
 					</Route>
 					<Route path="/core">
-						<h2>Core Colors</h2>
-						<Group object={this.state.tokens.core} path={['core']} updateToken={this.updateToken} resolveReference={this.resolveReference} currentTheme={this.state.currentTheme} />
+						<Page title="Core Colors">
+							<Group object={this.state.tokens.core}
+								path={['core']}
+								updateToken={this.updateToken}
+								resolveReference={this.resolveReference}
+								currentTheme={this.state.currentTheme} />
+						</Page>
 					</Route>
 					<Route path="/theme">
-						<h2>Theme Colors</h2>
-						<Group object={this.state.tokens.theme} path={['theme']} updateToken={this.updateToken} resolveReference={this.resolveReference} currentTheme={this.state.currentTheme} />
+						<Page title="Theme Colors">
+							<button onClick={this.downloadTheme}>DOWNLOAD</button>
+							<Group object={this.state.tokens.theme}
+								path={['theme']}
+								updateToken={this.updateToken}
+								resolveReference={this.resolveReference}
+								currentTheme={this.state.currentTheme} />
+						</Page>
 					</Route>
 					<Route path="/application">
-						<h2>Application Colors</h2>
-						<Group object={this.state.tokens.application} path={['application']} updateToken={this.updateToken} resolveReference={this.resolveReference} currentTheme={this.state.currentTheme} />
+						<Page title="Application Colors">
+							<Group object={this.state.tokens.application}
+								path={['application']}
+								updateToken={this.updateToken}
+								resolveReference={this.resolveReference}
+								currentTheme={this.state.currentTheme} />
+						</Page>
 					</Route>
 					<Route path="/syntax">
-						<h2>Syntax Colors</h2>
-						<Group object={this.state.tokens.syntax} path={['syntax']} updateToken={this.updateToken} resolveReference={this.resolveReference} currentTheme={this.state.currentTheme} />
+						<Page title="Syntax Colors">
+							<Group object={this.state.tokens.syntax}
+								path={['syntax']}
+								updateToken={this.updateToken}
+								resolveReference={this.resolveReference}
+								currentTheme={this.state.currentTheme} />
+						</Page>
 					</Route>
 					<Route path="/editor">
-						{/* <Editor onChange={this.handleEditorChange} value={JSON.stringify(this.state.tokens, null, 2)} /> */}
-						<VSEditor onChange={this.handleEditorChange} value={JSON.stringify(this.state.tokens, null, 2)} />
+						<Page title="JSON Editor">
+							<VSEditor
+								onChange={this.handleEditorChange}
+								value={JSON.stringify(this.state.tokens, null, 2)}
+								syntaxTokens={syntaxTokens}
+								applicationTokens={applicationTokens} />
+						</Page>
 					</Route>
 				</Switch>
-
+				</div>
+				
+				<div className="preview-pane vscode">
+					<Workbench />
+				</div>
+				</div>
 			</Router>
 		)
 	}

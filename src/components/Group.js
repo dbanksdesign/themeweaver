@@ -1,6 +1,10 @@
 import React from 'react';
 import Token from './Token';
 
+const isPlainObject = function (obj) {
+	return Object.prototype.toString.call(obj) === '[object Object]';
+};
+
 class Group extends React.Component {
 	//TODO: figure out why ths prevents proper re-renders
 	// shouldComponentUpdate(nextProps, nextState) {
@@ -17,13 +21,16 @@ class Group extends React.Component {
 					return (
 						<Token key={key} refs={refs} {...object[key]} path={path.concat(key,'value').join('.')} name={key} updateToken={updateToken} currentTheme={currentTheme} />
 					)
-				} else {
+				} else if (isPlainObject(object[key])) {
 					return (
 						<div key={i}>
 							<h3>{key}</h3>
 							<Group key={key} object={object[key]} path={path.concat(key)} updateToken={updateToken} resolveReference={resolveReference} currentTheme={currentTheme} />
 						</div>
 					)
+				} else {
+					console.log(`leaf node token without 'value': ${path},${key}`);
+					return null
 				}
 			})}
 			</div>

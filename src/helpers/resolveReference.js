@@ -26,10 +26,15 @@ function resolveReference(value, tokens, currentTheme, refs = []) {
 				obj = undefined;
 			}
 		}
-		resolvedRef = value.replace(match, obj);
+		if (obj) {
+			resolvedRef = value.replace(match, obj);
+		} else {
+			console.log(`cannot resolve: ${value}`);
+			resolvedRef = null;
+		}
 	});
 	
-	if (resolvedRef.indexOf(`{`) >= 0) {
+	if (resolvedRef && resolvedRef.indexOf(`{`) >= 0) {
 		return resolveReference(resolvedRef, tokens, currentTheme, refs.concat(resolvedRef));
 	} else {
 		return refs.concat(resolvedRef);

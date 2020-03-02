@@ -11,7 +11,7 @@ const NavItem = (props) => (
 const Nav = () => {
 	return (
 		<nav className="app-nav">
-			<NavItem to="/" label="All" exact />
+			<NavItem to="/" label="About" exact />
 			<NavItem to="/core" label="Core" />
 			<NavItem to="/theme" label="Theme" />
 			<NavItem to="/application" label="Application" />

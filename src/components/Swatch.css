@@ -1,0 +1,11 @@
+.swatch-wrapper {
+	/* display: inline-block; */
+	padding: var(--size-padding-base);
+	/* box-shadow: 20px 20px 60px #000000CC; */
+	border: 2px solid var(--application-focusBorder);
+}
+
+.swatch {
+	width: 1rem;
+	height: 1rem;
+}

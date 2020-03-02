@@ -11,7 +11,7 @@ export default {
   "danger": { "value": "{core.red.light.value}" },
   "warning": { "value": "{core.orange.light.value}" },
   "info": { "value": "{core.teal.light.value}" },
-  
+  "test": { "value": "{font.link.primary.inactive.value}" },
   "link": {
     "primary": {
       "active": { "value": "{core.teal.light.value}" },

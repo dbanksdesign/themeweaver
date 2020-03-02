@@ -1,0 +1,26 @@
+.token-field {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+}
+
+.token-field-label {
+	
+}
+
+.token-field-input {
+	display: block;
+	flex: 1;
+	padding: var(--size-padding-base);
+	background-color: var(--application-input-background);
+	border: 2px solid var(--application-focusBorder);
+	border-right: none;
+}
+
+.token-field-wrapper {
+	margin-bottom: var(--size-padding-large);
+}
+
+.token-field-label {
+	margin-bottom: var(--size-padding-small);
+}

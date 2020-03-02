@@ -12,11 +12,11 @@ class CSSVar extends React.PureComponent {
 
 export {CSSVar}
 
-class CSSVars extends React.Component {
-	shouldComponentUpdate(nextProps, nextState) {
-		// compare the objects
-		return JSON.stringify(nextProps.tokens) !== JSON.stringify(this.props.tokens);
-	}
+class CSSVars extends React.PureComponent {
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	// compare the objects
+	// 	return JSON.stringify(nextProps.tokens) !== JSON.stringify(this.props.tokens);
+	// }
 	
 	render() {
 		return (
@@ -24,8 +24,9 @@ class CSSVars extends React.Component {
 				{Object.keys(this.props.tokens).map((key) => {
 					const refs = this.props.tokens[key];
 					return (
-						<CSSVar name={key} value={refs[refs.length-1]} />
-				)})}
+						<CSSVar key={key} name={key} value={refs[refs.length-1]} />
+					)
+				})}
 			</>
 		)
 	}

@@ -1,0 +1,43 @@
+.statusbar {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 999;
+	background-color: var(--application-statusBar-background);
+	color: var(--application-statusBar-foreground);
+	font-size: 12px;
+}
+
+.items-container {
+	display: flex;
+}
+
+.left-items {
+	flex-grow: 1;
+}
+
+.right-items {
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+}
+
+.statusbar-item {
+	display: inline-block;
+	line-height: 22px;
+	height: 100%;
+	vertical-align: top;
+	max-width: 40vw;
+}
+
+.statusbar-item > span {
+	cursor: pointer;
+	display: flex;
+	height: 100%;
+	padding: 0 5px;
+	white-space: pre;
+	align-items: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

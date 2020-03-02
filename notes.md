@@ -10,3 +10,7 @@ Option 1: Flat object
 Flatten the object to a single level with the keys being an object path. Token components can update only when the references in the chain are changed. 
 
 Could the parent handle not re-rendering children below? It would need to do a deep comparison each time
+
+
+https://microsoft.github.io/monaco-editor
+https://github.com/react-monaco-editor/react-monaco-editor
