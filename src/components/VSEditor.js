@@ -1,8 +1,8 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
-const tokenizeSyntaxTokens = (tokenObject) => {
-	const toRet = [];
+const tokenizeSyntaxTokens = (tokenObject, background, foreground) => {
+	const toRet = [{ background, foreground }];
 	Object.keys(tokenObject).forEach(key => {
 		const token = {};
 		// if *
@@ -30,30 +30,32 @@ class VSEditor extends React.Component {
 		this.props.onChange(e, value);
 	}
 	
+	defineTheme = () => {
+		this.monaco.editor.defineTheme(`myTheme`, {
+			base: 'vs-dark',
+			inherit: false,
+			rules: tokenizeSyntaxTokens(
+				this.props.syntaxTokens,
+				this.props.applicationTokens[`editor.background`],
+				this.props.applicationTokens[`editor.foreground`]
+			),
+			colors: this.props.applicationTokens
+		});
+		this.monaco.editor.setTheme(`myTheme`);
+	}
+	
 	handleEditorDidMount = (editor, monaco) => {
 		this.monaco = monaco;
 		this.editor = editor;
-		monaco.editor.defineTheme(`myTheme`, {
-			base: 'vs-dark',
-			inherit: false,
-			rules: tokenizeSyntaxTokens(this.props.syntaxTokens),
-			colors: this.props.applicationTokens
-		});
-		monaco.editor.setTheme(`myTheme`);
+		console.log(this.editor);
+		console.log(this.monaco);
+
+		this.defineTheme();
 	}
 	
 	render() {
-		// console.log(tokenizeSyntaxTokens(this.props.syntaxTokens));
-		// console.log(this.props.applicationTokens);
 		if (this.monaco) {
-			console.log(this.editor);
-			const editor = this.monaco.editor;
-			editor.defineTheme(`myTheme`, {
-				base: 'vs-dark',
-				inherit: false,
-				rules: tokenizeSyntaxTokens(this.props.syntaxTokens),
-				colors: this.props.applicationTokens
-			});
+			this.defineTheme();
 		}
 		return (
 			<MonacoEditor
@@ -64,6 +66,11 @@ class VSEditor extends React.Component {
 				value={this.props.value}
 				onChange={this.handleEditorChange}
 				editorDidMount={this.handleEditorDidMount}
+				options={{
+					minimap: {
+						enabled: false
+					}
+				}}
 				language="json" />
 		);
 	}

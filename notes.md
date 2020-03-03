@@ -14,3 +14,4 @@ Could the parent handle not re-rendering children below? It would need to do a d
 
 https://microsoft.github.io/monaco-editor
 https://github.com/react-monaco-editor/react-monaco-editor
+https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations

@@ -1,5 +1,5 @@
 import React from 'react';
-import './ActivityBar.css'
+// import './ActivityBar.css'
 
 const ActivityBar = () => (
 	<div className="part activitybar left" id="workbench.parts.activitybar" role="navigation">

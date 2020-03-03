@@ -1,6 +1,7 @@
 .activitybar {
 	width: 48px;
 	background-color: var(--application-activityBar-background);
+	height: 100%;
 }
 
 .activitybar > .content {

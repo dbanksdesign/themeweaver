@@ -1,0 +1,18 @@
+.tw-logo {
+	
+}
+
+.tw-logo-icon {
+	display: inline-block;
+	border-radius: 3rem;
+	width: 3rem;
+	height: 3rem;
+	background-color: var(--application-badge-background);
+	color: var(--application-badge-foreground);
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.tw-logo-text {
+	/* color: var(--) */
+}

@@ -20,6 +20,7 @@ import quickPicker from './quickPicker'
 import settings from './settings'
 import sideBar from './sideBar'
 import statusBar from './statusBar'
+import tab from './tab'
 import titleBar from './titleBar'
 import window from './window'
 
@@ -46,6 +47,7 @@ export default {
 	...settings,
 	...sideBar,
 	...statusBar,
+	...tab,
 	...titleBar,
 	...window
 }

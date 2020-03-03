@@ -104,22 +104,31 @@ class App extends Component {
 	}
 	
 	downloadTheme = () => {
-		// const theme = {
-		// 	name: ``,
-		// 	type: ``,
-		// 	colors: Object.keys(this.state.resolvedTokens)
-		// 		.filter(key => key.beginsWith(`application`))
-		// }
-		console.log(Object.keys(this.state.resolvedTokens)
-			.filter(key => key.startsWith(`application`))
-			.reduce((toRet, curr) => {
-				const refs = this.state.resolvedTokens[curr];
-				const name = curr.replace(/application\.|\.value/gi, ``);
-				toRet[name] = refs[refs.length-1];
-				return toRet;
-			}, {})
-		);
-		// download(`${this.state.currentTheme}.json`, JSON.stringify(this.state.tokens, null, 2));
+		const theme = {
+			name: ``,
+			type: ``,
+			colors: Object.keys(this.state.resolvedTokens)
+				.filter(key => key.startsWith(`application`))
+				.reduce((toRet, curr) => {
+					const refs = this.state.resolvedTokens[curr];
+					const name = curr.replace(/application\.|\.value/gi, ``);
+					toRet[name] = refs[refs.length-1];
+					return toRet;
+				}, {}),
+			tokenColors: Object.keys(this.state.resolvedTokens)
+				.filter(key => key.startsWith(`syntax`))
+				.map(key => {
+					const refs = this.state.resolvedTokens[key];
+					return {
+						scope: key.replace(/application\.|\.value|\.\*/gi, ``),
+						settings: {
+							foreground: refs[refs.length-1]
+						}
+					}
+				})
+		}
+		
+		download(`${this.state.currentTheme}.json`, theme);
 	}
 	
 	render() {

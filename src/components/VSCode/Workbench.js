@@ -1,16 +1,28 @@
 import React from 'react';
 import StatusBar from './StatusBar';
+import SideBar from './SideBar';
 import ActivityBar from './ActivityBar';
 import VSCodeTabs from './Tabs';
+import VSCodeEditor from './Editor';
 
+import './css/activityaction.css';
+import './css/activitybar.css';
+import './css/breadcrumbs.css';
+import './css/breadcrumbsWidget.css';
+import './css/editorgroupview.css';
+import './css/explorerviewlet.css';
 import './css/gridview.css';
 import './css/tabs.css';
 import './css/panelpart.css';
+import './css/paneview.css';
+import './css/part.css';
 import './css/sidebarpart.css';
 import './css/splitview.css';
 import './css/statusbarpart.css';
+import './css/tabs.css';
 import './css/titlecontrol.css';
 import './css/titlebarpart.css';
+import './overrides.css';
 
 const Workbench = () => (
 	<div className="monaco-workbench mac chromium nopanel fullscreen" style={{
@@ -30,24 +42,23 @@ const Workbench = () => (
 									<div className="split-view-container">
 										{/* Activity Bar */}
 										<div className="split-view-view visible" style={{
-											left: 0,
 											width: '48px'
 										}}>
 											<ActivityBar />
 										</div>
 										{/* Explorer */}
 										<div className="split-view-view visible" style={{
-											left: '48px',
 											width: '200px'
-										}}></div>
-										{/* Editor */}
-										<div className="split-view-view visible" style={{
-											left: '248px'
 										}}>
+											<SideBar />
+										</div>
+										{/* Editor */}
+										<div className="split-view-view visible" style={{flex:'1'}}>
 											<div className="part editor has-watermark">
 												<div className="content">
 													<div className="editor-group-container active">
 														<VSCodeTabs />
+														<VSCodeEditor />
 													</div>
 												</div>
 											</div>

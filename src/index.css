@@ -47,10 +47,6 @@ code {
 	height: 20px;
 }
 
-.active {
-	color: pink;
-}
-
 input {
 	background-color: var(--application-input-background);
 	color: var(--application-input-foreground);

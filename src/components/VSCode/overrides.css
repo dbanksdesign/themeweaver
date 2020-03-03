@@ -1,0 +1,130 @@
+.sidebar {
+	height: 100%;
+	background-color: var(--application-sideBar-background);
+	color: var(--application-sideBar-foreground);
+}
+
+.activitybar {
+	width: 48px;
+	background-color: var(--application-activityBar-background);
+	height: 100%;
+}
+
+.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
+	border-left-color: var(--application-activityBar-foreground);
+}
+
+.monaco-action-bar .badge {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	left: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.monaco-action-bar .badge .badge-content {
+	position: absolute;
+	top: 24px;
+	right: 8px;
+	font-size: 9px;
+	font-weight: 600;
+	min-width: 8px;
+	height: 16px;
+	line-height: 16px;
+	padding: 0 4px;
+	border-radius: 20px;
+	text-align: center;
+	background-color: var(--application-badge-background);
+	color: var(--application-badge-foreground);
+}
+
+.content .monaco-action-bar .action-label {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	overflow: hidden;
+	height: 48px;
+	margin-right: 0;
+	box-sizing: border-box;
+	opacity: 0.4;
+	transition: opacity 50ms ease;
+	color: var(--application-activityBar-foreground);
+}
+
+.content .monaco-action-bar .action-item:hover .action-label,
+.content .monaco-action-bar .action-item.checked .action-label {
+	opacity: 1;
+}
+
+/* Tabs */
+.title.tabs {
+	background-color: var(--application-editorGroupHeader-tabsBackground);
+}
+
+.tab {
+	background-color: var(--application-tab-inactiveBackground);
+}
+
+.tab-label {
+	color: var(--application-tab-inactiveForeground);
+}
+
+.tab.active {
+	background-color: var(--application-tab-activeBackground);
+}
+
+.tab.active .tab-label {
+	color: var(--application-tab-activeForeground);
+}
+
+.tab:hover {
+	/* background-color: red !important; */
+	box-shadow: var(--application-tab-unfocusedHoverBorder) 0 -1px inset;
+}
+
+.show-file-icons .css-lang-file-icon.file-icon::before, .show-file-icons .css-ext-file-icon.ext-file-icon.file-icon::before {
+	content: ' ';
+	background-image: url(./css/css.svg);
+}
+
+.show-file-icons .css-lang-file-icon.file-icon::before, .show-file-icons .js-ext-file-icon.ext-file-icon.file-icon::before {
+	content: ' ';
+	background-image: url(./css/javascript.svg);
+}
+
+
+.monaco-workbench {
+	color: rgba(255, 255, 255, 0.93); /* set by VSCode I think */
+}
+
+.monaco-breadcrumbs {
+	background-color: var(--application-breadcrumb-background);
+	color: var(--application-breadcrumb-foreground);
+}
+
+.monaco-breadcrumb-item:hover {
+	color: var(--application-breadcrumb-focusForeground);
+}
+
+.monaco-breadcrumb-item:active {
+	color: var(--application-breadcrumb-activeSelectionForeground);
+}
+
+
+.monaco-workbench .part > .content {
+	height: 100%;
+}
+
+.monaco-workbench .part {
+	height: 100%;
+}
+
+.editor-container {
+	background-color: var(--application-editor-background);
+	color: var(--application-editor-foreground);
+	height: calc(100% - 57px);
+}
