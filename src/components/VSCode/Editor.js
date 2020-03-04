@@ -1,5 +1,61 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
+import { Registry } from "monaco-textmate";
+import { wireTmGrammars } from "monaco-editor-textmate";
+import VSCodeTabs from './Tabs';
+
+const registry = new Registry({
+  getGrammarDefinition: async scopeName => {
+		if (scopeName === 'source.js') {
+			return {
+					format: 'json', // can also be `plist`
+					content: await (await fetch(`/grammers/javascript.tmLanguage.json`)).text() // when format is 'json', parsed JSON also works
+			}
+		}
+		if (scopeName === 'source.json') {
+			return {
+					format: 'json', // can also be `plist`
+					content: await (await fetch(`/grammers/JSON.tmLanguage.json`)).text() // when format is 'json', parsed JSON also works
+			}
+		}
+  }
+});
+
+async function liftOff(monaco) {
+  // map of monaco "language id's" to TextMate scopeNames
+  const grammers = new Map();
+	// grammers.set("c++", "source.cpp");
+	grammers.set("javascript", "source.js");
+	grammers.set("json", "source.json");
+
+  await wireTmGrammars(monaco, registry, grammers);
+}
+
+const tokenizeSyntaxTokens = (tokenObject, background, foreground) => {
+	const toRet = [{ background, foreground }];
+	Object.keys(tokenObject).forEach(key => {
+		const token = {};
+		const foreground = tokenObject[key];
+		// if *
+		if (key.indexOf('*') > -1) {
+			token.token = key.replace('.*','');
+		} else {
+			token.token = key;
+		}
+		// if .fontStyle
+		if (key.indexOf('.fontStyle') > -1) { return; }
+		
+		// Test to make sure valid hex, a valid hex has
+		// 3,4,6, or 8 digits (+#)
+		if (![7,9].includes(foreground.length)) {
+			console.log(`invalid hex: ${foreground}`);
+			return;
+		}
+		token.foreground = tokenObject[key];
+		toRet.push(token);
+	});
+	return toRet;
+}
 
 const code = `'use strict'
 
@@ -84,22 +140,68 @@ class EditFishForm extends Component {
   }
 }`;
 
-const html = "<html><!-- // !!! Tokens can be inspected using F1 > Developer: Inspect Tokens !!! -->\n<head>\n	<!-- HTML comment -->\n	<style type=\"text/css\">\n		/* CSS comment */\n	</style>\n	<script type=\"javascript\">\n		// JavaScript comment\n	</"+"script>\n</head>\n<body></body>\n</html>";
-
 class VSCodeEditor extends React.PureComponent {
+	defineTheme = () => {
+		this.monaco.editor.defineTheme(`myTheme`, {
+			base: 'vs-dark',
+			inherit: false,
+			rules: tokenizeSyntaxTokens(
+				this.props.syntaxTokens,
+				this.props.applicationTokens[`editor.background`],
+				this.props.applicationTokens[`editor.foreground`]
+			),
+			colors: this.props.applicationTokens
+		});
+		this.monaco.editor.setTheme(`myTheme`);
+	}
+	
+	editorWillMount = monaco => {
+		monaco.languages.register({ id: "javascript" });
+		monaco.languages.register({ id: "json" });
+	};
+	
+	handleEditorDidMount = (editor, monaco) => {
+		this.monaco = monaco;
+		this.editor = editor;
+		console.log(this.editor);
+		console.log(this.monaco);
+		
+		// editor.focus();
+
+    liftOff(monaco).then(() => {
+      // monaco.editor.setModelLanguage(editor.getModel(), "json");
+    });
+
+		this.defineTheme();
+	}
+	
 	render() {
+		if (this.monaco) {
+			this.defineTheme();
+		}
+		
 		return (
-			<div className="editor-container">
-				<div className="editor-instance">
-					<MonacoEditor
-						height="100%"
-						width="100%"
-						ref="vscode"
-						theme="myTheme"
-						language="javascript"
-						value={code} />
+			<div className="part editor has-watermark">
+				<div className="content">
+					<div className="editor-group-container active">
+						<VSCodeTabs />
+						<div className="editor-container">
+							<div className="editor-instance">
+								<MonacoEditor
+									height="100%"
+									width="100%"
+									ref="vscode"
+									theme="myTheme"
+									language="javascript"
+									editorWillMount={this.editorWillMount}
+									editorDidMount={this.handleEditorDidMount}
+									value={code} />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+
 		)
 	}
 }

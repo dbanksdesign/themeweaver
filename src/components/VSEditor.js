@@ -1,5 +1,34 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
+import { Registry } from "monaco-textmate";
+import { wireTmGrammars } from "monaco-editor-textmate";
+
+const registry = new Registry({
+  getGrammarDefinition: async scopeName => {
+		if (scopeName === 'source.js') {
+			return {
+					format: 'json', // can also be `plist`
+					content: await (await fetch(`/grammers/javascript.tmLanguage.json`)).text() // when format is 'json', parsed JSON also works
+			}
+		}
+		if (scopeName === 'source.json') {
+			return {
+					format: 'json', // can also be `plist`
+					content: await (await fetch(`/grammers/JSON.tmLanguage.json`)).text() // when format is 'json', parsed JSON also works
+			}
+		}
+  }
+});
+
+async function liftOff(monaco) {
+  // map of monaco "language id's" to TextMate scopeNames
+  const grammers = new Map();
+	// grammers.set("c++", "source.cpp");
+	grammers.set("javascript", "source.js");
+	grammers.set("json", "source.json");
+
+  await wireTmGrammars(monaco, registry, grammers);
+}
 
 const tokenizeSyntaxTokens = (tokenObject, background, foreground) => {
 	const toRet = [{ background, foreground }];
@@ -44,19 +73,30 @@ class VSEditor extends React.Component {
 		this.monaco.editor.setTheme(`myTheme`);
 	}
 	
+	editorWillMount = monaco => {
+		monaco.languages.register({ id: "javascript" });
+		monaco.languages.register({ id: "json" });
+	};
+	
 	handleEditorDidMount = (editor, monaco) => {
 		this.monaco = monaco;
 		this.editor = editor;
 		console.log(this.editor);
 		console.log(this.monaco);
+		
+		editor.focus();
+
+    liftOff(monaco).then(() => {
+      // monaco.editor.setModelLanguage(editor.getModel(), "json");
+    });
 
 		this.defineTheme();
 	}
 	
 	render() {
-		if (this.monaco) {
-			this.defineTheme();
-		}
+		// if (this.monaco) {
+		// 	this.defineTheme();
+		// }
 		return (
 			<MonacoEditor
 				height="100vh"
@@ -65,7 +105,8 @@ class VSEditor extends React.Component {
 				theme="myTheme"
 				value={this.props.value}
 				onChange={this.handleEditorChange}
-				editorDidMount={this.handleEditorDidMount}
+				// editorWillMount={this.editorWillMount}
+				// editorDidMount={this.handleEditorDidMount}
 				options={{
 					minimap: {
 						enabled: false

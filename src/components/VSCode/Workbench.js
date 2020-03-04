@@ -2,8 +2,6 @@ import React from 'react';
 import StatusBar from './StatusBar';
 import SideBar from './SideBar';
 import ActivityBar from './ActivityBar';
-import VSCodeTabs from './Tabs';
-import VSCodeEditor from './Editor';
 
 import './css/activityaction.css';
 import './css/activitybar.css';
@@ -24,7 +22,7 @@ import './css/titlecontrol.css';
 import './css/titlebarpart.css';
 import './overrides.css';
 
-const Workbench = () => (
+const Workbench = ({ children }) => (
 	<div className="monaco-workbench mac chromium nopanel fullscreen" style={{
 		position: 'absolute',
 		top: 0,
@@ -54,14 +52,7 @@ const Workbench = () => (
 										</div>
 										{/* Editor */}
 										<div className="split-view-view visible" style={{flex:'1'}}>
-											<div className="part editor has-watermark">
-												<div className="content">
-													<div className="editor-group-container active">
-														<VSCodeTabs />
-														<VSCodeEditor />
-													</div>
-												</div>
-											</div>
+											{children}
 										</div>
 									</div>
 								</div>

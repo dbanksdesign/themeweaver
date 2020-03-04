@@ -7,6 +7,7 @@ import VSEditor from './components/VSEditor';
 import Nav from './components/Nav';
 import CSSVars from './components/CSSVars';
 import Workbench from './components/VSCode/Workbench';
+import VSCodeEditor from './components/VSCode/Editor';
 import Page from './components/Page';
 import AboutPage from './components/AboutPage';
 import resolveReference from './helpers/resolveReference';
@@ -200,7 +201,11 @@ class App extends Component {
 				</div>
 				
 				<div className="preview-pane vscode">
-					<Workbench />
+					<Workbench>
+						<VSCodeEditor
+							syntaxTokens={syntaxTokens}
+							applicationTokens={applicationTokens} />
+					</Workbench>
 				</div>
 				</div>
 			</Router>
