@@ -19,6 +19,7 @@ const Nav = () => {
 			<NavItem to="/application" label="Application" />
 			<NavItem to="/syntax" label="Syntax" />
 			<NavItem to="/editor" label="Editor" />
+			<NavItem to="/colophone" label="Colophone" />
 		</nav>
 	)
 }

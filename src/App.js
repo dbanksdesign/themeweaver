@@ -10,9 +10,11 @@ import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
 import Page from './components/Page';
 import AboutPage from './components/AboutPage';
+import ColophonePage from './components/ColophonePage';
 import resolveReference from './helpers/resolveReference';
 import flattenObject from './helpers/flattenObject';
 import download from './helpers/download';
+import validateColor from './helpers/validateColor';
 
 const resolveAllRefs = ( object, tokens, currentTheme ) => {
 	const toRet = {};
@@ -36,8 +38,11 @@ const createResolvedTokenObject = (resolvedTokens, startsWith) => {
 			const refs = resolvedTokens[curr];
 			const key = curr.replace(`${startsWith}.`,``).replace(`.value`,``);
 			const value = refs[refs.length-1];
-			if (value) {
+			// make sure there is a value and it is a valid 6 or 8 bit hex
+			if (value && [7,9].includes(value.length)) {
 				prev[key] = value;
+			} else {
+				console.log(validateColor(value));
 			}
 			return prev;
 		}, {});
@@ -149,6 +154,11 @@ class App extends Component {
 					<Route exact path="/">
 						<Page title="About">
 							<AboutPage applicationBackground={this.state.tokens.application.primaryBackground} />
+						</Page>
+					</Route>
+					<Route exact path="/colophone">
+						<Page title="Colophone">
+							<ColophonePage />
 						</Page>
 					</Route>
 					<Route path="/core">

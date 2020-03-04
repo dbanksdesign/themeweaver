@@ -88,12 +88,22 @@
 
 .show-file-icons .css-lang-file-icon.file-icon::before, .show-file-icons .css-ext-file-icon.ext-file-icon.file-icon::before {
 	content: ' ';
-	background-image: url(./css/css.svg);
+	background-image: url(./icons/css.svg);
 }
 
 .show-file-icons .css-lang-file-icon.file-icon::before, .show-file-icons .js-ext-file-icon.ext-file-icon.file-icon::before {
 	content: ' ';
-	background-image: url(./css/javascript.svg);
+	background-image: url(./icons/javascript.svg);
+}
+
+.show-file-icons .folder-icon::before {
+	content: ' ';
+	background-image: url(./icons/folder.svg);
+}
+
+.show-file-icons .gitignore-ext-file-icon::before {
+	content: ' ';
+	background-image: url(./icons/git.svg);
 }
 
 
@@ -127,4 +137,8 @@
 	background-color: var(--application-editor-background);
 	color: var(--application-editor-foreground);
 	height: calc(100% - 57px);
+}
+
+.monaco-list-row {
+	position: relative;
 }

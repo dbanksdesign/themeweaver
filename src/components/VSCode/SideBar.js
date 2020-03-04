@@ -1,4 +1,5 @@
 import React from 'react';
+import Explorer from './Explorer';
 
 const SideBar = () => (
 	<div className="part sidebar left">
@@ -46,6 +47,11 @@ const SideBar = () => (
 												</div>
 											</div>
 										</div>
+										
+										
+									</div>
+									<div className="pane-body">
+										<Explorer />
 									</div>
 								</div>
 							</div>

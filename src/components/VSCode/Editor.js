@@ -18,15 +18,21 @@ const registry = new Registry({
 					content: await (await fetch(`/grammers/JSON.tmLanguage.json`)).text() // when format is 'json', parsed JSON also works
 			}
 		}
+		if (scopeName === 'source.css') {
+			return {
+					format: 'json', // can also be `plist`
+					content: await (await fetch(`/grammers/css.tmLanguage.json`)).text()
+			}
+		}
   }
 });
 
 async function liftOff(monaco) {
   // map of monaco "language id's" to TextMate scopeNames
   const grammers = new Map();
-	// grammers.set("c++", "source.cpp");
 	grammers.set("javascript", "source.js");
 	grammers.set("json", "source.json");
+	grammers.set("css", "source.css");
 
   await wireTmGrammars(monaco, registry, grammers);
 }
@@ -57,7 +63,63 @@ const tokenizeSyntaxTokens = (tokenObject, background, foreground) => {
 	return toRet;
 }
 
-const code = `'use strict'
+const css = `body {
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.05em;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+a:hover {}
+a::before {}
+
+.someClass {
+  font-family: serif;
+}
+
+#someID {
+  background: yellow;
+}
+
+main {
+  margin-top: 20px;
+}
+
+p > a {}
+
+.loader {
+  transform: translateX(0);
+  animation: 1.5s linear infinite normal loading_animation;
+}
+
+@keyframes loading_animation {
+  0% {
+    transform: translateX(-25%);
+    width: 0;
+  }
+  50% {
+    transform: translateX(50%);
+    width: 50%;
+  }
+  100% {
+    transform: translateX(150%);
+    width: 75%;
+  }
+}
+
+/* attribute selectors */
+a[title] {}
+a[href="https://example.org"] {}
+a[href*="example"] {}
+a[href$=".org"] {}
+`
+
+const js = `'use strict'
 
 /**
  * This is a *italics* **bold** and [a link](https://dbanks.design).
@@ -140,11 +202,33 @@ class EditFishForm extends Component {
   }
 }`;
 
+const editors = [{
+	value: css,
+	language: 'css'
+},{
+	value: js,
+	language: 'javascript'
+}];
+
+const tabs = [{
+	title: 'CSS Example',
+	label: 'css.css',
+	iconClass: 'css-ext-file-icon',
+},{
+	title: 'Javascript Example',
+	label: 'javascript.js',
+	iconClass: 'js-ext-file-icon'
+}];
+
 class VSCodeEditor extends React.PureComponent {
+	state = {
+		currentTab: 0
+	}
+	
 	defineTheme = () => {
 		this.monaco.editor.defineTheme(`myTheme`, {
 			base: 'vs-dark',
-			inherit: false,
+			inherit: true,
 			rules: tokenizeSyntaxTokens(
 				this.props.syntaxTokens,
 				this.props.applicationTokens[`editor.background`],
@@ -158,21 +242,25 @@ class VSCodeEditor extends React.PureComponent {
 	editorWillMount = monaco => {
 		monaco.languages.register({ id: "javascript" });
 		monaco.languages.register({ id: "json" });
+		monaco.languages.register({ id: "css" });
 	};
 	
 	handleEditorDidMount = (editor, monaco) => {
 		this.monaco = monaco;
 		this.editor = editor;
-		console.log(this.editor);
-		console.log(this.monaco);
-		
-		// editor.focus();
 
     liftOff(monaco).then(() => {
       // monaco.editor.setModelLanguage(editor.getModel(), "json");
     });
 
 		this.defineTheme();
+	}
+	
+	handleTabClick = (index) => {
+		console.log(index);
+		this.setState({
+			currentTab: index
+		})
 	}
 	
 	render() {
@@ -184,18 +272,19 @@ class VSCodeEditor extends React.PureComponent {
 			<div className="part editor has-watermark">
 				<div className="content">
 					<div className="editor-group-container active">
-						<VSCodeTabs />
+						<VSCodeTabs 
+							tabs={tabs}
+							selected={this.state.currentTab}
+							onClick={this.handleTabClick} />
 						<div className="editor-container">
 							<div className="editor-instance">
 								<MonacoEditor
-									height="100%"
-									width="100%"
 									ref="vscode"
 									theme="myTheme"
-									language="javascript"
+									// language="javascript"
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}
-									value={code} />
+									{...editors[this.state.currentTab]} />
 							</div>
 						</div>
 					</div>

@@ -1,53 +1,56 @@
 import React from 'react';
 
-const VSCodeTabs = () => (
+const Tab = ({ onClick, title, iconClass, label, selected }) => (
+	<div draggable="true" tabIndex="0" role="presentation" className={`tab close-button-right sizing-shrink has-icon-theme ${selected ? 'active' : ''}`} aria-label="CSSVars.js, tab" title={title} aria-selected={selected} onClick={onClick}>
+		<div className="tab-border-top-container"></div>
+		<div className={`monaco-icon-label file-icon ext-file-icon tab-label ${iconClass}`} title={title}>
+			<div className="monaco-icon-label-container">
+				<span className="monaco-icon-name-container">
+					<span className="label-name">{label}</span>
+				</span>
+				<span className="monaco-icon-description-container"></span>
+			</div>
+		</div>
+		<div className="tab-close">
+			<div className="monaco-action-bar animated">
+				<ul className="actions-container" role="toolbar" aria-label="Tab actions">
+					<li className="action-item" role="presentation">
+						<span className="action-label codicon codicon-close" role="button" tabIndex="0" title="Close (⌘W)" />
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div className="tab-border-bottom-container"></div>
+	</div>
+)
+
+const Breadcrumb = ({ iconClass, className, label, chevron, title }) => (
+	<div className={`${className||''} monaco-breadcrumb-item`} tabIndex="-1" role="listitem">
+		<div className={`monaco-icon-label file-icon ${iconClass||''} ext-file-icon`} title={title}>
+		<div className="monaco-icon-label" title={title}>
+			<div className="monaco-icon-label-container">
+				<span className="monaco-icon-name-container">
+					<span className="label-name">{label}</span>
+				</span>
+				<span className="monaco-icon-description-container"></span>
+			</div>
+		</div>
+		{chevron && <div className="codicon codicon-chevron-right"></div>}
+		</div>
+	</div>
+)
+
+const VSCodeTabs = ({ onClick, tabs, selected }) => (
 	<div className="title tabs show-file-icons title-border-bottom">
 		<div className="tabs-and-actions-container">
-			<div className="monaco-scrollable-element  mac" role="presentation">
+			<div className="monaco-scrollable-element mac" role="presentation">
 				<div role="tablist" draggable="true" className="tabs-container">
-					<div draggable="true" tabIndex="0" role="presentation" className="tab close-button-right sizing-shrink has-icon-theme" aria-label="CSSVars.js, tab" title="~/Dev/themeweaver/src/components/CSSVars.js" aria-selected="false">
-						<div className="tab-border-top-container"></div>
-						<div className="monaco-icon-label file-icon cssvars.js-name-file-icon css-ext-file-icon ext-file-icon javascript-lang-file-icon tab-label" title="~/Dev/themeweaver/src/components/CSSVars.js">
-							<div className="monaco-icon-label-container">
-								<span className="monaco-icon-name-container">
-									<span className="label-name">Test.css</span>
-								</span>
-								<span className="monaco-icon-description-container"></span>
-							</div>
-						</div>
-						<div className="tab-close">
-							<div className="monaco-action-bar animated">
-								<ul className="actions-container" role="toolbar" aria-label="Tab actions">
-									<li className="action-item" role="presentation">
-										<span className="action-label codicon codicon-close" role="button" tabIndex="0" title="Close (⌘W)" />
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div className="tab-border-bottom-container"></div>
-					</div>
-					<div draggable="true" tabIndex="0" role="presentation" className="tab close-button-right sizing-shrink has-icon-theme active" aria-label="Editor.js, tab" title="~/Dev/themeweaver/src/components/Editor.js" aria-selected="true">
-						<div className="tab-border-top-container"></div>
-						<div className="monaco-icon-label file-icon editor.js-name-file-icon js-ext-file-icon ext-file-icon javascript-lang-file-icon tab-label" title="~/Dev/themeweaver/src/components/Editor.js">
-							<div className="monaco-icon-label-container">
-								<span className="monaco-icon-name-container">
-									<span className="label-name">Editor.js</span>
-								</span>
-								<span className="monaco-icon-description-container"></span>
-							</div>
-						</div>
-						<div className="tab-close">
-							<div className="monaco-action-bar animated">
-								<ul className="actions-container" role="toolbar" aria-label="Tab actions">
-									<li className="action-item" role="presentation">
-										<span className="action-label codicon codicon-close" role="button" tabIndex="0" title="Close (⌘W)" />
-									</li>
-								</ul>
-							</div>
-						</div>
-						
-						<div className="tab-border-bottom-container"></div>
-					</div>
+					{tabs.map((tab,i) => (
+						<Tab {...tab}
+							key={tab.title}
+							onClick={() => onClick(i)}
+							selected={selected === i} />
+					))}
 				</div>
 				<div role="presentation" aria-hidden="true" className="invisible scrollbar horizontal">
 					<div className="slider"></div>
@@ -95,38 +98,8 @@ const VSCodeTabs = () => (
 			<div className="breadcrumbs-control relative-path">
 				<div className="monaco-scrollable-element  mac" role="presentation">
 					<div className="monaco-breadcrumbs" tabIndex="0" role="list">
-						<div className="folder monaco-breadcrumb-item" tabIndex="-1" role="listitem">
-							<div className="monaco-icon-label" title="~/Dev/vscode/src • Contains emphasized items">
-								<div className="monaco-icon-label-container">
-									<span className="monaco-icon-name-container">
-										<span className="label-name">src</span>
-									</span>
-									<span className="monaco-icon-description-container"></span>
-								</div>
-							</div>
-							<div className="codicon codicon-chevron-right"></div>
-						</div>
-						<div className="folder monaco-breadcrumb-item" tabIndex="-1" role="listitem">
-							<div className="monaco-icon-label" title="~/Dev/vscode/src/vs">
-								<div className="monaco-icon-label-container">
-									<span className="monaco-icon-name-container">
-										<span className="label-name">vs</span>
-									</span>
-									<span className="monaco-icon-description-container"></span>
-								</div>
-							</div>
-							<div className="codicon codicon-chevron-right"></div>
-						</div>
-						<div className="file monaco-breadcrumb-item" tabIndex="-1" role="listitem">
-							<div className="monaco-icon-label file-icon explorerviewlet.css-name-file-icon css-ext-file-icon ext-file-icon css-lang-file-icon" title="~/Dev/vscode/src/vs/workbench/contrib/files/browser/media/explorerviewlet.css">
-								<div className="monaco-icon-label-container">
-									<span className="monaco-icon-name-container">
-										<span className="label-name">explorerviewlet.css</span>
-									</span>
-									<span className="monaco-icon-description-container"></span>
-								</div>
-							</div>
-						</div>
+						<Breadcrumb label="src" chevron={true} />
+						<Breadcrumb {...tabs[selected]} />
 					</div>
 				</div>
 			</div>
