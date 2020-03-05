@@ -37,6 +37,15 @@ body {
 	color: var(--application-editor-foreground);
 }
 
+a {
+	color: var(--application-textLink-foreground);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--application-textLink-activeForeground);
+}
+
 code {
   font-family: var(--font-family-mono);
 }
@@ -68,11 +77,14 @@ label {
 
 .app-page {
 	padding: var(--size-padding-xl);
+	height: 100%;
+	overflow-y: auto;
+	flex: 1;
 }
 
 .app {
 	position: fixed;
-	top: 0;
+	top: 3rem;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -82,12 +94,47 @@ label {
 
 .editor-pane {
 	flex: 1;
-	overflow-y: auto;
+	overflow: visible;
 	position: relative;
+	display: flex;
+	flex-direction: row;
+	border: 2px solid var(--application-editorGroup-border);
+	/* border-top-width: 2rem; */
+	position: relative;
+	padding-top: 2rem;
+}
+
+.preview-pane::before,
+.editor-pane::before {
+	content: 'Editor';
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 0.5rem;
+	width: 100%;
+	line-height: 2rem;
+	border-bottom: 2px solid var(--application-editorGroup-border);
 }
 
 .preview-pane {
 	flex: 1;
-	overflow-y: auto;
+	overflow: visible;
 	position: relative;
+	border: 2px solid var(--application-editorGroup-border);
+	/* border-top-width: 2rem; */
+	position: relative;
+	padding-top: 2rem;
+}
+
+
+.preview-pane::before {
+	content: 'Preview';
+	/* font-size: 0.75rem;
+	text-transform: uppercase;
+	position: absolute;
+	top: -2rem;
+	left: 1rem;
+	line-height: 2rem; */
 }

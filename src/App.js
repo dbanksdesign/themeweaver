@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import CSSVars from './components/CSSVars';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
+import Header from './components/Header';
 import Page from './components/Page';
 import AboutPage from './components/AboutPage';
 import ColophonePage from './components/ColophonePage';
@@ -144,12 +145,13 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="app">
-				<Nav />
-				{/* <div onClick={this.changeTheme}>Current theme: {this.state.currentTheme}</div> */}
+					<Header />
+					
 				
 				<CSSVars tokens={this.state.resolvedTokens} />
 				
 				<div className="editor-pane">
+				<Nav />
 				<Switch>
 					<Route exact path="/">
 						<Page title="About">
@@ -173,6 +175,7 @@ class App extends Component {
 					<Route path="/theme">
 						<Page title="Theme Colors">
 							<button onClick={this.downloadTheme}>DOWNLOAD</button>
+							<div onClick={this.changeTheme}>Current theme: {this.state.currentTheme}</div>
 							<Group object={this.state.tokens.theme}
 								path={['theme']}
 								updateToken={this.updateToken}
@@ -199,7 +202,7 @@ class App extends Component {
 						</Page>
 					</Route>
 					<Route path="/editor">
-						<Page title="JSON Editor">
+						<Page>
 							<VSEditor
 								onChange={this.handleEditorChange}
 								value={JSON.stringify(this.state.tokens, null, 2)}

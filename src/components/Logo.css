@@ -4,15 +4,20 @@
 
 .tw-logo-icon {
 	display: inline-block;
-	border-radius: 3rem;
-	width: 3rem;
-	height: 3rem;
-	background-color: var(--application-badge-background);
-	color: var(--application-badge-foreground);
+	/* border-radius: 3rem; */
+	width: 2rem;
+	height: 2rem;
+	background-color: var(--application-inputValidation-infoBackground);
+	color: var(--application-inputValidation-infoForeground);
+	box-shadow: 0 0 2px var(--application-inputValidation-infoBorder);
 	font-size: 1rem;
-	font-weight: bold;
+	/* font-weight: bold; */
+	line-height: 2rem;
+	text-align: center;
+	margin: 0.5rem;
 }
 
 .tw-logo-text {
-	/* color: var(--) */
+	color: var(--application-editorGroup-border);
+	font-style: italic;
 }

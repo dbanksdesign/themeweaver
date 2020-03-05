@@ -21,6 +21,7 @@ import settings from './settings'
 import sideBar from './sideBar'
 import statusBar from './statusBar'
 import tab from './tab'
+import text from './text'
 import titleBar from './titleBar'
 import window from './window'
 
@@ -48,6 +49,7 @@ export default {
 	...sideBar,
 	...statusBar,
 	...tab,
+	...text,
 	...titleBar,
 	...window
 }

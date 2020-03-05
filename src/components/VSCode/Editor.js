@@ -281,7 +281,10 @@ class VSCodeEditor extends React.PureComponent {
 								<MonacoEditor
 									ref="vscode"
 									theme="myTheme"
-									// language="javascript"
+									options={{
+										showUnused: true,
+										renderWhitespace: true
+									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}
 									{...editors[this.state.currentTab]} />

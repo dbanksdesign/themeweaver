@@ -4,8 +4,8 @@
 	top: 0;
 	left: 0;
 	bottom: 0; */
-	width: 6rem;
-	background-color: var(--application-activityBar-background);
+	/* width: 7rem; */
+	background-color: var(--application-sideBar-background);
 }
 
 .app-nav-item {
@@ -13,4 +13,8 @@
 	padding: var(--size-padding-base);
 	text-decoration: none;
 	color: var(--application-editorLink-activeForeground);
+}
+
+.app-nav-item.active {
+	color: var(--application-activityBar-foreground);
 }
