@@ -12,20 +12,20 @@ class Group extends React.Component {
 	// }
 	
 	render() {
-		const { object, path = [], updateToken, resolveReference, currentTheme } = this.props;
+		const { object, path = [], updateToken, resolveReference, currentTheme, reverseLookup } = this.props;
 		return (
 			<div className="group">
 			{Object.keys(object).map((key, i) => {
 				if (object[key].hasOwnProperty('value')) {
 					const refs = resolveReference(path.concat(key,'value').join('.'));
 					return (
-						<Token key={key} refs={refs} {...object[key]} path={path.concat(key,'value').join('.')} name={key} updateToken={updateToken} currentTheme={currentTheme} />
+						<Token key={key} refs={refs} {...object[key]} path={path.concat(key,'value').join('.')} name={key} updateToken={updateToken} currentTheme={currentTheme} reverseLookup={reverseLookup} />
 					)
 				} else if (isPlainObject(object[key])) {
 					return (
 						<div key={i}>
 							<h3>{key}</h3>
-							<Group key={key} object={object[key]} path={path.concat(key)} updateToken={updateToken} resolveReference={resolveReference} currentTheme={currentTheme} />
+							<Group key={key} object={object[key]} path={path.concat(key)} updateToken={updateToken} resolveReference={resolveReference} currentTheme={currentTheme} reverseLookup={reverseLookup} />
 						</div>
 					)
 				} else {

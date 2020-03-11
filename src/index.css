@@ -26,6 +26,9 @@
 	--font-family-primary: 'Source Sans Pro', 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
+/* * {
+	box-sizing: border-box;
+} */
 
 body {
   margin: 0;
@@ -92,21 +95,26 @@ label {
 	flex-direction: row;
 }
 
+.preview-pane,
 .editor-pane {
 	flex: 1;
 	overflow: visible;
 	position: relative;
-	display: flex;
-	flex-direction: row;
-	border: 2px solid var(--application-editorGroup-border);
-	/* border-top-width: 2rem; */
+	/* border: 1px solid var(--application-editorGroup-border); */
 	position: relative;
 	padding-top: 2rem;
+	border-top: 1px solid var(--application-editorGroup-border);
+}
+
+.editor-pane {
+	display: flex;
+	flex-direction: row;
+	border-right: 1px solid var(--application-editorGroup-border);
 }
 
 .preview-pane::before,
 .editor-pane::before {
-	content: 'Editor';
+	box-sizing: border-box;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	position: absolute;
@@ -115,26 +123,15 @@ label {
 	padding: 0 0.5rem;
 	width: 100%;
 	line-height: 2rem;
-	border-bottom: 2px solid var(--application-editorGroup-border);
+	border-bottom: 1px solid var(--application-editorGroup-border);
 }
 
-.preview-pane {
-	flex: 1;
-	overflow: visible;
-	position: relative;
-	border: 2px solid var(--application-editorGroup-border);
-	/* border-top-width: 2rem; */
-	position: relative;
-	padding-top: 2rem;
+.editor-pane::before {
+	content: 'Editor';
+	/* border-left-width: 0; */
 }
-
 
 .preview-pane::before {
 	content: 'Preview';
-	/* font-size: 0.75rem;
-	text-transform: uppercase;
-	position: absolute;
-	top: -2rem;
-	left: 1rem;
-	line-height: 2rem; */
+	/* border-right-width: 0; */
 }

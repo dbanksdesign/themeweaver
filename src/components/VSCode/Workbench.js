@@ -2,6 +2,7 @@ import React from 'react';
 import StatusBar from './StatusBar';
 import SideBar from './SideBar';
 import ActivityBar from './ActivityBar';
+import Panel from './Panel';
 
 import './css/activityaction.css';
 import './css/activitybar.css';
@@ -23,12 +24,13 @@ import './css/titlebarpart.css';
 import './overrides.css';
 
 const Workbench = ({ children }) => (
-	<div className="monaco-workbench mac chromium nopanel fullscreen" style={{
+	<div className="monaco-workbench mac chromium fullscreen" style={{
 		position: 'absolute',
-		top: 0,
+		top: '2rem',
 		right: 0,
 		bottom: 0,
-		left: 0
+		left: 0,
+		marginTop: '1px'
 	}}>
 		<div className="monaco-grid-view">
 			<div className="monaco-grid-branch-node">
@@ -52,7 +54,16 @@ const Workbench = ({ children }) => (
 										</div>
 										{/* Editor */}
 										<div className="split-view-view visible" style={{flex:'1'}}>
-											{children}
+											<div className="monaco-split-view2 vertical">
+												<div className="split-view-container">
+													<div className="split-view visible" style={{flex:'1'}}>
+														{children}
+													</div>
+													<div className="split-view visible" style={{height:'200px'}}>
+														<Panel />
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>

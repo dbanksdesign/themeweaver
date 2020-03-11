@@ -5,6 +5,7 @@ import breadcrumb from './breadcrumb'
 import button from './button'
 import contrast from './contrast'
 import debug from './debug'
+import dropdown from './dropdown'
 import editor from './editor'
 import editorGroup from './editorGroup'
 import editorWidget from './editorWidget'
@@ -20,6 +21,7 @@ import quickPicker from './quickPicker'
 import settings from './settings'
 import sideBar from './sideBar'
 import statusBar from './statusBar'
+import symbolIcon from './symbolIcon'
 import tab from './tab'
 import text from './text'
 import titleBar from './titleBar'
@@ -33,6 +35,7 @@ export default {
 	...button,
 	...contrast,
 	...debug,
+	...dropdown,
 	...editor,
 	...editorGroup,
 	...editorWidget,
@@ -48,6 +51,7 @@ export default {
 	...settings,
 	...sideBar,
 	...statusBar,
+	...symbolIcon,
 	...tab,
 	...text,
 	...titleBar,

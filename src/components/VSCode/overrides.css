@@ -14,7 +14,7 @@
 	border-left-color: var(--application-activityBar-foreground);
 }
 
-.monaco-action-bar .badge {
+.activitybar .monaco-action-bar .badge {
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -26,7 +26,7 @@
 	height: 100%;
 }
 
-.monaco-action-bar .badge .badge-content {
+.activitybar .monaco-action-bar .badge .badge-content {
 	position: absolute;
 	top: 24px;
 	right: 8px;
@@ -38,6 +38,9 @@
 	padding: 0 4px;
 	border-radius: 20px;
 	text-align: center;
+}
+
+.badge-content {
 	background-color: var(--application-badge-background);
 	color: var(--application-badge-foreground);
 }
@@ -106,6 +109,21 @@
 	background-image: url(./icons/git.svg);
 }
 
+.show-file-icons .src-name-folder-icon::before {
+	content: ' ';
+	background-image: url(./icons/folder-src-open.svg);
+}
+
+
+.show-file-icons .package\.json-name-file-icon::before {
+	content: ' ';
+	background-image: url(./icons/nodejs.svg);
+}
+
+.show-file-icons .readme\.md-name-file-icon::before {
+	content: ' ';
+	background-image: url(./icons/readme.svg);
+}
 
 .monaco-workbench {
 	color: rgba(255, 255, 255, 0.93); /* set by VSCode I think */
@@ -139,6 +157,117 @@
 	height: calc(100% - 57px);
 }
 
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .inputarea.ime-input {
+	background-color: var(--application-editor-background) !important;
+	color: var(--application-editor-foreground) !important;
+}
+
+.monaco-editor .margin {
+	background-color: var(--application-editorGutter-background) !important;
+}
+
 .monaco-list-row {
 	position: relative;
+}
+
+
+.monaco-list.list_id_2 .monaco-list-row:hover {
+	background-color: var(--application-list-hoverBackground);
+	outline: 1px dashed var(--application-contrastBorder);
+	outline-offset: -1px;
+}
+
+/* TODO: need to support active/inactive states based on the focus (on the sidebar or editor) */
+.monaco-list.list_id_2 .monaco-list-row.selected {
+	background-color: var(--application-list-activeSelectionBackground);
+}
+
+.monaco-list.list_id_2:hover .monaco-tl-indent > .indent-guide, .monaco-list.list_id_2.always .monaco-tl-indent > .indent-guide {
+	border-color: rgba(88, 88, 88, 0.4);
+}
+
+
+.monaco-list.list_id_2 .monaco-tl-indent > .indent-guide.active {
+	border-color: #585858;
+}
+
+.indent-guide {
+	width: 8px;
+}
+
+.monaco-list-row.modified {
+	color: var(--application-gitDecoration-modifiedResourceForeground);
+}
+
+.monaco-icon-label:after {
+	opacity: .75;
+	font-size: 90%;
+	font-weight: 600;
+	padding: 0 16px 0 5px;
+	text-align: center;
+}
+
+.monaco-list-row.modified .monaco-icon-label:after {
+	content: 'M';
+}
+
+/* .monaco-tl-twistie { padding-left: 8px; } */
+
+.statusbar-item.has-background-color {
+	background-color: var(--application-statusBarItem-remoteBackground);
+	color: var(--application-statusBarItem-remoteForeground);
+}
+
+.statusbar-item:hover {
+	background-color: var(--application-statusBarItem-hoverBackground);
+}
+
+.panel {
+	background-color: var(--application-panel-background);
+}
+
+.composite.title {
+	border-top-color: var(--application-panel-border);
+}
+
+.badge[aria-hidden="true"] { display: none; }
+
+.monaco-action-bar:not(.vertical) .action-item .action-label {
+	color: var(--application-panelTitle-inactiveForeground);
+}
+
+.monaco-action-bar:not(.vertical) .action-item:hover .action-label {
+	color: var(--application-panelTitle-activeForeground);
+}
+
+.monaco-action-bar:not(.vertical) .action-item.checked .action-label {
+	color: var(--application-panelTitle-activeForeground);
+	border-bottom-color: var(--application-panelTitle-activeBorder) !important; /* fuck it */
+}
+
+.monaco-select-box {
+	background-color: var(--application-dropdown-background);
+	border-color: var(--application-dropdown-border);
+	color: var(--application-dropdown-foreground);
+}
+
+.monaco-workbench *:focus {
+	outline-color: var(--application-focusBorder);
+	outline-width: 1px;
+	outline-style: solid;
+	outline-offset: -1px;
+	opacity: 1!important;
+}
+
+
+.monaco-pane-view .pane>.pane-header h3.title {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 11px;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	line-height: 22px;
 }

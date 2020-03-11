@@ -14,7 +14,6 @@ const validateColor = (hex) => {
 			g = rgb.substring(1,2);
 			b = rgb.substring(2,3);
 			return `#${r}${r}${g}${g}${b}${b}`;
-			break;
 		case 4:
 			r = rgb.substring(0,1);
 			g = rgb.substring(1,2);

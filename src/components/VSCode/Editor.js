@@ -3,6 +3,8 @@ import MonacoEditor from 'react-monaco-editor';
 import { Registry } from "monaco-textmate";
 import { wireTmGrammars } from "monaco-editor-textmate";
 import VSCodeTabs from './Tabs';
+import validateColor from '../../helpers/validateColor';
+import tokenizeSyntaxTokens from '../../helpers/tokenizeSyntaxTokens';
 
 const registry = new Registry({
   getGrammarDefinition: async scopeName => {
@@ -35,32 +37,6 @@ async function liftOff(monaco) {
 	grammers.set("css", "source.css");
 
   await wireTmGrammars(monaco, registry, grammers);
-}
-
-const tokenizeSyntaxTokens = (tokenObject, background, foreground) => {
-	const toRet = [{ background, foreground }];
-	Object.keys(tokenObject).forEach(key => {
-		const token = {};
-		const foreground = tokenObject[key];
-		// if *
-		if (key.indexOf('*') > -1) {
-			token.token = key.replace('.*','');
-		} else {
-			token.token = key;
-		}
-		// if .fontStyle
-		if (key.indexOf('.fontStyle') > -1) { return; }
-		
-		// Test to make sure valid hex, a valid hex has
-		// 3,4,6, or 8 digits (+#)
-		if (![7,9].includes(foreground.length)) {
-			console.log(`invalid hex: ${foreground}`);
-			return;
-		}
-		token.foreground = tokenObject[key];
-		toRet.push(token);
-	});
-	return toRet;
 }
 
 const css = `body {
@@ -226,14 +202,17 @@ class VSCodeEditor extends React.PureComponent {
 	}
 	
 	defineTheme = () => {
+		const { tokenColors } = this.props;
+		const rules = tokenColors ? tokenColors : tokenizeSyntaxTokens(
+			this.props.syntaxTokens,
+			validateColor(this.props.applicationTokens[`editor.background`]),
+			validateColor(this.props.applicationTokens[`editor.foreground`])
+		);
+
 		this.monaco.editor.defineTheme(`myTheme`, {
 			base: 'vs-dark',
 			inherit: true,
-			rules: tokenizeSyntaxTokens(
-				this.props.syntaxTokens,
-				this.props.applicationTokens[`editor.background`],
-				this.props.applicationTokens[`editor.foreground`]
-			),
+			rules: rules,
 			colors: this.props.applicationTokens
 		});
 		this.monaco.editor.setTheme(`myTheme`);
@@ -257,7 +236,6 @@ class VSCodeEditor extends React.PureComponent {
 	}
 	
 	handleTabClick = (index) => {
-		console.log(index);
 		this.setState({
 			currentTab: index
 		})
@@ -283,7 +261,8 @@ class VSCodeEditor extends React.PureComponent {
 									theme="myTheme"
 									options={{
 										showUnused: true,
-										renderWhitespace: true
+										renderWhitespace: true,
+										fontSize: 16
 									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}

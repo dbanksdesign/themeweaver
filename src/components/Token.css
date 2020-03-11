@@ -24,3 +24,38 @@
 .token-field-label {
 	margin-bottom: var(--size-padding-small);
 }
+
+.token-autocomplete {
+	position: absolute;
+	width: 100%;
+	top: 100%;
+	background-color: var(--application-input-background);
+	color: var(--application-input-foreground);
+	z-index: 999;
+}
+
+.token-autocomplete-item {
+	display: block;
+	padding: var(--size-padding-small);
+	border-top: 1px solid var(--application-focusBorder);
+}
+
+.token-autocomplete-item:hover {
+	background-color: var(--application-input-background);
+}
+
+.token-autocomplete-item:first-child {
+	border: none;
+}
+
+.token-reverse-lookup-title {
+	margin: 0;
+}
+
+.token-reverse-lookup-title > .codicon {
+	transition: transform 100ms ease;
+}
+
+.expanded > .token-reverse-lookup-title > .codicon {
+	transform: rotate(180deg);
+}

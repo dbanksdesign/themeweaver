@@ -6,11 +6,11 @@ export default {
 		"border": { "value": "#0000" },
 		
 		"debuggingBackground": { "value": "{background.debug.value}" },
-		"debuggingForeground": { "value": "{font.primary.value" },
+		"debuggingForeground": { "value": "{font.primary.value}" },
 		"debuggingBorder": { "value": "#0000" },
 		
 		"noFolderBackground": { "value": "{background.primary.value}" },
-		"noFolderForeground": { "value": "{font.primary.value" },
+		"noFolderForeground": { "value": "{font.primary.value}" },
 		"noFolderBorder": { "value": "#0000" }
 	},
 	

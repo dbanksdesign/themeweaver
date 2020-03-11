@@ -22,9 +22,9 @@ class CSSVars extends React.PureComponent {
 		return (
 			<>
 				{Object.keys(this.props.tokens).map((key) => {
-					const refs = this.props.tokens[key];
+					const {computedValue} = this.props.tokens[key];
 					return (
-						<CSSVar key={key} name={key} value={refs[refs.length-1]} />
+						<CSSVar key={key} name={key} value={computedValue} />
 					)
 				})}
 			</>

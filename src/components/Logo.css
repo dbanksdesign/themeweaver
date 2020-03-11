@@ -19,5 +19,5 @@
 
 .tw-logo-text {
 	color: var(--application-editorGroup-border);
-	font-style: italic;
+	/* font-style: italic; */
 }
