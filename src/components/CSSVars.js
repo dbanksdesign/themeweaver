@@ -2,10 +2,14 @@ import React from 'react';
 
 class CSSVar extends React.PureComponent {
 	render() {
-		document.documentElement.style.setProperty(
-			`--${this.props.name.replace('.value','').replace(/\./g,'-')}`,
-			this.props.value
-		)
+		const { name, value } = this.props;
+		if (value) {
+			document.documentElement.style.setProperty(
+				`--${name.replace('.value','').replace(/\./g,'-')}`,
+				value
+			)
+		}
+		// no-op component
 		return null;
 	}
 }

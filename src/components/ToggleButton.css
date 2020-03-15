@@ -1,0 +1,35 @@
+.toggle-buttons {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: var(--size-padding-base);
+}
+
+.toggle-button {
+	flex: 1;
+	display: block;
+	border: none;
+	padding: var(--size-padding-base);
+	margin: 0 var(--size-padding-small);
+	font-size: var(--size-font-base);
+	color: var(--application-button-foreground);
+	background-color: transparent;
+	border: 1px solid var(--application-button-background);
+}
+
+.toggle-button:hover {
+	background-color: var(--application-button-background);
+}
+
+.toggle-button:active,
+.toggle-button.active {
+	border-color: transparent;
+	background-color: var(--application-button-hoverBackground);
+}
+
+.toggle-button:active,
+.toggle-button:focus {
+	outline-style: solid;
+	outline-offset: 0.25rem;
+	outline-width: 2px;
+	outline-color: var(--application-button-hoverBackground);
+}

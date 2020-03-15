@@ -26,8 +26,9 @@ const Header = () => (
 		<GithubCorner />
 		<header className="tw-header">
 			<Logo />
+			{/* <NavItem to="/editor" label="Editor" />
 			<NavItem to="/about" label="About" />
-			<NavItem to="/colophone" label="Colophone" />
+			<NavItem to="/colophone" label="Colophone" /> */}
 		</header>
 	</>
 )

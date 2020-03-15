@@ -16,20 +16,26 @@ https://microsoft.github.io/monaco-editor
 https://github.com/react-monaco-editor/react-monaco-editor
 https://github.com/NeekSandhu/monaco-editor-textmate
 https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations
+https://code.visualstudio.com/api/references/theme-color
 
 https://www.npmjs.com/package/color
+
+## Known issues
+* Monaco editor does not acknowledge backgrounds in tokens. This is seen on their playground page: https://github.com/microsoft/monaco-editor/issues/586
 
 ## TODO
 * Add empty string application tokens for those not filled in
 * Export and download (verify results)
 * Import theme from URL (figure out how to do a theme package with multiple themes...)
 * Finish editor sidebar
+* Finish other parts of editor (peek view, debug bar, etc.)
 * Add other preview files in preview editor
 * Finish Logo
 * Improve inputs
-* Auto-complete for aliases
-* Fix syntax scopes to allow for foreground, background, and font style
 * Add a simplified editor, pick a few colors, it generates the whole theme
 * Add settings for each theme (name, base, etc.)
+* Add documentation/content in editor inputs
+* Improved color picker (hsl,hex,lighten,darken,alpha,etc.)
+* Local storage to keep state
 
 Store colors as a class and transform to hex at the end? 

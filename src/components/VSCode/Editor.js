@@ -7,7 +7,7 @@ import validateColor from '../../helpers/validateColor';
 import tokenizeSyntaxTokens from '../../helpers/tokenizeSyntaxTokens';
 
 const registry = new Registry({
-  getGrammarDefinition: async scopeName => {
+	getGrammarDefinition: async scopeName => {
 		if (scopeName === 'source.js') {
 			return {
 					format: 'json', // can also be `plist`
@@ -26,17 +26,24 @@ const registry = new Registry({
 					content: await (await fetch(`/grammers/css.tmLanguage.json`)).text()
 			}
 		}
+		// if (scopeName === 'text.html.markdown') {
+		// 	return {
+		// 			format: 'json', // can also be `plist`
+		// 			content: await (await fetch(`/grammers/markdown.tmLanguage.json`)).text()
+		// 	}
+		// }
   }
 });
 
 async function liftOff(monaco) {
-  // map of monaco "language id's" to TextMate scopeNames
-  const grammers = new Map();
+	// map of monaco "language id's" to TextMate scopeNames
+	const grammers = new Map();
 	grammers.set("javascript", "source.js");
 	grammers.set("json", "source.json");
 	grammers.set("css", "source.css");
+	// grammers.set("markdown", "text.html.markdown");
 
-  await wireTmGrammars(monaco, registry, grammers);
+	await wireTmGrammars(monaco, registry, grammers);
 }
 
 const css = `body {
@@ -196,24 +203,29 @@ const tabs = [{
 	iconClass: 'js-ext-file-icon'
 }];
 
+const themeMap = {
+	dark: 'vs-dark',
+	light: 'vs'
+}
+
 class VSCodeEditor extends React.PureComponent {
 	state = {
 		currentTab: 0
 	}
 	
 	defineTheme = () => {
-		const { tokenColors } = this.props;
+		const { tokenColors, currentTheme, applicationTokens, syntaxTokens } = this.props;
 		const rules = tokenColors ? tokenColors : tokenizeSyntaxTokens(
-			this.props.syntaxTokens,
-			validateColor(this.props.applicationTokens[`editor.background`]),
-			validateColor(this.props.applicationTokens[`editor.foreground`])
+			syntaxTokens,
+			validateColor(applicationTokens[`editor.background`]),
+			validateColor(applicationTokens[`editor.foreground`])
 		);
 
 		this.monaco.editor.defineTheme(`myTheme`, {
-			base: 'vs-dark',
+			base: themeMap[currentTheme],
 			inherit: true,
 			rules: rules,
-			colors: this.props.applicationTokens
+			colors: applicationTokens
 		});
 		this.monaco.editor.setTheme(`myTheme`);
 	}
@@ -222,15 +234,16 @@ class VSCodeEditor extends React.PureComponent {
 		monaco.languages.register({ id: "javascript" });
 		monaco.languages.register({ id: "json" });
 		monaco.languages.register({ id: "css" });
+		// monaco.languages.register({ id: "markdown" });
 	};
 	
 	handleEditorDidMount = (editor, monaco) => {
 		this.monaco = monaco;
 		this.editor = editor;
 
-    liftOff(monaco).then(() => {
-      // monaco.editor.setModelLanguage(editor.getModel(), "json");
-    });
+		liftOff(monaco).then(() => {
+			// monaco.editor.setModelLanguage(editor.getModel(), "json");
+		});
 
 		this.defineTheme();
 	}
@@ -262,7 +275,8 @@ class VSCodeEditor extends React.PureComponent {
 									options={{
 										showUnused: true,
 										renderWhitespace: true,
-										fontSize: 16
+										fontSize: 16,
+										fontFamily: `'MonoLisa','Source Code Pro',Menlo,monospace`
 									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}

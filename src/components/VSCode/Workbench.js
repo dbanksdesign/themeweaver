@@ -26,11 +26,10 @@ import './overrides.css';
 const Workbench = ({ children }) => (
 	<div className="monaco-workbench mac chromium fullscreen" style={{
 		position: 'absolute',
-		top: '2rem',
+		top: 0,
 		right: 0,
 		bottom: 0,
 		left: 0,
-		marginTop: '1px'
 	}}>
 		<div className="monaco-grid-view">
 			<div className="monaco-grid-branch-node">

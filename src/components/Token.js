@@ -1,20 +1,36 @@
 import React from 'react';
-import ComputedValue from './ComputedValue';
 import Swatch from './Swatch';
 import Autocomplete from './Autocomplete';
 import './Token.css';
+
+const ComputedValue = ({ refs }) => {
+	if (refs && refs.length) {
+		return (
+			<div className="token-references">
+				<span>Resolves to: </span>
+				{refs.map((ref,i) => (
+					<span className="token-reference" key={`${ref}${i}`}>{ref}</span>
+				))}
+			</div>
+		)
+	} else {
+		return null;
+	}
+}
 
 const ReverseLookup = ({ expanded, list=[], onClick }) => {
 	if (list && list.length > 0) {
 		return (
 			<div className={`token-reverse-lookup ${expanded?'expanded':''}`} onClick={onClick}>
-				<h5 className="token-reverse-lookup-title">
+				<div className="token-reverse-lookup-title">
 					This token is referenced by {list.length} others:
 					<span className="codicon codicon-chevron-down" />
-				</h5>
+				</div>
+				<ul className="token-reverse-lookup-list">
 				{expanded && list.map(item => (
-					<div key={item}>{item}</div>
+					<li key={item}>{item}</li>
 				))}
+				</ul>
 			</div>
 		)
 	} else {
@@ -66,10 +82,10 @@ class Token extends React.Component {
 	}
 	
 	render() {
-		const { name, value, computedValue, updateToken, path, refs, reverseLookup, tokenNames, id, secondaryKey } = this.props;
+		const { name, value, computedValue, updateToken, path, refs, reverseLookup, tokenNames, id, secondaryKey, description } = this.props;
 		let autocomplete;
 		
-		if (value.indexOf('{') > -1) {
+		if (value && value.indexOf('{') > -1) {
 			autocomplete = tokenNames.filter(name => {
 				return name.startsWith(value.replace(/\{|\}/gi,''))
 			});
@@ -79,6 +95,7 @@ class Token extends React.Component {
 			<div className="token-field-wrapper">
 				<label className="token-field-label" htmlFor={id||path}>
 					{name||path}
+					<span className="token-description">{description}</span>
 				</label>
 				<div className="token-field">
 					<input className="token-field-input"
@@ -96,7 +113,7 @@ class Token extends React.Component {
 					</div>
 					<Swatch value={computedValue || value} />
 				</div>
-				{computedValue !== value && <ComputedValue refs={refs} />}
+				<ComputedValue refs={refs} />
 				<ReverseLookup
 					expanded={this.state.reverseLookup}
 					list={reverseLookup}

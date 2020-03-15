@@ -7,11 +7,17 @@
 .activitybar {
 	width: 48px;
 	background-color: var(--application-activityBar-background);
+	border-right: 1px solid var(--application-activityBar-border);
 	height: 100%;
 }
 
 .monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
-	border-left-color: var(--application-activityBar-foreground);
+	/* if activityBar.activeBorder isn't set, vscode uses activityBar.foreground */
+	border-left-color: var(--application-activityBar-activeBorder, var(--application-activityBar-foreground));
+}
+
+.monaco-action-bar .action-item.checked {
+	background-color: var(--application-activityBar-activeBackground);
 }
 
 .activitybar .monaco-action-bar .badge {

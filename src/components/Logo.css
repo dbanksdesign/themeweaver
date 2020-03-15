@@ -9,7 +9,9 @@
 	height: 2rem;
 	background-color: var(--application-inputValidation-infoBackground);
 	color: var(--application-inputValidation-infoForeground);
-	box-shadow: 0 0 2px var(--application-inputValidation-infoBorder);
+	/* box-shadow: 0 0 2px var(--application-inputValidation-infoBorder); */
+	box-shadow: 0 0 1rem var(--tm-shadow),
+		0 0 0 1px var(--tm-shadow);
 	font-size: 1rem;
 	/* font-weight: bold; */
 	line-height: 2rem;

@@ -3,42 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {dark as _dark, light as _light} from './_themes';
 import _application from './_application';
 import _syntax from './_syntax';
-import Nav from './components/Nav';
 import CSSVars from './components/CSSVars';
-import Workbench from './components/VSCode/Workbench';
-import VSCodeEditor from './components/VSCode/Editor';
 import Header from './components/Header';
-import Importer from './components/Importer';
 import Page from './components/Page';
-import AboutPage from './components/AboutPage';
-import CorePage from './pages/CorePage';
-import ThemePage from './pages/ThemePage';
-import ApplicationPage from './pages/ApplicationPage';
-import SyntaxPage from './pages/SyntaxPage';
+import ScrollTop from './components/ScrollTop';
+import AboutPage from './pages/AboutPage';
 import ColophonePage from './components/ColophonePage';
 import resolveReference from './helpers/resolveReference';
-import tokenizeSyntaxTokens from './helpers/tokenizeSyntaxTokens';
-import download from './helpers/download';
-
-const createResolvedTokenObject = (resolvedTokens, startsWith) => {
-	return Object.keys(resolvedTokens)
-		.filter(key => key.startsWith(startsWith))
-		.reduce((obj, key) => {
-			const token = resolvedTokens[key];
-			const name = key.replace(`${startsWith}.`,``);
-			// Syntax tokens are objects
-			if (token.hasOwnProperty('foreground')) {
-				obj[name] = {
-					foreground: token.foreground.computedValue,
-					background: token.background.computedValue,
-					fontStyle: token.fontStyle,
-				}
-			} else {
-				if (token.computedValue) { obj[name] = token.computedValue; }
-			}
-			return obj;
-		}, {});
-}
+import EditorPage from './pages/EditorPage';
 
 const createToken = (key, value, tokenObject, reverse = {}) => {
 	const [computedValue, refs] = resolveReference(value, tokenObject);
@@ -77,25 +49,19 @@ const createAllTokens = (tokenObject) => {
 	for (const key in tokenObject) {
 		if (tokenObject.hasOwnProperty(key)) {
 			let originalValue = tokenObject[key];
-			if (!originalValue) {
-				console.log(key);
-				// break;
+			// syntax tokens are objects
+			if (originalValue.hasOwnProperty('foreground')) {
+				const foreground = createToken(key, originalValue.foreground, tokenObject, reverse);
+				const background = createToken(key, originalValue.background, tokenObject, reverse);
+				allTokens[key] = {
+					foreground,
+					background,
+					fontStyle: originalValue.fontStyle
+				};
 			} else {
-				// syntax tokens are objects
-				if (originalValue.hasOwnProperty('foreground')) {
-					const foreground = createToken(key, originalValue.foreground, tokenObject, reverse);
-					const background = createToken(key, originalValue.background, tokenObject, reverse);
-					allTokens[key] = {
-						foreground,
-						background,
-						fontStyle: originalValue.fontStyle
-					};
-				} else {
-					const newToken = createToken(key, originalValue, tokenObject, reverse);
-					allTokens[key] = newToken;
-				}
+				const newToken = createToken(key, originalValue, tokenObject, reverse);
+				allTokens[key] = newToken;
 			}
-
 		}
 	}
 	
@@ -128,6 +94,8 @@ class App extends Component {
 			..._syntax,
 			...theme[defaultTheme]
 		});
+		
+		document.body.classList.add(defaultTheme);
 
 		this.state = {
 			theme,
@@ -153,6 +121,7 @@ class App extends Component {
 	// 	}
 	// }
 	
+	// Should probs refactor this as it is a giant method...
 	updateToken = ({ path, value, secondaryKey }) => {
 		// if it is a theme token, update the current theme object
 		const {currentTheme} = this.state;
@@ -271,8 +240,23 @@ class App extends Component {
 		});
 	}
 	
+	updateFontStyle = (path, value) => {
+		const newTokens = Object.assign({}, this.state.allTokens);
+		const newToken = Object.assign({}, newTokens[path]);
+		newToken.fontStyle = Object.keys(value).reduce((arr,key) => {
+			if (value[key]) { arr.push(key) }
+			return arr;
+		},[]).join(' ');
+		newTokens[path] = newToken;
+		this.setState({
+			allTokens: newTokens
+		});
+	}
+	
 	changeTheme = () => {
 		const newTheme = this.state.currentTheme === 'dark' ? 'light' : 'dark';
+		document.body.classList.remove(this.state.currentTheme);
+		document.body.classList.add(newTheme);
 		this.setState({
 			currentTheme: newTheme,
 			allTokens: createAllTokens({
@@ -280,26 +264,6 @@ class App extends Component {
 				...this.state.theme[newTheme]
 			}),
 		})
-	}
-	
-	downloadTheme = () => {
-		const theme = {
-			name: ``,
-			type: ``,
-			colors: Object.keys(this.state.allTokens)
-				.filter(key => key.startsWith(`application`))
-				.reduce((obj, key) => {
-					const name = key.replace(/application\./gi, ``);
-					obj[name] = this.state.allTokens[key].computedValue;
-					return obj;
-				}, {}),
-			tokenColors: tokenizeSyntaxTokens(
-				createResolvedTokenObject(this.state.allTokens, `syntax`)
-			)
-		}
-		console.log(theme);
-		
-		download(`${this.state.currentTheme}.json`, theme);
 	}
 	
 	importTheme = (newTokens) => {
@@ -314,93 +278,34 @@ class App extends Component {
 	}
 	
 	render() {
-		const resolvedSyntaxTokens = createResolvedTokenObject(this.state.allTokens, `syntax`);
-		const resolvedApplicationTokens = createResolvedTokenObject(this.state.allTokens, `application`);
-		const coreTokens = {}
-		const themeTokens = {}
-		const syntaxTokens = {}
-		const applicationTokens = {}
-		for (const key in this.state.allTokens) {
-			if (this.state.allTokens.hasOwnProperty(key)) {
-				const token = this.state.allTokens[key];
-				if (key.startsWith('application')) {
-					applicationTokens[key] = token;
-				} else if (key.startsWith('syntax')) {
-					syntaxTokens[key] = token;
-				} else if (key.startsWith('theme')) {
-					themeTokens[key] = token;
-				} else if (key.startsWith('core')) {
-					coreTokens[key] = token;
-				}
-			}
-		}
-			
-		const tokenNames = Object.keys(this.state.allTokens);
-		
 		return (
 			<Router>
 				<div className="app">
+					<ScrollTop />
 					<Header />
 					<CSSVars tokens={this.state.allTokens} />
 				
-				<div className="editor-pane">
-				<Nav />
-				<Switch>
-					<Route exact path="/">
-						<Page title="About">
-							<AboutPage />
-						</Page>
-					</Route>
-					<Route exact path="/colophone">
-						<Page title="Colophone">
-							<ColophonePage />
-						</Page>
-					</Route>
-					<Route path="/core">
-						<Page title="Core Colors">
-						<CorePage
-								tokens={coreTokens}
-								updateToken={this.updateToken} />
-						</Page>
-					</Route>
-					<Route path="/theme">
-						<Page title="Theme Colors">
-							<Importer importTheme={this.importTheme} />
-							<button onClick={this.downloadTheme}>DOWNLOAD</button>
-							<ThemePage
-								tokens={themeTokens}
-								tokenNames={tokenNames}
+					<Switch>
+						<Route exact path="/about">
+							<Page title="About">
+								<AboutPage />
+							</Page>
+						</Route>
+						<Route exact path="/colophone">
+							<Page title="Colophone">
+								<ColophonePage />
+							</Page>
+						</Route>
+						<Route path="/editor">
+							<EditorPage
+								allTokens={this.state.allTokens}
+								updateToken={this.updateToken}
+								updateFontStyle={this.updateFontStyle}
 								currentTheme={this.state.currentTheme}
 								changeTheme={this.changeTheme}
-								updateToken={this.updateToken} />
-						</Page>
-					</Route>
-					<Route path="/application">
-						<Page title="Application Colors">
-							<ApplicationPage
-								tokens={applicationTokens}
-								tokenNames={tokenNames}
-								updateToken={this.updateToken} />
-						</Page>
-					</Route>
-					<Route path="/syntax">
-						<Page title="Syntax Colors">
-							<SyntaxPage
-								tokens={syntaxTokens}
-								tokenNames={tokenNames}
-								updateToken={this.updateToken} />
-						</Page>
-					</Route>
-				</Switch>
-				</div>
-				
-				<div className="preview-pane vscode">
-					<Workbench>
-						<VSCodeEditor
-							syntaxTokens={resolvedSyntaxTokens}
-							applicationTokens={resolvedApplicationTokens} />
-					</Workbench>
-				</div>
+								importTheme={this.importTheme} />
+						</Route>
+					</Switch>
 				</div>
 			</Router>
 		)

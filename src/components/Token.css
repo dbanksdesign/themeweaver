@@ -5,7 +5,13 @@
 }
 
 .token-field-label {
-	
+	font-weight: bold;
+}
+
+.token-description {
+	padding-left: var(--size-padding-small);
+	font-weight: normal;
+	/* font-style: italic; */
 }
 
 .token-field-input {
@@ -13,7 +19,7 @@
 	flex: 1;
 	padding: var(--size-padding-base);
 	background-color: var(--application-input-background);
-	border: 2px solid var(--application-focusBorder);
+	border: 1px solid var(--application-focusBorder);
 	border-right: none;
 }
 
@@ -58,4 +64,10 @@
 
 .expanded > .token-reverse-lookup-title > .codicon {
 	transform: rotate(180deg);
+}
+
+.token-reverse-lookup-title {}
+
+.token-reverse-lookup-list {
+	
 }

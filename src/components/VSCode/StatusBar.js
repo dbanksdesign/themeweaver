@@ -10,9 +10,9 @@ const StatusBar = () => (
 				</span>
 			</div>
 			
-			<div id="status.scm" className="statusbar-item left" title="themeweaver (Git) - cra*">
+			<div id="status.scm" className="statusbar-item left" title="themeweaver (Git) - master*">
 				<span>
-					<span className="codicon codicon-git-branch"></span> cra*
+					<span className="codicon codicon-git-branch"></span> master*
 				</span>
 			</div>
 			
