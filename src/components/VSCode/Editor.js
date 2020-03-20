@@ -220,6 +220,7 @@ class VSCodeEditor extends React.PureComponent {
 			validateColor(applicationTokens[`editor.background`]),
 			validateColor(applicationTokens[`editor.foreground`])
 		);
+		// console.log(rules);
 
 		this.monaco.editor.defineTheme(`myTheme`, {
 			base: themeMap[currentTheme],

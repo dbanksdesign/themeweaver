@@ -1,5 +1,5 @@
 export default {
-	"syntax.comment.*": {
+	"syntax.comment": {
 		"foreground": "{theme.font.tertiary}",
 		"background": "",
 		"fontStyle": ""

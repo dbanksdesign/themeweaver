@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Themeweaver",
+  "name": "Themeweaver - Create IDE themes easily",
   "icons": [
     {
       "src": "favicon.ico",

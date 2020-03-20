@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Logo from './Logo';
+import { NavLink, Link } from 'react-router-dom';
+import Logo, { NewLogo } from './Logo';
 
 import './Header.css';
 
@@ -25,10 +25,14 @@ const Header = () => (
 	<>
 		<GithubCorner />
 		<header className="tw-header">
-			<Logo />
-			{/* <NavItem to="/editor" label="Editor" />
-			<NavItem to="/about" label="About" />
-			<NavItem to="/colophone" label="Colophone" /> */}
+			<Link className="tw-logo-link" to="/">
+				<NewLogo />
+				<span className="tw-logo-text">Themeweaver</span>
+			</Link>
+			<NavItem to="/core" label="Core" />
+			<NavItem to="/theme" label="Theme" />
+			<NavItem to="/application" label="Application" />
+			<NavItem to="/syntax" label="Syntax" />
 		</header>
 	</>
 )

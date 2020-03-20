@@ -514,25 +514,160 @@ const sections = [{
 		path: `application.searchEditor.textInputBorder`,
 		description: `Search editor text input box border.`,
 	}]
-// },{
-// 	title: ``,
-// 	description: ``,
-// 	tokens:[{
+},{
+	title: ``,
+	description: ``,
+	tokens:[{
+		path: `application.editor.hoverHighlightBackground`,
+		description: `Highlight below the word for which a hover is shown. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editor.lineHighlightBackground`,
+		description: `Background color for the highlight of line at the cursor position.`
+	},{
+		path: `application.editor.lineHighlightBorder`,
+		description: `Background color for the border around the line at the cursor position.`
+	},{
+		path: `application.editorLink.activeForeground`,
+		description: `Color of active links.`
+	},{
+		path: `application.editor.rangeHighlightBackground`,
+		description: `Background color of highlighted ranges, used by Quick Open, Symbol in File and Find features. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editor.rangeHighlightBorder`,
+		description: `Background color of the border around highlighted ranges.`
+	},{
+		path: `application.editor.symbolHighlightBackground`,
+		description: `Background color of highlighted symbol. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editor.symbolHighlightBorder`,
+		description: `Background color of the border around highlighted symbols.`
+	},{
+		path: `application.editorWhitespace.foreground`,
+		description: `Color of whitespace characters in the editor.`
+	},{
+		path: `application.editorIndentGuide.background`,
+		description: `Color of the editor indentation guides.`
+	},{
+		path: `application.editorIndentGuide.activeBackground`,
+		description: `Color of the active editor indentation guides.`
+	},{
+		path: `application.editorRuler.foreground`,
+		description: `Color of the editor rulers.`
+	},{
+		path: `application.editorCodeLens.foreground`,
+		description: `Foreground color of an editor CodeLens.`
+	},{
+		path: `application.editorLightBulb.foreground`,
+		description: `The color used for the lightbulb actions icon.`
+	},{
+		path: `application.editorLightBulbAutoFix.foreground`,
+		description: `The color used for the lightbulb auto fix actions icon.`
+	},{
+		path: `application.editorBracketMatch.background`,
+		description: `Background color behind matching brackets.`
+	},{
+		path: `application.editorBracketMatch.border`,
+		description: `Color for matching brackets boxes.`
+	},{
+		path: `application.editor.foldBackground`,
+		description: `Background color for folded ranges. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: ``,
+		description: ``
+	},{
+		path: ``,
+		description: ``
+	},{
+		path: ``,
+		description: ``
+	}]
+},{
+	title: `Overview ruler`,
+	description: `This ruler is located beneath the scroll bar on the right edge of the editor and gives an overview of the decorations in the editor.`,
+	tokens:[{
+		path: `application.editorOverviewRuler.border`,
+		description: `Color of the overview ruler border.`
+	},{
+		path: `application.editorOverviewRuler.findMatchForeground`,
+		description: `Overview ruler marker color for find matches. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.rangeHighlightForeground`,
+		description: `Overview ruler marker color for highlighted ranges, like by the Quick Open, Symbol in File and Find features. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.selectionHighlightForeground`,
+		description: `Overview ruler marker color for selection highlights. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.wordHighlightForeground`,
+		description: `Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.wordHighlightStrongForeground`,
+		description: `Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.modifiedForeground`,
+		description: `Overview ruler marker color for modified content.`
+	},{
+		path: `application.editorOverviewRuler.addedForeground`,
+		description: `Overview ruler marker color for added content.`
+	},{
+		path: `application.editorOverviewRuler.deletedForeground`,
+		description: `Overview ruler marker color for deleted content.`
+	},{
+		path: `application.editorOverviewRuler.errorForeground`,
+		description: `Overview ruler marker color for errors.`
+	},{
+		path: `application.editorOverviewRuler.warningForeground`,
+		description: `Overview ruler marker color for warnings.`
+	},{
+		path: `application.editorOverviewRuler.infoForeground`,
+		description: `Overview ruler marker color for infos.`
+	},{
+		path: `application.editorOverviewRuler.bracketMatchForeground`,
+		description: `Overview ruler marker color for matching brackets.`
+	}]
+},{
+	title: `Editor errors and warnings`,
+	description: ``,
+	tokens:[{
+		path: `application.editorError.foreground`,
+		description: `Foreground color of error squiggles in the editor.`
+	},{
+		path: `application.editorError.border`,
+		description: `Border color of error boxes in the editor.`
+	},{
+		path: `application.editorWarning.foreground`,
+		description: `Foreground color of warning squiggles in the editor.`
+	},{
+		path: `application.editorWarning.border`,
+		description: `Border color of warning boxes in the editor.`
+	},{
+		path: `application.editorInfo.foreground`,
+		description: `Foreground color of info squiggles in the editor.`
+	},{
+		path: `application.editorInfo.border`,
+		description: `Border color of info boxes in the editor.`
+	},{
+		path: `application.editorHint.foreground`,
+		description: `Foreground color of hints in the editor.`
+	},{
+		path: `application.editorHint.border`,
+		description: `Border color of hint boxes in the editor.`
+	},{
+		path: `application.problemsErrorIcon.foreground`,
+		description: `The color used for the problems error icon.`
+	},{
+		path: `application.problemsWarningIcon.foreground`,
+		description: `The color used for the problems warning icon.`
+	},{
+		path: `application.problemsInfoIcon.foreground`,
+		description: `The color used for the problems info icon.`
+	}]
+},{
+	title: ``,
+	description: ``,
+	tokens:[{
 		
-// 	}]
+	}]
 }];
-
-const Section = ({ title, description, children, id }) => (
-	<div className="section" id={id}>
-		<h3>{title}</h3>
-		<p>{description}</p>
-		{children}
-	</div>
-)
-
-const anchorify = (str) => {
-	return str.replace(' ','-');
-}
 
 class ApplicationPage extends React.Component {
 

@@ -7,10 +7,17 @@ import CSSVars from './components/CSSVars';
 import Header from './components/Header';
 import Page from './components/Page';
 import ScrollTop from './components/ScrollTop';
+import Workbench from './components/VSCode/Workbench';
+import VSCodeEditor from './components/VSCode/Editor';
 import AboutPage from './pages/AboutPage';
-import ColophonePage from './components/ColophonePage';
 import resolveReference from './helpers/resolveReference';
-import EditorPage from './pages/EditorPage';
+import generateTokenObjects from './helpers/generateTokenObjects';
+import createResolvedTokenObject from './helpers/createResolvedTokenObject';
+import { lsSet, lsGet } from './helpers/localStorage';
+import CorePage from './pages/CorePage';
+import ThemePage from './pages/ThemePage';
+import ApplicationPage from './pages/ApplicationPage';
+import SyntaxPage from './pages/SyntaxPage';
 
 const createToken = (key, value, tokenObject, reverse = {}) => {
 	const [computedValue, refs] = resolveReference(value, tokenObject);
@@ -82,26 +89,33 @@ const createAllTokens = (tokenObject) => {
 class App extends Component {
 	constructor(props) {
 		super(props);
+		let initialState;
+		// Uncomment this when going live, commenting out so hot reloads work.
+		// const initialState = lsGet('state');
 		
-		// initial state setup
-		const theme = {
-			dark: _dark,
-			light: _light
-		}
-		const defaultTheme = 'dark';
-		const allTokens = createAllTokens({
-			..._application,
-			..._syntax,
-			...theme[defaultTheme]
-		});
-		
-		document.body.classList.add(defaultTheme);
+		if (initialState) {
+			this.state = initialState;
+		} else {
+			// initial state setup
+			const theme = {
+				dark: _dark,
+				light: _light
+			}
+			const defaultTheme = 'dark';
+			const allTokens = createAllTokens({
+				..._application,
+				..._syntax,
+				...theme[defaultTheme]
+			});
+			
+			document.body.classList.add(defaultTheme);
 
-		this.state = {
-			theme,
-			allTokens,
-			currentTheme: defaultTheme,
-		};
+			this.state = {
+				theme,
+				allTokens,
+				currentTheme: defaultTheme,
+			};
+		}
 		
 	}
 	
@@ -278,6 +292,20 @@ class App extends Component {
 	}
 	
 	render() {
+		// save state to localstorage
+		lsSet('state', this.state);
+		
+		const tokenNames = Object.keys(this.state.allTokens);
+		const {
+			coreTokens,
+			themeTokens,
+			syntaxTokens,
+			applicationTokens
+		} = generateTokenObjects(this.state.allTokens);
+		
+		const resolvedSyntaxTokens = createResolvedTokenObject(this.state.allTokens, `syntax`);
+		const resolvedApplicationTokens = createResolvedTokenObject(this.state.allTokens, `application`);
+		
 		return (
 			<Router>
 				<div className="app">
@@ -285,15 +313,55 @@ class App extends Component {
 					<Header />
 					<CSSVars tokens={this.state.allTokens} />
 				
+					<div className="editor-pane">
 					<Switch>
-						<Route exact path="/about">
+						<Route exact path="/">
 							<Page title="About">
 								<AboutPage />
 							</Page>
 						</Route>
-						<Route exact path="/colophone">
-							<Page title="Colophone">
-								<ColophonePage />
+						<Route path="/core">
+							<CorePage
+								tokens={coreTokens}
+								updateToken={this.updateToken} />
+						</Route>
+						<Route path="/theme">
+							<ThemePage
+								tokens={themeTokens}
+								tokenNames={tokenNames}
+								currentTheme={this.state.currentTheme}
+								changeTheme={this.changeTheme}
+								updateToken={this.updateToken} />
+						</Route>
+						<Route path="/application">
+							<ApplicationPage
+								tokens={applicationTokens}
+								tokenNames={tokenNames}
+								updateToken={this.updateToken} />
+						</Route>
+						<Route path="/syntax">
+							<SyntaxPage
+								tokens={syntaxTokens}
+								tokenNames={tokenNames}
+								updateFontStyle={this.updateFontStyle}
+								updateToken={this.updateToken} />
+						</Route>
+					</Switch>
+				</div>
+
+				<div className="preview-pane vscode">
+					<Workbench>
+						<VSCodeEditor
+							currentTheme={this.state.currentTheme}
+							syntaxTokens={resolvedSyntaxTokens}
+							applicationTokens={resolvedApplicationTokens} />
+					</Workbench>
+				</div>
+				
+					{/* <Switch>
+						<Route exact path="/">
+							<Page title="About">
+								<AboutPage />
 							</Page>
 						</Route>
 						<Route path="/editor">
@@ -305,7 +373,7 @@ class App extends Component {
 								changeTheme={this.changeTheme}
 								importTheme={this.importTheme} />
 						</Route>
-					</Switch>
+					</Switch> */}
 				</div>
 			</Router>
 		)

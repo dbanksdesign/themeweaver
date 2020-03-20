@@ -73,43 +73,33 @@ const EditorPage = ({ allTokens, updateToken, currentTheme, changeTheme, importT
 	return (
 		<>
 		<div className="editor-pane">
-			<Nav />
+			{/* <Nav /> */}
 			<Switch>
 				<Route path="/editor/core">
-					<Page title="Core Colors">
 					<CorePage
-							tokens={coreTokens}
-							updateToken={updateToken} />
-					</Page>
+						tokens={coreTokens}
+						updateToken={updateToken} />
 				</Route>
 				<Route path="/editor/theme">
-					<Page title="Theme Colors">
-						{/* <Importer importTheme={importTheme} /> */}
-						{/* <button onClick={() => downloadTheme(allTokens, currentTheme)}>DOWNLOAD</button> */}
-						<ThemePage
-							tokens={themeTokens}
-							tokenNames={tokenNames}
-							currentTheme={currentTheme}
-							changeTheme={changeTheme}
-							updateToken={updateToken} />
-					</Page>
+					<ThemePage
+						tokens={themeTokens}
+						tokenNames={tokenNames}
+						currentTheme={currentTheme}
+						changeTheme={changeTheme}
+						updateToken={updateToken} />
 				</Route>
 				<Route path="/editor/application">
-					<Page title="Application Colors">
-						<ApplicationPage
-							tokens={applicationTokens}
-							tokenNames={tokenNames}
-							updateToken={updateToken} />
-					</Page>
+					<ApplicationPage
+						tokens={applicationTokens}
+						tokenNames={tokenNames}
+						updateToken={updateToken} />
 				</Route>
 				<Route path="/editor/syntax">
-					<Page title="Syntax Colors">
-						<SyntaxPage
-							tokens={syntaxTokens}
-							tokenNames={tokenNames}
-							updateFontStyle={updateFontStyle}
-							updateToken={updateToken} />
-					</Page>
+					<SyntaxPage
+						tokens={syntaxTokens}
+						tokenNames={tokenNames}
+						updateFontStyle={updateFontStyle}
+						updateToken={updateToken} />
 				</Route>
 			</Switch>
 		</div>

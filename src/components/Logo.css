@@ -1,5 +1,23 @@
-.tw-logo {
-	
+.tw-logo-link {
+	display: inline-flex;
+	height: 2rem;
+	line-height: 2rem;
+	padding: var(--size-padding-small) var(--size-padding-base);
+	/* vertical-align: middle; */
+}
+
+.tw-logo-svg {
+	/* width: 100%; */
+	height: 100%;
+	opacity: 0.75;
+}
+
+.tw-logo-svg .hatch-1 {
+	fill: var(--theme-font-link-secondary-active);
+}
+
+.tw-logo-svg .hatch-2 {
+	fill: var(--theme-font-link-primary-active);
 }
 
 .tw-logo-icon {
@@ -20,6 +38,6 @@
 }
 
 .tw-logo-text {
-	color: var(--application-editorGroup-border);
-	/* font-style: italic; */
+	color: var(--theme-font-secondary);
+	padding-left: var(--size-padding-small);
 }

@@ -9,9 +9,8 @@
 }
 
 .token-description {
-	padding-left: var(--size-padding-small);
+	display: block;
 	font-weight: normal;
-	/* font-style: italic; */
 }
 
 .token-field-input {

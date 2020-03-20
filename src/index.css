@@ -33,6 +33,9 @@
 	--size-breakpoint-small : 400px;
 	--size-breakpoint-medium : 1000px;
 	--size-breakpoint-large : 1400px;
+	
+	--size-header-height: 3rem;
+	--size-header-offset: calc(var(--size-header-height) + var(--size-padding-base));
 
 	--time-duration-base: 0.2s;
 
@@ -74,6 +77,27 @@ code {
   font-family: var(--font-family-mono);
 }
 
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	
+}
+
+h2 {
+	
+}
+
+h3 {
+	
+}
+
+h4 {
+	font-size: var(--size-font-large);
+}
+
 .swatch {
 	display: inline-block;
 	width: 20px;
@@ -88,6 +112,15 @@ input {
 	font-size: 1rem;
 }
 
+input:focus {
+	border-color: var(--application-button-hoverBackground);
+	outline: none;
+	/* outline-style: solid;
+	outline-offset: 0;
+	outline-width: 2px;
+	outline-color: var(--application-button-hoverBackground); */
+}
+
 label {
 	display: block;
 }
@@ -99,17 +132,18 @@ label {
 
 .app {
 	margin-right: 50%;
-	padding-right: var(--size-padding-base);
+	padding-right: var(--size-padding-xl);
+	padding-top: 4rem;
 }
 
 .editor-pane {
-	display: grid;
-	grid-template-columns: auto 1fr;
+	/* display: grid;
+	grid-template-columns: auto 1fr; */
 }
 
 .preview-pane {
 	position: fixed;
-	top: 1rem;
+	top: var(--size-header-offset);
 	bottom: 1rem;
 	right: 1rem;
 	width: 50%;
@@ -124,8 +158,8 @@ label {
 
 .toc {
 	position: sticky;
-	top: 1rem;
-	max-width: 10rem;
+	top: 4rem;
+	width: 10rem;
 	align-self: start;
 }
 
@@ -140,4 +174,89 @@ label {
 
 .page-content {
 	padding: var(--size-padding-large);
+}
+
+.checkbox-group {
+	display: flex;
+	flex-direction: row;
+}
+
+.checkbox-group-item {
+	flex: 1;
+	padding: var(--size-padding-small) 0;
+}
+
+
+.checkbox input[type="checkbox"] {
+	opacity: 0;
+	padding: 0;
+	margin: 0;
+	width: 0;
+	height: 0;
+}
+
+.checkbox label {
+	position: relative;
+	display: inline-block;
+	padding-left: 2rem;
+}
+
+.checkbox label::before,
+.checkbox label::after {
+	position: absolute;
+	content: "";
+	
+	/*Needed for the line-height to take effect*/
+	display: inline-block;
+}
+
+/*Outer box of the fake checkbox*/
+.checkbox label::before{
+	height: 1rem;
+	width: 1rem;
+	
+	border: 2px solid var(--theme-border-primary);
+	border-radius: 4px;
+	left: 0;
+	
+	/*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+	 *to vertically center it.
+	 */
+	top: 0;
+}
+
+/*Checkmark of the fake checkbox*/
+.checkbox label::after {
+	height: 0.3rem; /*5px*/
+	width: 0.6rem; /* 9px */
+	border-left: 2px solid;
+	border-bottom: 2px solid;
+	
+	transform: rotate(-45deg);
+	
+	left: 0.25rem;
+	top: 0.3rem;
+}
+
+/*Hide the checkmark by default*/
+.checkbox input[type="checkbox"] + label::after {
+	content: none;
+}
+
+/*Unhide on the checked state*/
+.checkbox input[type="checkbox"]:checked + label::after {
+	content: "";
+}
+
+.checkbox input[type="checkbox"]:checked + label::before {
+	background-color: var(--theme-background-interactive-hover);
+	border-color: transparent;
+}
+
+/*Adding focus styles on the outer-box of the fake checkbox*/
+.checkbox input[type="checkbox"]:focus + label::before {
+	outline-style: solid;
+	outline-offset: 0.25rem;
+	outline-width: 2px;
+	outline-color: var(--application-button-hoverBackground);
 }

@@ -1,16 +1,28 @@
 .tw-header {
-	/* position: fixed;
+	position: fixed;
 	top: 0;
-	right: 0;
-	left: 0; */
 	height: 3rem;
-	/* background-color: var(--application-activityBar-background); */
+	width: 100%;
+	box-shadow: 0 0 1rem var(--tm-shadow),
+		0 0 0 1px var(--tm-shadow);
+	/* margin: 0 var(--size-padding-base) var(--size-padding-base) var(--size-padding-base); */
+	background-color: var(--application-activityBar-background);
+	z-index: 100;
 }
 
 .tw-header-nav-item {
 	line-height: 3rem;
+	height: 3rem;
 	display: inline-block;
 	padding: 0 var(--size-padding-base);
+	border-bottom: 2px solid transparent;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+
+.tw-header-nav-item.active {
+	color: var(--application-activityBar-foreground);
+	border-color: var(--theme-font-active);
 }
 
 .github-corner {
