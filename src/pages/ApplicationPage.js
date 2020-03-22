@@ -662,6 +662,220 @@ const sections = [{
 		description: `The color used for the problems info icon.`
 	}]
 },{
+	title: `Unused source code`,
+	description: ``,
+	tokens:[{
+		path: `application.editorUnnecessaryCode.border`,
+		description: `Border color of unnecessary (unused) source code in the editor.`
+	},{
+		path: `application.editorUnnecessaryCode.opacity`,
+		description: `Opacity of unnecessary (unused) source code in the editor. For example, "#000000c0" will render the code with 75% opacity. For high contrast themes, use the "editorUnnecessaryCode.border" theme color to underline unnecessary code instead of fading it out.`
+	}]
+},{
+	title: `Editor gutter`,
+	description: ``,
+	tokens:[{
+		path: `application.editorGutter.background`,
+		description: `Background color of the editor gutter. The gutter contains the glyph margins and the line numbers.`
+	},{
+		path: `application.editorGutter.modifiedBackground`,
+		description: `Editor gutter background color for lines that are modified.`
+	},{
+		path: `application.editorGutter.addedBackground`,
+		description: `Editor gutter background color for lines that are added.`
+	},{
+		path: `application.editorGutter.deletedBackground`,
+		description: `Editor gutter background color for lines that are deleted.`
+	},{
+		path: `application.editorGutter.commentRangeForeground`,
+		description: `Editor gutter decoration color for commenting ranges.`
+	}]
+},{
+	title: `Diff editor colors`,
+	description: `For coloring inserted and removed text, use either a background or a border color but not both`,
+	tokens:[{
+		path: `application.diffEditor.insertedTextBackground`,
+		description: `Background color for text that got inserted. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.diffEditor.insertedTextBorder`,
+		description: `Outline color for the text that got inserted.`
+	},{
+		path: `application.diffEditor.removedTextBackground`,
+		description: `Background color for text that got removed. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.diffEditor.removedTextBorder`,
+		description: `Outline color for text that got removed.`
+	},{
+		path: `application.diffEditor.border`,
+		description: `Border color between the two text editors`
+	}]
+},{
+	title: `Editor widget`,
+	description: `The Editor widget is shown in front of the editor content. Examples are the Find/Replace dialog, the suggestion widget, and the editor hover.`,
+	tokens:[{
+		path: `application.editorWidget.foreground`,
+		description: `Foreground color of editor widgets, such as find/replace.`
+	},{
+		path: `application.editorWidget.background`,
+		description: `Background color of editor widgets, such as Find/Replace.`
+	},{
+		path: `application.editorWidget.border`,
+		description: `Border color of the editor widget unless the widget does not contain a border or defines its own border color.`
+	},{
+		path: `application.editorWidget.resizeBorder`,
+		description: `Border color of the resize bar of editor widgets. The color is only used if the widget chooses to have a resize border and if the color is not overridden by a widget.`
+	},{
+		path: `application.editorSuggestWidget.background`,
+		description: `Background color of the suggestion widget.`
+	},{
+		path: `application.editorSuggestWidget.border`,
+		description: `Border color of the suggestion widget.`
+	},{
+		path: `application.editorSuggestWidget.foreground`,
+		description: `Foreground color of the suggestion widget.`
+	},{
+		path: `application.editorSuggestWidget.highlightForeground`,
+		description: `Color of the match highlights in the suggestion widget.`
+	},{
+		path: `application.editorSuggestWidget.selectedBackground`,
+		description: `Background color of the selected entry in the suggestion widget.`
+	},{
+		path: `application.editorHoverWidget.foreground`,
+		description: `Foreground color of the editor hover.`
+	},{
+		path: `application.editorHoverWidget.background`,
+		description: `Background color of the editor hover.`
+	},{
+		path: `application.editorHoverWidget.border`,
+		description: `Border color of the editor hover.`
+	},{
+		path: `application.editorHoverWidget.statusBarBackground`,
+		description: `Background color of the editor hover status bar`
+	},{
+		path: `application.debugExceptionWidget.background`,
+		description: `Exception widget background color.`
+	},{
+		path: `application.debugExceptionWidget.border`,
+		description: `Exception widget border color.`
+	},{
+		path: `application.editorMarkerNavigation.background`,
+		description: `Editor marker navigation widget background.`
+	},{
+		path: `application.editorMarkerNavigationError.background`,
+		description: `Editor marker navigation widget error color.`
+	},{
+		path: `application.editorMarkerNavigationWarning.background`,
+		description: `Editor marker navigation widget warning color.`
+	},{
+		path: `application.editorMarkerNavigationInfo.background`,
+		description: `Editor marker navigation widget info color.`
+	}]
+},{
+	title: `Peek view colors`,
+	description: `Peek views are used to show references and declarations as a view inside the editor.`,
+	tokens:[{
+		path: `application.peekView.border`,
+		description: `Color of the peek view borders and arrow.`
+	},{
+		path: `application.peekViewEditor.background`,
+		description: `Background color of the peek view editor.`
+	},{
+		path: `application.peekViewEditorGutter.background`,
+		description: `Background color of the gutter in the peek view editor.`
+	},{
+		path: `application.peekViewEditor.matchHighlightBackground`,
+		description: `Match highlight color in the peek view editor.`
+	},{
+		path: `application.peekViewEditor.matchHighlightBorder`,
+		description: `Match highlight border color in the peek view editor.`
+	},{
+		path: `application.peekViewResult.background`,
+		description: `Background color of the peek view result list.`
+	},{
+		path: `application.peekViewResult.fileForeground`,
+		description: `Foreground color for file nodes in the peek view result list.`
+	},{
+		path: `application.peekViewResult.lineForeground`,
+		description: `Foreground color for line nodes in the peek view result list.`
+	},{
+		path: `application.peekViewResult.matchHighlightBackground`,
+		description: `Match highlight color in the peek view result list.`
+	},{
+		path: `application.peekViewResult.selectionBackground`,
+		description: `Background color of the selected entry in the peek view result list.`
+	},{
+		path: `application.peekViewResult.selectionForeground`,
+		description: `Foreground color of the selected entry in the peek view result list.`
+	},{
+		path: `application.peekViewTitle.background`,
+		description: `Background color of the peek view title area.`
+	},{
+		path: `application.peekViewTitleDescription.foreground`,
+		description: `Color of the peek view title info.`
+	},{
+		path: `application.peekViewTitleLabel.foreground`,
+		description: `Color of the peek view title`
+	}]
+},{
+	title: `Merge conflicts`,
+	description: `Merge conflict decorations are shown when the editor contains special diff ranges.`,
+	tokens:[{
+		path: `application.merge.currentHeaderBackground`,
+		description: `Current header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.merge.currentContentBackground`,
+		description: `Current content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.merge.incomingHeaderBackground`,
+		description: `Incoming header background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.merge.incomingContentBackground`,
+		description: `Incoming content background in inline merge conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.merge.border`,
+		description: `Border color on headers and the splitter in inline merge conflicts.`
+	},{
+		path: `application.merge.commonContentBackground`,
+		description: `Common ancestor content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.merge.commonHeaderBackground`,
+		description: `Common ancestor header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.`
+	},{
+		path: `application.editorOverviewRuler.currentContentForeground`,
+		description: `Current overview ruler foreground for inline merge conflicts.`
+	},{
+		path: `application.editorOverviewRuler.incomingContentForeground`,
+		description: `Incoming overview ruler foreground for inline merge conflicts.`
+	},{
+		path: `application.editorOverviewRuler.commonContentForeground`,
+		description: `Common ancestor overview ruler foreground for inline merge conflicts`
+	}]
+},{
+	title: ``,
+	description: ``,
+	tokens:[{
+		path: `application.panel.background`,
+		description: `Panel background color.`
+	},{
+		path: `application.panel.border`,
+		description: `Panel border color to separate the panel from the editor.`
+	},{
+		path: `application.panel.dropBackground`,
+		description: `Drag and drop feedback color for the panel title items. The color should have transparency so that the panel entries can still shine through.`
+	},{
+		path: `application.panelTitle.activeBorder`,
+		description: `Border color for the active panel title.`
+	},{
+		path: `application.panelTitle.activeForeground`,
+		description: `Title color for the active panel.`
+	},{
+		path: `application.panelTitle.inactiveForeground`,
+		description: `Title color for the inactive panel.`
+	},{
+		path: `application.panelInput.border`,
+		description: `Input box border for inputs in the panel.`
+	}]
+},{
 	title: ``,
 	description: ``,
 	tokens:[{

@@ -33,6 +33,7 @@ const Header = () => (
 			<NavItem to="/theme" label="Theme" />
 			<NavItem to="/application" label="Application" />
 			<NavItem to="/syntax" label="Syntax" />
+			<NavItem to="/about" label="About" />
 		</header>
 	</>
 )

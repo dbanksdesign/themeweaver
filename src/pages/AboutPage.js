@@ -1,11 +1,16 @@
 import React from 'react';
 
-const AboutPage = ({  }) => (
-	<>
-		<p>Themeweaver is an application to create VS Code themes (and other IDE themes in the future...).</p>
+const AboutPage = () => (
+	<div className="page-content">
+		<h1>About Themeweaver</h1>
 		
-		<p>NOTE: there might be some minor differences in the syntax highlighting as the editor VSCode uses (monaco) does not come with the same syntax highlighting grammers as VSCode does.</p>
-	</>
+		
+		<h2>Credits</h2>
+		<dl>
+			<dt><a href="https://vis4.net/chromajs">chroma.js</a></dt>
+			<dd>Used for color transformations</dd>
+		</dl>
+	</div>
 )
 
 export default AboutPage

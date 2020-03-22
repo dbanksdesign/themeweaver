@@ -1,5 +1,5 @@
 const generateTokenObjects = (allTokens) => {
-	const coreTokens = {}
+	const baseTokens = {}
 	const themeTokens = {}
 	const syntaxTokens = {}
 	const applicationTokens = {}
@@ -12,12 +12,12 @@ const generateTokenObjects = (allTokens) => {
 				syntaxTokens[key] = token;
 			} else if (key.startsWith('theme')) {
 				themeTokens[key] = token;
-			} else if (key.startsWith('core')) {
-				coreTokens[key] = token;
+			} else if (key.startsWith('base')) {
+				baseTokens[key] = token;
 			}
 		}
 	}
-	return {coreTokens,themeTokens,syntaxTokens,applicationTokens}
+	return {baseTokens,themeTokens,syntaxTokens,applicationTokens}
 }
 
 export default generateTokenObjects

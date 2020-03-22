@@ -7,177 +7,177 @@ const sections = [{
 	title: `Grey`,
 	description: ``,
 	tokens: [{
-		path: `core.grey.5`,
+		path: `base.grey.5`,
 		description: ``
 	},{
-		path: `core.grey.10`,
+		path: `base.grey.10`,
 		description: ``
 	},{
-		path: `core.grey.20`,
+		path: `base.grey.20`,
 		description: ``
 	},{
-		path: `core.grey.40`,
+		path: `base.grey.40`,
 		description: ``
 	},{
-		path: `core.grey.60`,
+		path: `base.grey.60`,
 		description: ``
 	},{
-		path: `core.grey.80`,
+		path: `base.grey.80`,
 		description: ``
 	},{
-		path: `core.grey.90`,
+		path: `base.grey.90`,
 		description: ``
 	},{
-		path: `core.grey.100`,
+		path: `base.grey.100`,
 		description: ``
 	}]
 },{
 	title: `Red`,
 	description: ``,
 	tokens: [{
-		path: `core.red.darker`,
+		path: `base.red.darker`,
 		description: ``
 	},{
-		path: `core.red.dark`,
+		path: `base.red.dark`,
 		description: ``
 	},{
-		path: `core.red.light`,
+		path: `base.red.light`,
 		description: ``
 	},{
-		path: `core.red.lighter`,
+		path: `base.red.lighter`,
 		description: ``
 	}]
 },{
 	title: `Orange`,
 	description: ``,
 	tokens: [{
-		path: `core.orange.darker`,
+		path: `base.orange.darker`,
 		description: ``
 	},{
-		path: `core.orange.dark`,
+		path: `base.orange.dark`,
 		description: ``
 	},{
-		path: `core.orange.light`,
+		path: `base.orange.light`,
 		description: ``
 	},{
-		path: `core.orange.lighter`,
+		path: `base.orange.lighter`,
 		description: ``
 	}]
 },{
 	title: `Yellow`,
 	description: ``,
 	tokens: [{
-		path: `core.yellow.darker`,
+		path: `base.yellow.darker`,
 		description: ``
 	},{
-		path: `core.yellow.dark`,
+		path: `base.yellow.dark`,
 		description: ``
 	},{
-		path: `core.yellow.light`,
+		path: `base.yellow.light`,
 		description: ``
 	},{
-		path: `core.yellow.lighter`,
+		path: `base.yellow.lighter`,
 		description: ``
 	}]
 },{
 	title: `Lime`,
 	description: ``,
 	tokens: [{
-		path: `core.lime.darker`,
+		path: `base.lime.darker`,
 		description: ``
 	},{
-		path: `core.lime.dark`,
+		path: `base.lime.dark`,
 		description: ``
 	},{
-		path: `core.lime.light`,
+		path: `base.lime.light`,
 		description: ``
 	},{
-		path: `core.lime.lighter`,
+		path: `base.lime.lighter`,
 		description: ``
 	}]
 },{
 	title: `Green`,
 	description: ``,
 	tokens: [{
-		path: `core.green.darker`,
+		path: `base.green.darker`,
 		description: ``
 	},{
-		path: `core.green.dark`,
+		path: `base.green.dark`,
 		description: ``
 	},{
-		path: `core.green.light`,
+		path: `base.green.light`,
 		description: ``
 	},{
-		path: `core.green.lighter`,
+		path: `base.green.lighter`,
 		description: ``
 	}]
 },{
 	title: `Teal`,
 	description: ``,
 	tokens: [{
-		path: `core.teal.darker`,
+		path: `base.teal.darker`,
 		description: ``
 	},{
-		path: `core.teal.dark`,
+		path: `base.teal.dark`,
 		description: ``
 	},{
-		path: `core.teal.light`,
+		path: `base.teal.light`,
 		description: ``
 	},{
-		path: `core.teal.lighter`,
+		path: `base.teal.lighter`,
 		description: ``
 	}]
 },{
 	title: `Blue`,
 	description: ``,
 	tokens: [{
-		path: `core.blue.darker`,
+		path: `base.blue.darker`,
 		description: ``
 	},{
-		path: `core.blue.dark`,
+		path: `base.blue.dark`,
 		description: ``
 	},{
-		path: `core.blue.light`,
+		path: `base.blue.light`,
 		description: ``
 	},{
-		path: `core.blue.lighter`,
+		path: `base.blue.lighter`,
 		description: ``
 	}]
 },{
 	title: `Purple`,
 	description: ``,
 	tokens: [{
-		path: `core.purple.darker`,
+		path: `base.purple.darker`,
 		description: ``
 	},{
-		path: `core.purple.dark`,
+		path: `base.purple.dark`,
 		description: ``
 	},{
-		path: `core.purple.light`,
+		path: `base.purple.light`,
 		description: ``
 	},{
-		path: `core.purple.lighter`,
+		path: `base.purple.lighter`,
 		description: ``
 	}]
 },{
 	title: `Pink`,
 	description: ``,
 	tokens: [{
-		path: `core.pink.darker`,
+		path: `base.pink.darker`,
 		description: ``
 	},{
-		path: `core.pink.dark`,
+		path: `base.pink.dark`,
 		description: ``
 	},{
-		path: `core.pink.light`,
+		path: `base.pink.light`,
 		description: ``
 	},{
-		path: `core.pink.lighter`,
+		path: `base.pink.lighter`,
 		description: ``
 	}]
 }]
 
-class CorePage extends React.Component {
+class BasePage extends React.Component {
 	
 	render() {
 		const { updateToken, tokens, tokenNames } = this.props;
@@ -215,4 +215,4 @@ class CorePage extends React.Component {
 	}
 }
 
-export default CorePage
+export default BasePage

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {dark as _dark, light as _light} from './_themes';
-import _application from './_application';
-import _syntax from './_syntax';
+import {dark as _dark, light as _light} from './tokens/theme';
+import {allTokens as _allTokens} from './tokens/index';
 import CSSVars from './components/CSSVars';
 import Header from './components/Header';
-import Page from './components/Page';
 import ScrollTop from './components/ScrollTop';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
-import AboutPage from './pages/AboutPage';
 import resolveReference from './helpers/resolveReference';
 import generateTokenObjects from './helpers/generateTokenObjects';
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import { lsSet, lsGet } from './helpers/localStorage';
-import CorePage from './pages/CorePage';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import BasePage from './pages/BasePage';
 import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
@@ -103,8 +102,7 @@ class App extends Component {
 			}
 			const defaultTheme = 'dark';
 			const allTokens = createAllTokens({
-				..._application,
-				..._syntax,
+				..._allTokens,
 				...theme[defaultTheme]
 			});
 			
@@ -134,6 +132,135 @@ class App extends Component {
 	// 		console.log(error);
 	// 	}
 	// }
+	
+	updateTokens = ( _tokens ) => {
+		const tokens = Object.assign({}, this.state.allTokens);
+		_tokens.forEach(({path, value}) => {
+			this._updateToken({ path, value, tokens });
+		});
+		this.setState({
+			allTokens: tokens
+		});
+	}
+	
+	_updateToken = ({ path, value, secondaryKey, tokens }) => {
+		// if it is a theme token, update the current theme object
+		// const {currentTheme} = state;
+		// const newTheme = Object.assign({}, state.theme[currentTheme]);
+		// if (path.startsWith('theme')) {
+		// 	newTheme[path] = value;
+		// }
+
+		// const newTokens = Object.assign({}, tokens);
+		let newToken = tokens[path];
+		let [computedValue, refs] = resolveReference(value, tokens);
+		let undefinedToken;
+		
+		// if this is a syntax token, use the secondary key as well
+		if (secondaryKey) {
+			newToken = newToken[secondaryKey];
+		}
+		
+		const oldRefs = newToken.refs;
+		const oldReverse = newToken.reverseLookup;
+		
+		// Don't update the computed value if it is undefined
+		if (!computedValue) {
+			undefinedToken = true;
+			computedValue = newToken.computedValue;
+		}
+		
+		newToken = Object.assign({}, newToken, {
+			value,
+			refs,
+			computedValue
+		});
+		
+		if (secondaryKey) {
+			// Gotta be a better way to do this
+			tokens[path][secondaryKey] = newToken;
+		} else {
+			tokens[path] = newToken;
+		}
+		
+		// If the resolved token is undefined, don't change
+		// the computed value yet. This creates a weird experience
+		// when editing tokens.
+		if (!undefinedToken) {
+			// update references
+			if (refs && refs.length) {
+				// Update reverseLookup for references
+				refs.forEach(ref => {
+					if (ref && ref.indexOf('{') > -1) {
+						let name = ref;
+						ref.replace(/\{([^}]+)\}/gi, (match, variable) => {
+							name = variable;
+						});
+						const newReverseLookup = tokens[name].reverseLookup || [];
+						newReverseLookup.push(path);
+						// Set creates unique values
+						tokens[name].reverseLookup = Array.from(
+							new Set(newReverseLookup.concat(oldReverse))
+						).sort();
+					}
+				});
+			}
+			
+			// un-ref old refs
+			if (oldRefs && oldRefs.length) {
+				oldRefs.forEach(ref => {
+					if (ref && ref.indexOf('{') > -1) {
+						let name = ref;
+						ref.replace(/\{([^}]+)\}/gi, (match, variable) => {
+							name = variable;
+						});
+						// old reference might be undefined because the text input
+						// might not have finished
+						const oldRef = tokens[name];
+						if (oldRef) {
+							const reverseLookup = tokens[name].reverseLookup;
+							tokens[name].reverseLookup = reverseLookup
+								.filter(key => ![path].concat(oldReverse).includes(key));
+						}
+					}
+				});
+			}
+
+			// update tokens that reference this one (if it has any)
+			if (newToken.reverseLookup) {
+				newToken.reverseLookup.forEach(key => {
+					const reverseToken = tokens[key];
+					
+					// Syntax tokens are objects with background & foreground
+					if (reverseToken.hasOwnProperty('foreground')) {
+						const background = createToken(key, reverseToken.background.value, tokens);
+						const foreground = createToken(key, reverseToken.foreground.value, tokens);
+						tokens[key] = Object.assign({}, tokens[key], {
+							background,
+							foreground
+						});
+					} else {
+						const val = tokens[key].value;
+						let [computedValue, refs] = resolveReference(val, tokens, [val]);
+	
+						tokens[key] = Object.assign({}, tokens[key], {
+							refs,
+							computedValue
+						});
+					}
+				});
+			}
+		}
+		// console.log(newTokens);
+		// state = {
+		// 	currentTheme: state.currentTheme,
+		// 	theme: {
+		// 		...state.theme,
+		// 		[currentTheme]: newTheme
+		// 	},
+		// 	allTokens: newTokens
+		// }
+	}
 	
 	// Should probs refactor this as it is a giant method...
 	updateToken = ({ path, value, secondaryKey }) => {
@@ -297,7 +424,7 @@ class App extends Component {
 		
 		const tokenNames = Object.keys(this.state.allTokens);
 		const {
-			coreTokens,
+			baseTokens,
 			themeTokens,
 			syntaxTokens,
 			applicationTokens
@@ -316,13 +443,17 @@ class App extends Component {
 					<div className="editor-pane">
 					<Switch>
 						<Route exact path="/">
-							<Page title="About">
-								<AboutPage />
-							</Page>
+							<HomePage
+								changeTheme={this.changeTheme}
+								currentTheme={this.state.currentTheme}
+								updateTokens={this.updateTokens} />
 						</Route>
-						<Route path="/core">
-							<CorePage
-								tokens={coreTokens}
+						<Route path="/about">
+							<AboutPage />
+						</Route>
+						<Route path="/base">
+							<BasePage
+								tokens={baseTokens}
 								updateToken={this.updateToken} />
 						</Route>
 						<Route path="/theme">
