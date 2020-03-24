@@ -1,6 +1,8 @@
 import React from 'react';
+import chroma from 'chroma-js';
 import Swatch from './Swatch';
 import Autocomplete from './Autocomplete';
+import ColorInput from './ColorInput';
 import './Token.css';
 
 const ComputedValue = ({ refs }) => {
@@ -37,19 +39,11 @@ const ReverseLookup = ({ expanded, list=[], onClick }) => {
 		return null;
 	}
 }
-class Token extends React.Component {
+class Token extends React.PureComponent {
 	state = {
 		focused: false,
 		reverseLookup: false
 	}
-	
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	const { path, value, refs } = this.props;
-	// 	// can't shallowly compare path because it is an array
-	// 	return value !== nextProps.value ||
-	// 		path !== nextProps.path ||
-	// 		JSON.stringify(refs) !== JSON.stringify(nextProps.refs);
-	// }
 	
 	onFocus = () => {
 		this.setState({
@@ -82,7 +76,7 @@ class Token extends React.Component {
 	}
 	
 	render() {
-		const { name, value, computedValue, updateToken, path, refs, reverseLookup, tokenNames, id, secondaryKey, description } = this.props;
+		const { name, value, computedValue, updateToken, path, refs, reverseLookup, tokenNames, id, secondaryKey, description, colorType } = this.props;
 		let autocomplete;
 		
 		if (value && value.indexOf('{') > -1) {
@@ -90,6 +84,15 @@ class Token extends React.Component {
 				return name.startsWith(value.replace(/\{|\}/gi,''))
 			});
 		}
+		
+		if (colorType) {
+			try {
+				console.log(value, chroma(value)[colorType]());
+			} catch (error) {
+				
+			}
+		}
+		
 
 		return (
 			<div className="token-field-wrapper">

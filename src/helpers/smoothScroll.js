@@ -6,7 +6,6 @@ export default {
 	},
 	
 	scrollToPosition: function(offset, targetY, callback) {
-		console.log(offset, targetY);
 		var settings = {
 			duration: 1000,
 			easing: {

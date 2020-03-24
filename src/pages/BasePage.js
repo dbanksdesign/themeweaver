@@ -180,7 +180,7 @@ const sections = [{
 class BasePage extends React.Component {
 	
 	render() {
-		const { updateToken, tokens, tokenNames } = this.props;
+		const { updateToken, tokens, tokenNames, colorType, updateColorType } = this.props;
 		const links = sections.map(section => {
 			return {
 				label: section.title,

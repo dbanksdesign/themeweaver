@@ -112,26 +112,11 @@ class App extends Component {
 				theme,
 				allTokens,
 				currentTheme: defaultTheme,
+				colorType: `hsl`
 			};
 		}
 		
 	}
-	
-	// handleEditorChange = (e, newValue) => {
-	// 	try {
-	// 		const newState = JSON.parse(newValue);
-	// 		this.setState({
-	// 			tokens: newState,
-	// 			resolvedTokens: resolveAllRefs(
-	// 				flattenObject(newState),
-	// 				newState,
-	// 				this.state.currentTheme
-	// 			)
-	// 		});
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// }
 	
 	updateTokens = ( _tokens ) => {
 		const tokens = Object.assign({}, this.state.allTokens);
@@ -407,6 +392,12 @@ class App extends Component {
 		})
 	}
 	
+	changeColorType = () => {
+		this.setState({
+			colorType: this.state.colorType === `hex` ? `hsl` : `hex`
+		});
+	}
+	
 	importTheme = (newTokens) => {
 		const allTokens = createAllTokens({
 			...newTokens.application,
@@ -454,6 +445,8 @@ class App extends Component {
 						<Route path="/base">
 							<BasePage
 								tokens={baseTokens}
+								colorType={this.state.colorType}
+								updateColorType={this.updateColorType}
 								updateToken={this.updateToken} />
 						</Route>
 						<Route path="/theme">

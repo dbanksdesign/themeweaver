@@ -2,26 +2,18 @@ import React from 'react';
 import './Logo.css';
 
 const Logo = () => (
-	<span className="tw-logo">
-		<span className="tw-logo-icon">Tw</span>
-		<span className="tw-logo-text">Themeweaver</span>
-	</span>
-)
-
-const NewLogo = () => (
 	<svg className="tw-logo-svg" viewBox="0 0 228 228" version="1.1" aria-hidden="true">
-		<g id="Group" transform="translate(114.000000, 114.000000) rotate(45.000000) translate(-114.000000, -114.000000) translate(14.000000, 14.000000)">
-			<rect className="hatch-1" fill="#EF5350" x="0" y="90" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-2" fill="#D8D8D8" transform="translate(155.000000, 100.000000) rotate(90.000000) translate(-155.000000, -100.000000) " x="55" y="90" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-2" fill="#D8D8D8" transform="translate(45.000000, 100.000000) rotate(90.000000) translate(-45.000000, -100.000000) " x="-55" y="90" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-1" fill="#EF5350" x="0" y="35" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-1" fill="#EF5350" x="0" y="145" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-2" fill="#D8D8D8" transform="translate(100.000000, 100.000000) rotate(90.000000) translate(-100.000000, -100.000000) " x="0" y="90" width="200" height="20" rx="10"></rect>
-			<rect className="hatch-1" fill="#EF5350" x="65" y="90" width="76" height="20" rx="10"></rect>
+		<g transform="translate(114.000000, 114.000000) rotate(45.000000) translate(-114.000000, -114.000000) translate(14.000000, 14.000000)">
+			<path d="M81,129 L181,129 C188.731986,129 195,135.268014 195,143 C195,150.731986 188.731986,157 181,157 L81,157 L81,157 L81,129 Z" className="hatch-2" fill="#D8D8D8" transform="translate(138.000000, 143.000000) rotate(90.000000) translate(-138.000000, -143.000000) "></path>
+			<path d="M138,0 C145.731986,-1.42034288e-15 152,6.2680135 152,14 L152,38 L152,38 L124,38 L124,14 C124,6.2680135 130.268014,1.42034288e-15 138,0 Z" className="hatch-2" fill="#D8D8D8"></path>
+			<path d="M86,48 L186,48 C193.731986,48 200,54.2680135 200,62 C200,69.7319865 193.731986,76 186,76 L86,76 L86,76 L86,48 Z" className="hatch-1" fill="#EF5350"></path>
+			<path d="M48,162 L76,162 L76,186 C76,193.731986 69.7319865,200 62,200 C54.2680135,200 48,193.731986 48,186 L48,162 L48,162 Z" className="hatch-2" fill="#D8D8D8"></path>
+			<path d="M162,124 L186,124 C193.731986,124 200,130.268014 200,138 C200,145.731986 193.731986,152 186,152 L162,152 L162,152 L162,124 Z" className="hatch-1" fill="#EF5350"></path>
+			<path d="M14,124 L114,124 L114,124 L114,152 L14,152 C6.2680135,152 9.46895252e-16,145.731986 0,138 C-9.46895252e-16,130.268014 6.2680135,124 14,124 Z" className="hatch-1" fill="#EF5350"></path>
+			<path d="M62,0 C69.7319865,-1.42034288e-15 76,6.2680135 76,14 L76,114 L76,114 L48,114 L48,14 C48,6.2680135 54.2680135,1.42034288e-15 62,0 Z" className="hatch-2" fill="#D8D8D8"></path>
+			<path d="M14,48 L38,48 L38,48 L38,76 L14,76 C6.2680135,76 9.46895252e-16,69.7319865 0,62 C-9.46895252e-16,54.2680135 6.2680135,48 14,48 Z" className="hatch-1" fill="#EF5350"></path>
 		</g>
 	</svg>
 )
-
-export {NewLogo}
 
 export default Logo
