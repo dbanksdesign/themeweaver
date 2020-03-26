@@ -1,0 +1,21 @@
+.token-group {
+	padding: var(--size-padding-base) 0;
+	position: relative;
+}
+
+.token-group::before {
+	content: ' ';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	border-top: 0.25rem solid var(--theme-border-tertiary);
+}
+
+.token-group-title {
+	
+}
+
+.token-group-description {
+	
+}

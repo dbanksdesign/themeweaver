@@ -1,11 +1,13 @@
 import React from 'react';
 
+import './TokenGroup.css';
+
 const TokenGroup = ({ title, description, children, id }) => (
-	<div className="section" id={id}>
-		<h3>{title}</h3>
-		<p>{description}</p>
+	<section className="token-group" id={id}>
+		<h3 className="token-group-title">{title}</h3>
+		<p className="token-group-description">{description}</p>
 		{children}
-	</div>
+	</section>
 )
 
 export default TokenGroup

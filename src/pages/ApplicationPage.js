@@ -282,7 +282,7 @@ const sections = [{
 		description: `Activity bar focus border color for the active item.`,
 	}]
 },{
-	title: ``,
+	title: `Sidebar`,
 	description: ``,
 	tokens: [{
 		path: `application.sideBar.background`,
@@ -851,7 +851,7 @@ const sections = [{
 		description: `Common ancestor overview ruler foreground for inline merge conflicts`
 	}]
 },{
-	title: ``,
+	title: `Panel`,
 	description: ``,
 	tokens:[{
 		path: `application.panel.background`,
@@ -898,24 +898,25 @@ class ApplicationPage extends React.Component {
 			<div className="page-with-toc">
 				<TOC links={links} />
 				<div className="page-content">
-				<p>These are all the colors the application. Edit these values if you want to change specific things.</p>
-				{sections.map(section => (
-					<TokenGroup {...section}
-						key={section.title}
-						id={section.title.replace(' ','-')}>
-						{section.tokens.map(({ path, description }) => {
-							if (!tokens[path]) { console.log(path); }
-							return (
-								<Token {...tokens[path]}
-									path={path}
-									key={path}
-									description={description}
-									updateToken={updateToken}
-									tokenNames={tokenNames} />
-							)
-						})}
-					</TokenGroup>
-				))}
+					<h1>Application styles</h1>
+					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is Hardcore mode.</p>
+					{sections.map(section => (
+						<TokenGroup {...section}
+							key={section.title}
+							id={section.title.replace(' ','-')}>
+							{section.tokens.map(({ path, description }) => {
+								if (!tokens[path]) { console.log(path); }
+								return (
+									<Token {...tokens[path]}
+										path={path}
+										key={path}
+										description={description}
+										updateToken={updateToken}
+										tokenNames={tokenNames} />
+								)
+							})}
+						</TokenGroup>
+					))}
 				</div>
 			</div>
 		)

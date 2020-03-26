@@ -13,6 +13,7 @@ import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import { lsSet, lsGet } from './helpers/localStorage';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import DownloadPage from './pages/DownloadPage';
 import BasePage from './pages/BasePage';
 import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
@@ -424,80 +425,70 @@ class App extends Component {
 		const resolvedSyntaxTokens = createResolvedTokenObject(this.state.allTokens, `syntax`);
 		const resolvedApplicationTokens = createResolvedTokenObject(this.state.allTokens, `application`);
 		
+		const { allTokens, currentTheme } = this.state;
+		
 		return (
 			<Router>
 				<div className="app">
 					<ScrollTop />
 					<Header />
-					<CSSVars tokens={this.state.allTokens} />
+					<CSSVars tokens={allTokens} />
 				
 					<div className="editor-pane">
-					<Switch>
-						<Route exact path="/">
-							<HomePage
-								changeTheme={this.changeTheme}
-								currentTheme={this.state.currentTheme}
-								updateTokens={this.updateTokens} />
-						</Route>
-						<Route path="/about">
-							<AboutPage />
-						</Route>
-						<Route path="/base">
-							<BasePage
-								tokens={baseTokens}
-								colorType={this.state.colorType}
-								updateColorType={this.updateColorType}
-								updateToken={this.updateToken} />
-						</Route>
-						<Route path="/theme">
-							<ThemePage
-								tokens={themeTokens}
-								tokenNames={tokenNames}
-								currentTheme={this.state.currentTheme}
-								changeTheme={this.changeTheme}
-								updateToken={this.updateToken} />
-						</Route>
-						<Route path="/application">
-							<ApplicationPage
-								tokens={applicationTokens}
-								tokenNames={tokenNames}
-								updateToken={this.updateToken} />
-						</Route>
-						<Route path="/syntax">
-							<SyntaxPage
-								tokens={syntaxTokens}
-								tokenNames={tokenNames}
-								updateFontStyle={this.updateFontStyle}
-								updateToken={this.updateToken} />
-						</Route>
-					</Switch>
-				</div>
-
-				<div className="preview-pane vscode">
-					<Workbench>
-						<VSCodeEditor
-							currentTheme={this.state.currentTheme}
-							syntaxTokens={resolvedSyntaxTokens}
-							applicationTokens={resolvedApplicationTokens} />
-					</Workbench>
-				</div>
-				
-					{/* <Switch>
-						<Route exact path="/">
-							<Page title="About">
+						<Switch>
+							<Route exact path="/">
+								<HomePage
+									changeTheme={this.changeTheme}
+									currentTheme={currentTheme}
+									updateTokens={this.updateTokens} />
+							</Route>
+							<Route path="/about">
 								<AboutPage />
-							</Page>
-						</Route>
-						<Route path="/editor">
-							<EditorPage
-								allTokens={this.state.allTokens}
-								updateToken={this.updateToken}
-								updateFontStyle={this.updateFontStyle}
-								currentTheme={this.state.currentTheme}
-								changeTheme={this.changeTheme}
-								importTheme={this.importTheme} />
-						</Route>
-					</Switch> */}
+							</Route>
+							<Route path="/download">
+								<DownloadPage
+									currentTheme={currentTheme}
+									allTokens={allTokens} />
+							</Route>
+							<Route path="/base">
+								<BasePage
+									tokens={baseTokens}
+									colorType={this.state.colorType}
+									updateColorType={this.updateColorType}
+									updateToken={this.updateToken} />
+							</Route>
+							<Route path="/theme">
+								<ThemePage
+									tokens={themeTokens}
+									tokenNames={tokenNames}
+									currentTheme={currentTheme}
+									changeTheme={this.changeTheme}
+									updateToken={this.updateToken} />
+							</Route>
+							<Route path="/application">
+								<ApplicationPage
+									tokens={applicationTokens}
+									tokenNames={tokenNames}
+									updateToken={this.updateToken} />
+							</Route>
+							<Route path="/syntax">
+								<SyntaxPage
+									tokens={syntaxTokens}
+									tokenNames={tokenNames}
+									updateFontStyle={this.updateFontStyle}
+									updateToken={this.updateToken} />
+							</Route>
+						</Switch>
+					</div>
+
+					<div className="preview-pane vscode">
+						<Workbench>
+							<VSCodeEditor
+								currentTheme={currentTheme}
+								syntaxTokens={resolvedSyntaxTokens}
+								applicationTokens={resolvedApplicationTokens} />
+						</Workbench>
+					</div>
 				</div>
 			</Router>
 		)

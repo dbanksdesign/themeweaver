@@ -34,8 +34,8 @@
 	--size-breakpoint-medium : 1000px;
 	--size-breakpoint-large : 1400px;
 	
-	--size-header-height: 3rem;
-	--size-header-offset: calc(var(--size-header-height) + var(--size-padding-base));
+	--size-header-height: 4rem;
+	--size-header-offset: 5rem;
 
 	--time-duration-base: 0.2s;
 
@@ -43,13 +43,10 @@
 	--font-family-primary: 'Source Sans Pro', 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
-/* * {
-	box-sizing: border-box;
-} */
-
 body {
   margin: 0;
-  font-family: var(--font-family-primary);
+	font-family: var(--font-family-primary);
+	font-size: 125%;
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--application-editor-background);
@@ -73,8 +70,27 @@ a:hover {
 	color: var(--application-textLink-activeForeground);
 }
 
-code {
-  font-family: var(--font-family-mono);
+pre {
+	font-family: var(--font-family-mono);
+	padding: var(--size-padding-base);
+	background-color: var(--theme-background-secondary);
+}
+
+button {
+	transition: all 0.3s ease;
+	cursor: pointer;
+	flex: 1;
+	display: block;
+	padding: var(--size-padding-base);
+	margin: 0 var(--size-padding-small);
+	font-size: var(--size-font-base);
+	color: var(--application-button-foreground);
+	background-color: var(--application-button-background);
+	border: 1px solid var(--application-button-background);
+}
+
+button:hover {
+	background-color: var(--application-button-hoverBackground);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -96,6 +112,10 @@ h3 {
 
 h4 {
 	font-size: var(--size-font-large);
+}
+
+*::selection {
+	background-color: var(--application-selection-background);
 }
 
 .swatch {
@@ -245,7 +265,7 @@ hr {
 	border: none;
 	width: 50%;
 	height: 0.25rem;
-	background-color: var(--theme-background-tertiary);
+	background-color: var(--theme-border-tertiary);
 	margin: var(--size-padding-base) 0;
 }
 
@@ -273,6 +293,12 @@ hr {
 	width: 50%;
 	box-shadow: 0 0 1rem var(--tm-shadow),
 		0 0 0 1px var(--tm-shadow);
+	border: 1px solid var(--application-window-inactiveBorder);
+}
+
+.preview-pane:focus,
+.preview-pane:focus-within {
+	border-color: var(--application-window-activeBorder);
 }
 
 .page-with-toc {
@@ -282,7 +308,7 @@ hr {
 
 .toc {
 	position: sticky;
-	top: 4rem;
+	top: var(--size-header-offset);
 	width: 10rem;
 	align-self: start;
 }
@@ -383,4 +409,14 @@ hr {
 	outline-offset: 0.25rem;
 	outline-width: 2px;
 	outline-color: var(--application-button-hoverBackground);
+}
+
+.copy-textarea {
+	/* visibility: hidden; */
+	opacity: 0;
+}
+
+.copy-text {
+	max-height: 20rem;
+	overflow-y: auto;
 }

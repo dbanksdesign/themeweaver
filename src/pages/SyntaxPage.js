@@ -83,6 +83,10 @@ class SyntaxPage extends React.Component {
 			<div className="page-with-toc">
 				<TOC links={links} />
 				<div className="page-content">
+					<h1>Syntax styles</h1>
+					<p>These style <strong>scopes</strong> in the editor.</p>
+					
+					<p>These are the common scopes you might use when creating a syntax highlighting theme, but this list is not exhaustive. If you'd like to add some or add the ability to add custom syntax scopes, <a href="https://github.com/dbanksdesign/themeweaver/pulls">open a PR</a>!</p>
 				{sections.map(section => (
 					<TokenGroup {...section}
 						key={section.title}

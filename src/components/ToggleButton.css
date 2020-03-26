@@ -7,7 +7,6 @@
 .toggle-button {
 	flex: 1;
 	display: block;
-	border: none;
 	padding: var(--size-padding-base);
 	margin: 0 var(--size-padding-small);
 	font-size: var(--size-font-base);

@@ -1,7 +1,9 @@
 import React from 'react'
 import smoothScroll from '../helpers/smoothScroll'
 
-class TOC extends React.Component {
+class TOC extends React.PureComponent {
+	static whyDidYouRender = true;
+	
 	state = {
 		index: 0,
 	}

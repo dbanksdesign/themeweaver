@@ -18,6 +18,8 @@ https://github.com/NeekSandhu/monaco-editor-textmate
 https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations
 https://code.visualstudio.com/api/references/theme-color
 
+https://tmtheme-editor.herokuapp.com/
+https://leonardocolor.io/
 https://www.npmjs.com/package/color
 
 ## Known issues

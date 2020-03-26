@@ -2,8 +2,7 @@
 	display: inline-flex;
 	height: 2rem;
 	line-height: 2rem;
-	padding: var(--size-padding-small) var(--size-padding-base);
-	/* vertical-align: middle; */
+	padding: var(--size-padding-base) var(--size-padding-base);
 }
 
 .tw-logo-svg {
@@ -40,4 +39,5 @@
 .tw-logo-text {
 	color: var(--theme-font-secondary);
 	padding-left: var(--size-padding-small);
+	font-weight: bold;
 }
