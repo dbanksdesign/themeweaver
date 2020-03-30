@@ -8,6 +8,7 @@ import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import createTextmateRules from '../helpers/createTextmateRules';
 import createTmPlist from '../helpers/createTmPlist';
 import createAllTokens from '../helpers/createAllTokens';
+import themeNameGenerator from '../helpers/themeNameGenerator';
 
 import generateiTerm from '../generators/iTerm';
 import generateSlack from '../generators/slack';
@@ -91,12 +92,20 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 			<title>Download Your Theme | Themeweaver</title>
 		</Helmet>
 		<h1>Download your theme</h1>
-		<label htmlFor="themeName">Theme Name</label>
-		<input type="text"
-			id="themeName"
-			value={themeName}
-			onChange={(e) => updateThemeName(e.target.value)} />
-		<button onClick={() => downloadTheme(allTokens, theme, themeName)}>
+		<label htmlFor="themeName">
+			First, give it a name
+		</label>
+		<div className="input-with-button">
+			<input type="text"
+				id="themeName"
+				value={themeName}
+				onChange={(e) => updateThemeName(e.target.value)} />
+			<button onClick={() => updateThemeName(themeNameGenerator())}>
+				Make me a random name!
+			</button>
+		</div>
+		
+		<button className="block" onClick={() => downloadTheme(allTokens, theme, themeName)}>
 			Download
 		</button>
 		

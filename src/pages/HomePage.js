@@ -19,7 +19,7 @@ const HomePage = () => (
 			</div>
 			<h1 className="home-header">Themeweaver</h1>
 			<p className="home-tagline">Create IDE &amp; syntax highlighting themes in your browser using design tokens!</p>
-			<Link className="button" to="/base">Get started</Link>
+			<Link className="button block" to="/base">Get started</Link>
 		</section>
 		
 		<section className="home-hero">

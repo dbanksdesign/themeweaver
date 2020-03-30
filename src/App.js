@@ -11,7 +11,6 @@ import resolveReference from './helpers/resolveReference';
 import generateTokenObjects from './helpers/generateTokenObjects';
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import { lsSet, lsGet } from './helpers/localStorage';
-import themeNameGenerator from './helpers/themeNameGenerator';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import DownloadPage from './pages/DownloadPage';
@@ -97,7 +96,7 @@ const defaultState = {
 		...theme['dark']
 	}),
 	currentTheme: 'dark',
-	themeName: themeNameGenerator(),
+	themeName: '',
 	theme
 }
 
@@ -106,7 +105,7 @@ class App extends Component {
 		super(props);
 		let initialState;
 		// Uncomment this when going live, commenting out so hot reloads work.
-		// const initialState = lsGet('state');
+		// initialState = lsGet('state');
 		
 		if (initialState) {
 			this.state = initialState;
@@ -443,11 +442,7 @@ class App extends Component {
 				
 					<Switch>
 						<Route exact path="/">
-							<HomePage
-								changeTheme={this.changeTheme}
-								currentTheme={currentTheme}
-								updateTokens={this.updateTokens}
-								resetState={this.resetState} />
+							<HomePage />
 						</Route>
 						<Route>
 						<div className="editor-pane">
@@ -469,7 +464,8 @@ class App extends Component {
 									colorType={this.state.colorType}
 									updateColorType={this.updateColorType}
 									updateTokens={this.updateTokens}
-									updateToken={this.updateToken} />
+									updateToken={this.updateToken}
+									resetState={this.resetState} />
 							</Route>
 							<Route path="/theme">
 								<ThemePage

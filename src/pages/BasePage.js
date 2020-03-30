@@ -286,12 +286,12 @@ const ColorMixer = ({ h, s, l, name, handleHue, handleSaturation, handleLightnes
 					<input
 						type="range"
 						style={{
-							background: `linear-gradient(to right, #000 0%, hsl(${HSL[0]},${HSL[1]*100}%,50%) 50%, #fff 100%)`
+							background: `linear-gradient(to right, hsl(${HSL[0]},${HSL[1]*100}%,10%) 0%, hsl(${HSL[0]},${HSL[1]*100}%,50%) 50%, hsl(${HSL[0]},${HSL[1]*100}%,90%) 100%)`
 						}}
-						min="-2" max="2"
+						min="-1" max="1"
 						value={l}
 						onChange={(e) => handleLightness(e.target.value, name)}
-						step="0.1"/>
+						step="0.01"/>
 				</div>
 				<div className="color-mixer">
 					<label className="color-mixer-label">Saturation</label>
@@ -444,8 +444,58 @@ class BasePage extends React.Component {
 		)
 	}
 	
+	resetColors = () => {
+		this.PINK = PINK;
+		this.setState({
+			primary: 'pink',
+			secondary: 'teal',
+			tertiary: 'purple',
+			grey: GREY,
+			greyHue: chroma(GREY[3].value).hsl()[0],
+			greySaturation: 0,
+			greyLightness: 0,
+			red: RED,
+			redHue: chroma(RED[3].value).hsl()[0],
+			redSaturation: 0,
+			redLightness: 0,
+			orange: ORANGE,
+			orangeHue: chroma(ORANGE[3].value).hsl()[0],
+			orangeSaturation: 0,
+			orangeLightness: 0,
+			yellow: YELLOW,
+			yellowHue: chroma(YELLOW[3].value).hsl()[0],
+			yellowSaturation: 0,
+			yellowLightness: 0,
+			lime: LIME,
+			limeHue: chroma(LIME[3].value).hsl()[0],
+			limeSaturation: 0,
+			limeLightness: 0,
+			green: GREEN,
+			greenHue: chroma(GREEN[3].value).hsl()[0],
+			greenSaturation: 0,
+			greenLightness: 0,
+			teal: TEAL,
+			tealHue: chroma(TEAL[3].value).hsl()[0],
+			tealSaturation: 0,
+			tealLightness: 0,
+			blue: BLUE,
+			blueHue: chroma(BLUE[3].value).hsl()[0],
+			blueSaturation: 0,
+			blueLightness: 0,
+			purple: PURPLE,
+			purpleHue: chroma(PURPLE[3].value).hsl()[0],
+			purpleSaturation: 0,
+			purpleLightness: 0,
+			pink: PINK,
+			pinkHue: chroma(PINK[3].value).hsl()[0],
+			pinkSaturation: 0,
+			pinkLightness: 0,
+		});
+		this.props.resetState();
+	}
+	
 	render() {
-		const { updateToken, tokens, tokenNames } = this.props;
+		const { updateToken, tokens, tokenNames, resetState } = this.props;
 		const links = sections.map(section => {
 			return {
 				label: section.title,
@@ -530,6 +580,9 @@ class BasePage extends React.Component {
 							})}
 						</TokenGroup>
 					))}
+					
+					{/* <button className="wide"
+						onClick={resetState}>Reset colors</button> */}
 				</div>
 			</div>
 		)

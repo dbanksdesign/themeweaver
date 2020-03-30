@@ -81,8 +81,6 @@ button,
 	transition: all 0.3s ease;
 	cursor: pointer;
 	flex: 1;
-	display: block;
-	width: 100%;
 	text-align: center;
 	padding: var(--size-padding-base);
 	/* margin: 0 var(--size-padding-small); */
@@ -91,6 +89,12 @@ button,
 	background-color: var(--application-button-background);
 	border: 1px solid var(--application-button-background);
 	font-weight: bold;
+}
+
+button.block,
+.button.block {
+	display: block;
+	width: 100%;
 }
 
 button:hover,
@@ -252,6 +256,7 @@ input[type=range]:focus::-ms-fill-upper {
 label {
 	display: block;
 	font-weight: bold;
+	margin-bottom: var(--size-padding-small);
 }
 
 .color-mixer-group {
@@ -418,4 +423,20 @@ hr {
 .copy-text {
 	max-height: 20rem;
 	overflow-y: auto;
+}
+
+
+.input-with-button {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: var(--size-padding-base);
+}
+
+.input-with-button > input {
+	flex: 1;
+}
+
+.input-with-button > button {
+	flex-basis: auto;
+	flex-grow: 0;
 }
