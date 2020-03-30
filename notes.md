@@ -32,12 +32,15 @@ https://www.npmjs.com/package/color
 * Finish editor sidebar
 * Finish other parts of editor (peek view, debug bar, etc.)
 * Add other preview files in preview editor
-* Finish Logo
 * Improve inputs
 * Add a simplified editor, pick a few colors, it generates the whole theme
 * Add settings for each theme (name, base, etc.)
 * Add documentation/content in editor inputs
 * Improved color picker (hsl,hex,lighten,darken,alpha,etc.)
-* Local storage to keep state
 
 Store colors as a class and transform to hex at the end? 
+
+## Generator notes:
+* https://flight-manual.atom.io/hacking-atom/sections/creating-a-theme/
+* https://www.jetbrains.org/intellij/sdk/docs/reference_guide/ui_themes/themes.html
+* https://github.com/dracula/jetbrains

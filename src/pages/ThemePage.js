@@ -1,4 +1,6 @@
 import React from 'react';
+import {Helmet} from 'react-helmet';
+
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
 import ToggleButton from '../components/ToggleButton';
@@ -227,8 +229,14 @@ class ThemePage extends React.Component {
 
 		return (
 			<div className="page-with-toc">
+				<Helmet>
+					<title>Theme Tokens | Themeweaver</title>
+				</Helmet>
 				<TOC links={links} />
 				<div className="page-content">
+					<h1>2. Theme Tokens</h1>
+					<p>Most theme packages contain multiple themes. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
+					
 					<ToggleButton
 						onClick={changeTheme}
 						buttons={[{

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import TokenGroup from '../components/TokenGroup';
 import SyntaxToken from '../components/SyntaxToken';
 import TOC from '../components/TOC';
@@ -23,49 +24,273 @@ const sections = [{
 	title: `Constant`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.constant.language.dart`,
+		description: ``
+	},{
+		path: `syntax.constant.language.boolean.false`,
+		description: ``
+	},{
+		path: `syntax.constant.language.boolean.true`,
+		description: ``
+	},{
+		path: `syntax.constant.language.import-export-all`,
+		description: ``
+	},{
+		path: `syntax.constant.language.null`,
+		description: ``
+	},{
+		path: `syntax.constant.language.symbol`,
+		description: ``
+	},{
+		path: `syntax.constant.language.undefined`,
+		description: ``
+	},{
+		path: `syntax.constant.numeric`,
+		description: ``
 	}]
 },{
 	title: `Entity`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.entity.name.tag`,
+		description: ``
+	},{
+		path: `syntax.entity.name.tag.reference`,
+		description: ``
+	},{
+		path: `syntax.entity.name.tag.yaml`,
+		description: ``
+	},{
+		path: `syntax.entity.name.type.module`,
+		description: ``
+	},{
+		path: `syntax.entity.name.function`,
+		description: ``
+	},{
+		path: `syntax.entity.other.attribute-name.id`,
+		description: ``
+	},{
+		path: `syntax.entity.other.attribute-name.class`,
+		description: ``
+	},{
+		path: `syntax.entity.other.attribute-name`,
+		description: ``
 	}]
 },{
 	title: `Invalid`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.invalid`,
+		description: ``
 	}]
 },{
 	title: `Keyword`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.keyword`,
+		description: ``
+	},{
+		path: `syntax.keyword.control`,
+		description: ``
+	},{
+		path: `syntax.keyword.control.import`,
+		description: ``
+	},{
+		path: `syntax.keyword.control.from`,
+		description: ``
+	},{
+		path: `syntax.keyword.control.flow`,
+		description: ``
+	},{
+		path: `syntax.keyword.operator`,
+		description: ``
+	},{
+		path: `syntax.keyword.operator.logical`,
+		description: ``
+	},{
+		path: `syntax.keyword.other.unit`,
+		description: ``
+	},{
+		path: ``,
+		description: ``
 	}]
 },{
 	title: `Markup`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.markup.bold`,
+		description: ``
+	},{
+		path: `syntax.markup.italic`,
+		description: ``
+	},{
+		path: `syntax.markup.fenced_code`,
+		description: ``
+	},{
+		path: `syntax.markup.heading`,
+		description: ``
+	},{
+		path: `syntax.markup.quote`,
+		description: ``
+	},{
+		path: `syntax.markup.underline.link`,
+		description: ``
 	}]
 },{
 	title: `Meta`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.meta.brace.round`,
+		description: ``
+	},{
+		path: `syntax.meta.brace.square`,
+		description: ``
+	},{
+		path: `syntax.meta.class`,
+		description: ``
+	},{
+		path: `syntax.meta.jsx.children`,
+		description: ``
+	},{
+		path: `syntax.meta.object`,
+		description: ``
+	},{
+		path: `syntax.meta.property-name.css`,
+		description: ``
+	},{
+		path: `syntax.meta.property-value.css`,
+		description: ``
+	},{
+		path: `syntax.meta.selector`,
+		description: ``
+	},{
+		path: `syntax.meta.structure.dictionary`,
+		description: ``
+	},{
+		path: `syntax.meta.tag.attributes`,
+		description: ``
+	},{
+		path: `syntax.meta.type.parameters`,
+		description: ``
+	},{
+		path: `syntax.meta.var.expr`,
+		description: ``
 	}]
 },{
 	title: `Punctuation`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.punctuation.accessor`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.array`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.block`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.dictionary`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.heading`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.list`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.parameters`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.string`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.tag`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.typeparameters`,
+		description: ``
+	},{
+		path: `syntax.punctuation.definition.template-expression`,
+		description: ``
+	},{
+		path: `syntax.punctuation.section`,
+		description: ``
+	},{
+		path: `syntax.punctuation.separator`,
+		description: ``
+	},{
+		path: `syntax.punctuation.terminator`,
+		description: ``
 	}]
 },{
 	title: `Storage`,
 	description: ``,
 	tokens: [{
-		
+		path: `syntax.storage`,
+		description: ``
+	}]
+},{
+	title: `String`,
+	description: ``,
+	tokens: [{
+		path: `syntax.string`,
+		description: ``
+	},{
+		path: `syntax.string.key`,
+		description: ``
+	}]
+},{
+	title: `Support`,
+	description: ``,
+	tokens: [{
+		path: `syntax.support.class`,
+		description: ``
+	},{
+		path: `syntax.support.class.component`,
+		description: ``
+	},{
+		path: `syntax.support.constant.color`,
+		description: ``
+	},{
+		path: `syntax.support.constant.font-name`,
+		description: ``
+	},{
+		path: `syntax.support.constant.property-value`,
+		description: ``
+	},{
+		path: `syntax.support.function`,
+		description: ``
+	},{
+		path: `syntax.support.type.property-name`,
+		description: ``
+	},{
+		path: `syntax.support.type.property-name.css`,
+		description: ``
+	},{
+		path: `syntax.support.type.vendored`,
+		description: ``
+	}]
+},{
+	title: `Variable`,
+	description: ``,
+	tokens: [{
+		path: `syntax.variable`,
+		description: ``
+	},{
+		path: `syntax.variable.language.super`,
+		description: ``
+	},{
+		path: `syntax.variable.language.this`,
+		description: ``
+	},{
+		path: `syntax.variable.other`,
+		description: ``
+	},{
+		path: `syntax.variable.other.constant`,
+		description: ``
+	},{
+		path: `syntax.variable.other.readwrite.alias`,
+		description: ``
 	}]
 }]
 class SyntaxPage extends React.Component {
@@ -81,9 +306,12 @@ class SyntaxPage extends React.Component {
 		
 		return (
 			<div className="page-with-toc">
+				<Helmet>
+					<title>Sytnax Tokens | Themeweaver</title>
+				</Helmet>
 				<TOC links={links} />
 				<div className="page-content">
-					<h1>Syntax styles</h1>
+					<h1>4. Syntax Tokens</h1>
 					<p>These style <strong>scopes</strong> in the editor.</p>
 					
 					<p>These are the common scopes you might use when creating a syntax highlighting theme, but this list is not exhaustive. If you'd like to add some or add the ability to add custom syntax scopes, <a href="https://github.com/dbanksdesign/themeweaver/pulls">open a PR</a>!</p>

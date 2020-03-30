@@ -26,13 +26,13 @@ export default {
 	},
   "syntax.constant.language.boolean.false": {
 		"foreground": "{theme.font.code.21}",
-		"background": "#ff9900",
-		"fontStyle": "bold"
+		"background": "",
+		"fontStyle": "underline bold"
 	},
   "syntax.constant.language.boolean.true": {
 		"foreground": "{theme.font.code.25}",
 		"background": "",
-		"fontStyle": "underline bold italic"
+		"fontStyle": "underline bold"
 	},
   "syntax.constant.language.import-export-all": {
 		"foreground": "{theme.font.code.27}",
@@ -54,12 +54,12 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.constant.numeric.*": {
+  "syntax.constant.numeric": {
 		"foreground": "{theme.font.code.29}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.entity.name.tag.*": {
+  "syntax.entity.name.tag": {
 		"foreground": "{theme.font.code.21}",
 		"background": "",
 		"fontStyle": ""
@@ -79,7 +79,7 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.entity.name.function.*": {
+  "syntax.entity.name.function": {
 		"foreground": "{theme.font.code.27}",
 		"background": "",
 		"fontStyle": ""
@@ -94,17 +94,22 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.entity.other.attribute-name.*": {
+  "syntax.entity.other.attribute-name": {
 		"foreground": "{theme.font.code.27}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.keyword.*": {
+  "syntax.invalid": {
+		"foreground": "{theme.font.code.21}",
+		"background": "",
+		"fontStyle": "bold underline"
+	},
+  "syntax.keyword": {
 		"foreground": "{theme.font.code.8}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.keyword.control.*": {
+  "syntax.keyword.control": {
 		"foreground": "{theme.font.code.8}",
 		"background": "",
 		"fontStyle": ""
@@ -124,7 +129,7 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.keyword.operator.*": {
+  "syntax.keyword.operator": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
@@ -169,27 +174,27 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.brace.round.*": {
+  "syntax.meta.brace.round": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.brace.square.*": {
+  "syntax.meta.brace.square": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.class.*": {
+  "syntax.meta.class": {
 		"foreground": "{theme.font.code.22}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.jsx.children.*": {
+  "syntax.meta.jsx.children": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.object.*": {
+  "syntax.meta.object": {
 		"foreground": "{theme.font.code.29}",
 		"background": "",
 		"fontStyle": ""
@@ -204,12 +209,12 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.selector.*": {
+  "syntax.meta.selector": {
 		"foreground": "{theme.font.code.5}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.structure.dictionary.*": {
+  "syntax.meta.structure.dictionary": {
 		"foreground": "{theme.font.code.28}",
 		"background": "",
 		"fontStyle": ""
@@ -224,7 +229,7 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.meta.var.expr.*": {
+  "syntax.meta.var.expr": {
 		"foreground": "{theme.font.code.8}",
 		"background": "",
 		"fontStyle": ""
@@ -264,12 +269,12 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.definition.string.*": {
+  "syntax.punctuation.definition.string": {
 		"foreground": "{theme.font.code.25}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.definition.tag.*": {
+  "syntax.punctuation.definition.tag": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
@@ -279,32 +284,32 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.definition.template-expression.*": {
+  "syntax.punctuation.definition.template-expression": {
 		"foreground": "{theme.font.code.21}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.section.*": {
+  "syntax.punctuation.section": {
 		"foreground": "{theme.font.secondary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.separator.*": {
+  "syntax.punctuation.separator": {
 		"foreground": "{theme.font.primary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.punctuation.terminator.*": {
+  "syntax.punctuation.terminator": {
 		"foreground": "{theme.font.tertiary}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.storage.*": {
+  "syntax.storage": {
 		"foreground": "{theme.font.code.8}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.string.*": {
+  "syntax.string": {
 		"foreground": "{theme.font.code.25}",
 		"background": "",
 		"fontStyle": ""
@@ -314,17 +319,12 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.source.json": {
-		"foreground": "",
-		"background": "",
-		"fontStyle": ""
-	},
-  "syntax.support.class.*": {
+  "syntax.support.class": {
 		"foreground": "{theme.font.code.22}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.support.class.component.*": {
+  "syntax.support.class.component": {
 		"foreground": "{theme.font.code.22}",
 		"background": "",
 		"fontStyle": ""
@@ -344,12 +344,12 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.support.function.*": {
+  "syntax.support.function": {
 		"foreground": "{theme.font.code.8}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.support.type.property-name.*": {
+  "syntax.support.type.property-name": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",
 		"fontStyle": ""
@@ -364,7 +364,7 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.variable.*": {
+  "syntax.variable": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",
 		"fontStyle": ""
@@ -379,17 +379,17 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.variable.other.*": {
+  "syntax.variable.other": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.variable.other.constant.*": {
+  "syntax.variable.other.constant": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",
 		"fontStyle": ""
 	},
-  "syntax.variable.other.readwrite.alias.*": {
+  "syntax.variable.other.readwrite.alias": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",
 		"fontStyle": ""

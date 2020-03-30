@@ -5,12 +5,10 @@
 	width: 100%;
 	box-shadow: 0 0 1rem var(--tm-shadow),
 		0 0 0 1px var(--tm-shadow);
-	/* margin: 0 var(--size-padding-base) var(--size-padding-base) var(--size-padding-base); */
-	background-color: var(--application-activityBar-background);
+	background-color: var(--theme-background-secondary);
 	z-index: 100;
 	display: flex;
 	flex-direction: row;
-	/* justify-content: space-between; */
 }
 
 .tw-header-primary-nav {

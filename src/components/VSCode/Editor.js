@@ -210,7 +210,7 @@ const themeMap = {
 
 class VSCodeEditor extends React.PureComponent {
 	state = {
-		currentTab: 0
+		currentTab: 1
 	}
 	
 	defineTheme = () => {

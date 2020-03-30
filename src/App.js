@@ -11,6 +11,7 @@ import resolveReference from './helpers/resolveReference';
 import generateTokenObjects from './helpers/generateTokenObjects';
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import { lsSet, lsGet } from './helpers/localStorage';
+import themeNameGenerator from './helpers/themeNameGenerator';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import DownloadPage from './pages/DownloadPage';
@@ -85,6 +86,20 @@ const createAllTokens = (tokenObject) => {
 	
 	return allTokens;
 }
+const theme = {
+	dark: _dark,
+	light: _light
+}
+
+const defaultState = {
+	allTokens: createAllTokens({
+		..._allTokens,
+		...theme['dark']
+	}),
+	currentTheme: 'dark',
+	themeName: themeNameGenerator(),
+	theme
+}
 
 class App extends Component {
 	constructor(props) {
@@ -96,27 +111,9 @@ class App extends Component {
 		if (initialState) {
 			this.state = initialState;
 		} else {
-			// initial state setup
-			const theme = {
-				dark: _dark,
-				light: _light
-			}
-			const defaultTheme = 'dark';
-			const allTokens = createAllTokens({
-				..._allTokens,
-				...theme[defaultTheme]
-			});
-			
-			document.body.classList.add(defaultTheme);
-
-			this.state = {
-				theme,
-				allTokens,
-				currentTheme: defaultTheme,
-				colorType: `hsl`
-			};
+			this.state = defaultState;
 		}
-		
+		document.body.classList.add(this.state.defaultTheme);
 	}
 	
 	updateTokens = ( _tokens ) => {
@@ -410,6 +407,16 @@ class App extends Component {
 		});
 	}
 	
+	resetState = () => {
+		this.setState(defaultState);
+	}
+	
+	updateThemeName = (name) => {
+		this.setState({
+			themeName: name
+		});
+	}
+	
 	render() {
 		// save state to localstorage
 		lsSet('state', this.state);
@@ -425,7 +432,7 @@ class App extends Component {
 		const resolvedSyntaxTokens = createResolvedTokenObject(this.state.allTokens, `syntax`);
 		const resolvedApplicationTokens = createResolvedTokenObject(this.state.allTokens, `application`);
 		
-		const { allTokens, currentTheme } = this.state;
+		const { allTokens, currentTheme, theme, themeName } = this.state;
 		
 		return (
 			<Router>
@@ -434,19 +441,25 @@ class App extends Component {
 					<Header />
 					<CSSVars tokens={allTokens} />
 				
-					<div className="editor-pane">
+					<Switch>
+						<Route exact path="/">
+							<HomePage
+								changeTheme={this.changeTheme}
+								currentTheme={currentTheme}
+								updateTokens={this.updateTokens}
+								resetState={this.resetState} />
+						</Route>
+						<Route>
+						<div className="editor-pane">
 						<Switch>
-							<Route exact path="/">
-								<HomePage
-									changeTheme={this.changeTheme}
-									currentTheme={currentTheme}
-									updateTokens={this.updateTokens} />
-							</Route>
 							<Route path="/about">
 								<AboutPage />
 							</Route>
 							<Route path="/download">
 								<DownloadPage
+									theme={theme}
+									themeName={themeName}
+									updateThemeName={this.updateThemeName}
 									currentTheme={currentTheme}
 									allTokens={allTokens} />
 							</Route>
@@ -455,6 +468,7 @@ class App extends Component {
 									tokens={baseTokens}
 									colorType={this.state.colorType}
 									updateColorType={this.updateColorType}
+									updateTokens={this.updateTokens}
 									updateToken={this.updateToken} />
 							</Route>
 							<Route path="/theme">
@@ -489,6 +503,10 @@ class App extends Component {
 								applicationTokens={resolvedApplicationTokens} />
 						</Workbench>
 					</div>
+						</Route>
+					</Switch>
+				
+
 				</div>
 			</Router>
 		)

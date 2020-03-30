@@ -16,9 +16,9 @@
 .token-field-input {
 	display: block;
 	flex: 1;
-	padding: var(--size-padding-base);
+	/* padding: var(--size-padding-base);
 	background-color: var(--application-input-background);
-	border: 1px solid var(--application-focusBorder);
+	border: 1px solid var(--application-focusBorder); */
 	border-right: none;
 }
 

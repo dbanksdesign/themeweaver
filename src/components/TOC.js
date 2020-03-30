@@ -12,6 +12,8 @@ class TOC extends React.PureComponent {
 		this.offsets = this.props.links.map((link) => {
 			if (document.getElementById(link.anchor)) {
 				return document.getElementById(link.anchor).offsetTop;
+			} else {
+				return null;
 			}
 		});
 		

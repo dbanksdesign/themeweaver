@@ -51,6 +51,8 @@ const VSCodeExplorer = () => (
 						indent={1} />
 					<ListRow
 						label="js.js"
+						focused={true}
+						selected={true}
 						iconClass="js-ext-file-icon"
 						indent={1} />
 					<ListRow

@@ -76,21 +76,27 @@ pre {
 	background-color: var(--theme-background-secondary);
 }
 
-button {
+button,
+.button {
 	transition: all 0.3s ease;
 	cursor: pointer;
 	flex: 1;
 	display: block;
+	width: 100%;
+	text-align: center;
 	padding: var(--size-padding-base);
-	margin: 0 var(--size-padding-small);
+	/* margin: 0 var(--size-padding-small); */
 	font-size: var(--size-font-base);
 	color: var(--application-button-foreground);
 	background-color: var(--application-button-background);
 	border: 1px solid var(--application-button-background);
+	font-weight: bold;
 }
 
-button:hover {
+button:hover,
+.button:hover {
 	background-color: var(--application-button-hoverBackground);
+	color: var(--application-button-foreground);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -127,9 +133,12 @@ h4 {
 input {
 	background-color: var(--application-input-background);
 	color: var(--application-input-foreground);
-	border-color: var(--application-input-border);
-	padding: var(--size-padding-small);
+	border: 1px solid var(--application-focusBorder);
+	padding: var(--size-padding-base);
 	font-size: 1rem;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 input:focus {
@@ -144,6 +153,7 @@ input[type=range] {
 	background-color: transparent;
 	border-radius: 1rem;
 	padding: 0.5rem 0;
+	border-width: 0;
 }
 input[type=range]:focus {
   outline: none;
@@ -243,6 +253,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 label {
 	display: block;
+	font-weight: bold;
 }
 
 .color-mixer-group {
@@ -269,20 +280,10 @@ hr {
 	margin: var(--size-padding-base) 0;
 }
 
-.app-page {
-	/* padding: var(--size-padding-large);
-	position: relative; */
-}
-
-.app {
+.editor-pane {
 	margin-right: 50%;
 	padding-right: var(--size-padding-xl);
 	padding-top: 4rem;
-}
-
-.editor-pane {
-	/* display: grid;
-	grid-template-columns: auto 1fr; */
 }
 
 .preview-pane {

@@ -1,0 +1,24 @@
+.homepage {
+	margin-top: var(--size-header-offset);
+}
+
+.home-hero {
+	text-align: center;
+	padding: var(--size-padding-xl);
+	max-width: 50%;
+	margin: 0 auto;
+}
+
+.home-header {
+	
+}
+
+.home-tagline {
+	
+}
+
+.home-logo {
+	width: 4rem;
+	height: 4rem;
+	display: inline-block;
+}

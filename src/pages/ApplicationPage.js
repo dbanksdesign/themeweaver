@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
@@ -896,9 +897,12 @@ class ApplicationPage extends React.Component {
 
 		return (
 			<div className="page-with-toc">
+				<Helmet>
+					<title>Application Tokens | Themeweaver</title>
+				</Helmet>
 				<TOC links={links} />
 				<div className="page-content">
-					<h1>Application styles</h1>
+					<h1>3. Application Tokens</h1>
 					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is Hardcore mode.</p>
 					{sections.map(section => (
 						<TokenGroup {...section}

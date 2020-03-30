@@ -1,6 +1,7 @@
 .toggle-buttons {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	margin-bottom: var(--size-padding-base);
 }
 
@@ -13,6 +14,12 @@
 	color: var(--application-button-foreground);
 	background-color: transparent;
 	border: 1px solid var(--application-button-background);
+}
+
+.color-toggle > .toggle-button {
+	margin: 0;
+	width: 33.3%;
+	flex-basis: 33.3%;
 }
 
 .toggle-button:hover {
@@ -31,4 +38,42 @@
 	outline-offset: 0.25rem;
 	outline-width: 2px;
 	outline-color: var(--application-button-hoverBackground);
+}
+
+.tertiary > .toggle-button {
+	border-color: var(--theme-background-interactive-tertiary-base);
+}
+
+.tertiary > .toggle-button:hover {
+	background-color: var(--theme-background-interactive-tertiary-hover);
+}
+
+.tertiary > .toggle-button:active,
+.tertiary > .toggle-button.active {
+	border-color: transparent;
+	background-color: var(--theme-background-interactive-tertiary-hover);
+}
+
+.tertiary > .toggle-button:active,
+.tertiary > .toggle-button:focus {
+	outline-color: var(--theme-background-interactive-tertiary-hover);
+}
+
+.secondary > .toggle-button {
+	border-color: var(--theme-background-interactive-secondary-base);
+}
+
+.secondary > .toggle-button:hover {
+	background-color: var(--theme-background-interactive-secondary-hover);
+}
+
+.secondary > .toggle-button:active,
+.secondary > .toggle-button.active {
+	border-color: transparent;
+	background-color: var(--theme-background-interactive-secondary-hover);
+}
+
+.secondary > .toggle-button:active,
+.secondary > .toggle-button:focus {
+	outline-color: var(--theme-background-interactive-secondary-hover);
 }
