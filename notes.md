@@ -18,6 +18,8 @@ https://github.com/NeekSandhu/monaco-editor-textmate
 https://code.visualstudio.com/blogs/2017/02/08/syntax-highlighting-optimizations
 https://code.visualstudio.com/api/references/theme-color
 
+https://upsource.jetbrains.com/idea-ce/file/idea-ce-e2d423f42b53eafd5c625b93149a0ebc7e49756c/platform/platform-resources/src/themes/highContrastScheme.xml
+
 https://tmtheme-editor.herokuapp.com/
 https://leonardocolor.io/
 https://www.npmjs.com/package/color
@@ -33,10 +35,13 @@ https://www.npmjs.com/package/color
 * Finish other parts of editor (peek view, debug bar, etc.)
 * Add other preview files in preview editor
 * Improve inputs
-* Add a simplified editor, pick a few colors, it generates the whole theme
 * Add settings for each theme (name, base, etc.)
 * Add documentation/content in editor inputs
 * Improved color picker (hsl,hex,lighten,darken,alpha,etc.)
+* Token search/filter
+* Common elements section
+* Quick start section
+* Select base theme
 
 Store colors as a class and transform to hex at the end? 
 

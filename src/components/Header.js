@@ -1,11 +1,15 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import clsx from 'clsx';
 import Logo from './Logo';
 
 import './Header.css';
 
-const NavItem = React.memo(({to, label}) => (
-	<NavLink className="tw-header-nav-item" activeClassName="active" to={to}>
+const NavItem = React.memo(({to, label, className}) => (
+	<NavLink className={clsx(
+		"tw-header-nav-item",
+		className
+		)} activeClassName="active" to={to}>
 		{label}
 	</NavLink>
 ));
@@ -27,16 +31,18 @@ const Header = React.memo(() => {
 		<header className="tw-header">
 			<Link className="tw-logo-link" to="/">
 				<Logo />
-				<span className="tw-logo-text">Themeweaver</span>
+				{/* <span className="tw-logo-text">Themeweaver</span> */}
 			</Link>
 			<nav className="tw-header-primary-nav">
-				<NavItem to="/base" label="1. Base" />
-				<NavItem to="/theme" label="2. Theme" />
-				<NavItem to="/application" label="3. Application" />
-				<NavItem to="/syntax" label="4. Syntax" />
-				<NavItem to="/download" label="5. Download" />
+				<NavItem to="/editor/base" label="Base" />
+				<NavItem to="/editor/theme" label="Theme" />
+				<NavItem to="/editor/application" label="Application" />
+				<NavItem to="/editor/syntax" label="Syntax" />
+				<NavItem to="/editor/export" label="Export" />
 			</nav>
 			<nav className="tw-header-secondary-nav">
+				
+				{/* <NavItem to="/about" label="About" /> */}
 				<Github />
 			</nav>
 		</header>

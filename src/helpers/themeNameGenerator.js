@@ -8,7 +8,12 @@ const firstNames = [
 	'Alpha',
 	'Omega',
 	'Acid',
-	'Hyper'
+	'Hyper',
+	'Cobalt',
+	'Groove',
+	'Azure',
+	'Pure',
+	'Deep'
 ];
 
 const lastNames = [
@@ -24,7 +29,10 @@ const lastNames = [
 	'Source',
 	'Space',
 	'Zero',
-	'Boogaloo'
+	'Boogaloo',
+	'Panda',
+	'Horizon',
+	'Moon'
 ]
 
 

@@ -39,7 +39,7 @@ export default {
 				}
 			} else {
 				yScroll = settings.easing.outQuint(0, elapsed, offset, targetY, settings.duration);
-				window.scrollTo(0, yScroll);
+				document.getElementById('page-content').scrollTo(0, yScroll);
 				this.timer = setTimeout(step, 10);
 			}
 		}
@@ -53,29 +53,15 @@ export default {
 		this.scrollToPosition(offset, targetY, callback);
 	},
 
-	scrollTo: function (id, callback) {
+	scrollTo: function (id, scrollableId, offset, callback) {
+		offset = offset || 0;
 		var node = document.getElementById(id);
-		var nodeTop = node.offsetTop;
-		var nodeHeight = node.offsetHeight;
-		var body = document.body;
-		var html = document.documentElement;
-		var height = Math.max(
-			body.scrollHeight,
-			body.offsetHeight,
-			html.clientHeight,
-			html.scrollHeight,
-			html.offsetHeight
-		);
-		var windowHeight = window.innerHeight
-		var offset = window.pageYOffset;
-		var delta = nodeTop - offset;
-		var bottomScrollableY = height - windowHeight;
-		var targetY = (bottomScrollableY < delta) ?
-			bottomScrollableY - (height - nodeTop - nodeHeight + offset):
-			delta;
-		var fontSize = parseInt(getComputedStyle(document.documentElement)
-    	.getPropertyValue('font-size'), 10);
-		targetY -= fontSize * 5; // 5rem
-		this.scrollToPosition(offset, targetY, callback);
+		if (node) {
+			var nodeTop = node.offsetTop;
+			var scrollable = document.getElementById(scrollableId);
+			var scrollTop = scrollable.scrollTop;
+			var delta = nodeTop - scrollTop - offset;
+			this.scrollToPosition(scrollTop, delta, callback);
+		}
 	}
 };

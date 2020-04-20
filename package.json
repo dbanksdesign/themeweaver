@@ -5,6 +5,7 @@
   "dependencies": {
     "@welldone-software/why-did-you-render": "^4.0.5",
     "chroma-js": "^2.1.0",
+    "clsx": "^1.1.0",
     "color": "^3.1.2",
     "file-saver": "^2.0.2",
     "immutability-helper": "^3.0.1",
@@ -19,6 +20,7 @@
     "rc-slider": "^9.2.3",
     "react": "^16.13.1",
     "react-color": "^2.18.0",
+    "react-debounce-render": "^6.0.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-monaco-editor": "^0.35.0",

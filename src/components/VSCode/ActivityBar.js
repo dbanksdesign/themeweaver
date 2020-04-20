@@ -49,20 +49,6 @@ const ActivityBar = () => (
 							</div>
 							<div className="active-item-indicator"></div>
 						</li>
-						
-						<li className="action-item" role="button" draggable="true" tabIndex="0" aria-label="GitLens" title="GitLens">
-							<span className="action-label activity-workbench-view-extension-gitlens" aria-label="GitLens" title="GitLens" />
-							<div className="badge" aria-hidden="true" aria-label="GitLens" title="GitLens">
-							</div>
-							<div className="active-item-indicator"></div>
-						</li>
-						
-						<li className="action-item" role="button" draggable="true" tabIndex="0" aria-label="GitHub Pull Requests" title="GitHub Pull Requests">
-							<span className="action-label activity-workbench-view-extension-github-pull-requests" aria-label="GitHub Pull Requests" title="GitHub Pull Requests" />
-							<div className="badge" aria-hidden="true" aria-label="GitHub Pull Requests" title="GitHub Pull Requests">
-							</div>
-							<div className="active-item-indicator"></div>
-						</li>
 					</ul>
 				</div>
 			</div>

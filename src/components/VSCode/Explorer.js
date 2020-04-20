@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ListRow = ({ label, iconClass, focused, selected, indent=0, activeIndent=0, modified, isFolder }) => {
+const ListRow = ({ label, iconClass, focused, selected, indent=0, activeIndent=0, modified, isFolder, onClick }) => {
 	const indents = [...Array(indent||0).keys()];
 	return (
-		<div className={`monaco-list-row ${modified?'modified':''} ${focused?'focused':''} ${selected?'selected':''}`} role="treeitem" data-index="7" data-last-element="false" aria-setsize="14" aria-posinset="8" aria-label=".gitignore" aria-level="1" draggable="true">
+		<div className={`monaco-list-row ${modified?'modified':''} ${focused?'focused':''} ${selected?'selected':''}`} role="treeitem" data-index="7" data-last-element="false" aria-setsize="14" aria-posinset="8" aria-label=".gitignore" aria-level="1" draggable="true" onClick={onClick}>
 			<div className="monaco-tl-row">
 				<div className="monaco-tl-indent">
 					{indents.map((_,i) => (

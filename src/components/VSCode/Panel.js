@@ -14,18 +14,18 @@ const Panel = () => (
 								<div className="badge-content" />
 							</div>
 						</li>
-						<li className="action-item" role="tab" draggable="true" tabIndex="0" aria-label="Problems (⇧⌘M) - Total 0 Problems" title="Problems (⇧⌘M) - Total 0 Problems">
+						{/* <li className="action-item" role="tab" draggable="true" tabIndex="0" aria-label="Problems (⇧⌘M) - Total 0 Problems" title="Problems (⇧⌘M) - Total 0 Problems">
 							<span className="action-label" aria-label="Problems (⇧⌘M) - Total 0 Problems" title="Problems (⇧⌘M) - Total 0 Problems">Problems</span>
 							<div className="badge" aria-label="Problems (⇧⌘M) - Total 12 Problems" title="Problems (⇧⌘M) - Total 12 Problems">
 								<div className="badge-content">12</div>
 							</div>
-						</li>
-						<li className="action-item" role="tab" draggable="true" tabIndex="0" aria-label="Debug Console (⇧⌘Y)" title="Debug Console (⇧⌘Y)">
+						</li> */}
+						{/* <li className="action-item" role="tab" draggable="true" tabIndex="0" aria-label="Debug Console (⇧⌘Y)" title="Debug Console (⇧⌘Y)">
 							<span className="action-label" aria-label="Debug Console (⇧⌘Y)" title="Debug Console (⇧⌘Y)">Debug Console</span>
 							<div className="badge" aria-hidden="true" aria-label="Debug Console (⇧⌘Y)" title="Debug Console (⇧⌘Y)">
 								<div className="badge-content" />
 							</div>
-						</li>
+						</li> */}
 						<li className="action-item checked" role="tab" draggable="true" tabIndex="0" aria-label="Terminal (⌃`) active" title="Terminal (⌃`)">
 							<span className="action-label terminal" aria-label="Terminal (⌃`)" title="Terminal (⌃`)">Terminal</span>
 							<div className="badge" aria-hidden="true" aria-label="Terminal (⌃`)" title="Terminal (⌃`)">

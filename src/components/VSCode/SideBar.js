@@ -3,7 +3,7 @@ import Explorer from './Explorer';
 
 const SideBar = () => (
 	<div className="part sidebar left" style={{
-		width: '200px'
+		width: '150px'
 	}}>
 		<div className="composite title">
 			<div className="title-label">

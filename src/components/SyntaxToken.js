@@ -10,7 +10,13 @@ const SyntaxToken = ({ path, foreground, background, fontStyle, updateToken, tok
 	
 	return (
 		<div className="syntax-token">
-			<h4>{path.replace(`syntax.`,``)}</h4>
+			<Token {...foreground}
+				name={path.replace(`syntax.`,``)}
+				id={`${path}.foreground`}
+				path={path}
+				secondaryKey="foreground"
+				updateToken={updateToken}
+				tokenNames={tokenNames}>
 			<div className="checkbox-group">
 				<div className="checkbox checkbox-group-item">
 					<input type="checkbox"
@@ -34,13 +40,8 @@ const SyntaxToken = ({ path, foreground, background, fontStyle, updateToken, tok
 					<label htmlFor={`${path}.underline`}>Underline</label>
 				</div>
 			</div>
-			<Token {...foreground}
-				name="Foreground"
-				id={`${path}.foreground`}
-				path={path}
-				secondaryKey="foreground"
-				updateToken={updateToken}
-				tokenNames={tokenNames} />
+			</Token>
+
 			{/* Background syntax styles don't work 😭 */}
 			{/* <Token {...background}
 				name="Background"

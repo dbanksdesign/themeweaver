@@ -1,6 +1,7 @@
 .token-group {
-	padding: var(--size-padding-base) 0;
+	padding-top: var(--size-padding-large);
 	position: relative;
+	margin-top: var(--size-padding-large);
 }
 
 .token-group::before {
@@ -9,7 +10,7 @@
 	top: 0;
 	left: 0;
 	width: 50%;
-	border-top: 0.25rem solid var(--theme-border-tertiary);
+	border-top: 2px solid var(--tw-color-border-secondary);
 }
 
 .token-group-title {

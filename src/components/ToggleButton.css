@@ -9,21 +9,28 @@
 	flex: 1;
 	display: block;
 	padding: var(--size-padding-base);
-	margin: 0 var(--size-padding-small);
+	/* margin: 0 var(--size-padding-small); */
 	font-size: var(--size-font-base);
 	color: var(--application-button-foreground);
+	color: var(--tw-color-font-secondary);
 	background-color: transparent;
-	border: 1px solid var(--application-button-background);
+	border: 2px solid var(--application-button-background);
 }
 
 .color-toggle > .toggle-button {
 	margin: 0;
 	width: 33.3%;
 	flex-basis: 33.3%;
+	margin: -2px 0 0 -2px;
+	border-radius: 0;
 }
 
 .toggle-button:hover {
 	background-color: var(--application-button-background);
+}
+
+.color-toggle > .toggle-button:hover {
+	color: var(--tw-color-font-secondary);
 }
 
 .toggle-button:active,
@@ -46,6 +53,7 @@
 
 .tertiary > .toggle-button:hover {
 	background-color: var(--theme-background-interactive-tertiary-hover);
+	border-color: var(--theme-background-interactive-tertiary-base);
 }
 
 .tertiary > .toggle-button:active,
@@ -65,6 +73,7 @@
 
 .secondary > .toggle-button:hover {
 	background-color: var(--theme-background-interactive-secondary-hover);
+	border-color: var(--theme-background-interactive-secondary-base);
 }
 
 .secondary > .toggle-button:active,
@@ -76,4 +85,24 @@
 .secondary > .toggle-button:active,
 .secondary > .toggle-button:focus {
 	outline-color: var(--theme-background-interactive-secondary-hover);
+}
+
+.primary > .toggle-button {
+	border-color: var(--theme-background-interactive-base);
+}
+
+.primary > .toggle-button:hover {
+	background-color: var(--theme-background-interactive-hover);
+	border-color: var(--theme-background-interactive-base);
+}
+
+.primary > .toggle-button:active,
+.primary > .toggle-button.active {
+	border-color: transparent;
+	background-color: var(--theme-background-interactive-hover);
+}
+
+.primary > .toggle-button:active,
+.primary > .toggle-button:focus {
+	outline-color: var(--theme-background-interactive-hover);
 }

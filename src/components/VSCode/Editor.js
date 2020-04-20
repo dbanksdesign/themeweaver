@@ -185,12 +185,23 @@ class EditFishForm extends Component {
   }
 }`;
 
+const json = `{
+	"name": "themeweaver",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+	}
+}`
+
 const editors = [{
 	value: css,
 	language: 'css'
 },{
 	value: js,
 	language: 'javascript'
+},{
+	value: json,
+	language: 'json'
 }];
 
 const tabs = [{
@@ -201,6 +212,10 @@ const tabs = [{
 	title: 'Javascript Example',
 	label: 'javascript.js',
 	iconClass: 'js-ext-file-icon'
+},{
+	title: 'JSON Example',
+	label: 'package.json',
+	iconClass: 'package.json-name-file-icon'
 }];
 
 const themeMap = {
@@ -220,7 +235,6 @@ class VSCodeEditor extends React.PureComponent {
 			validateColor(applicationTokens[`editor.background`]),
 			validateColor(applicationTokens[`editor.foreground`])
 		);
-		// console.log(rules);
 
 		this.monaco.editor.defineTheme(`myTheme`, {
 			base: themeMap[currentTheme],
@@ -264,7 +278,7 @@ class VSCodeEditor extends React.PureComponent {
 			<div className="part editor has-watermark">
 				<div className="content">
 					<div className="editor-group-container active">
-						<VSCodeTabs 
+						<VSCodeTabs
 							tabs={tabs}
 							selected={this.state.currentTab}
 							onClick={this.handleTabClick} />

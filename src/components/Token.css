@@ -6,67 +6,134 @@
 
 .token-field-label {
 	font-weight: bold;
+	flex: 1;
+	/* margin-bottom: var(--size-padding-small); */
+	margin-bottom: 0;
 }
 
 .token-description {
 	display: block;
 	font-weight: normal;
+	font-size: var(--size-font-small);
+	line-height: 1.2;
+	margin-bottom: var(--size-padding-small);
 }
 
 .token-field-input {
 	display: block;
 	flex: 1;
-	/* padding: var(--size-padding-base);
-	background-color: var(--application-input-background);
-	border: 1px solid var(--application-focusBorder); */
 	border-right: none;
 }
 
 .token-field-wrapper {
-	margin-bottom: var(--size-padding-large);
+	margin: var(--size-padding-large) 0;
+	/* position: relative; */
 }
 
-.token-field-label {
-	margin-bottom: var(--size-padding-small);
-}
+
 
 .token-autocomplete {
 	position: absolute;
 	width: 100%;
 	top: 100%;
-	background-color: var(--application-input-background);
-	color: var(--application-input-foreground);
+	background-color: var(--tw-color-background-primary);
 	z-index: 999;
 }
 
 .token-autocomplete-item {
 	display: block;
 	padding: var(--size-padding-small);
-	border-top: 1px solid var(--application-focusBorder);
+	border: 2px solid var(--tw-border-primary);
+	margin-top: -2px;
 }
 
 .token-autocomplete-item:hover {
-	background-color: var(--application-input-background);
+	background-color: var(--tw-color-background-secondary);
 }
 
-.token-autocomplete-item:first-child {
-	border: none;
+.token-autocomplete-item:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.token-reverse-lookup {
+	position: relative;
+	/* position: absolute;
+	top: 0;
+	right: 0; */
 }
 
 .token-reverse-lookup-title {
 	margin: 0;
+	/* color: #fff; */
+	color: var(--tw-color-font-link);
+	/* padding: var(--size-padding-small);
+	border-radius: 1rem; */
+	font-weight: bold;
 }
 
 .token-reverse-lookup-title > .codicon {
-	transition: transform 100ms ease;
+	/* transition: transform 100ms ease; */
+	font-size: 1.125rem;
 }
 
-.expanded > .token-reverse-lookup-title > .codicon {
-	transform: rotate(180deg);
+.token-field-header {
+	display: flex;
+	flex-direction: row;
 }
 
-.token-reverse-lookup-title {}
+.token-reverse-lookup {
+	/* position: relative; */
+}
 
 .token-reverse-lookup-list {
-	
+	position: absolute;
+	top: 100%;
+	right: 0;
+	padding: var(--size-padding-base) !important;
+	background-color: var(--tw-color-background-primary);
+	box-shadow: 0 0.25rem 1rem var(--tw-shadow);
+	border-radius: 4px;
+	opacity: 0;
+	display: none;
+	max-width: 20rem;
+}
+
+.token-reverse-lookup-list > li {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: var(--size-font-small);
+}
+
+.token-reverse-lookup:hover > .token-reverse-lookup-list {
+	opacity: 1;
+	display: block;
+	z-index: 3;
+}
+
+.token-references {
+	color: var(--tw-color-font-tertiary);
+	list-style: none;
+}
+
+.token-reference {
+	/* display: inline-block;
+	padding-right: var(--size-padding-small); */
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	white-space: nowrap;
+	font-size: var(--size-font-small);
+}
+
+.token-reference::before {
+	content: '⏎';
+	color: var(--tw-color-font-quaternary);
+	transform: scaleX(-1); /* flips horizontally */
+	display: inline-block;
+}
+
+.token-references > .codicon {
+	vertical-align: middle;
+	color: var(--tw-color-font-quaternary);
 }

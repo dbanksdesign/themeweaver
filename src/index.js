@@ -5,14 +5,8 @@ import MonacoEditor from 'react-monaco-editor'; // need to import this to get st
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import './reset.css';
 import './index.css';
-
-// if (process.env.NODE_ENV === 'development') {
-//   const whyDidYouRender = require('@welldone-software/why-did-you-render');
-//   whyDidYouRender(React, {
-//     // trackAllPureComponents: true,
-//   });
-// }
 
 loadWASM("/onigasm.wasm").then(() => {
   const rootElement = document.getElementById("root");

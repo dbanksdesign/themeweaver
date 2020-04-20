@@ -226,16 +226,17 @@ class ThemePage extends React.Component {
 				anchor: section.title.replace(' ','-')
 			}
 		});
-
+		
 		return (
-			<div className="page-with-toc">
+			<>
 				<Helmet>
 					<title>Theme Tokens | Themeweaver</title>
 				</Helmet>
 				<TOC links={links} />
-				<div className="page-content">
-					<h1>2. Theme Tokens</h1>
-					<p>Most theme packages contain multiple themes. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
+				<div className="page-content" id="page-content">
+				<div className="page-content-inner">
+					<h1>Theme</h1>
+					<p>Most theme packages contain multiple <em>themes</em>. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
 					
 					<ToggleButton
 						onClick={changeTheme}
@@ -264,7 +265,8 @@ class ThemePage extends React.Component {
 						</TokenGroup>
 					))}
 				</div>
-			</div>
+				</div>
+			</>
 		)
 	}
 }

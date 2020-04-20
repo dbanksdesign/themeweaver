@@ -32,8 +32,9 @@ class CopyCode extends React.Component {
 						button if the copy command exists */
 				document.queryCommandSupported('copy') &&
 					<div className="copy-button-container">
-						<button className="copy-button" onClick={this.copyToClipboard}>{buttonLabel||'Copy'}</button> 
-						{this.state.copySuccess}
+						<button className="copy-button block" onClick={this.copyToClipboard}>{buttonLabel||'Copy'}</button> 
+						{this.state.copySuccess.length > 0 &&
+							<span className="copy-toast">{this.state.copySuccess}</span>}
 					</div>
 				}
 				<pre className="copy-text">

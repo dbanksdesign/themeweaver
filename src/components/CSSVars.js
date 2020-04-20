@@ -1,4 +1,5 @@
 import React from 'react';
+import debounceRender from 'react-debounce-render';
 
 class CSSVar extends React.PureComponent {
 	render() {
@@ -36,4 +37,4 @@ class CSSVars extends React.PureComponent {
 	}
 }
 
-export default CSSVars
+export default debounceRender(CSSVars, 100)

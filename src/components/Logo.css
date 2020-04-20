@@ -2,7 +2,7 @@
 	display: inline-flex;
 	height: 2rem;
 	line-height: 2rem;
-	padding: var(--size-padding-base) var(--size-padding-base);
+	padding: 0 var(--size-padding-base);
 }
 
 .tw-logo-svg {
@@ -12,11 +12,11 @@
 }
 
 .tw-logo-svg .hatch-1 {
-	fill: var(--theme-font-link-secondary-active);
+	fill: var(--tw-color-brand-primary-1);
 }
 
 .tw-logo-svg .hatch-2 {
-	fill: var(--theme-font-link-primary-active);
+	fill: var(--tw-color-brand-secondary-1);
 }
 
 .tw-logo-icon {

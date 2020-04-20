@@ -572,15 +572,6 @@ const sections = [{
 	},{
 		path: `application.editor.foldBackground`,
 		description: `Background color for folded ranges. The color must not be opaque so as not to hide underlying decorations.`
-	},{
-		path: ``,
-		description: ``
-	},{
-		path: ``,
-		description: ``
-	},{
-		path: ``,
-		description: ``
 	}]
 },{
 	title: `Overview ruler`,
@@ -876,19 +867,40 @@ const sections = [{
 		path: `application.panelInput.border`,
 		description: `Input box border for inputs in the panel.`
 	}]
-},{
-	title: ``,
-	description: ``,
-	tokens:[{
-		
-	}]
 }];
 
 class ApplicationPage extends React.Component {
-
+	state = {
+		filter: '',
+		filteredSections: sections
+	}
+	
+	handleFilter = (e) => {
+		const filteredSections = [];
+		sections.forEach(section => {
+			const tokens = section.tokens
+				.filter(token => token.path.indexOf(e.target.value) >= 0);
+			if (tokens.length) {
+				filteredSections.push(Object.assign({}, section, { tokens }))
+			}
+		});
+		this.setState({
+			filter: e.target.value,
+			filteredSections
+		});
+	}
+	
+	clearSearch = (e) => {
+		this.setState({
+			filter: '',
+			filteredSections: sections
+		});
+	}
+	
 	render() {
 		const { updateToken, tokens, tokenNames } = this.props;
-		const links = sections.map(section => {
+		const { filteredSections } = this.state;
+		const links = filteredSections.map(section => {
 			return {
 				label: section.title,
 				anchor: section.title.replace(' ','-')
@@ -896,15 +908,22 @@ class ApplicationPage extends React.Component {
 		});
 
 		return (
-			<div className="page-with-toc">
+			<>
 				<Helmet>
-					<title>Application Tokens | Themeweaver</title>
+					<title>Application Styles | Themeweaver</title>
 				</Helmet>
 				<TOC links={links} />
-				<div className="page-content">
-					<h1>3. Application Tokens</h1>
+				<div className="page-content" id="page-content">
+					<div className="page-content-inner">
+					<h1>Application</h1>
 					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is Hardcore mode.</p>
-					{sections.map(section => (
+					<div className="search">
+						<input className="search-input" placeholder="filter application styles" type="text" value={this.state.filter} onChange={this.handleFilter} />
+						<button className="search-clear" onClick={this.clearSearch}>
+							<span className="codicon codicon-x" />
+						</button>
+					</div>
+					{filteredSections.map(section => (
 						<TokenGroup {...section}
 							key={section.title}
 							id={section.title.replace(' ','-')}>
@@ -922,7 +941,8 @@ class ApplicationPage extends React.Component {
 						</TokenGroup>
 					))}
 				</div>
-			</div>
+				</div>
+			</>
 		)
 	}
 }

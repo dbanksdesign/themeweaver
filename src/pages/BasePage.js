@@ -7,11 +7,13 @@ import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
+import SwatchEditor from '../components/SwatchEditor';
+import ColorMixer from '../components/ColorMixer';
 
 const sections = [{
 	title: `Grey`,
 	name: 'grey',
-	description: ``,
+	description: `Greys are used in the base backgrounds and font colors throughout the application and syntax styling.`,
 	tokens: [{
 		path: `base.grey.5`,
 		description: ``
@@ -268,48 +270,6 @@ const PINK = [
 	{value: baseTokens[`base.pink.100`], path: `base.pink.100`},
 ];
 
-const ColorMixer = ({ h, s, l, name, handleHue, handleSaturation, handleLightness, HSL }) => {
-	return (
-		<section>
-			<label className="color-mixer-label">Hue</label>
-			<input
-				type="range"
-				className="hue"
-				min="0" max="360"
-				value={h}
-				onChange={(e) => handleHue(e.target.value, name)}
-				step="1"/>
-
-			<div className="color-mixer-group">
-				<div className="color-mixer">
-					<label className="color-mixer-label">Lightness</label>
-					<input
-						type="range"
-						style={{
-							background: `linear-gradient(to right, hsl(${HSL[0]},${HSL[1]*100}%,10%) 0%, hsl(${HSL[0]},${HSL[1]*100}%,50%) 50%, hsl(${HSL[0]},${HSL[1]*100}%,90%) 100%)`
-						}}
-						min="-1" max="1"
-						value={l}
-						onChange={(e) => handleLightness(e.target.value, name)}
-						step="0.01"/>
-				</div>
-				<div className="color-mixer">
-					<label className="color-mixer-label">Saturation</label>
-					<input
-						type="range"
-						className="saturation"
-						style={{
-							background: `linear-gradient(to right, hsl(${HSL[0]},0%,${HSL[2]*100}%) 0%, hsl(${HSL[0]},100%,${HSL[2]*100}%) 100%)`
-						}}
-						min="-2" max="2"
-						value={s}
-						onChange={(e) => handleSaturation(e.target.value, name)}
-						step="0.1"/>
-				</div>
-			</div>
-		</section>
-	)
-}
 class BasePage extends React.Component {
 	// Keep these arrays outside of state because when we update
 	// saturation we need to saturate based on original color
@@ -369,6 +329,11 @@ class BasePage extends React.Component {
 		pinkHue: chroma(PINK[3].value).hsl()[0],
 		pinkSaturation: 0,
 		pinkLightness: 0,
+	}
+	
+	constructor(props) {
+		super(props);
+		this.pageRef = React.createRef();
 	}
 	
 	changeColor = (level, value) => {
@@ -504,61 +469,64 @@ class BasePage extends React.Component {
 		});
 
 		return (
-			<div className="page-with-toc">
+			<>
 				<Helmet>
 					<title>Base Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC links={[{
-					label: 'Brand',
-					anchor: 'brand'
-				}].concat(links)} />
-				<div className="page-content">
-					<h1>1. Base Tokens</h1>
+				<TOC
+					links={[{
+						label: 'Brand',
+						anchor: 'brand'
+					}].concat(links)} />
+				<div className="page-content" id="page-content">
+				<div className="page-content-inner flow">
+					<h1>Base</h1>
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
 					
 					<section id="brand" className="token-group">
-					<h3>Brand Colors</h3>
-					<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
-					
-					<h4>Primary Color</h4>
-					<ToggleButton
-						className="color-toggle"
-						onClick={(e) => this.changeColor('primary', e.target.innerHTML)}
-						buttons={colors.map(color => {
-							return {
-								label: color,
-								selected: this.state.primary === color
-							}
-						})} />
+						<h3>Brand Colors</h3>
+						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
 						
-					<h4>Secondary Color</h4>
-					<ToggleButton
-						className="color-toggle secondary"
-						onClick={(e) => this.changeColor('secondary', e.target.innerHTML)}
-						buttons={colors.map(color => {
-							return {
-								label: color,
-								selected: this.state.secondary === color
-							}
-						})} />
-					
-					<h4>Tertiary Color</h4>
-					<ToggleButton
-						className="color-toggle tertiary"
-						onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
-						buttons={colors.map(color => {
-							return {
-								label: color,
-								selected: this.state.tertiary === color
-							}
-						})} />
+						<h4>Primary Color</h4>
+						<ToggleButton
+							className="color-toggle primary"
+							onClick={(e) => this.changeColor('primary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.state.primary === color
+								}
+							})} />
+							
+						<h4>Secondary Color</h4>
+						<ToggleButton
+							className="color-toggle secondary"
+							onClick={(e) => this.changeColor('secondary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.state.secondary === color
+								}
+							})} />
+						
+						<h4>Tertiary Color</h4>
+						<ToggleButton
+							className="color-toggle tertiary"
+							onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.state.tertiary === color
+								}
+							})} />
 					</section>
 					
 					{sections.map(section => (
-						<TokenGroup {...section}
+						<section
 							key={section.title}
 							id={section.title.replace(' ','-')}>
-							<ColorMixer 
+							<ColorMixer
+								title={section.title}
 								h={this.state[`${section.name}Hue`]}
 								s={this.state[`${section.name}Saturation`]}
 								l={this.state[`${section.name}Lightness`]}
@@ -566,25 +534,36 @@ class BasePage extends React.Component {
 								HSL={chroma(tokens[`base.${section.name}.90`].value).hsl()}
 								handleHue={this.handleHue}
 								handleSaturation={this.handleSaturation}
-								handleLightness={this.handleLightness} />
+								handleLightness={this.handleLightness}>
+									<p>{section.description}</p>
+							</ColorMixer>
+								<div className="base-color-group">
 							{section.tokens.map(({ path, description }) => {
 								if (!tokens[path]) { console.log(path); }
+								const val = tokens[path].computedValue;
+								const name = path.split('.').slice(-1);
 								return (
-									<Token {...tokens[path]}
-										path={path}
-										key={path}
-										description={description}
-										updateToken={updateToken}
-										tokenNames={tokenNames} />
+									<SwatchEditor path={path} value={val} onChange={updateToken} />
+									// <div className="base-color" id={path.replace(/\./g,'-')} style={{
+									// 	backgroundColor: val
+									// }}>{name}: {val}</div>
+									// <Token {...tokens[path]}
+									// 	path={path}
+									// 	key={path}
+									// 	description={description}
+									// 	updateToken={updateToken}
+									// 	tokenNames={tokenNames} />
 								)
 							})}
-						</TokenGroup>
+							</div>
+						</section>
 					))}
 					
 					{/* <button className="wide"
 						onClick={resetState}>Reset colors</button> */}
 				</div>
-			</div>
+				</div>
+			</>
 		)
 	}
 }

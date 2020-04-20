@@ -47,7 +47,7 @@ const Workbench = ({ children }) => (
 										</div>
 										{/* Explorer */}
 										<div className="split-view-view visible" style={{
-											width: '200px'
+											width: '150px'
 										}}>
 											<SideBar />
 										</div>

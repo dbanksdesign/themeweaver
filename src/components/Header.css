@@ -1,14 +1,13 @@
 .tw-header {
-	position: fixed;
 	top: 0;
-	height: 4rem;
+	height: 3rem;
 	width: 100%;
-	box-shadow: 0 0 1rem var(--tm-shadow),
-		0 0 0 1px var(--tm-shadow);
-	background-color: var(--theme-background-secondary);
+	border-bottom: 2px solid var(--tw-border-primary);
+	background-color: var(--tw-color-background-primary);
 	z-index: 100;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 .tw-header-primary-nav {
@@ -20,18 +19,20 @@
 }
 
 .tw-header-nav-item {
-	line-height: 4rem;
-	height: 4rem;
+	line-height: 3rem;
+	height: 3rem;
 	display: inline-block;
 	padding: 0 var(--size-padding-base);
 	border-bottom: 2px solid transparent;
 	box-sizing: border-box;
 	vertical-align: top;
+	color: var(--tw-color-font-nav);
+	font-weight: bold;
 }
 
 .tw-header-nav-item.active {
-	color: var(--application-activityBar-foreground);
-	border-color: var(--theme-font-active);
+	color: var(--tw-color-font-nav-active);
+	border-color: var(--tw-color-font-nav-active);
 }
 
 .github-corner {
@@ -54,8 +55,8 @@
 }
 
 .github {
-	width: 2rem;
-	height: 2rem;
+	width: 1.5rem;
+	height: 1.5rem;
 	vertical-align: middle;
 }
 
@@ -65,16 +66,4 @@
 
 .github:hover .github-path {
 	fill: var(--theme-font-tertiary);
-}
-
-@keyframes a {
-	0%, 100% {
-		transform: rotate(0);
-	}
-	20%, 60% {
-		transform: rotate(-25deg);
-	}
-	40%, 80% {
-		transform: rotate(10deg);
-	}
 }

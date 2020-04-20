@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import clsx from 'clsx';
 import smoothScroll from '../helpers/smoothScroll'
 
 class TOC extends React.PureComponent {
@@ -6,6 +7,7 @@ class TOC extends React.PureComponent {
 	
 	state = {
 		index: 0,
+		shown: true
 	}
 	
 	componentDidMount() {
@@ -17,15 +19,17 @@ class TOC extends React.PureComponent {
 			}
 		});
 		
-		window.addEventListener('scroll', this.scroll);
+		document.getElementById('page-content')
+			.addEventListener('scroll', this.scroll);
 	}
 	
 	componentWillUnmount() {
-		window.removeEventListener('scroll', this.scroll);
+		document.getElementById('page-content')
+			.removeEventListener('scroll', this.scroll);
 	}
 	
 	scroll = (e) => {
-		const bodyScroll = e.target.documentElement.scrollTop;
+		const bodyScroll = document.getElementById('page-content').scrollTop;
 		let index = 0;
 		
 		while (index <= this.offsets.length - 2) {
@@ -41,9 +45,25 @@ class TOC extends React.PureComponent {
 		}
 	}
 	
+	toggle = () => {
+		this.setState({
+			shown: !this.state.shown
+		})
+	}
+	
 	render() {
+		// const { shown } = this.state;
+		// const buttonClass = shown ? 'codicon-chevron-left' : 'codicon-kebab-vertical';
+		
 		return (
-			<nav className="toc">
+			<nav className={clsx(
+				"toc",
+				!this.state.shown && "hidden"
+			)}>
+				<button className="toc-toggle" onClick={this.toggle}>
+					<span className={`codicon codicon-chevron-left`} />
+				</button>
+				<div className="toc-inner">
 				{this.props.links.map((link, i) => {
 					let className = 'toc-link '
 					className += i === this.state.index ? 'is-current' : '';
@@ -52,7 +72,7 @@ class TOC extends React.PureComponent {
 							className={className}
 							href={`#${link.anchor}`}
 							onClick={(e) => {
-								smoothScroll.scrollTo(link.anchor);
+								smoothScroll.scrollTo(link.anchor, 'page-content');
 								e.preventDefault();
 								document.location.hash = `#${link.anchor}`;
 							}}>
@@ -60,6 +80,7 @@ class TOC extends React.PureComponent {
 						</a>
 					)
 				})}
+				</div>
 			</nav>
 		)
 	}

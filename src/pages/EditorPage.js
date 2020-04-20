@@ -1,117 +1,96 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import CorePage from './CorePage';
+import BasePage from './BasePage';
 import ThemePage from './ThemePage';
 import ApplicationPage from './ApplicationPage';
 import SyntaxPage from './SyntaxPage';
+import ExportPage from './ExportPage';
 
-import Importer from '../components/Importer';
+import Page from '../components/Page';
+import Header from '../components/Header';
 import Workbench from '../components/VSCode/Workbench';
 import VSCodeEditor from '../components/VSCode/Editor';
-import Nav from '../components/Nav';
-import Page from '../components/Page';
+import ResizablePanels from '../components/ResizablePanel';
 
-import download from '../helpers/download';
-import tokenizeSyntaxTokens from '../helpers/tokenizeSyntaxTokens';
+import generateTokenObjects from '../helpers/generateTokenObjects';
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 
-const downloadTheme = (allTokens, currentTheme) => {
-	const theme = {
-		name: ``,
-		type: ``,
-		colors: Object.keys(allTokens)
-			.filter(key => key.startsWith(`application`))
-			.reduce((obj, key) => {
-				const name = key.replace(/application\./gi, ``);
-				obj[name] = allTokens[key].computedValue;
-				return obj;
-			}, {}),
-		tokenColors: tokenizeSyntaxTokens(
-			createResolvedTokenObject(allTokens, `syntax`)
-		)
-	}
-	console.log(theme);
-	
-	download(`${currentTheme}.json`, JSON.stringify(theme, null, 2));
+const onResize = (width) => {
+	console.log(width);
 }
 
-const generateTokenObjects = (allTokens) => {
-	const coreTokens = {}
-	const themeTokens = {}
-	const syntaxTokens = {}
-	const applicationTokens = {}
-	for (const key in allTokens) {
-		if (allTokens.hasOwnProperty(key)) {
-			const token = allTokens[key];
-			if (key.startsWith('application')) {
-				applicationTokens[key] = token;
-			} else if (key.startsWith('syntax')) {
-				syntaxTokens[key] = token;
-			} else if (key.startsWith('theme')) {
-				themeTokens[key] = token;
-			} else if (key.startsWith('core')) {
-				coreTokens[key] = token;
-			}
-		}
-	}
-	return {coreTokens,themeTokens,syntaxTokens,applicationTokens}
-}
-
-const EditorPage = ({ allTokens, updateToken, currentTheme, changeTheme, importTheme, updateFontStyle }) => {
+const EditorPage = ({ allTokens, updateToken, updateTokens, currentTheme, changeTheme, updateFontStyle, resetState, updateThemeName, theme, themeName }) => {
 	const tokenNames = Object.keys(allTokens);
 	const {
-		coreTokens,
+		baseTokens,
 		themeTokens,
 		syntaxTokens,
 		applicationTokens
 	} = generateTokenObjects(allTokens);
 	
-	const resolvedSyntaxTokens = createResolvedTokenObject(allTokens, `syntax`);
-	const resolvedApplicationTokens = createResolvedTokenObject(allTokens, `application`);
-	
 	return (
 		<>
-		<div className="editor-pane">
-			{/* <Nav /> */}
-			<Switch>
-				<Route path="/editor/core">
-					<CorePage
-						tokens={coreTokens}
-						updateToken={updateToken} />
-				</Route>
-				<Route path="/editor/theme">
-					<ThemePage
-						tokens={themeTokens}
-						tokenNames={tokenNames}
-						currentTheme={currentTheme}
-						changeTheme={changeTheme}
-						updateToken={updateToken} />
-				</Route>
-				<Route path="/editor/application">
-					<ApplicationPage
-						tokens={applicationTokens}
-						tokenNames={tokenNames}
-						updateToken={updateToken} />
-				</Route>
-				<Route path="/editor/syntax">
-					<SyntaxPage
-						tokens={syntaxTokens}
-						tokenNames={tokenNames}
-						updateFontStyle={updateFontStyle}
-						updateToken={updateToken} />
-				</Route>
-			</Switch>
-		</div>
+			<Header />
+			<ResizablePanels onResize={onResize}>
+			<div className="editor-pane">
+				<Switch>
+					<Route path="/editor/export">
+						<ExportPage
+							theme={theme}
+							themeName={themeName}
+							updateThemeName={updateThemeName}
+							currentTheme={currentTheme}
+							allTokens={allTokens} />
+					</Route>
+					<Route path="/editor/base" render={routeProps => (
+						<Page {...routeProps}>
+							<BasePage
+								tokens={baseTokens}
+								updateTokens={updateTokens}
+								updateToken={updateToken}
+								resetState={resetState} />
+						</Page>
+					)} />
+					<Route path="/editor/theme" render={routeProps => (
+						<Page {...routeProps}>
+							<ThemePage
+								tokens={themeTokens}
+								tokenNames={tokenNames}
+								currentTheme={currentTheme}
+								changeTheme={changeTheme}
+								updateToken={updateToken} />
+						</Page>
+					)} />
+					<Route path="/editor/application" render={routeProps => (
+						<Page {...routeProps}>
+							<ApplicationPage
+								tokens={applicationTokens}
+								tokenNames={tokenNames}
+								updateToken={updateToken} />
+						</Page>
+					)} />
+					<Route path="/editor/syntax" render={routeProps => (
+						<Page {...routeProps}>
+							<SyntaxPage
+								tokens={syntaxTokens}
+								tokenNames={tokenNames}
+								updateFontStyle={updateFontStyle}
+								updateToken={updateToken} />
+						</Page>
+					)} />
+				</Switch>
+			</div>
 
-		<div className="preview-pane vscode">
-			<Workbench>
-				<VSCodeEditor
-					currentTheme={currentTheme}
-					syntaxTokens={resolvedSyntaxTokens}
-					applicationTokens={resolvedApplicationTokens} />
-			</Workbench>
-		</div>
+			<div tabIndex="-1" className="preview-pane vscode">
+				<Workbench>
+					<VSCodeEditor
+						currentTheme={currentTheme}
+						syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
+						applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
+				</Workbench>
+			</div>
+			</ResizablePanels>
 		</>
 	)
 }
