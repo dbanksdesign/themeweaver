@@ -3,7 +3,7 @@ const generateJetbrainsJSON = ({name, allTokens, dark}) => {
 		"name": name,
 		"dark": dark,
 		"author": "",
-		"editorScheme": `/jetbrains/${name}.xml`,
+		"editorScheme": `/themes/${name}.xml`,
 		"ui": {
 			"*": {
 				"background": allTokens[`theme.background.secondary`].computedValue,

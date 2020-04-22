@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import chroma from 'chroma-js';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import Swatch from './Swatch';
 import Autocomplete from './Autocomplete';
-import ColorInput from './ColorInput';
+// import ColorInput from './ColorInput';
 import './Token.css';
 
 const ComputedValue = ({ refs }) => {
@@ -12,23 +12,25 @@ const ComputedValue = ({ refs }) => {
 		return (
 			<div className="token-references">
 				{refs.map((ref,i) => {
-					if (ref && ref.indexOf('{') > -1) {
-						let name;
-						ref.replace(/\{([^}]+)\}/g, (match, variable) => {
-							name = match.replace(/{|}/g,'');;
-						});
-						const link = `/editor/${name.split('.')[0]}#${name.replace(/\./g,'-')}`
-						return (
-							<li className="token-reference" key={name}>
-								<Link to={link}>{ref}</Link>
-							</li>
-						)
-					} else {
-						return (
-							<li className="token-reference" key={ref}>
-								{ref}
-							</li>
-						)
+					if (ref) {
+						if (ref.indexOf('}') > -1) {
+							let name;
+							ref.replace(/\{([^}]+)\}/g, (match, variable) => {
+								name = match.replace(/{|}/g,'');;
+							});
+							const link = `/editor/${name.split('.')[0]}#${name.replace(/\./g,'-')}`
+							return (
+								<li className="token-reference" key={ref}>
+									<Link to={link}>{ref}</Link>
+								</li>
+							)
+						} else {
+							return (
+								<li className="token-reference" key={ref}>
+									{ref}
+								</li>
+							)
+						}
 					}
 				})}
 			</div>

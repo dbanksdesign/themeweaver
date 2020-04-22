@@ -1,13 +1,13 @@
 .homepage {
-	margin-top: var(--size-header-offset);
-	background-image: linear-gradient(to bottom, var(--theme-background-primary) 0%, var(--theme-background-selection-primary-inactive) 100%);
+	/* margin-top: var(--size-header-offset);
+	background-image: linear-gradient(to bottom, var(--theme-background-primary) 0%, var(--theme-background-selection-primary-inactive) 100%); */
 }
 
 .home-hero {
-	text-align: center;
+	/* text-align: center; */
 	padding: var(--size-padding-xl);
-	max-width: 50%;
-	margin: 0 auto;
+	/* max-width: 50%; */
+	/* margin: 0 auto; */
 }
 
 .home-header {
@@ -26,10 +26,10 @@
 
 .home-testimonials {
 	padding: var(--size-padding-xl);
-	border-top: 1px solid var(--theme-border-primary);
+	border-top: 1px solid var(--tw-color-border-primary);
 }
 
 .home-footer {
-	background-color: var(--theme-background-tertiary);
+	background-color: var(--tw-color-background-tertiary);
 	padding: var(--size-padding-xl);
 }

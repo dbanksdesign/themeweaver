@@ -24,26 +24,30 @@ const Github = React.memo(() => {
 	)
 });
 
-const Header = React.memo(() => {
+const Header = React.memo(({ resetState }) => {
 	return (
 	<>
 		
 		<header className="tw-header">
 			<Link className="tw-logo-link" to="/">
 				<Logo />
-				{/* <span className="tw-logo-text">Themeweaver</span> */}
+				<span className="tw-logo-text">Themeweaver</span>
 			</Link>
 			<nav className="tw-header-primary-nav">
 				<NavItem to="/editor/base" label="Base" />
 				<NavItem to="/editor/theme" label="Theme" />
 				<NavItem to="/editor/application" label="Application" />
 				<NavItem to="/editor/syntax" label="Syntax" />
-				<NavItem to="/editor/export" label="Export" />
+				{/* <NavItem to="/editor/export" label="Export" /> */}
 			</nav>
 			<nav className="tw-header-secondary-nav">
-				
+				<button className="tw-header-button" onClick={resetState}>Reset</button>
+				<Link className="tw-header-button button primary" to="/editor/export">
+					Export
+				</Link>
+				{/* <button onClick={}>Export</button> */}
 				{/* <NavItem to="/about" label="About" /> */}
-				<Github />
+				{/* <Github /> */}
 			</nav>
 		</header>
 	</>

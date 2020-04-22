@@ -37,7 +37,7 @@
 }
 
 .tw-logo-text {
-	color: var(--theme-font-secondary);
+	color: var(--tw-color-font-tertiary);
 	padding-left: var(--size-padding-small);
 	font-weight: bold;
 }

@@ -3,7 +3,6 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { Helmet } from 'react-helmet';
 
-import tokenizeSyntaxTokens from '../helpers/tokenizeSyntaxTokens';
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import createTextmateRules from '../helpers/createTextmateRules';
 import createTmPlist from '../helpers/createTmPlist';
@@ -15,6 +14,8 @@ import generateSlack from '../generators/slack';
 import generateXcode from '../generators/xcode';
 import generateJetbrainsJSON from '../generators/jetbrainsJSON';
 import generateJetbrainsXML from '../generators/jetbrainsXML';
+// import generateJetbrainsPluginXML from '../generators/jetbrainsPluginXML';
+import generateJetbrainsMaterial from '../generators/jetbrainsMaterial';
 
 import CopyCode from '../components/CopyCode';
 
@@ -96,6 +97,9 @@ const downloadTheme = (allTokens, theme, themeName) => {
 	const zip = new JSZip();
 	zip.folder(`vscode`);
 	zip.folder(`jetbrains`);
+	zip.folder(`src/main/resources`);
+	zip.folder(`src/main/resources/META-INF`);
+	zip.folder(`src/main/resources/themes`);
 	['dark','light'].forEach(themeType => {
 		const _allTokens = createAllTokens({
 			...allTokens,
@@ -119,12 +123,18 @@ const downloadTheme = (allTokens, theme, themeName) => {
 			allTokens: _allTokens,
 			dark: themeType === 'dark'
 		}));
+		zip.file(`jetbrains/material/${name}.xml`, generateJetbrainsMaterial({
+			name,
+			allTokens: _allTokens,
+			dark: themeType === 'dark'
+		}));
 		zip.file(`${name}.tmTheme`, createTmPlist(_allTokens, name));
 		zip.file(`${name}.itermcolors`, generateiTerm(_allTokens));
 		zip.file(`${name}.slack.txt`, generateSlack(_allTokens));
 		zip.file(`${name}.xccolortheme`, generateXcode(_allTokens));
 	});
 	
+	// zip.file(`src/main/resources/META-INF/plugin.xml`, generateJetbrainsPluginXML({themeName}));
 	zip.file(`README.md`, readme);
 	zip.file(`package.json`, JSON.stringify(
 		packageJSON({
@@ -135,7 +145,7 @@ const downloadTheme = (allTokens, theme, themeName) => {
 
 	zip.generateAsync({type:"blob"})
 		.then(function (blob) {
-			saveAs(blob, `theme.zip`);
+			saveAs(blob, `${themeName}.zip`);
 		}, function (err) {
 			console.log(err);
 		});
@@ -166,7 +176,8 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 		</div>
 		</section>
 		
-		<button className="primary block" onClick={() => downloadTheme(allTokens, theme, themeName)}>
+		<button className="primary block"
+			onClick={() => downloadTheme(allTokens, theme, themeName)}>
 			Download
 		</button>
 		
@@ -178,7 +189,7 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 			<li>Slack</li>
 			<li>Xcode (xccolortheme)</li>
 			<li>iTerm</li>
-			<li>Jetbrains (Android Studio, WebStorm, etc.)</li>
+			<li>Material Theme for Jetbrains (Android Studio, WebStorm, etc.)</li>
 			<li><em>More coming soon!</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
 		</ul>
 		</section>

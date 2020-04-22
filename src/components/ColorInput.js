@@ -1,5 +1,4 @@
 import React from 'react';
-import chroma from 'chroma-js';
 
 const HSLInput = ({ value, onChange }) => {
 	const [h, s, l, a] = value;

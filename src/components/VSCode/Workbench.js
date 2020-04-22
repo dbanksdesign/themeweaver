@@ -52,7 +52,7 @@ const Workbench = ({ children }) => (
 											<SideBar />
 										</div>
 										{/* Editor */}
-										<div className="split-view-view visible" style={{flex:'1'}}>
+										<div className="split-view-view visible" style={{flex:'1', overflow:'hidden'}}>
 											<div className="monaco-split-view2 vertical">
 												<div className="split-view-container">
 													<div className="split-view visible" style={{flex:'1'}}>

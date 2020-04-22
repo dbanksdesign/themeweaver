@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import debounce from 'lodash/debounce';
 
 class ResizablePanels extends React.Component {
 	eventHandler = null
@@ -9,15 +10,24 @@ class ResizablePanels extends React.Component {
 		
 		this.state = {
 			isDragging: false,
-			mainWidth: 33.3,
-			x: window.innerWidth / 3
+			mainWidth: 40,
+			windowWidth: window.innerWidth,
+			x: window.innerWidth * 0.4
 		}
 	}
 
 	componentDidMount () {
-		ReactDOM.findDOMNode(this).addEventListener('mousemove', this.resizePanel)
-		ReactDOM.findDOMNode(this).addEventListener('mouseup', this.stopResize)
-		ReactDOM.findDOMNode(this).addEventListener('mouseleave', this.stopResize)
+		ReactDOM.findDOMNode(this).addEventListener('mousemove', this.resizePanel);
+		ReactDOM.findDOMNode(this).addEventListener('mouseup', this.stopResize);
+		ReactDOM.findDOMNode(this).addEventListener('mouseleave', this.stopResize);
+		window.addEventListener('resize', debounce(this.resized, 500));
+	}
+	
+	resized = (event) => {
+		this.setState({
+			windowWidth: event.target.innerWidth,
+			x: event.target.innerWidth * (this.state.mainWidth / 100)
+		});
 	}
 	
 	startResize = (event) => {
@@ -28,7 +38,7 @@ class ResizablePanels extends React.Component {
 	
 	stopResize = () => {
 		if (this.state.isDragging) {
-			const mainWidth = ((this.state.x/window.innerWidth) * 100).toFixed(2);
+			const mainWidth = ((this.state.x/this.state.windowWidth) * 100).toFixed(2);
 			this.setState({
 				isDragging: false,
 				mainWidth
@@ -48,6 +58,7 @@ class ResizablePanels extends React.Component {
 	}
 	
 	render() {
+		const { windowWidth, mainWidth } = this.state;
 		return (
 			<div className="tw-panel-container" onMouseUp={() => this.stopResize()}>
 				<div className="tw-panel" style={{
@@ -61,7 +72,12 @@ class ResizablePanels extends React.Component {
 					}}
 					className="resizer"></div>
 				<div className="tw-panel">
-					{this.props.children[1]}
+					{/* Clean up this jank logic, monaco editor needs to be re-rendered
+					when window resizes */}
+					{this.props.children[1]({
+						windowWidth,
+						mainWidth
+					})}
 				</div>
 			</div>
 		)

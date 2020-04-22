@@ -302,3 +302,7 @@
 .monaco-workbench .part.sidebar > .title > .title-label h2 {
 	line-height: inherit;
 }
+
+.tab:focus {
+	outline: none;
+}

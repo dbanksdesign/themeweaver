@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Tab = ({ onClick, title, iconClass, label, selected }) => (
-	<div draggable="true" tabIndex="0" role="presentation" className={`tab close-button-right sizing-shrink has-icon-theme ${selected ? 'active' : ''}`} aria-label="CSSVars.js, tab" title={title} aria-selected={selected} onClick={onClick}>
+	<div draggable="true" tabIndex="0" role="presentation" className={`tab close-button-right sizing-shrink has-icon-theme ${selected ? 'active' : ''}`} aria-label="CSSVars.js, tab" title={title} onClick={onClick}>
 		<div className="tab-border-top-container"></div>
 		<div className={`monaco-icon-label file-icon ext-file-icon tab-label ${iconClass}`} title={title}>
 			<div className="monaco-icon-label-container">

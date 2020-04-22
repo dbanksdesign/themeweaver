@@ -105,7 +105,7 @@ a[href$=".org"] {}
 const js = `'use strict'
 
 /**
- * This is a *italics* **bold** and [a link](https://dbanks.design).
+ * This is a live code editor! You can edit code in here. For reals.
  */
 class Sale {
   constructor(price) {
@@ -270,6 +270,11 @@ class VSCodeEditor extends React.PureComponent {
 	}
 	
 	render() {
+		let width;
+		const ei = document.getElementById("editor-instance");
+		if (ei) {
+			width = ei.offsetWidth;
+		}
 		if (this.monaco) {
 			this.defineTheme();
 		}
@@ -283,15 +288,16 @@ class VSCodeEditor extends React.PureComponent {
 							selected={this.state.currentTab}
 							onClick={this.handleTabClick} />
 						<div className="editor-container">
-							<div className="editor-instance">
+							<div className="editor-instance" id="editor-instance">
 								<MonacoEditor
 									ref="vscode"
 									theme="myTheme"
+									width={width}
 									options={{
 										showUnused: true,
 										renderWhitespace: true,
-										fontSize: 16,
-										fontFamily: `'MonoLisa','Source Code Pro',Menlo,monospace`
+										fontSize: 14,
+										fontFamily: `'Source Code Pro',Menlo,monospace`
 									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}

@@ -5,8 +5,10 @@ import './ToggleButton.css'
 const ToggleButton = ({ buttons, onClick, className }) => {
 	return (
 		<div className={`toggle-buttons ${className||''}`}>
-			{buttons.map(({label, selected}) => (
-				<button key={label} className={`toggle-button ${selected?'active':''}`}
+			{buttons.map(({label, selected, style}) => (
+				<button key={label}
+					style={style}
+					className={`toggle-button ${selected?'active':''}`}
 					onClick={onClick}>
 					{label}
 				</button>

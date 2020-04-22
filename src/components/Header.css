@@ -2,7 +2,7 @@
 	top: 0;
 	height: 3rem;
 	width: 100%;
-	border-bottom: 2px solid var(--tw-border-primary);
+	border-bottom: 2px solid var(--tw-color-border-primary);
 	background-color: var(--tw-color-background-primary);
 	z-index: 100;
 	display: flex;
@@ -16,6 +16,9 @@
 
 .tw-header-secondary-nav {
 	align-self: flex-end;
+	display: flex;
+	align-items: center;
+	height: 3rem;
 }
 
 .tw-header-nav-item {
@@ -66,4 +69,11 @@
 
 .github:hover .github-path {
 	fill: var(--theme-font-tertiary);
+}
+
+button.tw-header-button,
+.button.tw-header-button {
+	padding: var(--size-padding-tiny) var(--size-padding-base);
+	text-transform: uppercase;
+	margin-right: var(--size-padding-base);
 }

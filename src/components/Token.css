@@ -43,7 +43,7 @@
 .token-autocomplete-item {
 	display: block;
 	padding: var(--size-padding-small);
-	border: 2px solid var(--tw-border-primary);
+	border: 2px solid var(--tw-color-border-primary);
 	margin-top: -2px;
 }
 

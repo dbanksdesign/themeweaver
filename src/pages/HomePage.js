@@ -7,7 +7,8 @@ import Logo from '../components/Logo';
 import './Home.css';
 
 const HomePage = () => (
-	<div className="homepage">
+	<div className="page-content homepage">
+		<div className="">
 		
 		<Helmet>
 			<title>Themeweaver | Create IDE themes with design tokens!</title>
@@ -17,9 +18,9 @@ const HomePage = () => (
 			<div className="home-logo">
 				<Logo />
 			</div>
-			<h1 className="home-header">Create IDE &amp; syntax themes like a pro.</h1>
-			<p className="home-tagline">Use design tokens to create themes for multiple applications like VSCode and iTerm.</p>
-			<Link className="button block" to="/editor/base">Get started</Link>
+			<h1 className="home-header">Create IDE &amp; syntax themes in your browser!</h1>
+			{/* <p className="home-tagline">Use design tokens to create themes for multiple applications like VSCode and iTerm.</p> */}
+			
 		</section>
 		
 		<section className="home-hero">
@@ -35,7 +36,13 @@ const HomePage = () => (
 			<p>Hardcore mode! You can tweak the specific styles of the application using the theme tokens defined. </p>
 			
 			<h3>4. Syntax tokens</h3>
-			<p>Insane mode! Tweak specific syntax highlighting rules to your liking. </p>
+			<p>Insane mode! Tweak specific syntax highlighting rules to your liking.</p>
+			
+			
+		</section>
+		
+		<section className="home-hero">
+			<Link className="button block primary" to="/editor/base">Get started</Link>
 		</section>
 		
 		<section className="home-testimonials">
@@ -57,11 +64,14 @@ const HomePage = () => (
 				<dt><a href="https://vis4.net/chromajs">chroma.js</a></dt>
 				<dd>Used for color transformations</dd>
 				<dt><a href="https://microsoft.github.io/monaco-editor">Monaco</a></dt>
-				<dd>Text editor powering VSCode</dd>
+				<dd>Live code editor (powers VSCode)</dd>
+				<dt>Typefaces</dt>
+				<dd><a href="https://fonts.google.com/specimen/Source+Code+Pro">Source Code Pro</a> &amp; <a href="https://fonts.google.com/specimen/Source+Sans+Pro">Source Sans Pro</a></dd>
 			</dl>
 			
 			<p>While not directly used, this project is inspired by <a href="http://styledictionary.com">Style Dictionary</a></p>
 		</footer>
+	</div>
 	</div>
 )
 

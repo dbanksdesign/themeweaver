@@ -3,11 +3,22 @@ import { useLocation } from "react-router-dom";
 import smoothScroll from '../helpers/smoothScroll';
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+	const location = useLocation();
 
-  useEffect(() => {
-    smoothScroll.scrollToTop();
-  }, [pathname]);
+	useEffect(() => {
+		const { hash } = location;
+		if (hash) {
+			smoothScroll.scrollTo(
+				hash.replace('#',''),
+				'page-content',
+				100,
+				() => {
+					document.getElementById(hash.replace('#',''))
+						.classList.add('highlight');
+				}
+			);
+		}
+	}, [location]);
 
-  return null;
+	return null;
 }

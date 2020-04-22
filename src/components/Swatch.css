@@ -2,7 +2,7 @@
 	position: relative;
 	background-color: var(--tw-color-background-primary);
 	padding: var(--size-padding-small);
-	border: 2px solid var(--tw-border-primary);
+	border: 2px solid var(--tw-color-border-primary);
 	border-radius: 0 4px 4px 0;
 	margin-left: -8px;
 	z-index: 2;

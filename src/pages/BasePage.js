@@ -3,8 +3,8 @@ import chroma from 'chroma-js';
 import { Helmet } from 'react-helmet';
 
 import baseTokens from '../tokens/base';
-import Token from '../components/Token';
-import TokenGroup from '../components/TokenGroup';
+// import Token from '../components/Token';
+// import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
 import SwatchEditor from '../components/SwatchEditor';
@@ -286,9 +286,6 @@ class BasePage extends React.Component {
 	PINK = PINK
 	
 	state = {
-		primary: 'pink',
-		secondary: 'teal',
-		tertiary: 'purple',
 		grey: this.GREY,
 		greyHue: chroma(GREY[3].value).hsl()[0],
 		greySaturation: 0,
@@ -412,9 +409,6 @@ class BasePage extends React.Component {
 	resetColors = () => {
 		this.PINK = PINK;
 		this.setState({
-			primary: 'pink',
-			secondary: 'teal',
-			tertiary: 'purple',
 			grey: GREY,
 			greyHue: chroma(GREY[3].value).hsl()[0],
 			greySaturation: 0,
@@ -460,7 +454,7 @@ class BasePage extends React.Component {
 	}
 	
 	render() {
-		const { updateToken, tokens, tokenNames, resetState } = this.props;
+		const { updateToken, tokens } = this.props;
 		const links = sections.map(section => {
 			return {
 				label: section.title,
@@ -494,7 +488,7 @@ class BasePage extends React.Component {
 							buttons={colors.map(color => {
 								return {
 									label: color,
-									selected: this.state.primary === color
+									selected: this.props.tokens['base.primary.10'].value.includes(color)
 								}
 							})} />
 							
@@ -505,18 +499,18 @@ class BasePage extends React.Component {
 							buttons={colors.map(color => {
 								return {
 									label: color,
-									selected: this.state.secondary === color
+									selected: this.props.tokens['base.secondary.10'].value.includes(color)
 								}
 							})} />
 						
-						<h4>Tertiary Color</h4>
+						<label className="token-field-label">Tertiary Color</label>
 						<ToggleButton
 							className="color-toggle tertiary"
 							onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
 							buttons={colors.map(color => {
 								return {
 									label: color,
-									selected: this.state.tertiary === color
+									selected: this.props.tokens['base.tertiary.10'].value.includes(color)
 								}
 							})} />
 					</section>
@@ -541,18 +535,8 @@ class BasePage extends React.Component {
 							{section.tokens.map(({ path, description }) => {
 								if (!tokens[path]) { console.log(path); }
 								const val = tokens[path].computedValue;
-								const name = path.split('.').slice(-1);
 								return (
-									<SwatchEditor path={path} value={val} onChange={updateToken} />
-									// <div className="base-color" id={path.replace(/\./g,'-')} style={{
-									// 	backgroundColor: val
-									// }}>{name}: {val}</div>
-									// <Token {...tokens[path]}
-									// 	path={path}
-									// 	key={path}
-									// 	description={description}
-									// 	updateToken={updateToken}
-									// 	tokenNames={tokenNames} />
+									<SwatchEditor key={path} path={path} value={val} onChange={updateToken} />
 								)
 							})}
 							</div>
