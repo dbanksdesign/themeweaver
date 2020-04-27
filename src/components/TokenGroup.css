@@ -1,20 +1,19 @@
 .token-group {
 	padding-top: var(--size-padding-large);
-	position: relative;
 	margin-top: var(--size-padding-large);
 }
 
-.token-group::before {
+.token-group-title {
+	position: relative;
+}
+
+.token-group-title::before {
 	content: ' ';
 	position: absolute;
-	top: 0;
+	top: -1rem;
 	left: 0;
 	width: 50%;
 	border-top: 2px solid var(--tw-color-border-secondary);
-}
-
-.token-group-title {
-	
 }
 
 .token-group-description {

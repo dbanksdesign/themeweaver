@@ -349,6 +349,11 @@ export default {
 		"background": "",
 		"fontStyle": ""
 	},
+  "syntax.support.function.math": {
+		"foreground": "",
+		"background": "",
+		"fontStyle": ""
+	},
   "syntax.support.type.property-name": {
 		"foreground": "{theme.font.code.26}",
 		"background": "",

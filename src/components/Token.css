@@ -22,7 +22,19 @@
 .token-field-input {
 	display: block;
 	flex: 1;
+	border: 2px solid var(--tw-color-border-primary);
 	border-right: none;
+	padding: var(--size-padding-small);
+	height: 3rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.token-field-input:focus {
+	border-color: var(--tw-color-brand-primary-1);
+	outline: none;
 }
 
 .token-field-wrapper {
@@ -47,7 +59,8 @@
 	margin-top: -2px;
 }
 
-.token-autocomplete-item:hover {
+.token-autocomplete-item:hover,
+.token-autocomplete-item.active {
 	background-color: var(--tw-color-background-secondary);
 }
 

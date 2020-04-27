@@ -31,12 +31,12 @@
 
 .action-item {
 	display: block;
-	margin-bottom: 4px;
+	/* margin-bottom: 4px; */
 	position: relative;
 	cursor: pointer;
 }
 
-.content .monaco-action-bar .action-label {
+.activitybar .monaco-action-bar .action-label {
 	position: relative;
 	z-index: 1;
 	display: flex;

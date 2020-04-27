@@ -51,18 +51,6 @@
 	color: var(--application-badge-foreground);
 }
 
-.content .monaco-action-bar .action-label {
-	position: relative;
-	z-index: 1;
-	display: flex;
-	overflow: hidden;
-	height: 48px;
-	margin-right: 0;
-	box-sizing: border-box;
-	opacity: 0.4;
-	transition: opacity 50ms ease;
-	color: var(--application-activityBar-foreground);
-}
 
 .content .monaco-action-bar .action-item:hover .action-label,
 .content .monaco-action-bar .action-item.checked .action-label {
@@ -130,6 +118,10 @@
 	background-image: url(./icons/folder-src-open.svg);
 }
 
+.show-file-icons .node_modules-name-folder-icon::before {
+	content: ' ';
+	background-image: url(./icons/folder-node.svg);
+}
 
 .show-file-icons .package\.json-name-file-icon::before {
 	content: ' ';
@@ -143,6 +135,11 @@
 
 .monaco-workbench {
 	color: rgba(255, 255, 255, 0.93); /* set by VSCode I think */
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 .monaco-breadcrumbs {
@@ -306,3 +303,411 @@
 .tab:focus {
 	outline: none;
 }
+
+
+.monaco-workbench select {
+	font-size: 12px;
+}
+
+.monaco-workbench.debug .part.statusbar {
+	background-color: var(--application-statusBar-debuggingBackground);
+}
+
+
+.debug-toolbar {
+	top: 0;
+	left: 50%;
+	background-color: var(--application-debugToolBar-background);
+}
+
+.monaco-workbench.dark {
+	--debugIconStopForeground: #F48771;
+	--debugIconDisconnectForeground: #F48771;
+	--debugIconPauseForeground: #75BEFF;
+	--debugIconStepIntoForeground: #75BEFF;
+	--debugIconStepOverForeground: #75BEFF;
+	--debugIconStepOutForeground: #75BEFF;
+	--debugIconStartForeground: #89D185;
+	--debugIconRestartForeground: #89D185;
+}
+
+.monaco-workbench.light {
+	--debugIconStopForeground: #A1260D;
+	--debugIconDisconnectForeground: #A1260D;
+	--debugIconPauseForeground: #007ACC;
+	--debugIconStepIntoForeground: #007ACC;
+	--debugIconStepOverForeground: #007ACC;
+	--debugIconStepOutForeground: #007ACC;
+	--debugIconStartForeground: #388A34;
+	--debugIconRestartForeground: #388A34;
+}
+
+.monaco-workbench.hc {
+	--debugIconStopForeground: #F48771;
+	--debugIconDisconnectForeground: #F48771;
+	--debugIconPauseForeground: #75BEFF;
+	--debugIconStepIntoForeground: #75BEFF;
+	--debugIconStepOverForeground: #75BEFF;
+	--debugIconStepOutForeground: #75BEFF;
+	--debugIconStartForeground: #89D185;
+	--debugIconRestartForeground: #89D185;
+}
+
+.codicon-debug-stop {
+	color: var(--debugIconStopForeground) !important;
+}
+
+.codicon-debug-start {
+	color: var(--debugIconStartForeground) !important;
+}
+
+.codicon-debug-restart {
+	color: var(--debugIconRestartForeground) !important;
+}
+
+.codicon-debug-pause {
+	color: var(--debugIconPauseForeground) !important;
+}
+
+.codicon-debug-step-out {
+	color: var(--debugIconStepOutForeground) !important;
+}
+
+.codicon-debug-step-into {
+	color: var(--debugIconStepIntoForeground) !important;
+}
+
+.codicon-debug-step-over {
+	color: var(--debugIconStepOverForeground) !important;
+}
+
+
+.monaco-editor .find-widget .button {
+	background-color: transparent;
+	padding: 0;
+	border: none;
+	color: inherit;
+}
+
+
+.monaco-workbench select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+.monaco-workbench .select-container {
+	position: relative;
+}
+
+.monaco-workbench .select-container:after {
+	content: "\eab4";
+	font-family: codicon;
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	line-height: 14px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 6px;
+	margin: auto;
+	pointer-events: none;
+}
+
+
+.monaco-workbench .part>.title>.title-actions .start-debug-action-item {
+	display: flex;
+	align-items: center;
+	font-size: 11px;
+	margin-right: .3em;
+	height: 20px;
+	flex-shrink: 1;
+	margin-top: 7px;
+}
+
+.debug-pane .debug-breakpoints .breakpoint.exception {
+	padding-left: 20px;
+}
+
+.pane-header {
+	color: var(--application-sideBarSectionHeader-foreground);
+	background-color: var(--application-sideBarSectionHeader-background);
+	border-top: 1px solid transparent;
+	border-color: var(--application-sideBarSectionHeader-border);
+}
+
+.monaco-button {
+	
+}
+
+.monaco-workbench .input {
+	color: var(--application-input-foreground);
+	background-color: var(--application-input-background);
+	border: 1px solid transparent;
+	border-color: var(--application-input-border);
+}
+
+.monaco-inputbox > .wrapper > .input {
+	border: 1px solid transparent;
+	border-color: var(--application-input-border);
+}
+
+.monaco-workbench .wrapper .input:focus {
+	outline: none;
+	border-color: var(--application-focusBorder);
+}
+
+.monaco-count-badge {
+	padding: 3px 5px;
+	border-radius: 11px;
+	font-size: 11px;
+	min-width: 18px;
+	min-height: 18px;
+	line-height: 11px;
+	font-weight: normal;
+	text-align: center;
+	display: inline-block;
+	box-sizing: border-box;
+	background-color: var(--application-badge-background);
+	color: var(--application-badge-foreground);
+}
+
+.findInFileMatch {
+	background-color: var(--application-editor-findMatchHighlightBackground);
+}
+
+
+.scm-viewlet .monaco-list-row .resource>.name.strike-through>.monaco-icon-label>.monaco-icon-label-container>.monaco-icon-name-container>.label-name {
+	text-decoration: line-through;
+}
+
+.scm-viewlet .scm-editor {
+	padding: 6px 12px;
+}
+
+.pointer {
+	text-decoration: underline;
+}
+
+.monaco-action-bar .action-item.disabled .action-label,
+.monaco-action-bar .action-item.disabled .action-label:hover {
+	opacity: .4;
+}
+
+
+.extension-list-item {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding: 0 0 0 16px;
+	overflow: hidden;
+	display: flex;
+}
+
+.extension-list-item>.details {
+	flex: 1;
+	padding: 4px 0;
+	overflow: hidden;
+}
+
+.extension-list-item>.icon-container>.icon {
+	width: 42px;
+	height: 42px;
+	padding: 10px 14px 10px 0;
+	flex-shrink: 0;
+	object-fit: contain;
+	box-sizing: content-box;
+}
+
+.extension-list-item>.details>.header-container {
+	height: 19px;
+	display: flex;
+	overflow: hidden;
+	padding-right: 11px;
+}
+
+.extension-list-item>.details>.header-container>.header {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: nowrap;
+	overflow: hidden;
+	flex: 1;
+	min-width: 0;
+}
+
+.extension-list-item>.details>.header-container>.header>.name {
+	font-weight: 700;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.extension-list-item>.details>.header-container>.header>.version {
+	opacity: .85;
+	font-size: 80%;
+	padding-left: 6px;
+	min-width: fit-content;
+	min-width: -moz-fit-content;
+	flex: 1;
+}
+
+.extension-ratings .codicon-star-full, .extension-ratings .codicon-star-half {
+	color: #ff8e00!important;
+}
+
+.extension-list-item>.details>.header-container>.header>.install-count:not(:empty) {
+	font-size: 80%;
+	margin: 0 6px;
+}
+
+.extension-list-item>.details>.header-container>.header>.install-count, .extension-list-item>.details>.header-container>.header>.ratings {
+	display: flex;
+	align-items: center;
+}
+
+.extension-list-item .ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.extension-list-item>.details>.footer {
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 7px;
+	height: 18px;
+	overflow: hidden;
+}
+
+.monaco-pane-view .pane>.pane-header>.actions.show {
+	display: initial;
+}
+
+
+.monaco-list-row:hover:not(.selected):not(.focused) {
+	background-color: var(--application-list-hoverBackground);
+	color: var(--application-list-hoverForeground);
+}
+
+
+
+.monaco-list .monaco-list-row.selected {
+	background-color: var(--application-list-focusBackground);
+	color: var(--application-list-focusForeground);
+}
+
+.monaco-pane-view .split-view-view:first-of-type>.pane>.pane-header {
+	border-top: none!important;
+}
+
+.extension-bookmark {
+	position: absolute;
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+}
+
+.extension-bookmark>.recommendation {
+	border-right: 20px solid transparent;
+	border-top: 20px solid var(--application-button-background);
+	box-sizing: border-box;
+	position: relative;
+	color: var(--application-button-foreground);
+}
+
+.extension-bookmark>.recommendation>.codicon {
+	position: absolute;
+	bottom: 9px;
+	left: 1px;
+	color: inherit;
+	font-size: 80%;
+}
+
+
+.monaco-action-bar .action-item .action-label.extension-action {
+	padding: 0 5px;
+	outline-offset: 2px;
+	line-height: normal;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.extension-list-item>.details>.footer {
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 7px;
+	height: 18px;
+	overflow: hidden;
+}
+
+.extension-list-item>.details>.footer>.author {
+	flex: 1;
+	font-size: 90%;
+	opacity: .9;
+	font-weight: 600;
+}
+
+.extension-list-item .monaco-action-bar .action-item .action-label.extension-action.label {
+	background-color: var(--application-button-background);
+	color: var(--application-button-foreground);
+}
+
+.monaco-icon-label:after {
+	opacity: .75;
+	font-size: 90%;
+	font-weight: 600;
+	padding: 0 16px 0 5px;
+	text-align: center;
+}
+
+.monaco-decoration-ignored {
+	color: var(--application-gitDecoration-ignoredResourceForeground);
+}
+
+.monaco-decoration-deleted {
+	color: var(--application-gitDecoration-deletedResourceForeground);
+}
+
+.monaco-decoration-modified {
+	color: var(--application-gitDecoration-modifiedResourceForeground);
+}
+
+.monaco-decoration-untracked {
+	color: var(--application-gitDecoration-untrackedResourceForeground);
+}
+
+.monaco-decoration-added {
+	color: var(--application-gitDecoration-addedResourceForeground);
+}
+
+.monaco-decoration-error {
+	color: var(--application-list-errorForeground);
+}
+
+.monaco-decoration-warning {
+	color: var(--application-list-warningForeground);
+}
+
+.monaco-decoration-bubbleBadge::after {
+	font-family: codicon;
+	font-size: 14px;
+	padding-right: 14px;
+	opacity: 0.4;
+}
+
+.monaco-decoration-itemBadge.monaco-decoration-updated::after { content: 'U'; }
+.monaco-decoration-itemBadge.monaco-decoration-modified::after { content: 'M'; }
+.monaco-decoration-itemBadge.monaco-decoration-added::after { content: 'A'; }
+.monaco-decoration-itemBadge.monaco-decoration-deleted::after { content: 'D'; }
+.monaco-decoration-itemBadge.monaco-decoration-untracked::after { content: 'U'; }
+.monaco-decoration-itemBadge.monaco-decoration-error::after { content: '1,M'; }
+.monaco-decoration-itemBadge.monaco-decoration-warning::after { content: '1,M'; }
+
+.monaco-decoration-bubbleBadge.monaco-decoration-updated::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-modified::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-added::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-deleted::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-untracked::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-error::after,
+.monaco-decoration-bubbleBadge.monaco-decoration-warning::after { content: ""; }

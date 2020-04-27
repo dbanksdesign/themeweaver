@@ -15,28 +15,31 @@ const sections = [{
 	name: 'grey',
 	description: `Greys are used in the base backgrounds and font colors throughout the application and syntax styling.`,
 	tokens: [{
-		path: `base.grey.5`,
-		description: ``
-	},{
-		path: `base.grey.10`,
-		description: ``
-	},{
-		path: `base.grey.20`,
-		description: ``
-	},{
-		path: `base.grey.40`,
-		description: ``
-	},{
-		path: `base.grey.60`,
-		description: ``
-	},{
-		path: `base.grey.80`,
+		path: `base.grey.100`,
 		description: ``
 	},{
 		path: `base.grey.90`,
 		description: ``
 	},{
-		path: `base.grey.100`,
+		path: `base.grey.80`,
+		description: ``
+	},{
+		path: `base.grey.60`,
+		description: ``
+	},{
+		path: `base.grey.40`,
+		description: ``
+	},{
+		path: `base.grey.20`,
+		description: ``
+	},{
+		path: `base.grey.10`,
+		description: ``
+	},{
+		path: `base.grey.5`,
+		description: ``
+	},{
+		path: `base.grey.0`,
 		description: ``
 	}]
 },{
@@ -197,14 +200,15 @@ const sections = [{
 const colors = ['red','orange','yellow','lime','green','teal','blue','purple','pink'];
 
 const GREY = [
-	{value: baseTokens[`base.grey.5`], path: `base.grey.5`},
-	{value: baseTokens[`base.grey.10`], path: `base.grey.10`},
-	{value: baseTokens[`base.grey.20`], path: `base.grey.20`},
-	{value: baseTokens[`base.grey.40`], path: `base.grey.40`},
-	{value: baseTokens[`base.grey.60`], path: `base.grey.60`},
-	{value: baseTokens[`base.grey.80`], path: `base.grey.80`},
-	{value: baseTokens[`base.grey.90`], path: `base.grey.90`},
 	{value: baseTokens[`base.grey.100`], path: `base.grey.100`},
+	{value: baseTokens[`base.grey.90`], path: `base.grey.90`},
+	{value: baseTokens[`base.grey.80`], path: `base.grey.80`},
+	{value: baseTokens[`base.grey.60`], path: `base.grey.60`},
+	{value: baseTokens[`base.grey.40`], path: `base.grey.40`},
+	{value: baseTokens[`base.grey.20`], path: `base.grey.20`},
+	{value: baseTokens[`base.grey.10`], path: `base.grey.10`},
+	{value: baseTokens[`base.grey.5`], path: `base.grey.5`},
+	{value: baseTokens[`base.grey.0`], path: `base.grey.0`},
 ];
 
 const RED = [
@@ -406,53 +410,6 @@ class BasePage extends React.Component {
 		)
 	}
 	
-	resetColors = () => {
-		this.PINK = PINK;
-		this.setState({
-			grey: GREY,
-			greyHue: chroma(GREY[3].value).hsl()[0],
-			greySaturation: 0,
-			greyLightness: 0,
-			red: RED,
-			redHue: chroma(RED[3].value).hsl()[0],
-			redSaturation: 0,
-			redLightness: 0,
-			orange: ORANGE,
-			orangeHue: chroma(ORANGE[3].value).hsl()[0],
-			orangeSaturation: 0,
-			orangeLightness: 0,
-			yellow: YELLOW,
-			yellowHue: chroma(YELLOW[3].value).hsl()[0],
-			yellowSaturation: 0,
-			yellowLightness: 0,
-			lime: LIME,
-			limeHue: chroma(LIME[3].value).hsl()[0],
-			limeSaturation: 0,
-			limeLightness: 0,
-			green: GREEN,
-			greenHue: chroma(GREEN[3].value).hsl()[0],
-			greenSaturation: 0,
-			greenLightness: 0,
-			teal: TEAL,
-			tealHue: chroma(TEAL[3].value).hsl()[0],
-			tealSaturation: 0,
-			tealLightness: 0,
-			blue: BLUE,
-			blueHue: chroma(BLUE[3].value).hsl()[0],
-			blueSaturation: 0,
-			blueLightness: 0,
-			purple: PURPLE,
-			purpleHue: chroma(PURPLE[3].value).hsl()[0],
-			purpleSaturation: 0,
-			purpleLightness: 0,
-			pink: PINK,
-			pinkHue: chroma(PINK[3].value).hsl()[0],
-			pinkSaturation: 0,
-			pinkLightness: 0,
-		});
-		this.props.resetState();
-	}
-	
 	render() {
 		const { updateToken, tokens } = this.props;
 		const links = sections.map(section => {
@@ -477,7 +434,7 @@ class BasePage extends React.Component {
 					<h1>Base</h1>
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
 					
-					<section id="brand" className="token-group">
+					<section id="brand" className="token-group flow">
 						<h3>Brand Colors</h3>
 						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
 						
@@ -517,6 +474,7 @@ class BasePage extends React.Component {
 					
 					{sections.map(section => (
 						<section
+							className="token-group"
 							key={section.title}
 							id={section.title.replace(' ','-')}>
 							<ColorMixer
@@ -532,19 +490,16 @@ class BasePage extends React.Component {
 									<p>{section.description}</p>
 							</ColorMixer>
 								<div className="base-color-group">
-							{section.tokens.map(({ path, description }) => {
-								if (!tokens[path]) { console.log(path); }
-								const val = tokens[path].computedValue;
-								return (
-									<SwatchEditor key={path} path={path} value={val} onChange={updateToken} />
-								)
-							})}
+									{section.tokens.map(({ path, description }) => {
+										if (!tokens[path]) { console.log(path); }
+										const {computedValue, reverseLookup} = tokens[path];
+										return (
+											<SwatchEditor key={path} path={path} reverseLookup={reverseLookup} value={computedValue} onChange={updateToken} />
+										)
+									})}
 							</div>
 						</section>
 					))}
-					
-					{/* <button className="wide"
-						onClick={resetState}>Reset colors</button> */}
 				</div>
 				</div>
 			</>

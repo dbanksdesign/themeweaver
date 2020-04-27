@@ -190,6 +190,7 @@ const json = `{
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"style-dictionary": "^2.9.0"
 	}
 }`
 
@@ -225,7 +226,8 @@ const themeMap = {
 
 class VSCodeEditor extends React.PureComponent {
 	state = {
-		currentTab: 1
+		currentTab: 1,
+		editors: editors
 	}
 	
 	defineTheme = () => {
@@ -269,6 +271,18 @@ class VSCodeEditor extends React.PureComponent {
 		})
 	}
 	
+	onChange = (newValue, e) => {
+		const { editors, currentTab } = this.state;
+		const newEditors = [
+			...editors.slice(0, currentTab),
+			Object.assign({}, editors[currentTab], { value: newValue }),
+			...editors.slice(currentTab + 1)
+		];
+		this.setState({
+			editors: newEditors
+		});
+  }
+	
 	render() {
 		let width;
 		const ei = document.getElementById("editor-instance");
@@ -293,6 +307,7 @@ class VSCodeEditor extends React.PureComponent {
 									ref="vscode"
 									theme="myTheme"
 									width={width}
+									onChange={this.onChange}
 									options={{
 										showUnused: true,
 										renderWhitespace: true,
@@ -301,7 +316,7 @@ class VSCodeEditor extends React.PureComponent {
 									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}
-									{...editors[this.state.currentTab]} />
+									{...this.state.editors[this.state.currentTab]} />
 							</div>
 						</div>
 					</div>

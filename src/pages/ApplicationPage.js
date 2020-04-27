@@ -867,6 +867,31 @@ const sections = [{
 		path: `application.panelInput.border`,
 		description: `Input box border for inputs in the panel.`
 	}]
+},{
+	title: `Git`,
+	description: ``,
+	tokens:[{
+		path: `application.gitDecoration.addedResourceForeground`,
+		description: `Color for added Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.modifiedResourceForeground`,
+		description: `Color for modified Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.deletedResourceForeground`,
+		description: `Color for deleted Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.untrackedResourceForeground`,
+		description: `Color for untracked Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.ignoredResourceForeground`,
+		description: `Color for ignored Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.conflictingResourceForeground`,
+		description: `Color for conflicting Git resources. Used for file labels and the SCM viewlet.`
+	},{
+		path: `application.gitDecoration.submoduleResourceForeground`,
+		description: `Color for submodule resources.`
+	}]
 }];
 
 class ApplicationPage extends React.Component {

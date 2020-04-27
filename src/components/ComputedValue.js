@@ -1,16 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-class ComputedValue extends React.PureComponent {
-	render() {
-		const { refs } = this.props;
+const ComputedValue = ({ refs }) => {
+	if (refs && refs.length) {
 		return (
 			<div className="token-references">
-				<span>Resolves to: </span>
-				{refs.map((ref,i) => (
-					<span className="token-reference" key={`${ref}${i}`}>{ref}</span>
-				))}
+				{refs.map((ref,i) => {
+					if (ref) {
+						if (ref.indexOf('}') > -1) {
+							let name;
+							ref.replace(/\{([^}]+)\}/g, (match, variable) => {
+								name = match.replace(/{|}/g,'');;
+							});
+							const link = `/editor/${name.split('.')[0]}#${name.replace(/\./g,'-')}`
+							return (
+								<li className="token-reference" key={ref}>
+									<Link to={link}>{ref}</Link>
+								</li>
+							)
+						} else {
+							return (
+								<li className="token-reference" key={ref}>
+									{ref}
+								</li>
+							)
+						}
+					} else {
+						return null;
+					}
+				})}
 			</div>
 		)
+	} else {
+		return null;
 	}
 }
 

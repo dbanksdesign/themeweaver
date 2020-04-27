@@ -1,27 +1,37 @@
 .toggle-buttons {
-	display: flex;
+	display: inline-flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	margin-bottom: var(--size-padding-base);
+	border: 2px solid var(--tw-color-border-secondary);
+	padding: 4px;
+	border-radius: 8px;
+	background-color: var(--tw-color-background-secondary);
+	/* margin-bottom: var(--size-padding-base); */
 }
 
 .toggle-button {
 	flex: 1;
 	display: block;
-	padding: var(--size-padding-base);
+	padding: var(--size-padding-tiny) var(--size-padding-base);
 	/* margin: 0 var(--size-padding-small); */
 	font-size: var(--size-font-base);
-	color: var(--tw-color-font-secondary);
+	color: var(--tw-color-font-link);
 	background-color: transparent;
-	border: 2px solid var(--tw-color-border-primary);
+	/* border: 2px solid transparent; */
+	border: none;
 }
+
+/* .color-toggle {
+	padding: 0;
+} */
 
 .color-toggle > .toggle-button {
 	margin: 0;
 	width: 33.3%;
 	flex-basis: 33.3%;
-	margin: -2px 0 0 -2px;
-	border-radius: 0;
+	color: var(--tw-color-font-tertiary);
+	/* margin: -2px 0 0 -2px; */
+	/* border-radius: 0; */
 	/* opacity: 0.25; */
 }
 
@@ -30,21 +40,26 @@
 }
 
 .color-toggle > .toggle-button:hover {
-	color: var(--tw-color-font-secondary);
+	/* color: var(--tw-color-font-secondary); */
+	color: #fff;
 }
 
 .toggle-button:active,
 .toggle-button.active {
-	border-color: transparent;
-	background-color: var(--application-button-hoverBackground);
+	/* border-color: transparent; */
+	/* background-color: var(--application-button-hoverBackground); */
+	background-color: var(--tw-color-brand-primary-1);
+	color: #fff;
 }
 
 .toggle-button:active,
 .toggle-button:focus {
-	outline-style: solid;
-	outline-offset: 0.25rem;
+	/* outline-style: solid;
+	outline-offset: 2px;
 	outline-width: 2px;
-	outline-color: var(--application-button-hoverBackground);
+	outline-color: var(--tw-color-outline); */
+	outline: none;
+	border-color: var(--tw-color-brand-primary-2);
 }
 
 .tertiary > .toggle-button {

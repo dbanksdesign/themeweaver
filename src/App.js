@@ -7,8 +7,6 @@ import createAllTokens from './helpers/createAllTokens';
 import updateToken from './helpers/updateToken';
 import { lsSet, lsGet } from './helpers/localStorage';
 import HomePage from './pages/HomePage';
-// import AboutPage from './pages/AboutPage';
-// import EditorPage from './pages/EditorPage';
 
 import BasePage from './pages/BasePage';
 import ThemePage from './pages/ThemePage';
@@ -49,7 +47,7 @@ class App extends Component {
 		super(props);
 		let initialState;
 		// Uncomment this when going live, commenting out so hot reloads work.
-		// initialState = lsGet('state');
+		initialState = lsGet('state');
 		
 		if (initialState) {
 			this.state = initialState;
@@ -161,90 +159,66 @@ class App extends Component {
 			<Router>
 				<div className="app">
 					<CSSVars tokens={Object.assign({}, applicationTokens, themeTokens)} />
-					<Header resetState={this.resetState} />
-			<ScrollToTop />
-			<ResizablePanels onResize={onResize}>
-				<div className="editor-pane">
-					<Switch>
-						<Route exact path="/">
-							<HomePage />
-						</Route>
-						<Route path="/editor/export">
-							<ExportPage
-								theme={theme}
-								themeName={themeName}
-								updateThemeName={this.updateThemeName}
-								currentTheme={currentTheme}
-								allTokens={allTokens} />
-						</Route>
-						<Route path="/editor/base">
-							<BasePage
-								tokens={baseTokens}
-								updateTokens={this.updateTokens}
-								updateToken={this.updateToken}
-								resetState={this.resetState} />
-						</Route>
-						<Route path="/editor/theme">
-							<ThemePage
-								tokens={themeTokens}
-								tokenNames={tokenNames}
-								currentTheme={currentTheme}
-								changeTheme={this.changeTheme}
-								updateToken={this.updateToken} />
-						</Route>
-						<Route path="/editor/application">
-							<ApplicationPage
-								tokens={applicationTokens}
-								tokenNames={tokenNames}
-								updateToken={this.updateToken} />
-						</Route>
-						<Route path="/editor/syntax">
-							<SyntaxPage
-								tokens={syntaxTokens}
-								tokenNames={tokenNames}
-								updateFontStyle={this.updateFontStyle}
-								updateToken={this.updateToken} />
-						</Route>
-					</Switch>
-				</div>
-				
-				{({windowWidth,mainWidth}) => (
-					<div tabIndex="-1" className="preview-pane vscode">
-						<Workbench>
-							<VSCodeEditor
-								windowWidth={windowWidth}
-								mainWidth={mainWidth}
-								currentTheme={currentTheme}
-								syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
-								applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
-						</Workbench>
-					</div>
-				)}
-
-			</ResizablePanels>
-				
-					{/* <Switch>
-						<Route exact path="/">
-							<HomePage />
-						</Route>
-						<Route path="/about">
-							<AboutPage />
-						</Route>
-						<Route path="/editor">
-							<EditorPage
-								allTokens={allTokens}
-								updateToken={this.updateToken}
-								updateTokens={this.updateTokens}
-								changeTheme={this.changeTheme}
-								updateFontStyle={this.updateFontStyle}
-								resetState={this.resetState}
-								updateThemeName={this.updateThemeName}
-								theme={theme}
-								currentTheme={currentTheme}
-								themeName={themeName} />
-						</Route>
-					</Switch> */}
-					
+					<Header resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
+					<ScrollToTop />
+					<ResizablePanels onResize={onResize}>
+						<div className="editor-pane">
+							<Switch>
+								<Route exact path="/">
+									<HomePage />
+								</Route>
+								<Route path="/editor/export">
+									<ExportPage
+										theme={theme}
+										themeName={themeName}
+										updateThemeName={this.updateThemeName}
+										currentTheme={currentTheme}
+										allTokens={allTokens} />
+								</Route>
+								<Route path="/editor/base">
+									<BasePage
+										tokens={baseTokens}
+										updateTokens={this.updateTokens}
+										updateToken={this.updateToken}
+										resetState={this.resetState} />
+								</Route>
+								<Route path="/editor/theme">
+									<ThemePage
+										tokens={themeTokens}
+										tokenNames={tokenNames}
+										currentTheme={currentTheme}
+										changeTheme={this.changeTheme}
+										updateToken={this.updateToken} />
+								</Route>
+								<Route path="/editor/application">
+									<ApplicationPage
+										tokens={applicationTokens}
+										tokenNames={tokenNames}
+										updateToken={this.updateToken} />
+								</Route>
+								<Route path="/editor/syntax">
+									<SyntaxPage
+										tokens={syntaxTokens}
+										tokenNames={tokenNames}
+										updateFontStyle={this.updateFontStyle}
+										updateToken={this.updateToken} />
+								</Route>
+							</Switch>
+						</div>
+						
+						{({windowWidth,mainWidth}) => (
+							<div tabIndex="-1" className="preview-pane vscode">
+								<Workbench theme={currentTheme}>
+									<VSCodeEditor
+										windowWidth={windowWidth}
+										mainWidth={mainWidth}
+										currentTheme={currentTheme}
+										syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
+										applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
+								</Workbench>
+							</div>
+						)}
+					</ResizablePanels>
 				</div>
 			</Router>
 		)

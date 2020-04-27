@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import chroma from 'chroma-js';
+import clsx from 'clsx';
 
 const SwatchEditor = (props) => {
 	const { path, value } = props;
@@ -19,8 +20,10 @@ const SwatchEditor = (props) => {
 		});
 	}
 	
+	const isDark = chroma.contrast(value, '#000') <= 7;
+	
 	return (
-		<div className="base-color"
+		<div className={clsx("base-color", isVisible && "expanded", isDark && "dark")}
 			id={path.replace(/\./g,'-')}
 			style={{
 				backgroundColor: value
@@ -28,6 +31,7 @@ const SwatchEditor = (props) => {
 			<div className="base-color-title" onClick={() => setVisible(!isVisible)}>
 				{name}: {value}
 			</div>
+			<span className="codicon codicon-chevron-down base-color-chevron" />
 			{isVisible && <div className="base-color-popup">
 				<label>Hue</label>
 				<input
@@ -74,7 +78,9 @@ const SwatchEditor = (props) => {
 					])} />
 			</div>}
 			
-			
+			<div>
+				{/* {reverseLookup && reverseLookup.join(', ')} */}
+			</div>
 		</div>
 	)
 }

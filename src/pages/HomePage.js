@@ -45,16 +45,6 @@ const HomePage = () => (
 			<Link className="button block primary" to="/editor/base">Get started</Link>
 		</section>
 		
-		<section className="home-testimonials">
-			<div className="testimonial">
-				<img className="testimonial-img" alt="" />
-				<blockquote className="testimonial-text">
-					This is the coolest thing ever.
-				</blockquote>
-				<cite className="testimonial-author">Burt Macklin, FBI</cite>
-			</div>
-		</section>
-		
 		<footer className="home-footer">
 			<h2>Credits</h2>
 			<p>This project is built on a lot of awesome open source work:</p>

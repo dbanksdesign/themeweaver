@@ -8,15 +8,18 @@ export default function ScrollToTop() {
 	useEffect(() => {
 		const { hash } = location;
 		if (hash) {
-			smoothScroll.scrollTo(
-				hash.replace('#',''),
-				'page-content',
-				100,
-				() => {
-					document.getElementById(hash.replace('#',''))
-						.classList.add('highlight');
-				}
-			);
+			setTimeout(() => {
+				smoothScroll.scrollTo(
+					hash.replace('#',''),
+					'page-content',
+					100,
+					() => {
+						document.getElementById(hash.replace('#',''))
+							.classList.add('highlight');
+					}
+				);
+			}, 200);
+
 		}
 	}, [location]);
 

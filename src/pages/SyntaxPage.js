@@ -6,7 +6,7 @@ import TOC from '../components/TOC';
 
 const sections = [{
 	title: `Comment`,
-	description: ``,
+	description: `Code comments, you can target single, block, and documentation type comments`,
 	tokens: [{
 		path: `syntax.comment`,
 		description: ``
@@ -22,7 +22,7 @@ const sections = [{
 	}]
 },{
 	title: `Constant`,
-	description: ``,
+	description: `Things like numbers, booleans, null, escape characters`,
 	tokens: [{
 		path: `syntax.constant.language.dart`,
 		description: ``
@@ -50,7 +50,7 @@ const sections = [{
 	}]
 },{
 	title: `Entity`,
-	description: ``,
+	description: <span>Names of functions, data structures, classes, etc., but not of variables which reference them. For example, <code>var foo = someFunction();</code>, <code>someFunction()</code> would be an entity. Entity also includes some HTML syntax like tags and tag attributes.</span>,
 	tokens: [{
 		path: `syntax.entity.name.tag`,
 		description: ``
@@ -78,14 +78,14 @@ const sections = [{
 	}]
 },{
 	title: `Invalid`,
-	description: ``,
+	description: `Illegal and deprecated code`,
 	tokens: [{
 		path: `syntax.invalid`,
 		description: ``
 	}]
 },{
 	title: `Keyword`,
-	description: ``,
+	description: <span>Things like <code>new</code>, <code>import/export</code>, and operators like conditionals or relational (less than, greater than, etc.). Does not include type elements like <code>async</code>, <code>var</code>, <code>let</code>, etc., those are in storage.</span>,
 	tokens: [{
 		path: `syntax.keyword`,
 		description: ``
@@ -116,7 +116,7 @@ const sections = [{
 	}]
 },{
 	title: `Markup`,
-	description: ``,
+	description: `Things in markup/markdown languages. Applies to markdown files as well as documentation comments if you include markdown syntax.`,
 	tokens: [{
 		path: `syntax.markup.bold`,
 		description: ``
@@ -138,7 +138,7 @@ const sections = [{
 	}]
 },{
 	title: `Meta`,
-	description: ``,
+	description: <span>This is used for larger sections of code that usually contain multiple more specific scopes. A lot of tokens have a meta scope, but it takes a lower priority than more specific scopes. For example, every element from the start of a class definition in Javascript to the end curly brace has a scope of <code>meta.class</code>. You usually won’t use this scope for styling. The scopes where this has higher specificity you might want to use are things like braces (curly, square, round).</span>,
 	tokens: [{
 		path: `syntax.meta.brace.round`,
 		description: ``
@@ -178,7 +178,7 @@ const sections = [{
 	}]
 },{
 	title: `Punctuation`,
-	description: ``,
+	description: `This is for any punctuation like periods, commas, and semi-colons.`,
 	tokens: [{
 		path: `syntax.punctuation.accessor`,
 		description: ``
@@ -224,14 +224,14 @@ const sections = [{
 	}]
 },{
 	title: `Storage`,
-	description: ``,
+	description: <span>In Javascript storages are variable or class keywords like class, var, let, static, and extends. This can also include modifiers like static.</span>,
 	tokens: [{
 		path: `syntax.storage`,
 		description: ``
 	}]
 },{
 	title: `String`,
-	description: ``,
+	description: <span>String literal definitions like <code>"I am a string"</code>.</span>,
 	tokens: [{
 		path: `syntax.string`,
 		description: ``
@@ -241,7 +241,7 @@ const sections = [{
 	}]
 },{
 	title: `Support`,
-	description: ``,
+	description: <span>Elements provided by the language. This is useful for CSS syntax tokens. CSS properties like <code>margin</code> and <code>color</code> are <strong>support.type.property-name</strong> and built-in values like <code>red</code> or <code>rebeccapurple</code> are under <strong>support.constant</strong>.</span>,
 	tokens: [{
 		path: `syntax.support.class`,
 		description: ``
@@ -261,8 +261,11 @@ const sections = [{
 		path: `syntax.support.function`,
 		description: ``
 	},{
+		path: `syntax.support.function.math`,
+		description: <span>Functions on the global Math object like <code>.floor</code> or <code>.round</code></span>
+	},{
 		path: `syntax.support.type.property-name`,
-		description: ``
+		description: <span>Testing</span>
 	},{
 		path: `syntax.support.type.property-name.css`,
 		description: ``
@@ -272,7 +275,7 @@ const sections = [{
 	}]
 },{
 	title: `Variable`,
-	description: ``,
+	description: <span>The name of variables and properties within that variable. In Javascript defining a class is not a variable, it is an entity. In this example: <code>var name = 'Danny'; console.log(name);</code>, both occurrences of <code>name</code> would be in the variable scope. <code>this</code> is also a variable.</span>,
 	tokens: [{
 		path: `syntax.variable`,
 		description: ``

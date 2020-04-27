@@ -1,6 +1,6 @@
 .tw-header {
 	top: 0;
-	height: 3rem;
+	height: 4rem;
 	width: 100%;
 	border-bottom: 2px solid var(--tw-color-border-primary);
 	background-color: var(--tw-color-background-primary);
@@ -18,12 +18,16 @@
 	align-self: flex-end;
 	display: flex;
 	align-items: center;
-	height: 3rem;
+	height: 4rem;
+}
+
+.tw-header-secondary-nav > * {
+	margin-right: var(--size-padding-base);
 }
 
 .tw-header-nav-item {
-	line-height: 3rem;
-	height: 3rem;
+	line-height: 4rem;
+	height: 4rem;
 	display: inline-block;
 	padding: 0 var(--size-padding-base);
 	border-bottom: 2px solid transparent;
@@ -64,11 +68,11 @@
 }
 
 .github-path {
-	fill: var(--theme-font-quaternary);
+	fill: var(--tw-color-font-quaternary);
 }
 
 .github:hover .github-path {
-	fill: var(--theme-font-tertiary);
+	fill: var(--tw-color-font-tertiary);
 }
 
 button.tw-header-button,

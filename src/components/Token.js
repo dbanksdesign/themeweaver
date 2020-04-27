@@ -4,41 +4,10 @@ import chroma from 'chroma-js';
 // import clsx from 'clsx';
 import Swatch from './Swatch';
 import Autocomplete from './Autocomplete';
-// import ColorInput from './ColorInput';
+import ComputedValue from './ComputedValue';
 import './Token.css';
 
-const ComputedValue = ({ refs }) => {
-	if (refs && refs.length) {
-		return (
-			<div className="token-references">
-				{refs.map((ref,i) => {
-					if (ref) {
-						if (ref.indexOf('}') > -1) {
-							let name;
-							ref.replace(/\{([^}]+)\}/g, (match, variable) => {
-								name = match.replace(/{|}/g,'');;
-							});
-							const link = `/editor/${name.split('.')[0]}#${name.replace(/\./g,'-')}`
-							return (
-								<li className="token-reference" key={ref}>
-									<Link to={link}>{ref}</Link>
-								</li>
-							)
-						} else {
-							return (
-								<li className="token-reference" key={ref}>
-									{ref}
-								</li>
-							)
-						}
-					}
-				})}
-			</div>
-		)
-	} else {
-		return null;
-	}
-}
+
 
 const lookupToLink = (ref) => {
 	return `/editor/${ref.split('.')[0]}#${ref.replace(/\./g,'-')}`
@@ -110,10 +79,17 @@ class Token extends React.PureComponent {
 	
 	onKeyDown = e => {
 		const { activeSuggestion, filteredSuggestions } = this.state;
-		
 		if (e.keyCode === 13) {
 			// enter key
-			console.log('enter');
+			const value = filteredSuggestions[activeSuggestion];
+			if (value) {
+				this.autocompleteClick(value);
+				this.setState({
+					filteredSuggestions: [],
+					activeSuggestion: 0,
+					focused: false
+				});
+			}
 		} else if (e.keyCode === 38) {
 			// up key
 			console.log('up');
@@ -131,15 +107,23 @@ class Token extends React.PureComponent {
 		}
 	}
 	
-	render() {
-		const { name, value, computedValue, updateToken, path, refs, reverseLookup, tokenNames, id, secondaryKey, description, colorType, children } = this.props;
-		let autocomplete;
+	onChange = (e) => {
+		const { tokenNames, updateToken, path, secondaryKey } = this.props;
+		updateToken({path, secondaryKey, value: e.target.value});
 		
-		if (value && value.indexOf('{') > -1) {
-			autocomplete = tokenNames.filter(name => {
-				return name.startsWith(value.replace(/\{|\}/gi,''))
+		if (e.target.value.indexOf('{') > -1) {
+			this.setState({
+				filteredSuggestions: tokenNames.filter(name => {
+					return name.startsWith(e.target.value.replace(/\{|\}/gi,''))
+				})
 			});
 		}
+		
+	}
+	
+	render() {
+		const { name, value, computedValue, path, refs, reverseLookup, id, description, colorType, children } = this.props;
+
 		
 		if (colorType) {
 			try {
@@ -163,8 +147,7 @@ class Token extends React.PureComponent {
 				
 				{description &&
 					<div className="token-description">{description}</div>}
-				
-				
+
 				{children}
 				
 				<div className="token-field">
@@ -172,14 +155,16 @@ class Token extends React.PureComponent {
 						type="text"
 						id={inputId}
 						value={value}
-						onChange={(e) => updateToken({path, secondaryKey, value: e.target.value})}
+						onClick={() => this.setState({focused: true})}
+						onKeyDown={this.onKeyDown}
+						onChange={this.onChange}
 						onFocus={this.onFocus}
 						onBlur={this.onBlur} />
 					<div className="token-autocomplete">
-						{autocomplete && this.state.focused && <Autocomplete
-							suggestions={autocomplete}
-							onClick={this.autocompleteClick}
-							/>}
+						{this.state.focused && <Autocomplete
+							suggestions={this.state.filteredSuggestions}
+							activeSuggestion={this.state.activeSuggestion}
+							onClick={this.autocompleteClick} />}
 					</div>
 					<Swatch value={computedValue || value} />
 				</div>

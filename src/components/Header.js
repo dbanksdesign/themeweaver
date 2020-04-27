@@ -2,14 +2,17 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import Logo from './Logo';
+import ToggleButton from './ToggleButton';
 
 import './Header.css';
 
 const NavItem = React.memo(({to, label, className}) => (
 	<NavLink className={clsx(
-		"tw-header-nav-item",
-		className
-		)} activeClassName="active" to={to}>
+			"tw-header-nav-item",
+			className
+		)}
+		activeClassName="active"
+		to={to}>
 		{label}
 	</NavLink>
 ));
@@ -24,7 +27,7 @@ const Github = React.memo(() => {
 	)
 });
 
-const Header = React.memo(({ resetState }) => {
+const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 	return (
 	<>
 		
@@ -39,15 +42,23 @@ const Header = React.memo(({ resetState }) => {
 				<NavItem to="/editor/application" label="Application" />
 				<NavItem to="/editor/syntax" label="Syntax" />
 				{/* <NavItem to="/editor/export" label="Export" /> */}
+
 			</nav>
 			<nav className="tw-header-secondary-nav">
+				<ToggleButton
+					onClick={changeTheme}
+					buttons={[{
+						label: 'Dark',
+						selected: currentTheme === 'dark'
+					},{
+						label: 'Light',
+						selected: currentTheme === 'light'
+					}]} />
 				<button className="tw-header-button" onClick={resetState}>Reset</button>
 				<Link className="tw-header-button button primary" to="/editor/export">
 					Export
 				</Link>
-				{/* <button onClick={}>Export</button> */}
-				{/* <NavItem to="/about" label="About" /> */}
-				{/* <Github /> */}
+				<Github />
 			</nav>
 		</header>
 	</>

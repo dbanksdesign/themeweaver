@@ -81,23 +81,28 @@ const updateToken = ({ path, value, secondaryKey, tokens }) => {
 			newToken.reverseLookup.forEach(key => {
 				const reverseToken = tokens[key];
 				
-				// Syntax tokens are objects with background & foreground
-				if (reverseToken.hasOwnProperty('foreground')) {
-					const background = createToken(key, reverseToken.background.value, tokens);
-					const foreground = createToken(key, reverseToken.foreground.value, tokens);
-					tokens[key] = Object.assign({}, tokens[key], {
-						background,
-						foreground
-					});
-				} else {
-					const val = tokens[key].value;
-					let [computedValue, refs] = resolveReference(val, tokens, [val]);
+				if (reverseToken) {
+					// Syntax tokens are objects with background & foreground
+					if (reverseToken.hasOwnProperty('foreground')) {
+						const background = createToken(key, reverseToken.background.value, tokens);
+						const foreground = createToken(key, reverseToken.foreground.value, tokens);
+						tokens[key] = Object.assign({}, tokens[key], {
+							background,
+							foreground
+						});
+					} else {
+						const val = tokens[key].value;
+						let [computedValue, refs] = resolveReference(val, tokens, [val]);
 
-					tokens[key] = Object.assign({}, tokens[key], {
-						refs,
-						computedValue
-					});
+						tokens[key] = Object.assign({}, tokens[key], {
+							refs,
+							computedValue
+						});
+					}
+				} else {
+					console.log(key, newToken);
 				}
+
 			});
 		}
 	}
