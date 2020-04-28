@@ -160,13 +160,13 @@ class Token extends React.PureComponent {
 						onChange={this.onChange}
 						onFocus={this.onFocus}
 						onBlur={this.onBlur} />
+					<Swatch value={computedValue || value} />
 					<div className="token-autocomplete">
 						{this.state.focused && <Autocomplete
 							suggestions={this.state.filteredSuggestions}
 							activeSuggestion={this.state.activeSuggestion}
 							onClick={this.autocompleteClick} />}
 					</div>
-					<Swatch value={computedValue || value} />
 				</div>
 				<ComputedValue refs={refs} />
 			</div>

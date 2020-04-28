@@ -320,7 +320,7 @@ class SyntaxPage extends React.Component {
 					
 					<p>Here are some resources about how syntax highlight works in IDEs:</p>
 					
-					<ul className="ellipsis-list">
+					<ul>
 						<li>
 							<a href="https://www.sublimetext.com/docs/3/scope_naming.html#alphabetical_reference">https://www.sublimetext.com/docs/3/scope_naming.html#alphabetical_reference</a>
 						</li>

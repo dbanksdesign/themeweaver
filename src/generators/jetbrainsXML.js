@@ -1,33 +1,90 @@
-const generateJetbrainsXML = ({ allTokens, name }) => {
+const fontAttributeMap = {
+	'bold': 1,
+	'italic': 2,
+	'bold italic': 3,
+	// no underline support for now
+}
+
+const generateJetbrainsXML = ({ allTokens, name, isDark }) => {
 	return `<?xml version="1.0" encoding="UTF-8"?>
-<scheme name="${name}" version="1" parent_scheme="Default">
+<scheme name="${name}" version="1" parent_scheme="${isDark ? 'Darcula' : 'Default'}">
 	<colors>
 		<option name="ADDED_LINES_COLOR" value="${allTokens['application.editorGutter.addedBackground'].computedValue}" />
-		<option name="ANNOTATIONS_COLOR" value="586e75" />
-		<option name="ANNOTATIONS_MERGED_COLOR" value="2aa198" />
-		<option name="CARET_COLOR" value="dc322f" />
-		<option name="CARET_ROW_COLOR" value="73642" />
-		<option name="CONSOLE_BACKGROUND_KEY" value="2b36" />
+		<option name="DELETED_LINES_COLOR" value="${allTokens['application.editorGutter.deletedBackground'].computedValue}" />
+		<option name="ANNOTATIONS_COLOR" value="${allTokens['application.editor.foreground'].computedValue}" />
+		<option name="VCS_ANNOTATIONS_COLOR_1" value="${allTokens['theme.background.primary'].computedValue}" />
+		<option name="VCS_ANNOTATIONS_COLOR_2" value="${allTokens['theme.background.secondary'].computedValue}" />
+		<option name="VCS_ANNOTATIONS_COLOR_3" value="${allTokens['theme.background.tertiary'].computedValue}" />
+		<option name="VCS_ANNOTATIONS_COLOR_4" value="${allTokens['theme.background.quaternary'].computedValue}" />
+		<option name="CARET_COLOR" value="${allTokens['application.editorCursor.foreground'].computedValue}" />
+		<option name="CARET_ROW_COLOR" value="${allTokens['application.editor.lineHighlightBackground'].computedValue}" />
+		<option name="CONSOLE_BACKGROUND_KEY" value="${allTokens['application.panel.background'].computedValue}" />
 		<option name="GUTTER_BACKGROUND" value="${allTokens['application.editorGutter.background'].computedValue}" />
 		<option name="INDENT_GUIDE" value="${allTokens['application.editorIndentGuide.background'].computedValue}" />
 		<option name="LINE_NUMBERS_COLOR" value="${allTokens['application.editorLineNumber.foreground'].computedValue}" />
-		<option name="METHOD_SEPARATORS_COLOR" value="73642" />
+		<option name="METHOD_SEPARATORS_COLOR" value="${allTokens['application.editorIndentGuide.background'].computedValue}" />
 		<option name="MODIFIED_LINES_COLOR" value="${allTokens['application.gitDecoration.modifiedResourceForeground'].computedValue}" />
-		<option name="NOTIFICATION_BACKGROUND" value="" />
-		<option name="READONLY_FRAGMENT_BACKGROUND" value="" />
-		<option name="RIGHT_MARGIN_COLOR" value="" />
+		<option name="NOTIFICATION_BACKGROUND" value="${allTokens['application.badge.background'].computedValue}" />
+
+		<option name="RIGHT_MARGIN_COLOR" value="${allTokens['application.editorRuler.foreground'].computedValue}" />
+		<option name="VISUAL_INDENT_GUIDE" value="${allTokens['application.editorIndentGuide.background'].computedValue}" />
 		<option name="SELECTED_INDENT_GUIDE" value="${allTokens['application.editorIndentGuide.activeBackground'].computedValue}" />
-		<option name="SELECTED_TEARLINE_COLOR" value="657b83" />
+		<option name="SELECTED_TEARLINE_COLOR" value="${allTokens['theme.background.info'].computedValue}" />
 		<option name="SELECTION_BACKGROUND" value="${allTokens['application.selection.background'].computedValue}" />
-		<!-- <option name="SELECTION_FOREGROUND" value="2b36" /> -->
-		<option name="TEARLINE_COLOR" value="586e75" />
+		<option name="SELECTION_FOREGROUND" value="${allTokens['application.editor.foreground'].computedValue}" />
+		<option name="TEARLINE_COLOR" value="${allTokens['application.editorIndentGuide.background'].computedValue}" />
 		<option name="WHITESPACES" value="${allTokens['application.editorWhitespace.foreground'].computedValue}" />
+		<option name="WHITESPACES_MODIFIED_LINES_COLOR" value="414141" />
+    
+    <option name="DIFF_SEPARATORS_BACKGROUND" value="1e2a30" />
+    <option name="DIFF_SEPARATORS_TOP_BORDER" value="171717" />
+		<option name="DOCUMENTATION_COLOR" value="${allTokens['syntax.comment'].foreground.computedValue}" />
+		
+    <option name="FILESTATUS_ADDED" value="${allTokens['application.gitDecoration.addedResourceForeground'].computedValue}" />
+    <option name="FILESTATUS_COPIED" value="c3e88d" />
+    <option name="FILESTATUS_DELETED" value="${allTokens['application.gitDecoration.deletedResourceForeground'].computedValue}" />
+    <option name="FILESTATUS_HIJACKED" value="${allTokens['application.gitDecoration.conflictedResourceForeground'].computedValue}" />
+    <option name="FILESTATUS_IDEA_FILESTATUS_DELETED_FROM_FILE_SYSTEM" value="808080" />
+    <option name="FILESTATUS_IDEA_FILESTATUS_IGNORED" value="ab7967" />
+    <option name="FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_BOTH_CONFLICTS" value="fc9867" />
+    <option name="FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_CONFLICTS" value="fc9867" />
+    <option name="FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_PROPERTY_CONFLICTS" value="fc9867" />
+    <option name="FILESTATUS_IDEA_SVN_FILESTATUS_EXTERNAL" value="c3e88d" />
+    <option name="FILESTATUS_IGNORE.PROJECT_VIEW.IGNORED" value="ab7967" />
+    <option name="FILESTATUS_MERGED" value="c792ea" />
+    <option name="FILESTATUS_MODIFIED" value="80cbc4" />
+    <option name="FILESTATUS_NOT_CHANGED_IMMEDIATE" value="80cbc4" />
+    <option name="FILESTATUS_NOT_CHANGED_RECURSIVE" value="80cbc4" />
+    <option name="FILESTATUS_OBSOLETE" value="ffcb6b" />
+    <option name="FILESTATUS_SUPPRESSED" value="616161" />
+    <option name="FILESTATUS_SWITCHED" value="c792ea" />
+    <option name="FILESTATUS_UNKNOWN" value="f77669" />
+    <option name="FILESTATUS_addedOutside" value="c3e88d" />
+    <option name="FILESTATUS_modifiedOutside" value="82aaff" />
+    
+    <option name="INFORMATION_HINT" value="212121" />
+    <option name="LINE_NUMBERS_COLOR" value="424242" />
+    <option name="LINE_NUMBER_ON_CARET_ROW_COLOR" value="616161" />
+    <option name="METHOD_SEPARATORS_COLOR" value="424242" />
+    <option name="MODIFIED_LINES_COLOR" value="ffcb6b" />
+    <option name="MT_IGNORE.PROJECT_VIEW.IGNORED" value="ab7967" />
+    <option name="MT_SUPPRESSED" value="eeffff" />
+    <option name="NOTIFICATION_BACKGROUND" value="3d1a11" />
+    <option name="NOT_CHANGED" value="616161" />
+    <option name="QUESTION_HINT" value="212121" />
+    <option name="RECENT_LOCATIONS_SELECTION" value="1a1a1a" />
+    <option name="RIGHT_MARGIN_COLOR" value="424242" />
+
+    <option name="SEPARATOR_BELOW_COLOR" value="424242" />
+    <option name="SOFT_WRAP_SIGN_COLOR" value="424242" />
+    <option name="TEARLINE_COLOR" value="424242" />
+    <option name="TOOLTIP" value="323232" />
+
 	</colors>
 	<attributes>
 		<option name="ANNOTATION_NAME_ATTRIBUTES">
 			<value>
 				<option name="FOREGROUND" value="859900" />
-				<option name="EFFECT_TYPE" value="1" />
 			</value>
 		</option>
 		<option name="APACHE_CONFIG.ARG_LEXEM">

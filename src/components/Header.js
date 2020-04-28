@@ -41,8 +41,7 @@ const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 				<NavItem to="/editor/theme" label="Theme" />
 				<NavItem to="/editor/application" label="Application" />
 				<NavItem to="/editor/syntax" label="Syntax" />
-				{/* <NavItem to="/editor/export" label="Export" /> */}
-
+				<NavItem to="/editor/export" label="Export" />
 			</nav>
 			<nav className="tw-header-secondary-nav">
 				<ToggleButton
@@ -55,9 +54,6 @@ const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 						selected: currentTheme === 'light'
 					}]} />
 				<button className="tw-header-button" onClick={resetState}>Reset</button>
-				<Link className="tw-header-button button primary" to="/editor/export">
-					Export
-				</Link>
 				<Github />
 			</nav>
 		</header>

@@ -1,17 +1,13 @@
 .homepage {
-	/* margin-top: var(--size-header-offset);
-	background-image: linear-gradient(to bottom, var(--theme-background-primary) 0%, var(--theme-background-selection-primary-inactive) 100%); */
+	
 }
 
 .home-hero {
-	/* text-align: center; */
-	padding: var(--size-padding-xl);
-	/* max-width: 50%; */
-	/* margin: 0 auto; */
+	padding: var(--size-padding-large) var(--size-padding-xl);
 }
 
 .home-header {
-	
+	color: var(--tw-color-font-tertiary);
 }
 
 .home-tagline {
@@ -22,6 +18,7 @@
 	width: 4rem;
 	height: 4rem;
 	display: inline-block;
+	/* margin: 0 auto; */
 }
 
 .home-testimonials {

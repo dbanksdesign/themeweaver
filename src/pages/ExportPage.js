@@ -162,18 +162,19 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 		<h1>Export</h1>
 		
 		<section>
-		<label htmlFor="themeName">
-			First, give it a name
-		</label>
-		<div className="input-with-button">
-			<input type="text"
-				id="themeName"
-				value={themeName}
-				onChange={(e) => updateThemeName(e.target.value)} />
-			<button onClick={() => updateThemeName(themeNameGenerator())}>
-				Make me a random name!
-			</button>
-		</div>
+			<label htmlFor="themeName">
+				First, give it a name
+			</label>
+			<div className="input-with-button">
+				<input type="text"
+					id="themeName"
+					className="token-field-input"
+					value={themeName}
+					onChange={(e) => updateThemeName(e.target.value)} />
+				<button onClick={() => updateThemeName(themeNameGenerator())}>
+					Make me a random name!
+				</button>
+			</div>
 		</section>
 		
 		<button className="primary block"
@@ -182,39 +183,62 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 		</button>
 		
 		<section>
-		<p>The download will include a light and dark theme for:</p>
-		<ul>
-			<li>VSCode (JSON)</li>
-			<li>TextMate (syntax highlighting only)</li>
-			<li>Slack</li>
-			<li>Xcode (xccolortheme)</li>
-			<li>iTerm</li>
-			<li>Material Theme for Jetbrains (Android Studio, WebStorm, etc.)</li>
-			<li><em>More coming soon!</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
-		</ul>
+			<p>The download will include a light and dark theme for:</p>
+			<ul>
+				<li>VSCode (JSON)</li>
+				<li>TextMate (syntax highlighting only)</li>
+				<li>Slack</li>
+				<li>Xcode (xccolortheme)</li>
+				<li>iTerm</li>
+				<li>Jetbrains: Android Studio, WebStorm, etc. (work-in-progress)</li>
+				<li><em>More coming soon!</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
+			</ul>
 		</section>
 		
 		<section>
-		<h3>Quick install for VSCode</h3>
-		<p>If you want to start using this theme now without creating a package, you can directly add the styles in your <strong>settings.json</strong> file. Copy the code below for application styles and syntax highlighting.</p>
+			<h2>VSCode</h2>
+			<ol>
+				<li>Unzip the contents into <strong>~/.vscode/extensions/</strong>.</li>
+				<li>Restart VSCode or reload the window with the <strong>Developer: Reload Window</strong> action.</li>
+				<li>Open the theme switcher with <strong>⌘/ctrl K + T</strong>. There should be a light and dark themes with the name you entered above.</li>
+			</ol>
 		</section>
 		
-		<CopyCode
-			buttonLabel="Copy application styles"
-			text={`"workbench.colorCustomizations": ${JSON.stringify(createApplicationColors(allTokens), null, 2)}`} />
-
-		<CopyCode
-			buttonLabel="Copy syntax styles"
-			text={`"editor.tokenColorCustomizations": {
-    "textMateRules": ${JSON.stringify(createTextmateConfig(allTokens), null, 4)}
-  }`} />
+		<section>
+			<h2>Jetbrains</h2>
+			<p><em>Full Jetbrains integration is in the works...</em></p>
+			
+			<h3>Syntax highlighting</h3>
+			<ol>
+				<li>Unzip the contents anywhere</li>
+				<li>In the Jetbrains application (Android studio, Webstorm, etc.) open the preferences</li>
+				<li>Go to <strong>Editor > Color Scheme > General</strong></li>
+				<li>Click on the button with 3 dots in the top and click on <strong>Import Scheme</strong></li>
+				<li>Select one of the .icls files <strong>jetbrains/{themeName}-light.icls</strong> and <strong>jetbrains/{themeName}-dark.icls</strong></li>
+			</ol>
+		</section>
+		
+		<section>
+			<h2>Xcode</h2>
+			<ol>
+				<li>Unzip the contents anywhere</li>
+				<li>Copy <strong>{themeName}-light.xccolortheme</strong> and <strong>{themeName}-dark.xccolortheme</strong> into <strong>~/Library/Developer/Xcode/UserData/FontAndColorThemes</strong>.</li>
+			</ol>
+		</section>
+		
+		<section>
+			<h2>iTerm</h2>
+			<ol>
+				<li></li>
+			</ol>
+		</section>
 		
 		<section className="flow">
-		<h3>Slack</h3>
-		<p>Slack theme customizations are pretty limited, but here is a Slack theme based on the theme you built! Copy and paste the code into the custom theme section of the Slack preferences.</p>
-		<CopyCode
-			buttonLabel="Copy slack code"
-			text={generateSlack(allTokens)} />
+			<h2>Slack</h2>
+			<p>Slack theme customizations are pretty limited, but here is a Slack theme based on the theme you built! Copy and paste the code into the custom theme section of the Slack preferences.</p>
+			<CopyCode
+				buttonLabel="Copy slack code"
+				text={generateSlack(allTokens)} />
 		</section>
 	</div>
 	</div>

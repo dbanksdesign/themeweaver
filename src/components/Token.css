@@ -22,7 +22,7 @@
 .token-field-input {
 	display: block;
 	flex: 1;
-	border: 2px solid var(--tw-color-border-primary);
+	border: 2px solid var(--tw-color-border-secondary);
 	border-right: none;
 	padding: var(--size-padding-small);
 	height: 3rem;
@@ -33,8 +33,12 @@
 }
 
 .token-field-input:focus {
-	border-color: var(--tw-color-brand-primary-1);
+	border-color: var(--tw-color-border-focus);
 	outline: none;
+}
+
+.token-field-input:focus + .swatch-wrapper {
+	border-color: var(--tw-color-border-focus);
 }
 
 .token-field-wrapper {
