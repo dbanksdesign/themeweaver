@@ -959,6 +959,7 @@ class ApplicationPage extends React.Component {
 									<NewToken {...tokens[path]}
 										path={path}
 										key={path}
+										allTokens={tokens}
 										description={description}
 										updateToken={updateToken}
 										tokenNames={tokenNames} />

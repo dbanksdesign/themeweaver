@@ -206,7 +206,7 @@ class App extends Component {
 										</Route>
 										<Route path="/editor/application">
 											<ApplicationPage
-												tokens={applicationTokens}
+												tokens={allTokens}
 												tokenNames={tokenNames}
 												updateToken={this.updateToken} />
 										</Route>

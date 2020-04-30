@@ -37,19 +37,23 @@ const ReverseLookup = ({ shown, list=[], x, y, onClick }) => {
 }
 
 const TokenEditor = (props) => {
-	const { visible, refs, reverseLookup, computedValue, onChange, tokenNames, value } = props;
-
-	const colorStyles = {
-		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-			// console.log(styles, data, isDisabled, isFocused, isSelected);
-			return {
-				...styles,
-				color: 'red'
-			}
-		}
-	}
+	const { visible, refs, allTokens, computedValue, onChange, tokenNames, value } = props;
 	
 	if (visible) {
+		const colorStyles = {
+			option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+				let borderColor = 'transparent'
+				if (allTokens[data.label]) {
+					borderColor = allTokens[data.label].computedValue
+				}
+				return {
+					...styles,
+					borderLeft: `20px solid ${borderColor}`
+				};
+			}
+		}
+		const _value = {value, label: value.replace(/{|}/g,'')}
+
 		return (
 			<div className="tw-color-picker">
 				<div>
@@ -57,11 +61,11 @@ const TokenEditor = (props) => {
 					isClearable
 					className="token-select"
 					classNamePrefix="token-select"
-					// styles={colorStyles}
-					value={{value, label: value.replace(/{|}/g,'')}}
+					styles={colorStyles}
+					value={_value}
+					inputValue={_value.label}
 					onCreateOption={(value) => onChange({value})}
 					onChange={onChange}
-					onInputChange={(inputValue) => console.log(inputValue)}
 					options={tokenNames.map(label => ({label, value: `{${label}}`}))} />
 				</div>
 				<ChromePicker
@@ -117,13 +121,8 @@ class NewToken extends React.Component {
 	}
 	
 	render() {
-		const { name, value, computedValue, tokenNames, path, refs, reverseLookup, id, description } = this.props;
+		const { computedValue, path, reverseLookup, id, description } = this.props;
 		const { expanded } = this.state;
-		// let isDark = false;
-		// if (computedValue) {
-		// 	isDark = chroma.contrast(computedValue, '#fff') > 5 &&
-		// 		chroma(computedValue).alpha() > 0.5;
-		// }
 		
 		const sectionId = (id || path).replace(/\./g,'-');
 		
