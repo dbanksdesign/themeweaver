@@ -870,6 +870,21 @@ hr {
 	padding-top: 0; */
 }
 
+.tw-color-picker-tabs {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: var(--size-padding-small);
+}
+
+.tw-color-picker-tabs > * {
+	flex: 1;
+}
+
+.tw-color-picker-tab.active,
+.tw-color-picker-tab:active {
+	
+}
+
 .chrome-picker {
 	width: 100% !important;
 	box-shadow: none !important;

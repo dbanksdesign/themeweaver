@@ -48,7 +48,7 @@ class App extends Component {
 		super(props);
 		let initialState;
 		// Uncomment this when going live, commenting out so hot reloads work.
-		initialState = lsGet('state');
+		// initialState = lsGet('state');
 		
 		if (initialState) {
 			this.state = initialState;
@@ -198,7 +198,7 @@ class App extends Component {
 										</Route>
 										<Route path="/editor/theme">
 											<ThemePage
-												tokens={themeTokens}
+												tokens={allTokens}
 												tokenNames={tokenNames}
 												currentTheme={currentTheme}
 												changeTheme={this.changeTheme}
