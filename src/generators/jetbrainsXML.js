@@ -1,9 +1,9 @@
-const fontAttributeMap = {
-	'bold': 1,
-	'italic': 2,
-	'bold italic': 3,
-	// no underline support for now
-}
+// const fontAttributeMap = {
+// 	'bold': 1,
+// 	'italic': 2,
+// 	'bold italic': 3,
+// 	// no underline support for now
+// }
 
 const generateJetbrainsXML = ({ allTokens, name, isDark }) => {
 	return `<?xml version="1.0" encoding="UTF-8"?>

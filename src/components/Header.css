@@ -1,6 +1,6 @@
 .tw-header {
-	top: 0;
-	height: 4rem;
+	/* top: 0; */
+	height: var(--size-header-height);
 	width: 100%;
 	border-bottom: 2px solid var(--tw-color-border-primary);
 	background-color: var(--tw-color-background-primary);
@@ -12,13 +12,15 @@
 
 .tw-header-primary-nav {
 	flex: 1;
+	display: flex;
+	align-items: center;
 }
 
 .tw-header-secondary-nav {
 	align-self: flex-end;
 	display: flex;
 	align-items: center;
-	height: 4rem;
+	height: var(--size-header-height);
 }
 
 .tw-header-secondary-nav > * {
@@ -26,8 +28,8 @@
 }
 
 .tw-header-nav-item {
-	line-height: 4rem;
-	height: 4rem;
+	line-height: var(--size-header-height);
+	height: var(--size-header-height);
 	display: inline-block;
 	padding: 0 var(--size-padding-base);
 	border-bottom: 2px solid transparent;
@@ -53,8 +55,8 @@
 .github-corner > svg {
 	color: #fff;
 	fill: var(--application-activityBar-foreground);
-	height: 3rem;
-	width: 3rem;
+	height: var(--size-header-height);
+	width: var(--size-header-height);
 }
 
 .github-corner:hover .octo-arm {

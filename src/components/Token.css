@@ -74,10 +74,10 @@
 }
 
 .token-reverse-lookup {
-	position: relative;
-	/* position: absolute;
-	top: 0;
-	right: 0; */
+	/* position: relative; */
+	position: absolute;
+	top: var(--size-padding-base);
+	right: 0;
 }
 
 .token-reverse-lookup-title {

@@ -3,7 +3,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	border: 2px solid var(--tw-color-border-secondary);
-	padding: 4px;
+	padding: 2px;
 	border-radius: 8px;
 	background-color: var(--tw-color-background-secondary);
 	/* margin-bottom: var(--size-padding-base); */
@@ -21,103 +21,39 @@
 	border: none;
 }
 
-/* .color-toggle {
-	padding: 0;
-} */
 
 .color-toggle > .toggle-button {
 	margin: 0;
 	width: 33.3%;
 	flex-basis: 33.3%;
 	color: var(--tw-color-font-tertiary);
-	/* margin: -2px 0 0 -2px; */
-	/* border-radius: 0; */
-	/* opacity: 0.25; */
-}
-
-.toggle-button:hover {
-	background-color: var(--tw-color-outline);
-}
-
-.color-toggle > .toggle-button:hover {
-	/* color: var(--tw-color-font-secondary); */
-	color: #fff;
 }
 
 .toggle-button:active,
-.toggle-button.active {
-	/* border-color: transparent; */
-	/* background-color: var(--application-button-hoverBackground); */
-	background-color: var(--tw-color-brand-primary-1);
-	color: #fff;
-}
-
-.toggle-button:active,
+.toggle-button.active,
 .toggle-button:focus {
-	/* outline-style: solid;
-	outline-offset: 2px;
-	outline-width: 2px;
-	outline-color: var(--tw-color-outline); */
-	outline: none;
+	background-color: var(--tw-color-brand-primary-1);
 	border-color: var(--tw-color-brand-primary-2);
+	outline: none;
+	color: #fff;
 }
 
-.tertiary > .toggle-button {
-	border-color: var(--theme-background-interactive-tertiary-base);
-}
+.toggle-button.red:hover { background-color: var(--base-red-10); }
+.toggle-button.orange:hover { background-color: var(--base-orange-10); }
+.toggle-button.yellow:hover { background-color: var(--base-yellow-10); }
+.toggle-button.lime:hover { background-color: var(--base-lime-10); }
+.toggle-button.green:hover { background-color: var(--base-green-10); }
+.toggle-button.teal:hover { background-color: var(--base-teal-10); }
+.toggle-button.blue:hover { background-color: var(--base-blue-10); }
+.toggle-button.purple:hover { background-color: var(--base-purple-10); }
+.toggle-button.pink:hover { background-color: var(--base-pink-10); }
 
-.tertiary > .toggle-button:hover {
-	background-color: var(--theme-background-interactive-tertiary-hover);
-	border-color: var(--theme-background-interactive-tertiary-base);
-}
-
-.tertiary > .toggle-button:active,
-.tertiary > .toggle-button.active {
-	border-color: transparent;
-	background-color: var(--theme-background-interactive-tertiary-hover);
-}
-
-.tertiary > .toggle-button:active,
-.tertiary > .toggle-button:focus {
-	outline-color: var(--theme-background-interactive-tertiary-hover);
-}
-
-.secondary > .toggle-button {
-	border-color: var(--theme-background-interactive-secondary-base);
-}
-
-.secondary > .toggle-button:hover {
-	background-color: var(--theme-background-interactive-secondary-hover);
-	border-color: var(--theme-background-interactive-secondary-base);
-}
-
-.secondary > .toggle-button:active,
-.secondary > .toggle-button.active {
-	border-color: transparent;
-	background-color: var(--theme-background-interactive-secondary-hover);
-}
-
-.secondary > .toggle-button:active,
-.secondary > .toggle-button:focus {
-	outline-color: var(--theme-background-interactive-secondary-hover);
-}
-
-.primary > .toggle-button {
-	border-color: var(--theme-background-interactive-base);
-}
-
-.primary > .toggle-button:hover {
-	background-color: var(--theme-background-interactive-hover);
-	border-color: var(--theme-background-interactive-base);
-}
-
-.primary > .toggle-button:active,
-.primary > .toggle-button.active {
-	border-color: transparent;
-	background-color: var(--theme-background-interactive-hover);
-}
-
-.primary > .toggle-button:active,
-.primary > .toggle-button:focus {
-	outline-color: var(--theme-background-interactive-hover);
-}
+.toggle-button.active.red { background-color: var(--base-red-100); }
+.toggle-button.active.orange { background-color: var(--base-orange-100); }
+.toggle-button.active.yellow { background-color: var(--base-yellow-100); }
+.toggle-button.active.lime { background-color: var(--base-lime-100); }
+.toggle-button.active.green { background-color: var(--base-green-100); }
+.toggle-button.active.teal { background-color: var(--base-teal-100); }
+.toggle-button.active.blue { background-color: var(--base-blue-100); }
+.toggle-button.active.purple { background-color: var(--base-purple-100); }
+.toggle-button.active.pink { background-color: var(--base-pink-100); }

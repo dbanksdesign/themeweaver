@@ -27,6 +27,32 @@ const Github = React.memo(() => {
 	)
 });
 
+const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme }) => {
+	return (
+		<header className="tw-header">
+			<nav className="tw-header-primary-nav">
+				<NavItem to="/editor/base" label="Base" />
+				<NavItem to="/editor/theme" label="Theme" />
+				<NavItem to="/editor/application" label="Application" />
+				<NavItem to="/editor/syntax" label="Syntax" />
+				<NavItem to="/editor/export" label="Export" />
+				<ToggleButton
+					onClick={changeTheme}
+					buttons={[{
+						label: 'Dark',
+						selected: currentTheme === 'dark'
+					},{
+						label: 'Light',
+						selected: currentTheme === 'light'
+					}]} />
+			</nav>
+			<nav className="tw-header-secondary-nav">
+				<button className="tw-header-button danger" onClick={resetState}>Reset</button>
+			</nav>
+		</header>
+	)
+});
+
 const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 	return (
 	<>
@@ -37,23 +63,11 @@ const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 				<span className="tw-logo-text">Themeweaver</span>
 			</Link>
 			<nav className="tw-header-primary-nav">
-				<NavItem to="/editor/base" label="Base" />
-				<NavItem to="/editor/theme" label="Theme" />
-				<NavItem to="/editor/application" label="Application" />
-				<NavItem to="/editor/syntax" label="Syntax" />
-				<NavItem to="/editor/export" label="Export" />
+				<NavItem to="/editor" label="Editor" />
+				<NavItem to="/about" label="About" />
+				<NavItem to="/credits" label="Credits" />
 			</nav>
 			<nav className="tw-header-secondary-nav">
-				<ToggleButton
-					onClick={changeTheme}
-					buttons={[{
-						label: 'Dark',
-						selected: currentTheme === 'dark'
-					},{
-						label: 'Light',
-						selected: currentTheme === 'light'
-					}]} />
-				<button className="tw-header-button" onClick={resetState}>Reset</button>
 				<Github />
 			</nav>
 		</header>
@@ -62,3 +76,4 @@ const Header = React.memo(({ resetState, changeTheme, currentTheme }) => {
 )
 
 export default Header
+export {SecondaryHeader}

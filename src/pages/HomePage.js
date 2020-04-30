@@ -71,6 +71,8 @@ const HomePage = () => (
 				<dd>Live code editor (powers VSCode)</dd>
 				<dt>Typefaces</dt>
 				<dd><a href="https://fonts.google.com/specimen/Source+Code+Pro">Source Code Pro</a> &amp; <a href="https://fonts.google.com/specimen/Source+Sans+Pro">Source Sans Pro</a></dd>
+				<dt>Base theme</dt>
+				<dd><a href="https://marketplace.visualstudio.com/items?itemName=dbanksdesign.nu-disco">Nu Disco</a></dd>
 			</dl>
 			
 			<p>While not directly used, this project is inspired by <a href="http://styledictionary.com">Style Dictionary</a></p>

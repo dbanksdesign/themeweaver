@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import Token from '../components/Token';
+// import Token from '../components/Token';
+import NewToken from '../components/NewToken';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
 
@@ -955,7 +956,7 @@ class ApplicationPage extends React.Component {
 							{section.tokens.map(({ path, description }) => {
 								if (!tokens[path]) { console.log(path); }
 								return (
-									<Token {...tokens[path]}
+									<NewToken {...tokens[path]}
 										path={path}
 										key={path}
 										description={description}

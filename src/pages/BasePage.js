@@ -425,52 +425,14 @@ class BasePage extends React.Component {
 					<title>Base Tokens | Themeweaver</title>
 				</Helmet>
 				<TOC
-					links={[{
+					links={links.concat([{
 						label: 'Brand',
 						anchor: 'brand'
-					}].concat(links)} />
+					}])} />
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner flow">
 					<h1>Base</h1>
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
-					
-					<section id="brand" className="token-group flow">
-						<h3>Brand Colors</h3>
-						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
-						
-						<h4>Primary Color</h4>
-						<ToggleButton
-							className="color-toggle primary"
-							onClick={(e) => this.changeColor('primary', e.target.innerHTML)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.primary.10'].value.includes(color)
-								}
-							})} />
-							
-						<h4>Secondary Color</h4>
-						<ToggleButton
-							className="color-toggle secondary"
-							onClick={(e) => this.changeColor('secondary', e.target.innerHTML)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.secondary.10'].value.includes(color)
-								}
-							})} />
-						
-						<label className="token-field-label">Tertiary Color</label>
-						<ToggleButton
-							className="color-toggle tertiary"
-							onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.tertiary.10'].value.includes(color)
-								}
-							})} />
-					</section>
 					
 					{sections.map(section => (
 						<section
@@ -500,6 +462,44 @@ class BasePage extends React.Component {
 							</div>
 						</section>
 					))}
+					
+					<section id="brand" className="token-group flow">
+						<h3>Brand Colors</h3>
+						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
+						
+						<h4>Primary Color</h4>
+						<ToggleButton
+							className="color-toggle"
+							onClick={(e) => this.changeColor('primary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.props.tokens['base.primary.10'].value.includes(color)
+								}
+							})} />
+							
+						<h4>Secondary Color</h4>
+						<ToggleButton
+							className="color-toggle"
+							onClick={(e) => this.changeColor('secondary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.props.tokens['base.secondary.10'].value.includes(color)
+								}
+							})} />
+						
+						<label className="token-field-label">Tertiary Color</label>
+						<ToggleButton
+							className="color-toggle"
+							onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
+							buttons={colors.map(color => {
+								return {
+									label: color,
+									selected: this.props.tokens['base.tertiary.10'].value.includes(color)
+								}
+							})} />
+					</section>
 				</div>
 				</div>
 			</>
