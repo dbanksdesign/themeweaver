@@ -62,7 +62,7 @@ const CustomTab = (props) => {
 }
 
 const TokenTab = (props) => {
-	const { visible, refs, allTokens, computedValue, onChange, tokenNames, value } = props;
+	const { visible, allTokens, computedValue, onChange, value } = props;
 
 	if (visible) {
 		const colorStyles = {
@@ -78,26 +78,34 @@ const TokenTab = (props) => {
 			}
 		}
 		const _value = {}
-		console.log(computedValue);
 		const alpha = computedValue ? chroma(computedValue).alpha() : 1;
+		
+		// kinda jank logic, need to clean up
 		if (alpha < 1) {
 			_value.value = value.substring(0, value.length - 2);
 			_value.label = _value.value.replace(/{|}/g,'');
-			console.log(_value);
 		} else {
 			_value.value = value;
 			_value.label = value.replace(/{|}/g,'');
 		}
+		
 		const alphaToHex = (newAlpha) => {
-			console.log(value, alpha, newAlpha);
-			
-			if (newAlpha === 1) {
-				return value;
-			} else {
-				if (alpha === 1) {
-					return `${value}${parseInt((newAlpha * 255),10).toString(16).padStart(2,'0')}`;
-				} else {
+			// if there is any transparency
+			if (newAlpha < 1) {
+				if (alpha < 1) {
+					// if we started with some transparency, cut it off and add new transparency
 					return `${value.substring(0, value.length - 2)}${parseInt((newAlpha * 255),10).toString(16).padStart(2,'0')}`;
+				} else {
+					// we started without any transparency, no need to cut it off
+					return `${value}${parseInt((newAlpha * 255),10).toString(16).padStart(2,'0')}`;
+				}
+			} else {
+				if (alpha < 1) {
+					// chop off the alpha channel
+					return value.substring(0, value.length - 2);
+				} else {
+					// alpha and newAlpha are 1, leave value as-is
+					return value;
 				}
 			}
 		}
@@ -114,8 +122,19 @@ const TokenTab = (props) => {
 					onCreateOption={(value) => onChange({value})}
 					// onInputChange={value => onChange({value})}
 					onChange={onChange}
-					options={tokenNames.map(label => ({label, value: `{${label}}`}))} />
-				<input type="range" min="0" max="1" step="0.01" value={alpha} onChange={(e) => onChange({value: alphaToHex(e.target.value)})} />
+					options={Object.keys(allTokens).map(label => ({label, value: `{${label}}`}))} />
+				<div className="new-token-alpha">
+					<label className="new-token-alpha-label">Alpha</label>
+					<div className="new-token-alpha-input">
+						<span className="new-token-alpha-val" style={{left: `${alpha * 100}%`}}>{alpha}</span>
+						<input type="range"
+							min="0"
+							max="1"
+							step="0.01"
+							value={alpha}
+							onChange={(e) => onChange({value: alphaToHex(e.target.value)})} />
+					</div>
+				</div>
 			</div>
 		)
 	} else {
@@ -124,7 +143,7 @@ const TokenTab = (props) => {
 }
 
 const TokenEditor = (props) => {
-	const { visible, refs, allTokens, computedValue, onChange, tokenNames, value } = props;
+	const { visible } = props;
 	const [tabIndex, setTabIndex] = useState(0);
 
 	if (visible) {
@@ -157,21 +176,23 @@ class NewToken extends React.Component {
 	}
 	
 	handleChangeComplete = (e) => {
+		const { reverseLookup, path, secondaryKey } = this.props;
 		if (e) {
 			const {label, value} = e;
-			const { reverseLookup } = this.props;
 			if (reverseLookup && reverseLookup.indexOf(label) > -1) {
 				console.log('circular ref');
 			} else {
 				this.props.updateToken({
-					path: this.props.path,
+					path,
+					secondaryKey,
 					value
 				});
 			}
 		} else {
 			console.log('nulled');
 			this.props.updateToken({
-				path: this.props.path,
+				path,
+				secondaryKey,
 				value: ''
 			});
 		}
@@ -185,7 +206,7 @@ class NewToken extends React.Component {
 	}
 	
 	render() {
-		const { computedValue, path, reverseLookup, id, description } = this.props;
+		const { computedValue, path, id, description, children } = this.props;
 		const { expanded } = this.state;
 		
 		const sectionId = (id || path).replace(/\./g,'-');
@@ -197,18 +218,22 @@ class NewToken extends React.Component {
 				)}>
 				<header className="new-token-header" onClick={this.toggleEditor} id={sectionId}>
 					<div className="new-token-swatch-wrapper">
-						<div className="new-token-swatch" style={{
+						<div className={clsx(
+							"new-token-swatch",
+							!computedValue && "empty"
+						)} style={{
 							backgroundColor: computedValue
 						}} />
 					</div>
 					<div className="new-token-content">
 						<div className="new-token-label">{path}</div>
 						<div className="new-token-description">{description}</div>
-						{/* <span className="codicon codicon-chevron-down" /> */}
-						<ReverseLookup list={reverseLookup} />
+						{/* <ReverseLookup list={reverseLookup} /> */}
 					</div>
+					{/* <span className="codicon codicon-chevron-down" /> */}
 				</header>
 				<TokenEditor visible={expanded} {...this.props} onChange={this.handleChangeComplete} />
+				{children}
 			</div>
 		)
 	}

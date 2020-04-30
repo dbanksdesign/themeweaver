@@ -151,12 +151,6 @@ class App extends Component {
 		const { allTokens, currentTheme, theme, themeName } = this.state;
 		
 		const tokenNames = Object.keys(allTokens);
-		const {
-			baseTokens,
-			themeTokens,
-			syntaxTokens,
-			applicationTokens
-		} = generateTokenObjects(allTokens);
 		
 		return (
 			<Router>
@@ -191,7 +185,7 @@ class App extends Component {
 										</Route>
 										<Route path="/editor/base">
 											<BasePage
-												tokens={baseTokens}
+												tokens={allTokens}
 												updateTokens={this.updateTokens}
 												updateToken={this.updateToken}
 												resetState={this.resetState} />
@@ -212,7 +206,7 @@ class App extends Component {
 										</Route>
 										<Route path="/editor/syntax">
 											<SyntaxPage
-												tokens={syntaxTokens}
+												tokens={allTokens}
 												tokenNames={tokenNames}
 												updateFontStyle={this.updateFontStyle}
 												updateToken={this.updateToken} />
@@ -220,7 +214,7 @@ class App extends Component {
 										{/* Default route */}
 										<Route>
 											<BasePage
-												tokens={baseTokens}
+												tokens={allTokens}
 												updateTokens={this.updateTokens}
 												updateToken={this.updateToken}
 												resetState={this.resetState} />

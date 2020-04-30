@@ -312,7 +312,7 @@ class SyntaxPage extends React.Component {
 				<Helmet>
 					<title>Syntax Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC links={links} />
+				<TOC defaultVisibility={false} links={links} />
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner">
 					<h1>Syntax</h1>
@@ -353,6 +353,7 @@ class SyntaxPage extends React.Component {
 									<SyntaxToken key={path}
 										{...tokens[path]}
 										path={path}
+										allTokens={tokens}
 										updateFontStyle={updateFontStyle}
 										updateToken={updateToken}
 										tokenNames={tokenNames} />

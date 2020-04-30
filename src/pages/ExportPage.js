@@ -87,11 +87,11 @@ const createSyntaxColors = (allTokens) => {
 	);
 }
 
-const createTextmateConfig = (allTokens) => {
-	return createTextmateRules(
-		createResolvedTokenObject(allTokens, `syntax`)
-	);
-}
+// const createTextmateConfig = (allTokens) => {
+// 	return createTextmateRules(
+// 		createResolvedTokenObject(allTokens, `syntax`)
+// 	);
+// }
 
 const downloadTheme = (allTokens, theme, themeName) => {
 	const zip = new JSZip();
@@ -191,7 +191,7 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 				<li>Xcode (xccolortheme)</li>
 				<li>iTerm</li>
 				<li>Jetbrains: Android Studio, WebStorm, etc. (work-in-progress)</li>
-				<li><em>More coming soon!</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
+				<li><em>More coming soon</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
 			</ul>
 		</section>
 		

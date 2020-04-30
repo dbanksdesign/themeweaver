@@ -36,7 +36,7 @@ const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme }) =
 				<NavItem to="/editor/application" label="Application" />
 				<NavItem to="/editor/syntax" label="Syntax" />
 				<NavItem to="/editor/export" label="Export" />
-				<ToggleButton
+				{/* <ToggleButton
 					onClick={changeTheme}
 					buttons={[{
 						label: 'Dark',
@@ -44,7 +44,7 @@ const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme }) =
 					},{
 						label: 'Light',
 						selected: currentTheme === 'light'
-					}]} />
+					}]} /> */}
 			</nav>
 			<nav className="tw-header-secondary-nav">
 				<button className="tw-header-button danger" onClick={resetState}>Reset</button>

@@ -5,6 +5,7 @@ import {Helmet} from 'react-helmet';
 import NewToken from '../components/NewToken';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
+import ToggleButton from '../components/ToggleButton';
 
 const sections = [{
 	title: `Background`,
@@ -218,8 +219,18 @@ class ThemePage extends React.Component {
 	// 		JSON.stringify(refs) !== JSON.stringify(nextProps.refs);
 	// }
 	
+	// state = {
+	// 	tocShown: false
+	// }
+	
+	// toggleTOC = () => {
+	// 	this.setState({
+	// 		tocShown: !this.state.tocShown
+	// 	});
+	// }
+	
 	render() {
-		const { updateToken, tokens, tokenNames } = this.props;
+		const { updateToken, tokens, changeTheme, currentTheme } = this.props;
 		const links = sections.map(section => {
 			return {
 				label: section.title,
@@ -233,12 +244,23 @@ class ThemePage extends React.Component {
 					<title>Theme Tokens | Themeweaver</title>
 				</Helmet>
 				
-				<TOC links={links} />
+				<TOC links={links} defaultVisibility={false} />
 				
 				<div className="page-content" id="page-content">
-					<div className="page-content-inner">
+					<div className="page-content-inner flow">
 						<h1>Theme</h1>
 						<p>Most theme packages contain multiple <em>themes</em>. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
+						
+						<ToggleButton
+							className="block"
+							onClick={changeTheme}
+							buttons={[{
+								label: 'Dark',
+								selected: currentTheme === 'dark'
+							},{
+								label: 'Light',
+								selected: currentTheme === 'light'
+							}]} />
 
 						{sections.map(section => (
 							<TokenGroup {...section}
@@ -252,8 +274,7 @@ class ThemePage extends React.Component {
 											key={path}
 											allTokens={tokens}
 											description={description}
-											updateToken={updateToken}
-											tokenNames={tokenNames} />
+											updateToken={updateToken} />
 									)
 								})}
 							</TokenGroup>

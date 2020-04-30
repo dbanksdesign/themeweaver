@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import smoothScroll from '../helpers/smoothScroll'
 
 class TOC extends React.PureComponent {
-	static whyDidYouRender = true;
-	
-	state = {
-		index: 0,
-		shown: true
+	constructor(props) {
+		super(props);
+		this.state = {
+			index: 0,
+			shown: !!props.defaultVisibility
+		}
 	}
 	
 	componentDidMount() {
@@ -46,19 +47,22 @@ class TOC extends React.PureComponent {
 	}
 	
 	toggle = () => {
-		this.setState({
-			shown: !this.state.shown
-		})
+		if (this.props.onClick) {
+			this.props.onClick();
+		} else {
+			this.setState({
+				shown: !this.state.shown
+			});
+		}
 	}
 	
 	render() {
-		// const { shown } = this.state;
-		// const buttonClass = shown ? 'codicon-chevron-left' : 'codicon-kebab-vertical';
+		const shown = typeof this.props.shown !== 'undefined' ? this.props.shown : this.state.shown;
 		
 		return (
 			<nav className={clsx(
 				"toc",
-				!this.state.shown && "hidden"
+				!shown && "hidden"
 			)}>
 				<button className="toc-toggle" onClick={this.toggle}>
 					<span className={`codicon codicon-chevron-left`} />

@@ -9,6 +9,10 @@
 	/* margin-bottom: var(--size-padding-base); */
 }
 
+.toggle-buttons.block {
+	display: flex;
+}
+
 .toggle-button {
 	flex: 1;
 	display: block;

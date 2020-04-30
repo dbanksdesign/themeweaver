@@ -938,7 +938,7 @@ class ApplicationPage extends React.Component {
 				<Helmet>
 					<title>Application Styles | Themeweaver</title>
 				</Helmet>
-				<TOC links={links} />
+				<TOC defaultVisibility={false} links={links} />
 				<div className="page-content" id="page-content">
 					<div className="page-content-inner">
 					<h1>Application</h1>

@@ -425,6 +425,7 @@ class BasePage extends React.Component {
 					<title>Base Tokens | Themeweaver</title>
 				</Helmet>
 				<TOC
+					defaultVisibility={false}
 					links={links.concat([{
 						label: 'Brand',
 						anchor: 'brand'
