@@ -18,6 +18,7 @@
     "object-path-immutable": "^4.1.0",
     "onigasm": "^2.2.4",
     "raw-loader": "^4.0.0",
+    "rc-color-picker": "^1.2.6",
     "react": "^16.13.1",
     "react-color": "^2.18.0",
     "react-debounce-render": "^6.0.0",

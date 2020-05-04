@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import smoothScroll from '../helpers/smoothScroll'
 
 class TOC extends React.PureComponent {
 	constructor(props) {
@@ -68,22 +68,16 @@ class TOC extends React.PureComponent {
 					<span className={`codicon codicon-chevron-left`} />
 				</button>
 				<div className="toc-inner">
-				{this.props.links.map((link, i) => {
-					let className = 'toc-link '
-					className += i === this.state.index ? 'is-current' : '';
-					return (
-						<a key={link.label}
-							className={className}
-							href={`#${link.anchor}`}
-							onClick={(e) => {
-								smoothScroll.scrollTo(link.anchor, 'page-content');
-								e.preventDefault();
-								document.location.hash = `#${link.anchor}`;
-							}}>
-								{link.label}
-						</a>
-					)
-				})}
+				{this.props.links.map((link, i) => (
+					<Link key={link.label}
+						to={`#${link.anchor}`}
+						className={clsx(
+							'toc-link',
+							i === this.state.index && 'is-current'
+						)}>
+						{link.label}
+					</Link>
+				))}
 				</div>
 			</nav>
 		)

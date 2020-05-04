@@ -1,59 +1,35 @@
 import React, { useState } from 'react';
-import { SketchPicker, ChromePicker } from 'react-color';
-import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 import chroma from 'chroma-js';
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
 
+import ColorEditor from './ColorEditor';
 import ToggleButton from './ToggleButton';
+import ReverseLookup from './ReverseLookup';
 
-const lookupToLink = (ref) => {
-	return `/editor/${ref.split('.')[0]}#${ref.replace(/\./g,'-')}`
-}
-
-const ReverseLookup = ({ shown, list=[], x, y, onClick }) => {
-	if (list && list.length > 0) {
-		return (
-			<span className="token-reverse-lookup">
-				<span className="token-reverse-lookup-title" onClick={onClick}>
-					<span className="codicon codicon-references" />
-					{list.length}
-				</span>
-				<span className="token-reverse-lookup-list">
-					<h6>This token is referenced by:</h6>
-					<ul className="">
-					{list.map(item => (
-						<li key={item}>
-							<Link to={lookupToLink(item)}>
-								{item}
-							</Link>
-						</li>
-					))}
-					</ul>
-				</span>
-			</span>
-		)
-	} else {
-		return null;
-	}
-}
+const regex = new RegExp(
+	'\\{([^}]+)\\}', 'g'
+);
 
 const CustomTab = (props) => {
 	const { visible, computedValue, onChange } = props;
 
 	if (visible) {
+		const alpha = computedValue ? chroma(computedValue).alpha() * 100 : 0;
 		return (
-			<ChromePicker
-				color={computedValue || '#ffffff00'}
-				onChangeComplete={(e) => {
-					const alpha = e.hsl.a;
-					let val;
-					if (alpha < 1) {
-						val = e.hex + parseInt((e.hsl.a * 255),10).toString(16).padStart(2,'0')
+			<ColorEditor
+				className="tw-color-picker-panel"
+				color={computedValue || '#ffffff'}
+				mode="HSL"
+				alpha={alpha}
+				onChange={({alpha, color}) => {
+					let value;
+					if (alpha < 100) {
+						value = color + parseInt((alpha/100 * 255),10).toString(16).padStart(2,'0')
 					} else {
-						val = e.hex;
+						value = color;
 					}
-					onChange({value: val});
+					onChange({value});
 				}} />
 		)
 	} else {
@@ -65,6 +41,29 @@ const TokenTab = (props) => {
 	const { visible, allTokens, computedValue, onChange, value } = props;
 
 	if (visible) {
+		const theme = theme => ({
+			...theme,
+			borderRadius: 0,
+			colors: {
+				danger: 'var(--tw-color-danger)',
+				dangerLight: 'var(--tw-color-danger)',
+				primary: 'var(--tw-color-brand-primary-1)',
+				primary25: 'var(--tw-color-outline)',
+				primary50: 'var(--tw-color-outline)',
+				primary75: 'var(--tw-color-outline)',
+				neutral0: '#fff',
+				neutral5: 'var(--tw-color-grey-5)',
+				neutral10: 'var(--tw-color-grey-10)',
+				neutral20: 'var(--tw-color-grey-20)',
+				neutral30: 'var(--tw-color-grey-20)',
+				neutral40: 'var(--tw-color-grey-40)',
+				neutral50: 'var(--tw-color-grey-40)',
+				neutral60: 'var(--tw-color-grey-60)',
+				neutral70: 'var(--tw-color-grey-60)',
+				neutral80: 'var(--tw-color-grey-90)',
+				neutral90: 'var(--tw-color-grey-100)',
+			}
+		});
 		const colorStyles = {
 			option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 				let borderColor = 'transparent'
@@ -81,13 +80,16 @@ const TokenTab = (props) => {
 		const alpha = computedValue ? chroma(computedValue).alpha() : 1;
 		
 		// kinda jank logic, need to clean up
-		if (alpha < 1) {
-			_value.value = value.substring(0, value.length - 2);
-			_value.label = _value.value.replace(/{|}/g,'');
+		if (value.indexOf('{') > -1) {
+			value.replace(regex, function(match, variable) {
+				_value.value = variable;
+				_value.label = variable;
+			});
 		} else {
 			_value.value = value;
-			_value.label = value.replace(/{|}/g,'');
+			_value.label = _value.value.replace(/{|}/g,'');
 		}
+		
 		
 		const alphaToHex = (newAlpha) => {
 			// if there is any transparency
@@ -112,11 +114,12 @@ const TokenTab = (props) => {
 
 		return (
 			<div>
-				<CreatableSelect
+				<Select
 					isClearable
 					className="token-select"
 					classNamePrefix="token-select"
 					styles={colorStyles}
+					theme={theme}
 					value={_value}
 					defaultInputValue={_value.label}
 					onCreateOption={(value) => onChange({value})}
@@ -126,7 +129,6 @@ const TokenTab = (props) => {
 				<div className="new-token-alpha">
 					<label className="new-token-alpha-label">Alpha</label>
 					<div className="new-token-alpha-input">
-						<span className="new-token-alpha-val" style={{left: `${alpha * 100}%`}}>{alpha}</span>
 						<input type="range"
 							min="0"
 							max="1"
@@ -143,8 +145,9 @@ const TokenTab = (props) => {
 }
 
 const TokenEditor = (props) => {
-	const { visible } = props;
-	const [tabIndex, setTabIndex] = useState(0);
+	const { visible, reverseLookup, value } = props;
+	const defaultIndex = value && value.indexOf('#') < 0 ? 0 : 1;
+	const [tabIndex, setTabIndex] = useState(defaultIndex);
 
 	if (visible) {
 		return (
@@ -162,6 +165,7 @@ const TokenEditor = (props) => {
 				<div>
 					<TokenTab {...props} visible={tabIndex === 0} />
 					<CustomTab  {...props} visible={tabIndex === 1} />
+					<ReverseLookup list={reverseLookup} />
 				</div>
 			</div>
 		)
@@ -206,17 +210,17 @@ class NewToken extends React.Component {
 	}
 	
 	render() {
-		const { computedValue, path, id, description, children } = this.props;
+		const { computedValue, path, id, description, children, reverseLookup } = this.props;
 		const { expanded } = this.state;
 		
 		const sectionId = (id || path).replace(/\./g,'-');
 
 		return (
-			<div className={clsx(
+			<div id={sectionId} className={clsx(
 				"new-token",
 				expanded && "expanded"
 				)}>
-				<header className="new-token-header" onClick={this.toggleEditor} id={sectionId}>
+				<header className="new-token-header" onClick={this.toggleEditor}>
 					<div className="new-token-swatch-wrapper">
 						<div className={clsx(
 							"new-token-swatch",
@@ -228,9 +232,9 @@ class NewToken extends React.Component {
 					<div className="new-token-content">
 						<div className="new-token-label">{path}</div>
 						<div className="new-token-description">{description}</div>
-						{/* <ReverseLookup list={reverseLookup} /> */}
 					</div>
-					{/* <span className="codicon codicon-chevron-down" /> */}
+					{reverseLookup && <span className="token-badge">{reverseLookup.length}</span>}
+					<span className="codicon codicon-chevron-down" />
 				</header>
 				<TokenEditor visible={expanded} {...this.props} onChange={this.handleChangeComplete} />
 				{children}

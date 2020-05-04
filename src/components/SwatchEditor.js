@@ -2,11 +2,39 @@ import React, { useState } from 'react';
 import chroma from 'chroma-js';
 import clsx from 'clsx';
 
+import ReverseLookup from './ReverseLookup';
+import ColorEditor from './ColorEditor';
+
+const SwatchEditorPicker = (props) => {
+	const { visible, value, onChange, reverseLookup } = props;
+	
+	if (visible) {
+		return (
+			<>
+				<ColorEditor
+					className="tw-color-picker-panel"
+					color={value || '#ffffff'}
+					mode="HSL"
+					onChange={({alpha, color}) => {
+						let value;
+						if (alpha < 100) {
+							value = color + parseInt((alpha/100 * 255),10).toString(16).padStart(2,'0')
+						} else {
+							value = color;
+						}
+						onChange(value);
+					}} />
+				<ReverseLookup list={reverseLookup} />
+			</>
+		)
+	} else {
+		return null;
+	}
+}
+
 const SwatchEditor = (props) => {
-	const { path, value } = props;
+	const { path, value, reverseLookup } = props;
 	const name = path.split('.').slice(-1);
-	const hsl = chroma(value).hsl();
-	const h = Math.round(hsl[0]);
 	
 	const [isVisible, setVisible] = useState(false)
 	
@@ -16,7 +44,7 @@ const SwatchEditor = (props) => {
 	const onChange = (value) => {
 		props.onChange({
 			path,
-			value: chroma.hsl(value).hex()
+			value
 		});
 	}
 	
@@ -29,58 +57,11 @@ const SwatchEditor = (props) => {
 				backgroundColor: value
 			}}>
 			<div className="base-color-title" onClick={() => setVisible(!isVisible)}>
-				{name}: {value}
+				<strong>{name}</strong> {value}
 			</div>
 			<span className="codicon codicon-chevron-down base-color-chevron" />
-			{isVisible && <div className="base-color-popup">
-				<label>Hue</label>
-				<input
-					type="range"
-					step="0.1"
-					min="0"
-					max="360"
-					className="hue"
-					value={h}
-					onChange={(e) => onChange([
-						parseFloat(e.target.value),
-						hsl[1],
-						hsl[2]
-					])} />
-				<label>Saturation</label>
-				<input
-					type="range"
-					step="0.01"
-					min="0"
-					max="1"
-					style={{
-						background: `linear-gradient(to right, hsl(${h},0%,${hsl[2]*100}%) 0%, hsl(${h},100%,${hsl[2]*100}%) 100%)`
-					}}
-					value={hsl[1]}
-					onChange={(e) => onChange([
-						hsl[0],
-						parseFloat(e.target.value),
-						hsl[2]
-					])} />
-				<label>Lightness</label>
-				<input
-					type="range"
-					step="0.01"
-					min="0"
-					max="1"
-					style={{
-						background: `linear-gradient(to right, hsl(${h},${hsl[1]*100}%,10%) 0%, hsl(${h},${hsl[1]*100}%,50%) 50%, hsl(${h},${hsl[1]*100}%,90%) 100%)`
-					}}
-					value={hsl[2]}
-					onChange={(e) => onChange([
-						hsl[0],
-						hsl[1],
-						parseFloat(e.target.value)
-					])} />
-			</div>}
-			
-			<div>
-				{/* {reverseLookup && reverseLookup.join(', ')} */}
-			</div>
+			<SwatchEditorPicker visible={isVisible} onChange={onChange} value={value} reverseLookup={reverseLookup} />
+			{reverseLookup && <span className="token-badge">{reverseLookup.length}</span>}
 		</div>
 	)
 }
