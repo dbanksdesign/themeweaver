@@ -104,14 +104,22 @@ a[href$=".org"] {}
 
 const js = `'use strict'
 
-/**
- * This is a live code editor! You can edit code in here. For reals.
+/*
+ * This is a live code editor! You can edit code in here.
+ * For reals.
+ * But it won't save anywhere. What am I, and actual IDE?
  */
 class Sale {
   constructor(price) {
     ;[this.decoratorsList, this.price] = [[], price]
   }
 
+  /**
+   * This is a documentation comment
+   * @static
+   * @returns null
+   * @param {Object} decorator - the decorator
+   */
   decorate(decorator) {
     if (!Sale[decorator]) throw new Error(\`decorator not exist: \${decorator}\`)
     this.decoratorsList.push(Sale[decorator])
@@ -140,11 +148,6 @@ sale.decorate('quebec')
 console.log(sale.getPrice()) //112.88
 
 getPrice()
-
-//deeply nested
-/**
- * 
- */
 
 async function asyncCall() {
   var result = await resolveAfter2Seconds();
@@ -221,7 +224,8 @@ const tabs = [{
 
 const themeMap = {
 	dark: 'vs-dark',
-	light: 'vs'
+	light: 'vs',
+	hc: 'hc-black'
 }
 
 class VSCodeEditor extends React.PureComponent {
@@ -237,9 +241,10 @@ class VSCodeEditor extends React.PureComponent {
 			validateColor(applicationTokens[`editor.background`]),
 			validateColor(applicationTokens[`editor.foreground`])
 		);
+		const base = themeMap[currentTheme] || 'light';
 
 		this.monaco.editor.defineTheme(`myTheme`, {
-			base: themeMap[currentTheme],
+			base,
 			inherit: true,
 			rules: rules,
 			colors: applicationTokens

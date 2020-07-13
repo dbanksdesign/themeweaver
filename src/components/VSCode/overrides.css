@@ -44,6 +44,8 @@
 	padding: 0 4px;
 	border-radius: 20px;
 	text-align: center;
+	background-color: var(--application-activityBarBadge-background);
+	color: var(--application-activityBarBadge-foreground);
 }
 
 .badge-content {
@@ -135,6 +137,8 @@
 
 .monaco-workbench {
 	color: rgba(255, 255, 255, 0.93); /* set by VSCode I think */
+	color: var(--application-foreground);
+	backgroud-color: var(--application-background);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -142,8 +146,9 @@
 	left: 0;
 }
 
+
 .monaco-breadcrumbs {
-	background-color: var(--application-breadcrumb-background);
+	background-color: var(--application-breadcrumb-background, var(--application-editor-background));
 	color: var(--application-breadcrumb-foreground);
 }
 
@@ -238,7 +243,8 @@
 }
 
 .panel {
-	background-color: var(--application-panel-background);
+	/* I think vs code falls back to the editor background if no panel background is set */
+	background-color: var(--application-panel-background, var(--application-editor-background));
 }
 
 .composite.title {

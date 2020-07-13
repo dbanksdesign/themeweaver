@@ -1,0 +1,25 @@
+.tw-alert {
+	position: relative;
+	padding: var(--tw-size-padding-base);
+	margin: var(--tw-size-padding-base) 0;
+	padding-left: 4rem;
+	background-color: var(--tw-color-brand-secondary-6);
+	
+	&::before {
+		font-family: codicon;
+		content: "\ea74";
+		font-size: var(--tw-size-font-xl);
+		position: absolute;
+		top: var(--tw-size-padding-base);
+		left: var(--tw-size-padding-base);
+	}
+	
+	
+	&.info {
+		background-color: var(--tw-color-brand-primary-6);
+		
+		&::before {
+			content: "\ea71"
+		}
+	}
+}

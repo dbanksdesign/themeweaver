@@ -19,7 +19,6 @@ export default function ScrollToTop() {
 					}
 				);
 			}, 200);
-
 		}
 	}, [location]);
 

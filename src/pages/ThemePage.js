@@ -1,8 +1,6 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
-
-// import Token from '../components/Token';
-import NewToken from '../components/NewToken';
+import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
@@ -260,6 +258,9 @@ class ThemePage extends React.Component {
 							},{
 								label: 'Light',
 								selected: currentTheme === 'light'
+							},{
+								label: 'High Contrast',
+								selected: currentTheme === 'hc'
 							}]} />
 
 						{sections.map(section => (
@@ -269,7 +270,7 @@ class ThemePage extends React.Component {
 								{section.tokens.map(({ path, description }) => {
 									if (!tokens[path]) { console.log(path); }
 									return (
-										<NewToken {...tokens[path]}
+										<Token {...tokens[path]}
 											path={path}
 											key={path}
 											allTokens={tokens}

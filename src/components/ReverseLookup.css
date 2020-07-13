@@ -1,8 +1,0 @@
-.token-reverse-lookup {
-	padding-top: var(--size-padding-base);
-}
-
-.token-reverse-lookup > ul {
-	margin-top: 0;
-	margin-bottom: 0;
-}

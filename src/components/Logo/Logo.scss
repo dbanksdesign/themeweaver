@@ -1,0 +1,25 @@
+.tw-logo-link {
+	display: inline-flex;
+	height: 2rem;
+	line-height: 2rem;
+	padding: 0 var(--tw-size-padding-base);
+}
+
+.tw-logo-svg {
+	height: 100%;
+	opacity: 0.75;
+	
+	& .hatch-1 {
+		fill: var(--tw-color-brand-primary-1);
+	}
+	
+	& .hatch-2 {
+		fill: var(--tw-color-brand-secondary-1);
+	}
+}
+
+.tw-logo-text {
+	color: var(--tw-color-font-tertiary);
+	padding-left: var(--tw-size-padding-small);
+	font-weight: bold;
+}

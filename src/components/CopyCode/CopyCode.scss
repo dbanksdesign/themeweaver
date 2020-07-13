@@ -1,0 +1,39 @@
+.copy-button-container {
+	margin-bottom: -2px;
+	position: relative;
+	z-index: 2;
+}
+
+.copy-button {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.copy-toast {
+	position: absolute;
+	top: 100%;
+	left: var(--tw-size-padding-base);
+	right: var(--tw-size-padding-base);
+	margin-top: var(--tw-size-padding-base);
+	padding: var(--tw-size-padding-small);
+	background-color: var(--tw-color-success);
+	color: #fff;
+	text-align: center;
+	border-radius: var(--tw-size-border-radius);
+	font-weight: bold;
+}
+
+.copy-textarea {
+	opacity: 0;
+	position: absolute;
+	top: -10000px;
+	height: 0;
+	/* You can't just do display:none; or else the copy functionality won't work */
+}
+
+.copy-text {
+	max-height: 20rem;
+	overflow-y: auto;
+	border: 2px solid var(--tw-color-border-secondary);
+	margin: 0;
+}

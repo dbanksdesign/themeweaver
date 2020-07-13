@@ -158,4 +158,6 @@ const light = {
 	"theme.font.pink.transparent": "{base.pink.100}44",
 }
 
-export {dark, light}
+const hc = dark;
+
+export {dark, light, hc}

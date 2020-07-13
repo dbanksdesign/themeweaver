@@ -3,7 +3,7 @@
 }
 
 .home-hero {
-	padding: var(--size-padding-large) var(--size-padding-xl);
+	padding: var(--tw-size-padding-large) var(--tw-size-padding-xl);
 }
 
 .home-header {
@@ -22,11 +22,11 @@
 }
 
 .home-testimonials {
-	padding: var(--size-padding-xl);
+	padding: var(--tw-size-padding-xl);
 	border-top: 1px solid var(--tw-color-border-primary);
 }
 
 .home-footer {
 	background-color: var(--tw-color-background-tertiary);
-	padding: var(--size-padding-xl);
+	padding: var(--tw-size-padding-xl);
 }

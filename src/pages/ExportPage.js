@@ -2,6 +2,7 @@ import React from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { Helmet } from 'react-helmet';
+import lzString from 'lz-string';
 
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import createTextmateRules from '../helpers/createTextmateRules';
@@ -18,6 +19,7 @@ import generateJetbrainsXML from '../generators/jetbrainsXML';
 import generateJetbrainsMaterial from '../generators/jetbrainsMaterial';
 
 import CopyCode from '../components/CopyCode';
+import CopyButton from '../components/CopyButton';
 
 const readme = `Thank you for using Themeweaver!
 
@@ -93,13 +95,56 @@ const createSyntaxColors = (allTokens) => {
 // 	);
 // }
 
+const getCompressedState = (allTokens, theme, themeName) => {
+	return JSON.stringify({
+		allTokens: Object.keys(allTokens).reduce((obj, key) => {
+			const token = allTokens[key];
+			if (token.hasOwnProperty('foreground')) {
+				obj[key] = {
+					foreground: token.foreground.value,
+					fontStyle: token.fontStyle,
+					background: token.background.value
+				};
+			} else {
+				obj[key] = allTokens[key].value;
+			}
+			
+			return obj;
+		}, {}),
+		theme,
+		name: themeName
+	}, null, 2);
+}
+
 const downloadTheme = (allTokens, theme, themeName) => {
 	const zip = new JSZip();
 	zip.folder(`vscode`);
 	zip.folder(`jetbrains`);
-	zip.folder(`src/main/resources`);
-	zip.folder(`src/main/resources/META-INF`);
-	zip.folder(`src/main/resources/themes`);
+	zip.folder(`iterm`);
+	zip.folder(`xcode`);
+	zip.folder(`textmate`);
+	zip.folder(`slack`);
+
+	const src = JSON.stringify({
+		allTokens: Object.keys(allTokens).reduce((obj, key) => {
+			const token = allTokens[key];
+			if (token.hasOwnProperty('foreground')) {
+				obj[key] = {
+					foreground: token.foreground.value,
+					fontStyle: token.fontStyle,
+					background: token.background.value
+				};
+			} else {
+				obj[key] = allTokens[key].value;
+			}
+			
+			return obj;
+		}, {}),
+		theme,
+		name: themeName
+	}, null, 2);
+	
+	zip.file(`themeweaver.config.js`, `module.exports = ${src}`);
 	['dark','light'].forEach(themeType => {
 		const _allTokens = createAllTokens({
 			...allTokens,
@@ -109,7 +154,7 @@ const downloadTheme = (allTokens, theme, themeName) => {
 		const name = `${themeName}-${themeType}`;
 		const _theme = {
 			name,
-			type: themeName,
+			type: themeType,
 			colors: createApplicationColors(_allTokens),
 			tokenColors: createSyntaxColors(_allTokens)
 		}
@@ -128,10 +173,10 @@ const downloadTheme = (allTokens, theme, themeName) => {
 			allTokens: _allTokens,
 			dark: themeType === 'dark'
 		}));
-		zip.file(`${name}.tmTheme`, createTmPlist(_allTokens, name));
-		zip.file(`${name}.itermcolors`, generateiTerm(_allTokens));
-		zip.file(`${name}.slack.txt`, generateSlack(_allTokens));
-		zip.file(`${name}.xccolortheme`, generateXcode(_allTokens));
+		zip.file(`textmate/${name}.tmTheme`, createTmPlist(_allTokens, name));
+		zip.file(`iterm/${name}.itermcolors`, generateiTerm(_allTokens));
+		zip.file(`slack/${name}.slack.txt`, generateSlack(_allTokens));
+		zip.file(`xcode/${name}.xccolortheme`, generateXcode(_allTokens));
 	});
 	
 	// zip.file(`src/main/resources/META-INF/plugin.xml`, generateJetbrainsPluginXML({themeName}));
@@ -151,6 +196,10 @@ const downloadTheme = (allTokens, theme, themeName) => {
 		});
 }
 
+const generatePermaLink = ({ theme, allTokens, themeName }) => {
+	const data = getCompressedState(allTokens, theme, themeName);
+	return `${window.location.href}#?theme=${lzString.compressToEncodedURIComponent(data)}`;
+}
 
 const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 	<div className="page-content">
@@ -165,10 +214,10 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 			<label htmlFor="themeName">
 				First, give it a name
 			</label>
-			<div className="input-with-button">
+			<div className="tw-input-with-button">
 				<input type="text"
 					id="themeName"
-					className="token-field-input"
+					className="tw-input"
 					value={themeName}
 					onChange={(e) => updateThemeName(e.target.value)} />
 				<button onClick={() => updateThemeName(themeNameGenerator())}>
@@ -176,6 +225,10 @@ const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
 				</button>
 			</div>
 		</section>
+		
+		<CopyButton className="primary block"
+			string={generatePermaLink({allTokens, theme, themeName})}
+			label="Generate share-able link" />
 		
 		<button className="primary block"
 			onClick={() => downloadTheme(allTokens, theme, themeName)}>

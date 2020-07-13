@@ -26,6 +26,7 @@ import './css/statusbarpart.css';
 import './css/tabs.css';
 import './css/titlecontrol.css';
 import './css/titlebarpart.css';
+import './Workbench.css';
 import './overrides.css';
 
 class Workbench extends React.Component {

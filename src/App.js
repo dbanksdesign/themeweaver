@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {dark, light} from './tokens/theme';
+import lzString from 'lz-string';
+import {dark, light, hc} from './tokens/theme';
 import {allTokens as _allTokens} from './tokens/index';
-import CSSVars from './components/CSSVars';
 import createAllTokens from './helpers/createAllTokens';
 import updateToken from './helpers/updateToken';
 import { lsSet, lsGet } from './helpers/localStorage';
-import HomePage from './pages/HomePage';
 
+import HomePage from './pages/HomePage';
 import BasePage from './pages/BasePage';
 import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
 import ExportPage from './pages/ExportPage';
-import TestPage from './pages/TestPage';
+import ImportPage from './pages/ImportPage';
+import AboutPage from './pages/AboutPage';
 
 import Header, {SecondaryHeader} from './components/Header';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
-import ResizablePanels from './components/ResizablePanel';
+import Panels from './components/Panels';
 import ScrollToTop from './components/ScrollTop';
 
-import generateTokenObjects from './helpers/generateTokenObjects';
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
+
+const themeMap = ['dark', 'light', 'hc'];
 
 const theme = {
 	dark,
 	light,
+	hc
 }
 
 const defaultState = {
@@ -50,17 +53,35 @@ class App extends Component {
 		// Uncomment this when going live, commenting out so hot reloads work.
 		// initialState = lsGet('state');
 		
+		// We encode a simplifed version of the state in the hash
+		// if there is a hash in the URL, try to decode it
+		const hash = window.location.hash;
+		if( hash && hash.length ) {
+			try {
+				const {allTokens, theme, themeName} = JSON.parse(
+					lzString.decompressFromEncodedURIComponent(hash.split("=")[1])
+				);
+				initialState = {
+					allTokens: createAllTokens(allTokens),
+					currentTheme: 'dark',
+					theme,
+					themeName
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		
 		if (initialState) {
 			this.state = initialState;
 		} else {
 			this.state = defaultState;
 		}
-		document.body.classList.add(this.state.defaultTheme);
 	}
 	
 	updateTokens = ( _tokens ) => {
 		const tokens = Object.assign({}, this.state.allTokens);
-		_tokens.forEach(({path, value}) => {
+		_tokens.forEach(({path, value}, i) => {
 			updateToken({ path, value, tokens });
 		});
 		this.setState({
@@ -68,7 +89,6 @@ class App extends Component {
 		});
 	}
 	
-	// Should probs refactor this as it is a giant method...
 	updateToken = ({ path, value, secondaryKey }) => {
 		// if it is a theme token, update the current theme object
 		const {currentTheme} = this.state;
@@ -102,8 +122,8 @@ class App extends Component {
 		});
 	}
 	
-	changeTheme = () => {
-		const newTheme = this.state.currentTheme === 'dark' ? 'light' : 'dark';
+	changeTheme = ({ index, label }) => {
+		const newTheme = themeMap[index];
 		document.body.classList.remove(this.state.currentTheme);
 		document.body.classList.add(newTheme);
 		this.setState({
@@ -115,27 +135,46 @@ class App extends Component {
 		})
 	}
 	
-	changeColorType = () => {
-		this.setState({
-			colorType: this.state.colorType === `hex` ? `hsl` : `hex`
-		});
-	}
-	
-	importTheme = (newTokens) => {
+	importTheme = ({ application, syntax, type='light'}) => {
 		const allTokens = createAllTokens({
-			...newTokens.application,
-			...newTokens.syntax,
+			...application,
+			...syntax,
 		});
 
 		this.setState({
-			allTokens
+			allTokens,
+			currentTheme: type
 		});
 	}
 	
 	resetState = () => {
-		if (window.confirm(`Are you really sure you want to reset everything? There's no going back...`)) {
-			this.setState(defaultState);
-		}
+		this.setState(defaultState);
+	}
+	
+	clearState = () => {
+		const allTokens = Object.keys(this.state.allTokens).reduce((obj, key) => {
+			obj[key] = {
+				value: '',
+				computedValue: '',
+			};
+			return obj;
+		}, {});
+		// const dark = Object.keys(this.state.theme.dark).reduce((obj,key) => {
+		// 	obj[key] = '';
+		// 	return obj;
+		// }, {});
+		// const light = Object.keys(this.state.theme.light).reduce((obj,key) => {
+		// 	obj[key] = '';
+		// 	return obj;
+		// }, {});
+		this.setState({ allTokens });
+	}
+	
+	setAllTokens = (newTokens, theme) => {
+		this.setState({
+			allTokens: createAllTokens(newTokens),
+			theme: theme ? theme : this.state.theme
+		});
 	}
 	
 	updateThemeName = (name) => {
@@ -151,20 +190,29 @@ class App extends Component {
 		const { allTokens, currentTheme, theme, themeName } = this.state;
 		
 		const tokenNames = Object.keys(allTokens);
+		const cssProperties = tokenNames.reduce((obj, name) => {
+			const value = allTokens[name].computedValue;
+			if (value) {
+				obj[`--${name.replace('.value','').replace(/\./g,'-')}`] = allTokens[name].computedValue;
+			}
+			return obj;
+		}, {});
 		
 		return (
 			<Router>
-				<div className="app">
-					<CSSVars tokens={allTokens} />
-					<Header resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
+				<div className={`app ${currentTheme}`} style={cssProperties}>
+					<Header />
 					<ScrollToTop />
 					<Switch>
 						<Route exact path="/">
 							<HomePage />
 						</Route>
+						<Route exact path="/about">
+							<AboutPage />
+						</Route>
 						<Route path="/editor">
-							<SecondaryHeader resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
-							<ResizablePanels onResize={onResize}>
+							<SecondaryHeader clearState={this.clearState} resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
+							<Panels onResize={onResize}>
 								<div className="editor-pane">
 									<Switch>
 										<Route path="/editor/export">
@@ -175,13 +223,17 @@ class App extends Component {
 												currentTheme={currentTheme}
 												allTokens={allTokens} />
 										</Route>
-										<Route path="/editor/test">
-											<TestPage
+										<Route path="/editor/import">
+											<ImportPage
 												allTokens={allTokens}
 												tokenNames={tokenNames}
+												importTheme={this.importTheme}
 												updateTokens={this.updateTokens}
-												updateToken={this.updateToken}
-												resetState={this.resetState} />
+												clearState={this.clearState}
+												resetState={this.resetState}
+												setAllTokens={this.setAllTokens}
+												setState={this.setState.bind(this)}
+												showToast={this.showToast} />
 										</Route>
 										<Route path="/editor/base">
 											<BasePage
@@ -234,7 +286,7 @@ class App extends Component {
 										</Workbench>
 									</div>
 								)}
-							</ResizablePanels>
+							</Panels>
 						</Route>
 					</Switch>
 				</div>

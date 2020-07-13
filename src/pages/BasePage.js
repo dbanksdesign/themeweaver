@@ -3,12 +3,10 @@ import chroma from 'chroma-js';
 import { Helmet } from 'react-helmet';
 
 import baseTokens from '../tokens/base';
-// import Token from '../components/Token';
-// import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
-import SwatchEditor from '../components/SwatchEditor';
-import ColorMixer from '../components/ColorMixer';
+import BaseColorGroup from '../components/BaseColorGroup';
+import {BaseToken} from '../components/Token';
 
 const sections = [{
 	title: `Grey`,
@@ -418,9 +416,10 @@ class BasePage extends React.Component {
 				anchor: section.title.replace(' ','-')
 			}
 		});
-
-		return (
-			<>
+		
+		if (tokens['base.grey.100']) {
+			return (
+				<>
 				<Helmet>
 					<title>Base Tokens | Themeweaver</title>
 				</Helmet>
@@ -440,7 +439,7 @@ class BasePage extends React.Component {
 							className="token-group"
 							key={section.title}
 							id={section.title.replace(' ','-')}>
-							<ColorMixer
+							<BaseColorGroup
 								title={section.title}
 								h={this.state[`${section.name}Hue`]}
 								s={this.state[`${section.name}Saturation`]}
@@ -451,15 +450,19 @@ class BasePage extends React.Component {
 								handleSaturation={this.handleSaturation}
 								handleLightness={this.handleLightness}>
 									<p>{section.description}</p>
-							</ColorMixer>
-								<div className="base-color-group">
-									{section.tokens.map(({ path, description }) => {
-										if (!tokens[path]) { console.log(path); }
-										const {computedValue, reverseLookup} = tokens[path];
-										return (
-											<SwatchEditor key={path} path={path} reverseLookup={reverseLookup} value={computedValue} onChange={updateToken} />
-										)
-									})}
+							</BaseColorGroup>
+							<div className="base-color-group">
+								{section.tokens.map(({ path, description }) => {
+									if (!tokens[path]) { console.log(path); }
+									const {computedValue, reverseLookup} = tokens[path];
+									return (
+										<BaseToken key={path}
+											path={path}
+											reverseLookup={reverseLookup}
+											value={computedValue}
+											onChange={updateToken} />
+									)
+								})}
 							</div>
 						</section>
 					))}
@@ -471,7 +474,7 @@ class BasePage extends React.Component {
 						<h4>Primary Color</h4>
 						<ToggleButton
 							className="color-toggle"
-							onClick={(e) => this.changeColor('primary', e.target.innerHTML)}
+							onClick={({label}) => this.changeColor('primary', label)}
 							buttons={colors.map(color => {
 								return {
 									label: color,
@@ -482,7 +485,7 @@ class BasePage extends React.Component {
 						<h4>Secondary Color</h4>
 						<ToggleButton
 							className="color-toggle"
-							onClick={(e) => this.changeColor('secondary', e.target.innerHTML)}
+							onClick={({label}) => this.changeColor('secondary', label)}
 							buttons={colors.map(color => {
 								return {
 									label: color,
@@ -493,7 +496,7 @@ class BasePage extends React.Component {
 						<label className="token-field-label">Tertiary Color</label>
 						<ToggleButton
 							className="color-toggle"
-							onClick={(e) => this.changeColor('tertiary', e.target.innerHTML)}
+							onClick={({label}) => this.changeColor('tertiary', label)}
 							buttons={colors.map(color => {
 								return {
 									label: color,
@@ -504,7 +507,21 @@ class BasePage extends React.Component {
 				</div>
 				</div>
 			</>
-		)
+			)
+		} else {
+			return (
+				<>
+					<Helmet>
+						<title>Base Tokens | Themeweaver</title>
+					</Helmet>
+					<div className="page-content" id="page-content">
+						<div className="page-content-inner flow">
+							<p>Imported themes don't have base colors...</p>
+						</div>
+					</div>
+				</>
+			)
+		}
 	}
 }
 

@@ -6,196 +6,194 @@ import Color from './helpers/color';
 const modesMap = ['RGB', 'HSL'];
 
 export default class Params extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    // 管理 input 的状态
-    this.state = {
-      mode: props.mode,
-      hex: props.color.hex,
-      color: props.color, // instanceof tinycolor
-    };
-  }
+		this.state = {
+			mode: props.mode,
+			hex: props.color.hex,
+			color: props.color, // instanceof tinycolor
+		};
+	}
 
-  componentWillReceiveProps(nextProps) {
-    const { color: nextColor } = nextProps;
+	componentWillReceiveProps(nextProps) {
+		const { color: nextColor } = nextProps;
 
-    this.setState({
-      color: nextColor,
-      hex: nextColor.hex,
-    });
-  }
+		this.setState({
+			color: nextColor,
+			hex: nextColor.hex,
+		});
+	}
 
-  getChannelInRange = (value, index) => {
-    const channelMap = {
-      RGB: [[0, 255], [0, 255], [0, 255]],
+	getChannelInRange = (value, index) => {
+		const channelMap = {
+			RGB: [[0, 255], [0, 255], [0, 255]],
 			HSB: [[0, 359], [0, 100], [0, 100]],
 			HSL: [[0, 359], [0, 100], [0, 100]],
-    };
-    const mode = this.state.mode;
-    const range = channelMap[mode][index];
-    let result = parseInt(value, 10);
-    if (isNaN(result)) {
-      result = 0;
-    }
-    result = Math.max(range[0], result);
+		};
+		const mode = this.state.mode;
+		const range = channelMap[mode][index];
+		let result = parseInt(value, 10);
+		if (isNaN(result)) {
+			result = 0;
+		}
+		result = Math.max(range[0], result);
 		result = Math.min(result, range[1]);
-    return result;
-  };
+		return result;
+	};
 
-  getPrefixCls = () => {
-    return `${this.props.rootPrefixCls}-params`;
-  };
+	getPrefixCls = () => {
+		return `${this.props.rootPrefixCls}-params`;
+	};
 
-  handleHexBlur = () => {
-    const hex = this.state.hex;
+	handleHexBlur = () => {
+		const hex = this.state.hex;
 
-    let color = null;
+		let color = null;
 
-    if (Color.isValidHex(hex)) {
-      color = new Color(hex);
-    }
+		if (Color.isValidHex(hex)) {
+			color = new Color(hex);
+		}
 
-    if (color !== null) {
-      this.setState({
-        color,
-        hex,
-      });
-      this.props.onChange(color, false);
-    }
-  };
+		if (color !== null) {
+			this.setState({
+				color,
+				hex,
+			});
+			this.props.onChange(color, false);
+		}
+	};
 
-  handleHexPress = event => {
-    const hex = this.state.hex;
-    if (event.nativeEvent.which === 13) {
-      let color = null;
+	handleHexPress = event => {
+		const hex = this.state.hex;
+		if (event.nativeEvent.which === 13) {
+			let color = null;
 
-      if (Color.isValidHex(hex)) {
-        color = new Color(hex);
-      }
+			if (Color.isValidHex(hex)) {
+				color = new Color(hex);
+			}
 
-      if (color !== null) {
-        this.setState({
-          color,
-          hex,
-        });
-        this.props.onChange(color, false);
-      }
-    }
-  };
+			if (color !== null) {
+				this.setState({
+					color,
+					hex,
+				});
+				this.props.onChange(color, false);
+			}
+		}
+	};
 
-  handleHexChange = event => {
-    const hex = event.target.value;
+	handleHexChange = event => {
+		const hex = event.target.value;
 
-    this.setState({
-      hex,
-    });
-  };
+		this.setState({
+			hex,
+		});
+	};
 
-  handleModeChange = () => {
-    let mode = this.state.mode;
+	handleModeChange = () => {
+		let mode = this.state.mode;
 
-    const modeIndex = (modesMap.indexOf(mode) + 1) % modesMap.length;
+		const modeIndex = (modesMap.indexOf(mode) + 1) % modesMap.length;
 
 		mode = modesMap[modeIndex];
 		console.log(mode, modeIndex);
 
-    this.setState({
-      mode,
-    });
-  };
+		this.setState({
+			mode,
+		});
+	};
 
-  handleAlphaHandler = event => {
-    let alpha = parseInt(event.target.value, 10);
+	handleAlphaHandler = event => {
+		let alpha = parseInt(event.target.value, 10);
 
-    if (isNaN(alpha)) {
-      alpha = 0;
-    }
-    alpha = Math.max(0, alpha);
-    alpha = Math.min(alpha, 100);
+		if (isNaN(alpha)) {
+			alpha = 0;
+		}
+		alpha = Math.max(0, alpha);
+		alpha = Math.min(alpha, 100);
 
-    this.props.onAlphaChange(alpha);
-  };
+		this.props.onAlphaChange(alpha);
+	};
 
-  updateColorByChanel = (channel, value) => {
-    const { color } = this.props;
+	updateColorByChanel = (channel, value) => {
+		const { color } = this.props;
 		const { mode } = this.state;
 		console.log(color, mode, channel, value);
 
-    if (mode === 'HSB') {
-      if (channel === 'H') {
-        color.hue = parseInt(value, 10);
-      } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
-      } else if (channel === 'B') {
-        color.brightness = parseInt(value, 10) / 100;
-      }
-    } else if (mode === 'HSL') {
-      if (channel === 'H') {
-        color.hue = parseInt(value, 10);
-      } else if (channel === 'S') {
-        color.saturation = parseInt(value, 10) / 100;
-      } else if (channel === 'L') {
-        color.lightness = parseInt(value, 10) / 100;
-      }
+		if (mode === 'HSB') {
+			if (channel === 'H') {
+				color.hue = parseInt(value, 10);
+			} else if (channel === 'S') {
+				color.saturation = parseInt(value, 10) / 100;
+			} else if (channel === 'B') {
+				color.brightness = parseInt(value, 10) / 100;
+			}
+		} else if (mode === 'HSL') {
+			if (channel === 'H') {
+				color.hue = parseInt(value, 10);
+			} else if (channel === 'S') {
+				color.saturation = parseInt(value, 10) / 100;
+			} else if (channel === 'L') {
+				color.lightness = parseInt(value, 10) / 100;
+			}
 		} else {
-      if (channel === 'R') {
-        color.red = parseInt(value, 10);
-      } else if (channel === 'G') {
-        color.green = parseInt(value, 10);
-      } else if (channel === 'B') {
-        color.blue = parseInt(value, 10);
-      }
-    }
+			if (channel === 'R') {
+				color.red = parseInt(value, 10);
+			} else if (channel === 'G') {
+				color.green = parseInt(value, 10);
+			} else if (channel === 'B') {
+				color.blue = parseInt(value, 10);
+			}
+		}
 
-    return color;
-  };
+		return color;
+	};
 
-  handleColorChannelChange = (index, event) => {
-    const value = this.getChannelInRange(event.target.value, index);
-    const { mode } = this.state;
-    const channel = mode[index];
+	handleColorChannelChange = (index, event) => {
+		const value = this.getChannelInRange(event.target.value, index);
+		const { mode } = this.state;
+		const channel = mode[index];
 
-    const color = this.updateColorByChanel(channel, value);
+		const color = this.updateColorByChanel(channel, value);
 
-    this.setState(
-      {
-        hex: color.hex,
-        color,
-      },
-      () => {
-        this.props.onChange(color, false);
-      }
-    );
-  };
+		this.setState(
+			{
+				hex: color.hex,
+				color,
+			},
+			() => {
+				this.props.onChange(color, false);
+			}
+		);
+	};
 
-  render() {
-    const prefixCls = this.getPrefixCls();
+	render() {
+		const prefixCls = this.getPrefixCls();
 
-    const { enableAlpha } = this.props;
-    const { mode, color } = this.state;
-    const colorChannel = color[mode];
+		const { enableAlpha } = this.props;
+		const { mode, color } = this.state;
+		const colorChannel = color[mode];
 
-    if (mode === 'HSB') {
-      colorChannel[0] = parseInt(colorChannel[0], 10);
-      colorChannel[1] = Math.round(colorChannel[1] * 100);
-      colorChannel[2] = Math.round(colorChannel[2] * 100);
-    } else if (mode === 'HSL') {
-      colorChannel[0] = parseInt(colorChannel[0], 10);
-      colorChannel[1] = Math.round(colorChannel[1] * 100);
-      colorChannel[2] = Math.round(colorChannel[2] * 100);
-    }
+		if (mode === 'HSB') {
+			colorChannel[0] = parseInt(colorChannel[0], 10);
+			colorChannel[1] = Math.round(colorChannel[1] * 100);
+			colorChannel[2] = Math.round(colorChannel[2] * 100);
+		} else if (mode === 'HSL') {
+			colorChannel[0] = parseInt(colorChannel[0], 10);
+			colorChannel[1] = Math.round(colorChannel[1] * 100);
+			colorChannel[2] = Math.round(colorChannel[2] * 100);
+		}
 
-    const paramsClasses = clsx({
-      [prefixCls]: true,
-      [`${prefixCls}-has-alpha`]: enableAlpha,
-    });
+		const paramsClasses = clsx({
+			[prefixCls]: true,
+			[`${prefixCls}-has-alpha`]: enableAlpha,
+		});
 
-    return (
-      <div className={paramsClasses}>
+		return (
+			<div className={paramsClasses}>
 				<div className="rc-color-picker-panel-param hex">
 					<input
-						className={`${prefixCls}-hex`}
 						className="tw-input"
 						type="text"
 						maxLength="7"
@@ -253,7 +251,7 @@ export default class Params extends React.Component {
 						<label className={`${prefixCls}-label`}>A</label>
 					</div>
 				)}
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }

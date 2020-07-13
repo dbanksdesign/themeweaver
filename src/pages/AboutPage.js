@@ -1,8 +1,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import ColorInput from '../components/ColorInput';
-import ToggleButton from '../components/ToggleButton';
-import ResizablePanels from '../components/ResizablePanel';
+import oneDarkPro from '../tokens/one-dark-pro/application';
 
 const color = chroma(`#ff9900`);
 
@@ -67,66 +65,38 @@ const colors = [
 	
 	"#000000",
 ]
+
+const tokens = {};
+
+Object.keys(oneDarkPro.colors).forEach(key => {
+	const value = oneDarkPro.colors[key];
+
+	if (!tokens[value]) {
+		tokens[value] = [key];
+	} else {
+		tokens[value].push(key);
+	}
+});
+
 class AboutPage extends React.Component {
-	state = {
-		color: color.hsl(),
-		view: `hsl`
-	}
-	
-	handleChange = (color) => {
-		console.log(color);
-		this.setState({
-			color
-		});
-	}
-	
-	changeView = () => {
-		const newView = this.state.view === `hsl` ? `hex` : `hsl`;
-		this.setState({
-			view: newView,
-			color: chroma(this.state.color, this.state.view)[newView]()
-		});
-	}
 	
 	render() {
 		return (
 			<div className="page-content">
-				<ResizablePanels>
+				{Object.keys(tokens).map(key => (
 					<div>
-            This is the first panel. It will use the rest of the available space.
-          </div>
-          <div>
-            This is the second panel. Starts with 300px.
-          </div>
-          <div>
-            This is the third panel. Starts with 300px.
-          </div>
-				</ResizablePanels>
-				{colors.map(color => (
-					<div style={{
-						display: 'inline-block',
-						width: '50px',
-						height: '50px',
-						backgroundColor: color
-					}} />
+						<div style={{
+							display: 'inline-block',
+							width: '50px',
+							height: '50px',
+							backgroundColor: key
+						}} />
+						<div>{key}</div>
+						{tokens[key].map(ref => (
+							<div>{ref}</div>
+						))}
+					</div>
 				))}
-			<h1>About Themeweaver</h1>
-			<ToggleButton
-				onClick={this.changeView}
-				buttons={[{
-					label: 'HSL',
-					selected: this.state.view === 'hsl'
-				},{
-					label: 'Hex',
-					selected: this.state.view === 'hex'
-				}]} />
-			<ColorInput view={this.state.view} value={this.state.color} onChange={this.handleChange} />
-			
-			<h2>Credits</h2>
-			<dl>
-				<dt><a href="https://vis4.net/chromajs">chroma.js</a></dt>
-				<dd>Used for color transformations</dd>
-			</dl>
 		</div>
 		)
 	}

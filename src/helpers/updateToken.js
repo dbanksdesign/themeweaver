@@ -12,15 +12,15 @@ const updateToken = ({ path, value, secondaryKey, tokens }) => {
 	}
 	
 	const oldRefs = newToken.refs;
-	const oldReverse = newToken.reverseLookup;
+	const oldReverse = newToken.reverseLookup || [];
 	
 	// TEST: might need to uncomment this
 	// Don't update the computed value if it is undefined
-	// if (!computedValue) {
-	// 	console.log(`tried to update ${path} but it did not resolve to anything`);
-	// 	undefinedToken = true;
-	// 	computedValue = newToken.computedValue;
-	// }
+	if (!computedValue) {
+		console.log(`tried to update ${path} but it did not resolve to anything`);
+		undefinedToken = true;
+		computedValue = newToken.computedValue;
+	}
 	
 	newToken = Object.assign({}, newToken, {
 		value,

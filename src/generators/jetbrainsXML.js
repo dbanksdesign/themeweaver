@@ -43,7 +43,7 @@ const generateJetbrainsXML = ({ allTokens, name, isDark }) => {
     <option name="FILESTATUS_ADDED" value="${allTokens['application.gitDecoration.addedResourceForeground'].computedValue}" />
     <option name="FILESTATUS_COPIED" value="c3e88d" />
     <option name="FILESTATUS_DELETED" value="${allTokens['application.gitDecoration.deletedResourceForeground'].computedValue}" />
-    <option name="FILESTATUS_HIJACKED" value="${allTokens['application.gitDecoration.conflictedResourceForeground'].computedValue}" />
+    <option name="FILESTATUS_HIJACKED" value="${allTokens['application.gitDecoration.conflictingResourceForeground'].computedValue}" />
     <option name="FILESTATUS_IDEA_FILESTATUS_DELETED_FROM_FILE_SYSTEM" value="808080" />
     <option name="FILESTATUS_IDEA_FILESTATUS_IGNORED" value="ab7967" />
     <option name="FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_BOTH_CONFLICTS" value="fc9867" />

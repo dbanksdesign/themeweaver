@@ -1,3 +1,3 @@
 import ColorEditor from './ColorEditor';
-import './ColorEditor.css';
+import './ColorEditor.scss';
 export default ColorEditor;
