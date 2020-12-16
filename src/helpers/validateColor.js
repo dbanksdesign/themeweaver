@@ -29,7 +29,8 @@ const validateColor = (hex) => {
 		case 8:
 			return hex;
 		default:
-			console.log(hex);
+			console.trace();
+			console.log(JSON.stringify(hex));
 			return null;
 	}
 }

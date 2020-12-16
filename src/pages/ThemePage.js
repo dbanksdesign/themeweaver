@@ -1,10 +1,9 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
-
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
-import ToggleButton from '../components/ToggleButton';
 import TOC from '../components/TOC';
+import ToggleButton from '../components/ToggleButton';
 
 const sections = [{
 	title: `Background`,
@@ -218,8 +217,18 @@ class ThemePage extends React.Component {
 	// 		JSON.stringify(refs) !== JSON.stringify(nextProps.refs);
 	// }
 	
+	// state = {
+	// 	tocShown: false
+	// }
+	
+	// toggleTOC = () => {
+	// 	this.setState({
+	// 		tocShown: !this.state.tocShown
+	// 	});
+	// }
+	
 	render() {
-		const { updateToken, tokens, changeTheme, currentTheme, tokenNames } = this.props;
+		const { updateToken, tokens, changeTheme, currentTheme } = this.props;
 		const links = sections.map(section => {
 			return {
 				label: section.title,
@@ -232,39 +241,46 @@ class ThemePage extends React.Component {
 				<Helmet>
 					<title>Theme Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC links={links} />
+				
+				<TOC links={links} defaultVisibility={false} />
+				
 				<div className="page-content" id="page-content">
-				<div className="page-content-inner">
-					<h1>Theme</h1>
-					<p>Most theme packages contain multiple <em>themes</em>. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
-					
-					<ToggleButton
-						onClick={changeTheme}
-						buttons={[{
-							label: 'Dark',
-							selected: currentTheme === 'dark'
-						},{
-							label: 'Light',
-							selected: currentTheme === 'light'
-						}]} />
-					{sections.map(section => (
-						<TokenGroup {...section}
-							key={section.title}
-							id={section.title.replace(' ','-')}>
-							{section.tokens.map(({ path, description }) => {
-								if (!tokens[path]) { console.log(path); }
-								return (
-									<Token {...tokens[path]}
-										path={path}
-										key={path}
-										description={description}
-										updateToken={updateToken}
-										tokenNames={tokenNames} />
-								)
-							})}
-						</TokenGroup>
-					))}
-				</div>
+					<div className="page-content-inner flow">
+						<h1>Theme</h1>
+						<p>Most theme packages contain multiple <em>themes</em>. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
+						
+						<ToggleButton
+							className="block"
+							onClick={changeTheme}
+							buttons={[{
+								label: 'Dark',
+								selected: currentTheme === 'dark'
+							},{
+								label: 'Light',
+								selected: currentTheme === 'light'
+							},{
+								label: 'High Contrast',
+								selected: currentTheme === 'hc'
+							}]} />
+
+						{sections.map(section => (
+							<TokenGroup {...section}
+								key={section.title}
+								id={section.title.replace(' ','-')}>
+								{section.tokens.map(({ path, description }) => {
+									if (!tokens[path]) { console.log(path); }
+									return (
+										<Token {...tokens[path]}
+											path={path}
+											key={path}
+											allTokens={tokens}
+											description={description}
+											updateToken={updateToken} />
+									)
+								})}
+							</TokenGroup>
+						))}
+					</div>
 				</div>
 			</>
 		)

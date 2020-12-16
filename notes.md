@@ -28,6 +28,7 @@ https://www.npmjs.com/package/color
 * Monaco editor does not acknowledge backgrounds in tokens. This is seen on their playground page: https://github.com/microsoft/monaco-editor/issues/586
 
 ## TODO
+* Add default application values for light/dark/hc themes
 * Add empty string application tokens for those not filled in
 * Export and download (verify results)
 * Import theme from URL (figure out how to do a theme package with multiple themes...)
@@ -49,3 +50,7 @@ Store colors as a class and transform to hex at the end?
 * https://flight-manual.atom.io/hacking-atom/sections/creating-a-theme/
 * https://www.jetbrains.org/intellij/sdk/docs/reference_guide/ui_themes/themes.html
 * https://github.com/dracula/jetbrains
+
+## Test imports:
+* https://raw.githubusercontent.com/sdras/night-owl-vscode-theme/master/themes/Night%20Owl-Light-color-theme-noitalic.json
+* https://raw.githubusercontent.com/azemoh/vscode-onedark/master/themes/OneDarkTheme-color-theme.json

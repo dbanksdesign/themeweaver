@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
 import TOC from '../components/TOC';
+import Search from '../components/Search';
 
 const sections = [{
 	title: `Window border`,
@@ -892,6 +893,58 @@ const sections = [{
 		path: `application.gitDecoration.submoduleResourceForeground`,
 		description: `Color for submodule resources.`
 	}]
+},{
+	title: `Status bar`,
+	description: ``,
+	tokens: [{
+		path: `application.statusBar.background`,
+		description: `Standard Status Bar background color.`
+	},{
+		path: `application.statusBar.foreground`,
+		description: `Status Bar foreground color.`
+	},{
+		path: `application.statusBar.border`,
+		description: `Status Bar border color separating the Status Bar and editor.`
+	},{
+		path: `application.statusBar.debuggingBackground`,
+		description: `Status Bar background color when a program is being debugged.`
+	},{
+		path: `application.statusBar.debuggingForeground`,
+		description: `Status Bar foreground color when a program is being debugged.`
+	},{
+		path: `application.statusBar.debuggingBorder`,
+		description: `Status Bar border color separating the Status Bar and editor when a program is being debugged.`
+	},{
+		path: `application.statusBar.noFolderForeground`,
+		description: `Status Bar foreground color when no folder is opened.`
+	},{
+		path: `application.statusBar.noFolderBackground`,
+		description: `Status Bar background color when no folder is opened.`
+	},{
+		path: `application.statusBar.noFolderBorder`,
+		description: `Status Bar border color separating the Status Bar and editor when no folder is opened.`
+	},{
+		path: `application.statusBarItem.activeBackground`,
+		description: `Status Bar item background color when clicking.`
+	},{
+		path: `application.statusBarItem.hoverBackground`,
+		description: `Status Bar item background color when hovering.`
+	},{
+		path: `application.statusBarItem.prominentForeground`,
+		description: `Status Bar prominent items foreground color.`
+	},{
+		path: `application.statusBarItem.prominentBackground`,
+		description: `Status Bar prominent items background color.`
+	},{
+		path: `application.statusBarItem.prominentHoverBackground`,
+		description: `Status Bar prominent items background color when hovering.`
+	},{
+		path: `application.statusBarItem.remoteBackground`,
+		description: `Background color for the remote indicator on the status bar.`
+	},{
+		path: `application.statusBarItem.remoteForeground`,
+		description: `Foreground color for the remote indicator on the status bar.`
+	}]
 }];
 
 class ApplicationPage extends React.Component {
@@ -937,17 +990,19 @@ class ApplicationPage extends React.Component {
 				<Helmet>
 					<title>Application Styles | Themeweaver</title>
 				</Helmet>
-				<TOC links={links} />
+				
+				<TOC defaultVisibility={false} links={links} />
+				
 				<div className="page-content" id="page-content">
 					<div className="page-content-inner">
 					<h1>Application</h1>
 					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is Hardcore mode.</p>
-					<div className="search">
-						<input className="search-input" placeholder="filter application styles" type="text" value={this.state.filter} onChange={this.handleFilter} />
-						<button className="search-clear" onClick={this.clearSearch}>
-							<span className="codicon codicon-x" />
-						</button>
-					</div>
+					
+					<Search placeholder="filter application styles"
+						value={this.state.filter}
+						onChange={this.handleFilter}
+						onClear={this.clearSearch} />
+
 					{filteredSections.map(section => (
 						<TokenGroup {...section}
 							key={section.title}
@@ -958,6 +1013,7 @@ class ApplicationPage extends React.Component {
 									<Token {...tokens[path]}
 										path={path}
 										key={path}
+										allTokens={tokens}
 										description={description}
 										updateToken={updateToken}
 										tokenNames={tokenNames} />

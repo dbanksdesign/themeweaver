@@ -1,0 +1,44 @@
+
+.tw-panel-container {
+	display: flex;
+	width: 100%;
+	flex: 1;
+	overflow: hidden;
+	background-color: var(--tw-color-background-primary);
+}
+
+.tw-panel {
+	position: relative;
+	
+	&:last-child {
+		flex: 1;
+		padding: var(--tw-size-padding-base);
+		padding-top: var(--tw-size-padding-large);
+		background-color: var(--tw-color-background-secondary);
+		
+		&::after {
+			content: 'Preview';
+			position: absolute;
+			color: var(--tw-color-font-tertiary);
+			top: 0;
+			left: var(--tw-size-padding-base);
+		}
+	}
+}
+
+.tw-resizer {
+	width: 2px;
+	background-color: var(--tw-color-border-primary);
+	position: absolute;
+	cursor: col-resize;
+	height: 100%;
+	top: 0;
+	flex-shrink: 0;
+	z-index: 2;
+	user-select: none;
+	margin-left: -2px;
+	
+	&:hover {
+		background-color: var(--tw-color-brand-primary-1);
+	}
+}

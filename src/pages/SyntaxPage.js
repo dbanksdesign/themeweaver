@@ -1,8 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import TokenGroup from '../components/TokenGroup';
-import SyntaxToken from '../components/SyntaxToken';
+import {SyntaxToken} from '../components/Token';
 import TOC from '../components/TOC';
+import Alert from '../components/Alert';
 
 const sections = [{
 	title: `Comment`,
@@ -312,7 +313,7 @@ class SyntaxPage extends React.Component {
 				<Helmet>
 					<title>Syntax Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC links={links} />
+				<TOC defaultVisibility={false} links={links} />
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner">
 					<h1>Syntax</h1>
@@ -337,9 +338,9 @@ class SyntaxPage extends React.Component {
 					
 					<p>These are the common scopes you might use when creating a syntax highlighting theme, but this list is not exhaustive. If you'd like to add some or add the ability to add custom syntax scopes, <a href="https://github.com/dbanksdesign/themeweaver/pulls">open a PR</a>!</p>
 					
-					<section className="tip">
+					<Alert>
 						To inspect scopes, click inside the editor and press F1, then search for "Developer: Inspect Tokens"
-					</section>
+					</Alert>
 				{sections.map(section => (
 					<TokenGroup {...section}
 						key={section.title}
@@ -353,6 +354,7 @@ class SyntaxPage extends React.Component {
 									<SyntaxToken key={path}
 										{...tokens[path]}
 										path={path}
+										allTokens={tokens}
 										updateFontStyle={updateFontStyle}
 										updateToken={updateToken}
 										tokenNames={tokenNames} />

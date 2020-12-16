@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-// import Logo from '../components/Logo';
+import Alert from '../components/Alert';
 
 import './Home.css';
 
@@ -26,9 +26,9 @@ const HomePage = () => (
 			
 			<p>Themeweaver uses the concept of design tokens<sup>&trade;</sup> to build light and dark themes for multiple platforms. All changes are stored in the browser, don't worry about losing your changes. When you are ready, export your theme to multiple platforms like VSCode, Jetbrains, iTerm, etc.</p>
 			
-			<section className="tip">
+			<Alert>
 				The code editor to the right actually works, you can edit those files! The VSCode application around it is just a prototype, you can click on the activity bar tabs, but it is not functional other than that.
-			</section>
+			</Alert>
 			
 			<section>
 				<h3>1. <Link to="/editor/base">Base tokens</Link></h3>
@@ -54,9 +54,9 @@ const HomePage = () => (
 		</section>
 		
 		<section className="home-hero">
-			<section className="tip">
+			<Alert>
 				This is a work-in-progress so there might be some bugs. Also, performance might be an issue because changes have huge effects and this is running a live code editor. 
-			</section>
+			</Alert>
 		</section>
 		
 		<footer className="home-footer">
@@ -71,6 +71,8 @@ const HomePage = () => (
 				<dd>Live code editor (powers VSCode)</dd>
 				<dt>Typefaces</dt>
 				<dd><a href="https://fonts.google.com/specimen/Source+Code+Pro">Source Code Pro</a> &amp; <a href="https://fonts.google.com/specimen/Source+Sans+Pro">Source Sans Pro</a></dd>
+				<dt>Base theme</dt>
+				<dd><a href="https://marketplace.visualstudio.com/items?itemName=dbanksdesign.nu-disco">Nu Disco</a></dd>
 			</dl>
 			
 			<p>While not directly used, this project is inspired by <a href="http://styledictionary.com">Style Dictionary</a></p>

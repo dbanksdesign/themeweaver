@@ -1,0 +1,45 @@
+.toc {
+	padding: var(--tw-size-padding-small) 0;
+	overflow-y: auto;
+	border-right: 2px solid var(--tw-color-border-secondary);
+}
+
+.toc-inner {
+	width: 8rem;
+	
+	.hidden > & { display: none; }
+}
+
+.toc-toggle {
+	border: none;
+	padding: var(--tw-size-padding-small);
+	line-height: 1;
+	color: var(--tw-color-font-quaternary);
+	
+	& > .codicon {
+		font-weight: bold;
+	}
+	
+	.hidden > & {
+		transform: rotate(180deg);
+	}
+}
+
+.toc-link {
+	position: relative;
+	display: block;
+	padding: var(--tw-size-padding-tiny) var(--tw-size-padding-small);
+	font-size: var(--tw-size-font-small);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--tw-color-font-nav);
+	border-right: 1px solid transparent;
+	width: 8rem;
+	box-sizing: border-box;
+	font-weight: bold;
+	
+	&.is-current {
+		color: var(--tw-color-font-nav-active);
+	}
+}

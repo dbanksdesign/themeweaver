@@ -1,0 +1,17 @@
+.tw-token-group {
+	padding-top: var(--tw-size-padding-large);
+	margin-top: var(--tw-size-padding-large);
+}
+
+.tw-token-group-title {
+	position: relative;
+	
+	&::before {
+		content: ' ';
+		position: absolute;
+		top: -1rem;
+		left: 0;
+		width: 50%;
+		border-top: 2px solid var(--tw-color-border-secondary);
+	}
+}

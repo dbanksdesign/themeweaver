@@ -1,0 +1,60 @@
+.toggle-buttons {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	border: 2px solid var(--tw-color-border-secondary);
+	padding: 2px;
+	border-radius: 8px;
+	background-color: var(--tw-color-background-secondary);
+}
+
+.toggle-buttons.block {
+	display: flex;
+}
+
+.toggle-button {
+	flex: 1;
+	display: block;
+	padding: var(--tw-size-padding-tiny) var(--tw-size-padding-base);
+	font-size: var(--tw-size-font-base);
+	color: var(--tw-color-font-link);
+	background-color: transparent;
+	border: none;
+}
+
+
+.color-toggle > .toggle-button {
+	margin: 0;
+	width: 33.3%;
+	flex-basis: 33.3%;
+	color: var(--tw-color-font-tertiary);
+}
+
+.toggle-button:active,
+.toggle-button.active,
+.toggle-button:focus {
+	background-color: var(--tw-color-brand-primary-1);
+	border-color: var(--tw-color-brand-primary-2);
+	outline: none;
+	color: #fff;
+}
+
+.toggle-button.red:hover { background-color: var(--base-red-10); }
+.toggle-button.orange:hover { background-color: var(--base-orange-10); }
+.toggle-button.yellow:hover { background-color: var(--base-yellow-10); }
+.toggle-button.lime:hover { background-color: var(--base-lime-10); }
+.toggle-button.green:hover { background-color: var(--base-green-10); }
+.toggle-button.teal:hover { background-color: var(--base-teal-10); }
+.toggle-button.blue:hover { background-color: var(--base-blue-10); }
+.toggle-button.purple:hover { background-color: var(--base-purple-10); }
+.toggle-button.pink:hover { background-color: var(--base-pink-10); }
+
+.toggle-button.active.red { background-color: var(--base-red-100); }
+.toggle-button.active.orange { background-color: var(--base-orange-100); }
+.toggle-button.active.yellow { background-color: var(--base-yellow-100); }
+.toggle-button.active.lime { background-color: var(--base-lime-100); }
+.toggle-button.active.green { background-color: var(--base-green-100); }
+.toggle-button.active.teal { background-color: var(--base-teal-100); }
+.toggle-button.active.blue { background-color: var(--base-blue-100); }
+.toggle-button.active.purple { background-color: var(--base-purple-100); }
+.toggle-button.active.pink { background-color: var(--base-pink-100); }

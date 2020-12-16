@@ -1,0 +1,221 @@
+
+.token-description {
+	display: block;
+	font-weight: normal;
+	font-size: var(--tw-size-font-small);
+	line-height: 1.2;
+	margin-bottom: var(--tw-size-padding-small);
+}
+
+.token-reverse-lookup {
+	background-color: var(--tw-color-background-primary);
+	padding: var(--tw-size-padding-base);
+	color: var(--tw-color-font-primary);
+	border-radius: 0 0 var(--tw-size-border-radius) var(--tw-size-border-radius);
+	margin-top: -5px;
+}
+
+.token-reverse-lookup-title {
+	margin: 0;
+	color: var(--tw-color-font-link);
+	font-weight: bold;
+}
+
+.token-reverse-lookup-title > .codicon {
+	font-size: 1.125rem;
+}
+
+.token-field-header {
+	display: flex;
+	flex-direction: row;
+}
+
+.token-reverse-lookup-list {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	padding: var(--tw-size-padding-base) !important;
+	background-color: var(--tw-color-background-primary);
+	box-shadow: 0 0.25rem 1rem var(--tw-color-shadow-primary);
+	border-radius: 4px;
+	opacity: 0;
+	display: none;
+	max-width: 20rem;
+}
+
+.token-reverse-lookup-list > li {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: var(--tw-size-font-small);
+}
+
+.token-reverse-lookup:hover > .token-reverse-lookup-list {
+	opacity: 1;
+	display: block;
+	z-index: 3;
+}
+
+.token-references {
+	color: var(--tw-color-font-tertiary);
+	list-style: none;
+}
+
+.token-reference {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	white-space: nowrap;
+	font-size: var(--tw-size-font-small);
+}
+
+.token-reference::before {
+	content: '⏎';
+	color: var(--tw-color-font-quaternary);
+	transform: scaleX(-1); /* flips horizontally */
+	display: inline-block;
+}
+
+.token-references > .codicon {
+	vertical-align: middle;
+	color: var(--tw-color-font-quaternary);
+}
+
+.token {
+	margin-bottom: var(--tw-size-padding-base);
+}
+
+.token + .token {
+	border-top: 2px solid var(--tw-color-border-tertiary);
+}
+
+.token.dark {
+	color: #fff;
+}
+
+.token-header {
+	position: relative;
+	padding: var(--tw-size-padding-base) var(--tw-size-padding-base) var(--tw-size-padding-small) 54px;
+	cursor: pointer;
+}
+
+
+
+
+.token-content {
+	padding-left: var(--tw-size-padding-small);
+	min-height: 54px;
+}
+
+.token-label {
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	.token-header:hover & {
+		color: var(--tw-color-font-link);
+	}
+}
+
+.token-description {
+	font-size: var(--tw-size-font-small);
+}
+
+
+.token-header > .codicon {
+	font-size: var(--tw-size-font-large);
+	position: absolute;
+	top: var(--tw-size-padding-base);
+	right: var(--tw-size-padding-base);
+	transition: transform 0.3s ease-in-out;
+}
+
+.token.expanded > .token-header > .codicon {
+	transform: rotate(180deg);
+}
+
+.token-swatch-wrapper {
+	width: 54px;
+	height: 54px;
+	position: absolute;
+	top: var(--tw-size-padding-base);
+	left: 0;
+	border-radius: var(--tw-size-border-radius);
+	padding: var(--tw-size-border-radius);
+	border: 2px solid var(--tw-color-border-secondary);
+	background-color: var(--tw-color-background-primary);
+	background-image: linear-gradient(45deg, var(--tw-color-background-tertiary) 25%, transparent 25%),
+		linear-gradient(-45deg, var(--tw-color-background-tertiary) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--tw-color-background-tertiary) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--tw-color-background-tertiary) 75%);
+  background-size: 20px 20px;
+	background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+	
+	.token-header:hover & {
+		border-color: var(--tw-color-border-focus);
+	}
+}
+
+.token-swatch {
+	width: 100%;
+	height: 100%;
+	
+	&.empty {
+		display: flex;
+		align-items: center;
+		justify-content: center; /* swag */
+		
+		&.empty::after {
+			color: var(--tw-color-danger);
+			font-family: codicon;
+			content: "\ea6c";
+			font-size: var(--tw-size-font-large);
+		}
+	}
+}
+
+
+.token-alpha {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.token-alpha-label {
+	margin-bottom: 0;
+	margin-right: var(--tw-size-padding-base);
+}
+
+.token-alpha-input {
+	flex: 1;
+	position: relative;
+}
+
+.token-alpha-val {
+	position: absolute;
+	top: 0;
+	width: 3rem;
+	margin-left: -1.5rem;
+	text-align: center;
+}
+
+.token-badge {
+	position: absolute;
+	bottom: 0;
+	left: 30px;
+	padding: var(--tw-size-padding-xs) 0;
+	background-color: var(--tw-color-border-primary);
+	color: #fff;
+	border-radius: 1rem;
+	width: 2rem;
+	text-align: center;
+}
+
+.tw-color-picker-tabs {
+	display: flex;
+	margin-bottom: var(--tw-size-padding-small);
+}
+
+.tw-color-picker-tabs > * {
+	flex: 1;
+}

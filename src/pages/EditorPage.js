@@ -10,15 +10,11 @@ import ExportPage from './ExportPage';
 import Header from '../components/Header';
 import Workbench from '../components/VSCode/Workbench';
 import VSCodeEditor from '../components/VSCode/Editor';
-import ResizablePanels from '../components/ResizablePanel';
+import Panels from '../components/Panels';
 
 import generateTokenObjects from '../helpers/generateTokenObjects';
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import ScrollToTop from '../components/ScrollTop';
-
-const onResize = (width) => {
-	console.log(width);
-}
 
 const EditorPage = ({ allTokens, updateToken, updateTokens, currentTheme, changeTheme, updateFontStyle, resetState, updateThemeName, theme, themeName }) => {
 	const tokenNames = Object.keys(allTokens);
@@ -33,7 +29,7 @@ const EditorPage = ({ allTokens, updateToken, updateTokens, currentTheme, change
 		<>
 			<Header />
 			<ScrollToTop />
-			<ResizablePanels onResize={onResize}>
+			<Panels>
 				<div className="editor-pane">
 					<Switch>
 						<Route path="/editor/export">
@@ -87,7 +83,7 @@ const EditorPage = ({ allTokens, updateToken, updateTokens, currentTheme, change
 					</div>
 				)}
 
-			</ResizablePanels>
+			</Panels>
 		</>
 	)
 }

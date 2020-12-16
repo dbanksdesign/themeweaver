@@ -1,0 +1,14 @@
+.tw-base-color-mixer {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: var(--tw-size-padding-base);
+	
+	& > .tw-input {
+		flex-basis: 5rem;
+		margin-right: var(--tw-size-padding-base);
+	}
+}
+
+.tw-base-color-mixer-label {
+	font-weight: bold;
+}
