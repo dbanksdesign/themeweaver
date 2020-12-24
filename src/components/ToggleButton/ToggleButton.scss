@@ -2,10 +2,11 @@
 	display: inline-flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	border: 2px solid var(--tw-color-border-secondary);
-	padding: 2px;
-	border-radius: 8px;
-	background-color: var(--tw-color-background-secondary);
+	border: var(--tw-border-secondary);
+	// padding: 2px;
+	border-radius: var(--tw-size-border-radius);
+	background-color: var(--tw-color-background-primary);
+	box-shadow: var(--tw-shadow-secondary-inset);
 }
 
 .toggle-buttons.block {
@@ -17,8 +18,17 @@
 	display: block;
 	padding: var(--tw-size-padding-tiny) var(--tw-size-padding-base);
 	font-size: var(--tw-size-font-base);
-	color: var(--tw-color-font-link);
+	color: var(--tw-color-brand-secondary-1);
 	background-color: transparent;
+	border: none;
+	
+	&:hover,
+	&:focus {
+		color: var(--tw-color-brand-secondary-2);
+	}
+}
+
+.color-toggle {
 	border: none;
 }
 
@@ -33,11 +43,20 @@
 .toggle-button:active,
 .toggle-button.active,
 .toggle-button:focus {
-	background-color: var(--tw-color-brand-primary-1);
-	border-color: var(--tw-color-brand-primary-2);
+	background-color: var(--tw-color-brand-secondary-1);
 	outline: none;
 	color: #fff;
 }
+
+.toggle-button.red { color: var(--base-red-100); }
+.toggle-button.orange { color: var(--base-orange-100); }
+.toggle-button.yellow { color: var(--base-yellow-100); }
+.toggle-button.lime { color: var(--base-lime-100); }
+.toggle-button.green { color: var(--base-green-100); }
+.toggle-button.teal { color: var(--base-teal-100); }
+.toggle-button.blue { color: var(--base-blue-100); }
+.toggle-button.purple { color: var(--base-purple-100); }
+.toggle-button.pink { color: var(--base-pink-100); }
 
 .toggle-button.red:hover { background-color: var(--base-red-10); }
 .toggle-button.orange:hover { background-color: var(--base-orange-10); }
@@ -49,6 +68,7 @@
 .toggle-button.purple:hover { background-color: var(--base-purple-10); }
 .toggle-button.pink:hover { background-color: var(--base-pink-10); }
 
+.toggle-button.active { color: #fff; }
 .toggle-button.active.red { background-color: var(--base-red-100); }
 .toggle-button.active.orange { background-color: var(--base-orange-100); }
 .toggle-button.active.yellow { background-color: var(--base-yellow-100); }

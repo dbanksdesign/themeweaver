@@ -2,8 +2,6 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
-import TOC from '../components/TOC';
-import ToggleButton from '../components/ToggleButton';
 
 const sections = [{
 	title: `Background`,
@@ -209,32 +207,9 @@ const sections = [{
 }]
 
 class ThemePage extends React.Component {
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	const { name, value, refs } = this.props;
-	// 	// can't shallowly compare path because it is an array
-	// 	return value !== nextProps.value ||
-	// 		name !== nextProps.name ||
-	// 		JSON.stringify(refs) !== JSON.stringify(nextProps.refs);
-	// }
-	
-	// state = {
-	// 	tocShown: false
-	// }
-	
-	// toggleTOC = () => {
-	// 	this.setState({
-	// 		tocShown: !this.state.tocShown
-	// 	});
-	// }
-	
+
 	render() {
 		const { updateToken, tokens, changeTheme, currentTheme } = this.props;
-		const links = sections.map(section => {
-			return {
-				label: section.title,
-				anchor: section.title.replace(' ','-')
-			}
-		});
 		
 		return (
 			<>
@@ -242,26 +217,9 @@ class ThemePage extends React.Component {
 					<title>Theme Tokens | Themeweaver</title>
 				</Helmet>
 				
-				<TOC links={links} defaultVisibility={false} />
-				
 				<div className="page-content" id="page-content">
-					<div className="page-content-inner flow">
-						<h1>Theme</h1>
+					<div className="page-content-inner">
 						<p>Most theme packages contain multiple <em>themes</em>. The theme tokens here allow application and syntax tokens to reference these theme tokens so you don't need to re-write all those tokens for each theme.</p>
-						
-						<ToggleButton
-							className="block"
-							onClick={changeTheme}
-							buttons={[{
-								label: 'Dark',
-								selected: currentTheme === 'dark'
-							},{
-								label: 'Light',
-								selected: currentTheme === 'light'
-							},{
-								label: 'High Contrast',
-								selected: currentTheme === 'hc'
-							}]} />
 
 						{sections.map(section => (
 							<TokenGroup {...section}

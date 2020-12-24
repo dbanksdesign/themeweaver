@@ -644,7 +644,7 @@ const ExplorerSidebar = (
 			<div className="composite viewlet explorer-viewlet">
 				<div className="monaco-pane-view">
 					<div className="monaco-split-view2 vertical">
-						<div className="split-view-view visible">
+						<div className="split-view-view visible" style={{height: "calc(100% - 57px)"}}>
 							<div className="pane">
 								<div className="pane-header expanded">
 									<div className="twisties codicon codicon-chevron-right" />

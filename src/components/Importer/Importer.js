@@ -2,11 +2,12 @@ import React from 'react';
 import chroma from 'chroma-js';
 import stripJsonComments from 'strip-json-comments';
 
-import {dark} from '../tokens/theme';
-import {allTokens} from '../tokens/index';
-import createRandomStarter from '../helpers/createRandomStarter';
-import createAllTokens from '../helpers/createAllTokens';
-import FileInput from '../components/FileInput';
+import {dark} from '../../tokens/theme';
+import {allTokens} from '../../tokens/index';
+import createRandomStarter from '../../helpers/createRandomStarter';
+import createAllTokens from '../../helpers/createAllTokens';
+import FileInput from '../FileInput';
+import Alert from '../Alert';
 
 // This doesn't handle nested scopes (scopes with spaces) like:
 // source.elixir support.type.elixir
@@ -41,10 +42,11 @@ const massageApplication = (colors) => {
 
 const Errors = ({error}) => {
 	if (error) {
+		const content = typeof error === 'string' ? error : JSON.stringify(error);
 		return (
-			<div className="alert error">
-				{JSON.stringify(error)}
-			</div>
+			<Alert variant="danger">
+				{content}
+			</Alert>
 		)
 	} else {
 		return null;
@@ -64,46 +66,45 @@ const ThemeData = ({ name, tokenColors, colors, allTokens, type }) => {
 			syntaxColors = tokenColors.length;
 		}
 		return (
-			<section>
+			<Alert variant="success">
 				<h2>{name}</h2>
-				<p>{type}</p>
+				<p>Type: {type}</p>
 				<p>{applicationColors} application colors</p>
 				<p>{syntaxColors} syntax colors</p>
-			</section>
+			</Alert>
 		)
 	} else {
 		return null;
 	}
 }
 
-class ImportPage extends React.Component {
+
+export default class Importer extends React.Component {
 	state = {
 		uri: '',
 		isValidURL: false
 	}
 	
 	import = () => {
-		fetch(this.state.uri, {mode: 'no-cors'})
+		if (!this.state.isValidURL) {
+			this.setState({
+				error: 'Please enter a valid URL'
+			});
+			return;
+		}
+		
+		fetch(this.state.uri)
 			.then(response => {
-				console.log(response);
+				console.log(response.headers);
 				if (!response.ok) {
-					console.log('hi');
+					console.log(response);
 					return Promise.reject({
 						error: 'There was an issue with the URL provided',
 					})
 				}
-				return response;
+				return response.text();
 			})
-			.then((response) => {
-				try {
-					return response.text();
-				} catch (error) {
-					return Promise.reject({
-						error: 'There was an issue with the URL provided'
-					})
-				}
-			})
-			.then(text => {
+			.then((text) => {
 				try {
 					return JSON.parse(stripJsonComments(text));
 				} catch (error) {
@@ -141,6 +142,7 @@ class ImportPage extends React.Component {
 				errors: []
 			});
 		} catch (error) {
+			console.log(error);
 			this.setState({error});
 		}
 	}
@@ -163,8 +165,10 @@ class ImportPage extends React.Component {
 		try {
 			const themeData = JSON.parse(content);
 			const {allTokens, theme, name} = themeData;
+			
 			// if it has allTokens that means it is a plain themewever theme
 			if (allTokens) {
+				themeData.type = `Dark & Light`
 				this.props.setState({
 					allTokens: createAllTokens(allTokens),
 					theme,
@@ -179,6 +183,7 @@ class ImportPage extends React.Component {
 			});
 		} catch (error) {
 			console.log(error);
+			this.setState({error: error.message});
 		}
 	}
 	
@@ -186,41 +191,33 @@ class ImportPage extends React.Component {
 		const { clearState, resetState } = this.props;
 		const { themeData, uri, error } = this.state;
 		return (
-			<div className="page-content" id="page-content">
-				<div className="page-content-inner flow">
-					<h1>Import</h1>
+			<div className="importer">
+				<section className="flow">
+					<h2>Pick a starter</h2>
 					
-					<section className="flow">
-						<h2>Pick a starter</h2>
-						<button className="button block" onClick={resetState}>Nu Disco (default)</button>
-						<button className="button block" onClick={this.createRandom}>Randomize!</button>
-						<button className="button block" onClick={clearState}>Start fresh (no colors defined)</button>
-					</section>
+					<button className="button block" onClick={resetState}>Nu Disco (default)</button>
+					<button className="button block" onClick={this.createRandom}>Randomize!</button>
+					{/* Note: clearing all colors won't work right now because chroma-js doesn't handle empty strings... */}
+					{/* <button className="button block" onClick={clearState}>Start fresh (no colors defined)</button> */}
 					
-					<hr />
+					<h2>Import an existing theme</h2>
+					<p>You can import a previously made Themeweaver theme by importing the <code>themweaver.config.json</code> file. You can also import a VSCode theme file.</p>
 					
-					<section className="flow">
-						<h2>Import an existing theme</h2>
-						<p>You can import a previously made Themeweaver theme by importing the <code>themweaver.config.json</code> file. You can also import a VSCode theme file.</p>
-						
-						<FileInput label="upload" onUpload={this.onUpload} />
-						
-						<div className="tw-input-with-button">
-							<input className="tw-input"
-								type="url"
-								value={uri}
-								onChange={this.handleChange}
-								placeholder="Enter a URL" />
-							<button onClick={this.import}>Import</button>
-						</div>
-					</section>
+					<FileInput label="upload" onUpload={this.onUpload} />
 					
-					<Errors error={error} />
-					<ThemeData {...themeData} />
-				</div>
+					<div className="tw-input-with-button">
+						<input className="tw-input"
+							type="url"
+							value={uri}
+							onChange={this.handleChange}
+							placeholder="Enter a URL" />
+						<button onClick={this.import}>Import</button>
+					</div>
+				</section>
+				
+				<Errors error={error} />
+				<ThemeData {...themeData} />
 			</div>
 		)
 	}
 }
-
-export default ImportPage

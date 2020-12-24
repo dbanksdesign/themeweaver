@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="228px" height="228px" viewBox="0 0 228 228" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<g id="Group" transform="translate(114.000000, 114.000000) rotate(45.000000) translate(-114.000000, -114.000000) translate(14.000000, 14.000000)">
-	<path d="M81,129 L181,129 C188.731986,129 195,135.268014 195,143 C195,150.731986 188.731986,157 181,157 L81,157 L81,157 L81,129 Z" id="Rectangle-Copy-4" fill="#FF7AB2" transform="translate(138.000000, 143.000000) rotate(90.000000) translate(-138.000000, -143.000000) "></path>
-	<path d="M138,0 C145.731986,-1.42034288e-15 152,6.2680135 152,14 L152,38 L152,38 L124,38 L124,14 C124,6.2680135 130.268014,1.42034288e-15 138,0 Z" id="Rectangle" fill="#FF7AB2"></path>
-	<path d="M86,48 L186,48 C193.731986,48 200,54.2680135 200,62 C200,69.7319865 193.731986,76 186,76 L86,76 L86,76 L86,48 Z" id="Rectangle-Copy" fill="#7AFFFB"></path>
-	<path d="M48,162 L76,162 L76,186 C76,193.731986 69.7319865,200 62,200 C54.2680135,200 48,193.731986 48,186 L48,162 L48,162 Z" id="Rectangle" fill="#FF7AB2"></path>
-	<path d="M162,124 L186,124 C193.731986,124 200,130.268014 200,138 C200,145.731986 193.731986,152 186,152 L162,152 L162,152 L162,124 Z" id="Rectangle" fill="#7AFFFB"></path>
-	<path d="M14,124 L114,124 L114,124 L114,152 L14,152 C6.2680135,152 9.46895252e-16,145.731986 0,138 C-9.46895252e-16,130.268014 6.2680135,124 14,124 Z" id="Rectangle" fill="#7AFFFB"></path>
-	<path d="M62,0 C69.7319865,-1.42034288e-15 76,6.2680135 76,14 L76,114 L76,114 L48,114 L48,14 C48,6.2680135 54.2680135,1.42034288e-15 62,0 Z" id="Rectangle" fill="#FF7AB2"></path>
-	<path d="M14,48 L38,48 L38,48 L38,76 L14,76 C6.2680135,76 9.46895252e-16,69.7319865 0,62 C-9.46895252e-16,54.2680135 6.2680135,48 14,48 Z" id="Rectangle" fill="#7AFFFB"></path>
-	</g>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="200" height="200" fill="white"/>
+<path d="M20 20L60 60V180H20V20Z" fill="#CC0055"/>
+<path d="M180 20L140 60V180H180V20Z" fill="#00ABA5"/>
+<path d="M80 100H120L60 180H20L80 100Z" fill="#FF0A70"/>
+<path d="M120 100H80L140 180H180L120 100Z" fill="#00DDD6"/>
 </svg>

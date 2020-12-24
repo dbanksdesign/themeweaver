@@ -1,0 +1,31 @@
+.file-input {
+	position: relative;
+	padding: var(--tw-size-padding-base);
+	border: 2px dashed var(--tw-color-border-secondary);
+	border-radius: var(--tw-size-border-radius);
+	cursor: pointer;
+	
+	&.dragging {
+		border-style: solid;
+		border-color: var(--tw-color-border-focus);
+	}
+}
+
+.file-input-input {
+	opacity: 0;
+	line-height: 3rem;
+	width: 100%;
+}
+
+.file-input-button {
+	position: absolute;
+	top: 50%;
+	margin-top: -1.5rem;
+	left: 0;
+	width: 100%;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+	vertical-align: middle;
+	color: var(--tw-color-font-tertiary);
+}

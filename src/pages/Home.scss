@@ -1,0 +1,91 @@
+.homepage {
+	font-size: var(--tw-size-font-large);
+}
+
+.home-hero {
+	padding: var(--tw-size-padding-large) var(--tw-size-padding-xl);
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+.home-logo {
+	text-align: center;
+	width: 100%;
+	height: 4rem;
+	margin-bottom: var(--tw-size-padding-large);
+}
+
+.home-header {
+	text-align: center;
+	font-family: var(--tw-font-family-mono);
+}
+
+.home-footer {
+	// background-color: var(--tw-color-background-tertiary);
+	padding: var(--tw-size-padding-xl);
+	text-align: center;
+}
+
+
+.home-split {
+	display: flex;
+	flex-direction: row;
+}
+
+.home-split-panel {
+	width: 66%;
+	padding: var(--tw-size-padding-large);
+}
+
+.home-split-panel:first-child {
+	width: 34%;
+}
+
+.home-works {
+	display: flex;
+	flex-direction: row;
+}
+
+.home-works-type {
+	flex: 1;
+	position: relative;
+	border-radius: var(--tw-size-border-radius-large);
+	background-color: var(--tw-color-brand-primary-6);
+	padding: var(--tw-size-padding-large);
+	margin: var(--tw-size-padding-large);
+	background-image: 
+		linear-gradient(36deg, hsla(var(--tw-hue-primary), 100%, 80%, 75%), hsla(var(--tw-hue-secondary), 100%, 90%, 10%)),
+		linear-gradient(209deg, var(--tw-color-brand-secondary-1) 0%, var(--tw-color-brand-primary-2) 100%);
+	color: var(--tw-color-font-inverse);
+	box-shadow: var(--tw-shadow-primary);
+	transition: all 0.2s ease-in-out;
+	
+	&:hover {
+		transform: scale(1.1);
+	}
+	
+	& > h3 {
+		margin-bottom: var(--tw-size-padding-base);
+	}
+
+	&:nth-child(2) {
+		background-image: linear-gradient(to top right, var(--tw-color-brand-secondary-1) 0%, var(--tw-color-brand-primary-2) 100%);
+	}
+	
+	&:nth-child(3) {
+		background-image: linear-gradient(209deg, var(--tw-color-brand-secondary-1) 0%, var(--tw-color-brand-primary-2) 100%);
+	}
+	
+	&:nth-child(4) {
+		background-image: linear-gradient(to top right, var(--tw-color-brand-secondary-1) 0%, var(--tw-color-brand-primary-2) 100%);
+	}
+	
+	// &::after {
+	// 	font-family: 'codicon';
+	// 	content: "\ea74";
+	// 	font-size: var(--tw-size-font-xxl);
+	// 	position: absolute;
+	// 	top: 50%;
+	// 	left: -3rem;
+	// }
+}

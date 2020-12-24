@@ -5,6 +5,7 @@ import {dark, light, hc} from './tokens/theme';
 import {allTokens as _allTokens} from './tokens/index';
 import createAllTokens from './helpers/createAllTokens';
 import updateToken from './helpers/updateToken';
+import themeNameGenerator from './helpers/themeNameGenerator';
 import { lsSet, lsGet } from './helpers/localStorage';
 
 import HomePage from './pages/HomePage';
@@ -14,13 +15,14 @@ import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
 import ExportPage from './pages/ExportPage';
 import ImportPage from './pages/ImportPage';
-import AboutPage from './pages/AboutPage';
 
 import Header, {SecondaryHeader} from './components/Header';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
 import Panels from './components/Panels';
 import ScrollToTop from './components/ScrollTop';
+import ToggleButton from './components/ToggleButton';
+import Modal from './components/Modal';
 
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 
@@ -38,22 +40,22 @@ const defaultState = {
 		...theme['dark']
 	}),
 	currentTheme: 'dark',
-	themeName: '',
+	themeName: themeNameGenerator(),
+	exportModal: false,
+	importModal: false,
 	theme
 }
 
-const onResize = (width) => {
-	console.log(width);
-}
-
 class App extends Component {
+	
 	constructor(props) {
 		super(props);
 		let initialState;
-		// Uncomment this when going live, commenting out so hot reloads work.
-		// initialState = lsGet('state');
+		if (process.env.NODE_ENV === 'production') {
+			initialState = lsGet('state');
+		}
 		
-		// We encode a simplifed version of the state in the hash
+		// We encode a simplified version of the state in the hash
 		// if there is a hash in the URL, try to decode it
 		const hash = window.location.hash;
 		if( hash && hash.length ) {
@@ -72,11 +74,7 @@ class App extends Component {
 			}
 		}
 		
-		if (initialState) {
-			this.state = initialState;
-		} else {
-			this.state = defaultState;
-		}
+		this.state = Object.assign({}, defaultState, initialState);
 	}
 	
 	updateTokens = ( _tokens ) => {
@@ -159,14 +157,6 @@ class App extends Component {
 			};
 			return obj;
 		}, {});
-		// const dark = Object.keys(this.state.theme.dark).reduce((obj,key) => {
-		// 	obj[key] = '';
-		// 	return obj;
-		// }, {});
-		// const light = Object.keys(this.state.theme.light).reduce((obj,key) => {
-		// 	obj[key] = '';
-		// 	return obj;
-		// }, {});
 		this.setState({ allTokens });
 	}
 	
@@ -187,7 +177,7 @@ class App extends Component {
 		// save state to localstorage
 		lsSet('state', this.state);
 		
-		const { allTokens, currentTheme, theme, themeName } = this.state;
+		const { allTokens, currentTheme, theme, themeName, exportModal } = this.state;
 		
 		const tokenNames = Object.keys(allTokens);
 		const cssProperties = tokenNames.reduce((obj, name) => {
@@ -201,40 +191,50 @@ class App extends Component {
 		return (
 			<Router>
 				<div className={`app ${currentTheme}`} style={cssProperties}>
-					<Header />
+					
 					<ScrollToTop />
 					<Switch>
 						<Route exact path="/">
-							<HomePage />
-						</Route>
-						<Route exact path="/about">
-							<AboutPage />
+							<HomePage
+								currentTheme={currentTheme}
+								allTokens={allTokens}
+								setAllTokens={this.setAllTokens}
+								importTheme={this.importTheme}
+								setState={this.setState.bind(this)}
+								clearState={this.clearState}
+								resetState={this.resetState} />
 						</Route>
 						<Route path="/editor">
-							<SecondaryHeader clearState={this.clearState} resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
-							<Panels onResize={onResize}>
+							<Header showExport={() => this.setState({exportModal: true})}
+								themeName={themeName}
+								updateThemeName={this.updateThemeName} />
+						
+							<Panels>
 								<div className="editor-pane">
-									<Switch>
-										<Route path="/editor/export">
-											<ExportPage
-												theme={theme}
-												themeName={themeName}
-												updateThemeName={this.updateThemeName}
-												currentTheme={currentTheme}
-												allTokens={allTokens} />
-										</Route>
-										<Route path="/editor/import">
-											<ImportPage
-												allTokens={allTokens}
-												tokenNames={tokenNames}
-												importTheme={this.importTheme}
-												updateTokens={this.updateTokens}
-												clearState={this.clearState}
-												resetState={this.resetState}
-												setAllTokens={this.setAllTokens}
-												setState={this.setState.bind(this)}
-												showToast={this.showToast} />
-										</Route>
+									<Route path="/export">
+										<ExportPage
+											theme={theme}
+											themeName={themeName}
+											updateThemeName={this.updateThemeName}
+											currentTheme={currentTheme}
+											allTokens={allTokens} />
+									</Route>
+									<Route path="/import">
+										<ImportPage
+											allTokens={allTokens}
+											tokenNames={tokenNames}
+											importTheme={this.importTheme}
+											updateTokens={this.updateTokens}
+											clearState={this.clearState}
+											resetState={this.resetState}
+											setAllTokens={this.setAllTokens}
+											setState={this.setState.bind(this)}
+											showToast={this.showToast} />
+									</Route>
+									
+									<Route path="/editor">
+										<SecondaryHeader clearState={this.clearState} resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
+										<Switch>
 										<Route path="/editor/base">
 											<BasePage
 												tokens={allTokens}
@@ -272,23 +272,48 @@ class App extends Component {
 												resetState={this.resetState} />
 										</Route>
 									</Switch>
+									</Route>
 								</div>
 								
 								{({windowWidth,mainWidth}) => (
-									<div tabIndex="-1" className="preview-pane vscode">
-										<Workbench theme={currentTheme}>
-											<VSCodeEditor
-												windowWidth={windowWidth}
-												mainWidth={mainWidth}
-												currentTheme={currentTheme}
-												syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
-												applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
-										</Workbench>
+									<div className="preview-pane">
+										<div className="preview-pane-controls columns">
+											<div className="column">Preview</div>
+											<div className="column">
+												<ToggleButton
+													className="block"
+													onClick={this.changeTheme}
+													buttons={[{
+														label: 'Dark',
+														selected: currentTheme === 'dark'
+													},{
+														label: 'Light',
+														selected: currentTheme === 'light'
+													}]} />
+											</div>
+										</div>
+
+										<div tabIndex="-1" className="vscode">
+											<Workbench theme={currentTheme}>
+												<VSCodeEditor
+													windowWidth={windowWidth}
+													mainWidth={mainWidth}
+													currentTheme={currentTheme}
+													syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
+													applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
+											</Workbench>
+										</div>
 									</div>
 								)}
 							</Panels>
 						</Route>
 					</Switch>
+					{exportModal ? <Modal hideModal={() => this.setState({exportModal: false})}><ExportPage
+											theme={theme}
+											themeName={themeName}
+											updateThemeName={this.updateThemeName}
+											currentTheme={currentTheme}
+											allTokens={allTokens} /></Modal> : null}
 				</div>
 			</Router>
 		)

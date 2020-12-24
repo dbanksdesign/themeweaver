@@ -5,7 +5,6 @@ import 'react-monaco-editor'; // need to import this to get styles
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import './index.css';
 import './styles/index.scss';
 
 loadWASM("/onigasm.wasm").then(() => {

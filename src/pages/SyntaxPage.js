@@ -313,13 +313,10 @@ class SyntaxPage extends React.Component {
 				<Helmet>
 					<title>Syntax Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC defaultVisibility={false} links={links} />
+
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner">
-					<h1>Syntax</h1>
-					<p>These tokens style <strong>scopes</strong> in the editor.</p>
-					
-					<p>Here are some resources about how syntax highlight works in IDEs:</p>
+					<p>These tokens are used for syntax highlighting and style <strong>scopes</strong> in an editor. Here are some resources about how syntax highlight works in IDEs:</p>
 					
 					<ul>
 						<li>

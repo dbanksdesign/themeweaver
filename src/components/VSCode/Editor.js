@@ -111,7 +111,7 @@ const js = `'use strict'
  */
 class Sale {
   constructor(price) {
-    ;[this.decoratorsList, this.price] = [[], price]
+    [this.decoratorsList, this.price] = [[], price];
   }
 
   /**
@@ -317,7 +317,7 @@ class VSCodeEditor extends React.PureComponent {
 										showUnused: true,
 										renderWhitespace: true,
 										fontSize: 14,
-										fontFamily: `'Source Code Pro',Menlo,monospace`
+										fontFamily: `'Fira Code','Source Code Pro',Menlo,monospace`
 									}}
 									editorWillMount={this.editorWillMount}
 									editorDidMount={this.handleEditorDidMount}

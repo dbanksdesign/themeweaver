@@ -7,6 +7,7 @@ import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
 import BaseColorGroup from '../components/BaseColorGroup';
 import {BaseToken} from '../components/Token';
+import RadioGrid from '../components/RadioGrid';
 
 const sections = [{
 	title: `Grey`,
@@ -423,16 +424,51 @@ class BasePage extends React.Component {
 				<Helmet>
 					<title>Base Tokens | Themeweaver</title>
 				</Helmet>
-				<TOC
-					defaultVisibility={false}
-					links={links.concat([{
-						label: 'Brand',
-						anchor: 'brand'
-					}])} />
+
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner flow">
 					<h1>Base</h1>
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
+					
+					<section id="brand" className="token-group flow">
+						<h3>Brand Colors</h3>
+						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode. Don't worry, you can edit the actual colors below.</p>
+						
+						<h4>Primary Color</h4>
+						<RadioGrid
+							items={colors.map(color => {
+								return {
+									checked: this.props.tokens['base.primary.10'].value.includes(color),
+									value: color
+								}
+							})}
+							name="primary"
+							onChange={(e) => this.changeColor('primary', e.target.value)} />
+							
+						<h4>Secondary Color</h4>
+						<RadioGrid
+							items={colors.map(color => {
+								return {
+									checked: this.props.tokens['base.secondary.10'].value.includes(color),
+									value: color
+								}
+							})}
+							name="secondary"
+							onChange={(e) => this.changeColor('secondary', e.target.value)} />
+						
+						<h4>Tertiary Color</h4>
+						<RadioGrid
+							items={colors.map(color => {
+								return {
+									checked: this.props.tokens['base.tertiary.10'].value.includes(color),
+									value: color
+								}
+							})}
+							name="tertiary"
+							onChange={(e) => this.changeColor('tertiary', e.target.value)} />
+					</section>
+					
+					<hr />
 					
 					{sections.map(section => (
 						<section
@@ -466,44 +502,6 @@ class BasePage extends React.Component {
 							</div>
 						</section>
 					))}
-					
-					<section id="brand" className="token-group flow">
-						<h3>Brand Colors</h3>
-						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode.</p>
-						
-						<h4>Primary Color</h4>
-						<ToggleButton
-							className="color-toggle"
-							onClick={({label}) => this.changeColor('primary', label)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.primary.10'].value.includes(color)
-								}
-							})} />
-							
-						<h4>Secondary Color</h4>
-						<ToggleButton
-							className="color-toggle"
-							onClick={({label}) => this.changeColor('secondary', label)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.secondary.10'].value.includes(color)
-								}
-							})} />
-						
-						<label className="token-field-label">Tertiary Color</label>
-						<ToggleButton
-							className="color-toggle"
-							onClick={({label}) => this.changeColor('tertiary', label)}
-							buttons={colors.map(color => {
-								return {
-									label: color,
-									selected: this.props.tokens['base.tertiary.10'].value.includes(color)
-								}
-							})} />
-					</section>
 				</div>
 				</div>
 			</>

@@ -991,12 +991,9 @@ class ApplicationPage extends React.Component {
 					<title>Application Styles | Themeweaver</title>
 				</Helmet>
 				
-				<TOC defaultVisibility={false} links={links} />
-				
 				<div className="page-content" id="page-content">
 					<div className="page-content-inner">
-					<h1>Application</h1>
-					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is Hardcore mode.</p>
+					<p>These are all the colors the application. Edit these values if you want to change specific things. There are A LOT of elements you can style so this can be a bit overwhelming. It is easier to change values in Base or Theme, which will affect these values rather than editing these directly. Editing these values is <strong>Hardcore mode</strong>.</p>
 					
 					<Search placeholder="filter application styles"
 						value={this.state.filter}
@@ -1008,7 +1005,6 @@ class ApplicationPage extends React.Component {
 							key={section.title}
 							id={section.title.replace(' ','-')}>
 							{section.tokens.map(({ path, description }) => {
-								if (!tokens[path]) { console.log(path); }
 								return (
 									<Token {...tokens[path]}
 										path={path}

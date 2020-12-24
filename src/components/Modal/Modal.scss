@@ -1,0 +1,45 @@
+.modal-wrapper {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: var(--tw-color-shadow-overlay);
+	z-index: 999;
+}
+
+.modal {
+	position: fixed;
+	top: var(--tw-size-padding-xl);
+	right: var(--tw-size-padding-xl);
+	bottom: var(--tw-size-padding-xl);
+	left: var(--tw-size-padding-xl);
+	background-color: white;
+	box-shadow: var(--tw-shadow-primary);
+	border: var(--tw-border-primary);
+	z-index: 999;
+}
+
+.modal-close {
+	background-color: var(--tw-color-border-secondary);
+	border-radius: 10rem;
+	padding: 0;
+	font-weight: bold;
+	width: 3rem;
+	height: 3rem;
+	text-align: center;
+	line-height: 3rem;
+	color: var(--tw-color-font-inverse);
+	border: none;
+	font-size: var(--tw-size-font-xl);
+	position: absolute;
+	z-index: 2;
+	top: var(--tw-size-padding-large);
+	right: var(--tw-size-padding-large);
+	
+	&:hover,
+	&:focus {
+		background-color: var(--tw-color-border-focus);
+		color: var(--tw-color-font-inverse);
+	}
+}
