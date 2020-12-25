@@ -9,10 +9,12 @@
 
 .token-reverse-lookup {
 	background-color: var(--tw-color-background-primary);
-	padding: var(--tw-size-padding-base);
 	color: var(--tw-color-font-primary);
-	border-radius: 0 0 var(--tw-size-border-radius) var(--tw-size-border-radius);
-	margin-top: -5px;
+	.base-color & {
+		padding: var(--tw-size-padding-base);
+		border-radius: 0 0 var(--tw-size-border-radius) var(--tw-size-border-radius);
+		margin-top: -5px;
+	}
 }
 
 .token-reverse-lookup-title {
@@ -81,11 +83,19 @@
 }
 
 .token {
-	margin-bottom: var(--tw-size-padding-base);
+	border-top: var(--tw-border-tertiary);
+	border-bottom: var(--tw-border-tertiary);
+	margin:
+		calc(-1 * var(--tw-size-border-base))
+		calc(-1 * var(--tw-size-padding-large))
+		0
+		calc(-1 * var(--tw-size-padding-large));
+	padding: 0 var(--tw-size-padding-large);
+	background-color: var(--tw-color-background-primary);
 }
 
-.token + .token {
-	border-top: 2px solid var(--tw-color-border-tertiary);
+.token:last-child {
+	border-bottom: 1px solid var(--tw-color-border-tertiary);
 }
 
 .token.dark {
@@ -94,7 +104,10 @@
 
 .token-header {
 	position: relative;
-	padding: var(--tw-size-padding-base) var(--tw-size-padding-base) var(--tw-size-padding-small) 54px;
+	padding: var(--tw-size-padding-base) 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	cursor: pointer;
 }
 
@@ -103,7 +116,7 @@
 
 .token-content {
 	padding-left: var(--tw-size-padding-small);
-	min-height: 54px;
+	flex: 1;
 }
 
 .token-label {
@@ -123,9 +136,6 @@
 
 .token-header > .codicon {
 	font-size: var(--tw-size-font-large);
-	position: absolute;
-	top: var(--tw-size-padding-base);
-	right: var(--tw-size-padding-base);
 	transition: transform 0.3s ease-in-out;
 }
 
@@ -136,12 +146,9 @@
 .token-swatch-wrapper {
 	width: 54px;
 	height: 54px;
-	position: absolute;
-	top: var(--tw-size-padding-base);
-	left: 0;
 	border-radius: var(--tw-size-border-radius);
-	padding: var(--tw-size-border-radius);
-	border: 2px solid var(--tw-color-border-secondary);
+	padding: var(--tw-size-padding-tiny);
+	border: var(--tw-border-tertiary);
 	background-color: var(--tw-color-background-primary);
 	background-image: linear-gradient(45deg, var(--tw-color-background-tertiary) 25%, transparent 25%),
 		linear-gradient(-45deg, var(--tw-color-background-tertiary) 25%, transparent 25%),
@@ -175,6 +182,7 @@
 
 
 .token-alpha {
+	margin: var(--tw-size-padding-small) 0;
 	position: relative;
 	display: flex;
 	flex-direction: row;
@@ -202,11 +210,11 @@
 .token-badge {
 	position: absolute;
 	bottom: 0;
-	left: 30px;
+	right: 0;
 	padding: var(--tw-size-padding-xs) 0;
 	background-color: var(--tw-color-border-primary);
 	color: #fff;
-	border-radius: 1rem;
+	border-radius: var(--tw-size-border-radius);
 	width: 2rem;
 	text-align: center;
 }
@@ -218,4 +226,22 @@
 
 .tw-color-picker-tabs > * {
 	flex: 1;
+}
+
+.token-select {
+	color: var(--tw-color-font-primary);
+	position: relative;
+	z-index: 3;
+	font-family: var(--tw-font-family-mono);
+}
+
+div.token-select__control {
+	border-width: var(--tw-size-border-base);
+	border-color: var(--tw-color-border-secondary);
+	border-radius: var(--tw-size-border-radius);
+}
+
+.syntax-token .checkbox-group {
+	margin-top: calc(-1 * var(--tw-size-padding-small));
+	margin-bottom: var(--tw-size-padding-base);
 }

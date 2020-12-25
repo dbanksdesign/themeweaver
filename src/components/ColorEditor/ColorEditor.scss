@@ -45,13 +45,12 @@
 	position: relative;
 	padding: var(--tw-size-padding-small);
 	color: var(--tw-color-font-primary);
-	border-radius: var(--tw-size-border-radius) var(--tw-size-border-radius) 0 0;
-  border: 2px solid var(--tw-color-border-secondary);
+	border-radius: var(--tw-size-border-radius);
+  border: var(--tw-border-secondary);
   background-color: #fff;
   box-sizing: border-box;
   outline: none;
   z-index: 9;
-  border-radius: var(--tw-size-border-radius);
   user-select: none;
 }
 

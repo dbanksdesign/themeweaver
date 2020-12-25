@@ -1,17 +1,17 @@
 .tw-token-group {
-	padding-top: var(--tw-size-padding-large);
-	margin-top: var(--tw-size-padding-large);
+	// padding-top: var(--tw-size-padding-large);
+	// margin-top: var(--tw-size-padding-large);
+	margin: 0 calc(-1 * var(--tw-size-padding-large));
+	padding: var(--tw-size-padding-large);
+	padding-bottom: 0;
+	background-color: var(--tw-color-background-secondary);
 }
 
 .tw-token-group-title {
 	position: relative;
-	
-	&::before {
-		content: ' ';
-		position: absolute;
-		top: -1rem;
-		left: 0;
-		width: 50%;
-		border-top: 2px solid var(--tw-color-border-secondary);
-	}
+	margin-bottom: var(--tw-size-padding-small);
+}
+
+.tw-token-group-description {
+	margin-bottom: var(--tw-size-padding-base);
 }

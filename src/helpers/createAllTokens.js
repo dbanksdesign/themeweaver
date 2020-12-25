@@ -10,7 +10,7 @@ const createAllTokens = (tokenObject) => {
 		if (tokenObject.hasOwnProperty(key)) {
 			let originalValue = tokenObject[key];
 			// syntax tokens are objects
-			if (originalValue.hasOwnProperty('foreground')) {
+			if (originalValue && originalValue.hasOwnProperty('foreground')) {
 				const foreground = createToken(key, originalValue.foreground, tokenObject, reverse);
 				const background = createToken(key, originalValue.background, tokenObject, reverse);
 				allTokens[key] = {

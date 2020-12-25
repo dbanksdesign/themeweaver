@@ -7,19 +7,33 @@
 
 .tw-logo-svg {
 	height: 100%;
-	opacity: 0.75;
 	
 	& .hatch-1 {
-		fill: var(--tw-color-brand-primary-1);
+		fill: var(--base-primary-100, var(--tw-color-brand-primary-1));
 	}
 	
 	& .hatch-2 {
-		fill: var(--tw-color-brand-secondary-1);
+		fill: var(--base-secondary-100, var(--tw-color-brand-secondary-1));
+	}
+	
+	& .hatch-3 {
+		fill: var(--base-primary-90, var(--tw-color-brand-primary-2));
+	}
+	
+	& .hatch-4 {
+		fill: var(--base-secondary-90, var(--tw-color-brand-secondary-2));
+	}
+	
+	& .tw-logo-letter {
+		fill: var(--tw-color-font-tertiary);
 	}
 }
 
 .tw-logo-text {
 	color: var(--tw-color-font-tertiary);
 	padding-left: var(--tw-size-padding-small);
-	font-weight: bold;
+	font-size: var(--tw-size-font-large);
+	font-weight: lighter;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
 }

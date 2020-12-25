@@ -4,22 +4,49 @@
 	margin: var(--tw-size-padding-base) 0;
 	padding-left: 4rem;
 	background-color: var(--tw-color-brand-secondary-6);
+	box-shadow: var(--tw-shadow-secondary);
+	color: white;
+	// text-shadow: 0 1px var(--tw-color-shadow-secondary);
+	// font-weight: bold;
 	
 	&::before {
-		font-family: codicon;
+		font-family: 'codicon';
+		line-height: 1;
 		content: "\ea74";
 		font-size: var(--tw-size-font-xl);
 		position: absolute;
 		top: var(--tw-size-padding-base);
 		left: var(--tw-size-padding-base);
+		color: white;
 	}
 	
 	
 	&.info {
-		background-color: var(--tw-color-brand-primary-6);
+		background-color: var(--tw-color-brand-secondary-1);
 		
 		&::before {
-			content: "\ea71"
+			content: "\ea74";
+		}
+	}
+	
+	&.warning {
+		background-color: var(--tw-color-warning);
+		&::before {
+			content: "\ea6c";
+		}
+	}
+	
+	&.danger {
+		background-color: var(--tw-color-danger);
+		&::before {
+			content: "\ea6c";
+		}
+	}
+	
+	&.success {
+		background-color: var(--tw-color-success);
+		&::before {
+			content: "\eb77";
 		}
 	}
 }

@@ -138,7 +138,7 @@
 .monaco-workbench {
 	color: rgba(255, 255, 255, 0.93); /* set by VSCode I think */
 	color: var(--application-foreground);
-	backgroud-color: var(--application-background);
+	background-color: var(--application-background);
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -717,3 +717,8 @@
 .monaco-decoration-bubbleBadge.monaco-decoration-untracked::after,
 .monaco-decoration-bubbleBadge.monaco-decoration-error::after,
 .monaco-decoration-bubbleBadge.monaco-decoration-warning::after { content: ""; }
+
+.monaco-select-box {
+	border-width: 1px;
+	border-style: solid;
+}

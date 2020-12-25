@@ -54,6 +54,182 @@ hr {
 	border: none;
 	width: 50%;
 	height: 0.25rem;
-	background-color: var(--theme-border-tertiary);
+	background-color: var(--tw-color-border-tertiary);
 	margin: var(--tw-size-padding-base) 0;
+}
+
+code {
+	border-radius: var(--tw-size-border-radius);
+	background-color: var(--tw-color-background-secondary);
+	padding: var(--tw-size-padding-small);
+	font-size: var(--tw-size-font-base);
+}
+
+pre {
+	font-family: var(--tw-font-family-mono);
+	padding: var(--tw-size-padding-base);
+	background-color: var(--tw-color-background-secondary);
+}
+
+label {
+	display: block;
+	margin-bottom: var(--tw-size-padding-small);
+}
+
+.columns {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	flex: 1;
+	min-width: 0;
+	padding: 0 var(--tw-size-padding-base);
+	
+	&:first-child { padding-left: 0; }
+	&:last-child { padding-right: 0; }
+}
+
+.app {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	border-width: 5px 0;
+	border-style: solid;
+	border-image-slice: 1;
+	border-image-source: linear-gradient(90deg, var(--base-primary-100), var(--base-secondary-100));
+}
+
+.page-content {
+	flex: 1;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	height: 100%;
+}
+
+.page-content-inner {
+	padding: var(--tw-size-padding-large);
+}
+
+
+.flow > * + * {
+	margin-top: var(--tw-size-padding-large);
+}
+
+.codicon[class] {
+	font-size: inherit;
+	vertical-align: middle;
+}
+
+.app {
+	--application-sideBarSectionHeader-border: #0000;
+}
+
+/* default vs code theme dark */
+.app.dark {
+	--application-background: #252526;
+	--application-foreground: #CCCCCC;
+	--application-editor-background: #1E1E1E;
+	--application-editor-foreground: #D4D4D4;
+	--application-editor-inactiveSelectionBackground: #3A3D41;
+	--application-editorIndentGuide-background: #404040;
+	--application-editorIndentGuide-activeBackground: #707070;
+	--application-editor-selectionHighlightBackground: #ADD6FF26;
+	--application-list-dropBackground: #383B3D;
+	--application-activityBarBadge-background: #007ACC;
+	--application-activityBarBadge-foreground: #FFFFFF;
+	--application-activityBar-background: #333333;
+	--application-activityBar-foreground: #FFFFFF;
+	--application-sideBarTitle-foreground: #BBBBBB;
+	--application-sideBar-background: #252526;
+	--application-input-placeholderForeground: #A6A6A6;
+	--application-settings-textInputBackground: #292929;
+	--application-settings-numberInputBackground: #292929;
+	--application-menu-background: #252526;
+	--application-menu-foreground: #CCCCCC;
+	--application-statusBarItem-remoteForeground: #FFF;
+	--application-statusBarItem-remoteBackground: #4d78cc;
+	--application-statusBar-background: #007acc;
+	--application-statusBar-foreground: #FFFFFF;
+	--application-sideBarSectionHeader-background: #80808033;
+	--application-panel-border: #80808059;
+	--application-gitDecoration-addedResourceForeground: #81b88b;
+	--application-gitDecoration-modifiedResourceForeground: #E2C08D;
+	--application-gitDecoration-deletedResourceForeground: #c74e39;
+	--application-gitDecoration-untrackedResourceForeground: #73C991;
+	--application-gitDecoration-ignoredResourceForeground: #8C8C8C;
+	--application-gitDecoration-conflictingResourceForeground: #6c6cc4;
+	--application-gitDecoration-submoduleResourceForeground: #8db9e2;
+	--application-tab-activeBackground: #1E1E1E;
+	--application-dropdown-background: #3c3c3c;
+	--application-dropdown-border: #3c3c3c;
+	--application-dropdown-foreground: #f0f0f0;
+}
+
+.app.light {
+	--application-background: #F3F3F3;
+	--application-foreground: #616161;
+	--application-editor-background: #FFFFFF;
+	--application-editor-foreground: #000000;
+	--application-editor-inactiveSelectionBackground: #E5EBF1;
+	--application-editorIndentGuide-background: #D3D3D3;
+	--application-editorIndentGuide-activeBackground: #939393;
+	--application-editor-selectionHighlightBackground: #ADD6FF80;
+	--application-editorSuggestWidget-background: #F3F3F3;
+	--application-activityBarBadge-background: #007ACC;
+	--application-activityBarBadge-foreground: #FFFFFF;
+	--application-activityBar-background: #2C2C2C;
+	--application-activityBar-foreground: #FFFFFF;
+	--application-sideBarTitle-foreground: #6F6F6F;
+	--application-sideBar-background: #F3F3F3;
+	--application-statusBar-background: #007acc;
+	--application-statusBar-foreground: #FFFFFF;
+	--application-sideBarSectionHeader-background: #80808033;
+	--application-panel-border: #80808059;
+	--application-list-hoverBackground: #E8E8E8;
+	--application-input-placeholderForeground: #767676;
+	--application-searchEditor-textInputBorder: #CECECE;
+	--application-settings-textInputBorder: #CECECE;
+	--application-settings-numberInputBorder: #CECECE;
+	--application-statusBarItem-remoteForeground: #FFF;
+	--application-statusBarItem-remoteBackground: #16825D;
+	--application-gitDecoration-addedResourceForeground: #587c0c;
+	--application-gitDecoration-modifiedResourceForeground: #895503;
+	--application-gitDecoration-deletedResourceForeground: #ad0707;
+	--application-gitDecoration-untrackedResourceForeground: #007100;
+	--application-gitDecoration-ignoredResourceForeground: #8E8E90;
+	--application-gitDecoration-conflictingResourceForeground: #6c6cc4;
+	--application-gitDecoration-submoduleResourceForeground: #1258a7;
+	--application-tab-activeBackground: #1E1E1E;
+	--application-dropdown-background: #3c3c3c;
+	--application-dropdown-border: #3c3c3c;
+	--application-dropdown-foreground: #f0f0f0;
+}
+
+.app.hc {
+	--application-background: #000000;
+	--application-foreground: #FFFFFF;
+	--application-editor-background: #000000;
+	--application-editor-foreground: #FFFFFF;
+	--application-editorIndentGuide-background: #FFFFFF;
+	--application-editorIndentGuide-activeBackground: #FFFFFF;
+	--application-statusBarItem-remoteBackground: #00000000;
+	--application-statusBar-foreground: #FFFFFF;
+	--application-sideBarTitle-foreground: #FFFFFF;
+	--application-sideBar-background: #000000;
+	--application-activityBarBadge-foreground: #FFFFFF;
+	--application-activityBar-background: #000000;
+	--application-activityBar-foreground: #FFFFFF;
+	--application-gitDecoration-addedResourceForeground: #1b5225;
+	--application-gitDecoration-modifiedResourceForeground: #E2C08D;
+	--application-gitDecoration-deletedResourceForeground: #c74e39;
+	--application-gitDecoration-untrackedResourceForeground: #73C991;
+	--application-gitDecoration-ignoredResourceForeground: #A7A8A9;
+	--application-gitDecoration-conflictingResourceForeground: #6c6cc4;
+	--application-gitDecoration-submoduleResourceForeground: #8db9e2;
 }

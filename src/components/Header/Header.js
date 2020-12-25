@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import Logo from '../Logo';
+import themeNameGenerator from '../../helpers/themeNameGenerator';
 
 const NavItem = React.memo(({to, label, className}) => (
 	<NavLink className={clsx(
@@ -26,14 +27,14 @@ const Github = React.memo(() => {
 
 const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme, clearState }) => {
 	return (
-		<header className="tw-header">
+		<header className="tw-header secondary">
 			<nav className="tw-header-primary-nav">
-				<NavItem to="/editor/import" label="Import" />
+				
 				<NavItem to="/editor/base" label="Base" />
 				<NavItem to="/editor/theme" label="Theme" />
 				<NavItem to="/editor/application" label="Application" />
 				<NavItem to="/editor/syntax" label="Syntax" />
-				<NavItem to="/editor/export" label="Export" />
+				
 				{/* <ToggleButton
 					onClick={changeTheme}
 					buttons={[{
@@ -52,21 +53,30 @@ const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme, cle
 	)
 });
 
-const Header = React.memo(() => {
+const Header = React.memo(({showExport, themeName, updateThemeName}) => {
 	return (
 	<>
 		
 		<header className="tw-header">
 			<Link className="tw-logo-link" to="/">
 				<Logo />
-				<span className="tw-logo-text">Themeweaver</span>
 			</Link>
+			
 			<nav className="tw-header-primary-nav">
-				<NavItem to="/editor" label="Editor" />
-				<NavItem to="/about" label="About" />
-				<NavItem to="/credits" label="Credits" />
+				<div className="tw-input-with-button">
+					<input type="text"
+						id="themeName"
+						className="tw-input"
+						value={themeName}
+						onChange={(e) => updateThemeName(e.target.value)} />
+					<button className="small" onClick={() => updateThemeName(themeNameGenerator())}>
+						Random name
+					</button>
+				</div>
 			</nav>
+			
 			<nav className="tw-header-secondary-nav">
+				<button className="small primary" onClick={showExport}>Export</button>
 				<Github />
 			</nav>
 		</header>

@@ -228,12 +228,13 @@ class Token extends React.Component {
 						)} style={{
 							backgroundColor: computedValue
 						}} />
+						
 					</div>
 					<div className="token-content">
 						<div className="token-label">{path}</div>
 						<div className="token-description">{description}</div>
+						{reverseLookup ? <div className="token-description">{reverseLookup.length} references</div> : null}
 					</div>
-					{reverseLookup && <span className="token-badge">{reverseLookup.length}</span>}
 					<span className="codicon codicon-chevron-down" />
 				</header>
 				<TokenEditor visible={expanded} {...this.props} onChange={this.handleChangeComplete} />

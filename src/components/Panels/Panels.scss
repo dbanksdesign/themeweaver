@@ -12,33 +12,64 @@
 	
 	&:last-child {
 		flex: 1;
-		padding: var(--tw-size-padding-base);
-		padding-top: var(--tw-size-padding-large);
-		background-color: var(--tw-color-background-secondary);
-		
-		&::after {
-			content: 'Preview';
-			position: absolute;
-			color: var(--tw-color-font-tertiary);
-			top: 0;
-			left: var(--tw-size-padding-base);
-		}
+		padding: var(--tw-size-padding-small);
+		background-color: var(--tw-color-background-tertiary);
 	}
 }
 
 .tw-resizer {
-	width: 2px;
+	width: 1px;
 	background-color: var(--tw-color-border-primary);
 	position: absolute;
 	cursor: col-resize;
 	height: 100%;
 	top: 0;
 	flex-shrink: 0;
-	z-index: 2;
+	z-index: 99;
 	user-select: none;
-	margin-left: -2px;
+	margin-left: -1px;
 	
 	&:hover {
 		background-color: var(--tw-color-brand-primary-1);
 	}
+}
+
+.editor-pane {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.preview-pane {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	
+	& > .vscode {
+		flex: 1;
+	}
+}
+
+.preview-pane-controls {
+	margin-bottom: var(--tw-size-padding-small);
+}
+
+.vscode {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	box-shadow: 0 0 1rem var(--tw-color-shadow-primary),
+		0 0 0.25rem var(--tw-color-shadow-primary);
+	outline-width: 1px;
+	outline-style: solid;
+	outline-color: transparent;
+	outline-color: var(--application-window-inactiveBorder, #0000);
+}
+
+.vscode:focus,
+.vscode:focus-within,
+.vscode:active {
+	outline-color: var(--application-window-activeBorder, #0000);
 }

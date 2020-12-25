@@ -1,3 +1,11 @@
+.tw-base-color-group-title {
+	margin-bottom: var(--tw-size-padding-base);
+}
+
+.tw-base-color-group-button {
+	float: right;
+}
+
 .tw-base-color-mixer {
 	display: flex;
 	flex-direction: row;
@@ -11,4 +19,46 @@
 
 .tw-base-color-mixer-label {
 	font-weight: bold;
+}
+
+.base-color-group {
+	margin-top: var(--tw-size-padding-base);
+}
+
+
+.base-color > .token-badge {
+	top: var(--tw-size-padding-base);
+	right: calc(var(--tw-size-padding-large) + var(--tw-size-font-large));
+	left: auto;
+	bottom: auto;
+	background-color: var(--tw-color-background-primary);
+	color: var(--tw-color-font-primary);
+}
+
+
+.base-color {
+	position: relative;
+	padding: var(--tw-size-padding-base);
+}
+
+.base-color.dark {
+	color: #fff;
+}
+
+.base-color-popup {
+	background-color: var(--tw-color-background-primary);
+	padding: var(--tw-size-padding-base);
+	color: var(--tw-color-font-primary);
+}
+
+.base-color-chevron {
+	position: absolute;
+	top: var(--tw-size-padding-base);
+	right: var(--tw-size-padding-base);
+	transition: transform 0.25s ease-in-out;
+}
+
+
+.expanded > .base-color-chevron {
+	transform: rotate(180deg);
 }
