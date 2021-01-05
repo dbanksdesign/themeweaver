@@ -10,6 +10,7 @@
 	--tw-size-border-base: 1px;
 	--tw-size-border-radius: 0.25rem;
 	--tw-size-border-radius-large: 1rem;
+	--tw-size-border-radius-xl: 10rem;
 
 	--tw-size-font-small: 0.875rem;
 	--tw-size-font-base: 1rem;
@@ -47,13 +48,13 @@
 	--tw-color-brand-primary-1: hsl(
 		var(--tw-hue-primary),
 		100%,
-		40%
+		45%
 	);
 	
 	--tw-color-brand-primary-2: hsl(
 		var(--tw-hue-primary),
 		100%,
-		50%
+		55%
 	);
 	
 	--tw-color-brand-primary-3: hsl(
@@ -117,9 +118,9 @@
 	);
 	
 	// Border colors
-	--tw-color-border-primary: var(--tw-color-grey-40);
-	--tw-color-border-secondary: var(--tw-color-grey-20);
-	--tw-color-border-tertiary: var(--tw-color-grey-10);
+	--tw-color-border-primary: var(--tw-color-grey-60);
+	--tw-color-border-secondary: var(--tw-color-grey-40);
+	--tw-color-border-tertiary: var(--tw-color-grey-20);
 	--tw-color-border-hover: var(--tw-color-border-primary);
 	--tw-color-border-focus: var(--tw-color-brand-primary-2);
 	--tw-color-border-active: var(--tw-color-brand-primary-2);

@@ -76,8 +76,8 @@ const Header = React.memo(({showExport, themeName, updateThemeName}) => {
 			</nav>
 			
 			<nav className="tw-header-secondary-nav">
-				<button className="small primary" onClick={showExport}>Export</button>
-				<Github />
+				<button className="primary" onClick={showExport}>Export</button>
+				{/* <Github /> */}
 			</nav>
 		</header>
 	</>

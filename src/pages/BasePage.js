@@ -7,7 +7,7 @@ import TOC from '../components/TOC';
 import ToggleButton from '../components/ToggleButton';
 import BaseColorGroup from '../components/BaseColorGroup';
 import {BaseToken} from '../components/Token';
-import RadioGrid from '../components/RadioGrid';
+import RadioGrid, { ColorRadioItem } from '../components/RadioGrid';
 
 const sections = [{
 	title: `Grey`,
@@ -337,6 +337,7 @@ class BasePage extends React.Component {
 	}
 	
 	changeColor = (level, value) => {
+		console.log(level, value);
 		this.setState({
 			[level]: value
 		});
@@ -435,37 +436,40 @@ class BasePage extends React.Component {
 						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode. Don't worry, you can edit the actual colors below.</p>
 						
 						<h4>Primary Color</h4>
-						<RadioGrid
-							items={colors.map(color => {
-								return {
-									checked: this.props.tokens['base.primary.10'].value.includes(color),
-									value: color
-								}
-							})}
-							name="primary"
-							onChange={(e) => this.changeColor('primary', e.target.value)} />
-							
+						<div className="tw-radio-grid color-radio">
+							{colors.map(color => (
+								<ColorRadioItem
+									checked={this.props.tokens['base.primary.10'].value.includes(color)}
+									name="primary"
+									value={color}
+									color={color}
+									onChange={(e) => this.changeColor('primary', e.target.value)} />
+							))}
+						</div>
+
 						<h4>Secondary Color</h4>
-						<RadioGrid
-							items={colors.map(color => {
-								return {
-									checked: this.props.tokens['base.secondary.10'].value.includes(color),
-									value: color
-								}
-							})}
-							name="secondary"
-							onChange={(e) => this.changeColor('secondary', e.target.value)} />
+						<div className="tw-radio-grid color-radio">
+							{colors.map(color => (
+								<ColorRadioItem
+									checked={this.props.tokens['base.secondary.10'].value.includes(color)}
+									name="secondary"
+									value={color}
+									color={color}
+									onChange={(e) => this.changeColor('secondary', e.target.value)} />
+							))}
+						</div>
 						
 						<h4>Tertiary Color</h4>
-						<RadioGrid
-							items={colors.map(color => {
-								return {
-									checked: this.props.tokens['base.tertiary.10'].value.includes(color),
-									value: color
-								}
-							})}
-							name="tertiary"
-							onChange={(e) => this.changeColor('tertiary', e.target.value)} />
+						<div className="tw-radio-grid color-radio">
+							{colors.map(color => (
+								<ColorRadioItem
+									checked={this.props.tokens['base.tertiary.10'].value.includes(color)}
+									name="tertiary"
+									value={color}
+									color={color}
+									onChange={(e) => this.changeColor('tertiary', e.target.value)} />
+							))}
+						</div>
 					</section>
 					
 					<hr />

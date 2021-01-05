@@ -25,6 +25,7 @@ import ToggleButton from './components/ToggleButton';
 import Modal from './components/Modal';
 
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
+import RadioGrid from './components/RadioGrid';
 
 const themeMap = ['dark', 'light', 'hc'];
 
@@ -120,15 +121,15 @@ class App extends Component {
 		});
 	}
 	
-	changeTheme = ({ index, label }) => {
+	changeTheme = ({ index, label, value }) => {
 		const newTheme = themeMap[index];
 		document.body.classList.remove(this.state.currentTheme);
 		document.body.classList.add(newTheme);
 		this.setState({
-			currentTheme: newTheme,
+			currentTheme: value,
 			allTokens: createAllTokens({
 				...this.state.allTokens,
-				...this.state.theme[newTheme]
+				...this.state.theme[value]
 			}),
 		})
 	}
@@ -278,19 +279,13 @@ class App extends Component {
 								{({windowWidth,mainWidth}) => (
 									<div className="preview-pane">
 										<div className="preview-pane-controls columns">
-											<div className="column">Preview</div>
-											<div className="column">
-												<ToggleButton
-													className="block"
-													onClick={this.changeTheme}
-													buttons={[{
-														label: 'Dark',
-														selected: currentTheme === 'dark'
-													},{
-														label: 'Light',
-														selected: currentTheme === 'light'
-													}]} />
-											</div>
+											<div>Preview:</div>
+											<RadioGrid items={[{
+													value: 'dark', checked: currentTheme === 'dark'
+												},{
+													value: 'light', checked: currentTheme === 'light'
+												}]}
+												onChange={(e) => this.changeTheme({value: e.target.value})} />
 										</div>
 
 										<div tabIndex="-1" className="vscode">

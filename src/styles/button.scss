@@ -8,8 +8,9 @@ button,
 	padding: var(--tw-size-padding-small) var(--tw-size-padding-base);
 	font-size: var(--tw-size-font-base);
 	color: var(--tw-color-font-link);
-	background-color: var(--tw-color-brand-primary-6);
-	border: var(--tw-size-border-base) solid var(--tw-color-brand-primary-3);
+	color: var(--tw-color-font-primary);
+	background-color: var(--tw-color-background-primary);
+	border: var(--tw-size-border-base) solid var(--tw-color-border-primary);
 	font-weight: bold;
 	border-radius: var(--tw-size-border-radius);
 	
@@ -17,6 +18,7 @@ button,
 	&:focus {
 		color: var(--tw-color-font-link-hover);
 		border-color: var(--tw-color-brand-primary-2);
+		box-shadow: 0 0 0 2px var(--tw-color-brand-primary-2);
 	}
 	
 	&:active {

@@ -18,8 +18,8 @@
 }
 
 .tw-resizer {
-	width: 1px;
-	background-color: var(--tw-color-border-primary);
+	width: 1rem;
+	// background-color: var(--tw-color-border-tertiary);
 	position: absolute;
 	cursor: col-resize;
 	height: 100%;
@@ -27,10 +27,22 @@
 	flex-shrink: 0;
 	z-index: 99;
 	user-select: none;
-	margin-left: -1px;
+	margin-left: -0.5rem;
 	
-	&:hover {
-		background-color: var(--tw-color-brand-primary-1);
+	&::after {
+		content: '';
+		position: absolute;
+		width: 1px;
+		top: 0;
+		bottom: 0;
+		left: 50%;
+		margin-left: -1px;
+		background-color: var(--tw-color-border-tertiary);
+	}
+	
+	&:hover::after {
+		background-color: var(--tw-color-border-active);
+		box-shadow: 0 0 0 2px var(--tw-color-border-active);
 	}
 }
 
@@ -54,6 +66,11 @@
 
 .preview-pane-controls {
 	margin-bottom: var(--tw-size-padding-small);
+	display: flex;
+	flex-direction: row;
+	& .tw-radio {
+		margin-left: var(--tw-size-padding-small);
+	}
 }
 
 .vscode {

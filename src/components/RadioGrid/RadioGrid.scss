@@ -7,7 +7,7 @@
 .tw-radio-grid-item {
 	padding-right: var(--tw-size-padding-small);
 	padding-bottom: var(--tw-size-padding-small);
-	flex-basis: 20%;
+	// flex-basis: 20%;
 	margin: 0;
 }
 
@@ -38,8 +38,9 @@
 	&::before {
 		height: 1.25rem;
 		width: 1.25rem;
-		border: var(--tw-border-secondary);
+		border: var(--tw-border-primary);
 		border-radius: 1.25rem;
+		background-color: var(--tw-color-background-primary);
 		left: 0;
 		top: 0.125rem;
 	}
@@ -62,15 +63,55 @@
 	}
 	
 	.tw-radio-input:checked + &::before {
-		background-color: var(--tw-color-brand-primary-1);
+		background-color: var(--tw-color-border-focus);
 		border-color: transparent;
 	}
 	
 	/* Adding focus styles on the outer-box of the fake checkbox */
-	.tw-radio-input:focus + &::before {
-		outline-style: solid;
-		outline-offset: 2px;
-		outline-width: 2px;
-		outline-color: var(--tw-color-outline);
+	.tw-radio-input:focus + &::before,
+	.tw-radio-input:hover + &::before {
+		border-color: var(--tw-color-border-focus);
 	}
+}
+
+.color-radio {
+	.tw-radio-label {
+		height: 2rem;
+		width: 2rem;
+		margin-right: var(--tw-size-padding-small);
+	}
+	
+	.tw-radio-label::before {
+		border: none;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 2rem;
+		top: 0;
+	}
+	
+	.tw-radio-label::after {
+		content: "";
+		left: -0.25rem;
+		top: -0.25rem;
+		height: 2.5rem;
+		width: 2.5rem;
+		border: var(--tw-border-tertiary);
+		border-radius: 5rem;
+	}
+	
+	.tw-radio-input:focus + .tw-radio-label::after,
+	.tw-radio-input:hover + .tw-radio-label::after {
+		border-color: var(--tw-color-border-active);
+	}
+	
+	.tw-radio-input:checked + .tw-radio-label::after {
+		border-color: var(--tw-color-border-active);
+		box-shadow: 0 0 0 2px var(--tw-color-border-active);
+	}
+}
+
+$colors: red, orange, yellow, lime, green, teal, blue, purple, pink;
+
+@each $color in $colors {
+	.tw-radio.#{$color} { .tw-radio-label::before { background-color: var(--base-#{$color}-90); } }
 }

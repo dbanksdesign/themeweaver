@@ -131,7 +131,7 @@ input[type=range] {
 .tw-input {
 	display: block;
 	flex: 1;
-	border: var(--tw-size-border-base) solid var(--tw-color-border-secondary);
+	border: var(--tw-size-border-base) solid var(--tw-color-border-primary);
 	padding: var(--tw-size-padding-small) var(--tw-size-padding-base);
 	height: 3rem;
 	border-radius: var(--tw-size-border-radius);
@@ -144,10 +144,14 @@ input[type=range] {
 		border-color: red;
 	}
 	
-	&:hover { border-color: var(--tw-color-border-hover); }
+	&:hover {
+		border-color: var(--tw-color-border-focus);
+		box-shadow: 0 0 0 2px var(--tw-color-border-focus);
+	}
 	
 	&:focus {
 		border-color: var(--tw-color-border-focus);
+		box-shadow: 0 0 0 2px var(--tw-color-border-focus);
 		outline: none;
 	}
 	
@@ -167,8 +171,6 @@ input[type=range] {
 	& > button {
 		flex-basis: auto;
 		flex-grow: 0;
-		margin-left: -4px;
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
+		margin-left: var(--tw-size-padding-tiny);
 	}
 }

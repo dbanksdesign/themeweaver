@@ -13,7 +13,10 @@ import './Home.scss';
 
 const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState, resetState, importTheme }) => {
 	return (
+		<>
+		
 		<div className="page-content homepage">
+		<div className="home-blur" />
 			<div className="">
 			
 			<Helmet>
@@ -27,6 +30,7 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 				<h1 className="home-header">
 					Code editor &amp; syntax themes in your browser!
 				</h1>
+				
 			</section>
 			
 			<section className="home-split">
@@ -99,6 +103,7 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 			</footer>
 		</div>
 		</div>
+		</>
 	)
 }
 

@@ -9,7 +9,6 @@ const ToggleButton = ({ buttons, onClick, className }) => {
 					style={style}
 					className={clsx(
 						`toggle-button`,
-						`small`,
 						label,
 						selected && 'active'
 					)}

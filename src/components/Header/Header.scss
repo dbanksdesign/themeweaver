@@ -1,9 +1,7 @@
 .tw-header {
 	height: var(--tw-size-height-nav);
-	// margin: var(--tw-size-padding-small);
-	border-bottom: var(--tw-border-primary);
+	border-bottom: var(--tw-border-tertiary);
 	background-color: var(--tw-color-background-primary);
-	// box-shadow: var(--tw-shadow-primary);
 	z-index: 100;
 	display: flex;
 	flex-direction: row;

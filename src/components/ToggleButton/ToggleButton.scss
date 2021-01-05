@@ -2,11 +2,11 @@
 	display: inline-flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	border: var(--tw-border-secondary);
-	// padding: 2px;
+	border: var(--tw-border-primary);
+	padding: var(--tw-size-padding-tiny);
 	border-radius: var(--tw-size-border-radius);
 	background-color: var(--tw-color-background-primary);
-	box-shadow: var(--tw-shadow-secondary-inset);
+	// box-shadow: var(--tw-shadow-secondary-inset);
 }
 
 .toggle-buttons.block {
@@ -18,13 +18,16 @@
 	display: block;
 	padding: var(--tw-size-padding-tiny) var(--tw-size-padding-base);
 	font-size: var(--tw-size-font-base);
-	color: var(--tw-color-brand-secondary-1);
+	// color: var(--tw-color-brand-secondary-1);
 	background-color: transparent;
 	border: none;
+	// border-radius: var(--tw-size-border-radius-xl);
 	
 	&:hover,
 	&:focus {
-		color: var(--tw-color-brand-secondary-2);
+		// color: var(--tw-color-brand-secondary-2);
+		background-color: var(--tw-color-brand-primary-6);
+		box-shadow: none;
 	}
 }
 
@@ -43,7 +46,7 @@
 .toggle-button:active,
 .toggle-button.active,
 .toggle-button:focus {
-	background-color: var(--tw-color-brand-secondary-1);
+	background-color: var(--tw-color-brand-primary-1);
 	outline: none;
 	color: #fff;
 }
