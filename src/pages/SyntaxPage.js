@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import TokenGroup from '../components/TokenGroup';
 import {SyntaxToken} from '../components/Token';
-import TOC from '../components/TOC';
 import Alert from '../components/Alert';
 
 const sections = [{
@@ -301,12 +300,6 @@ class SyntaxPage extends React.Component {
 	
 	render() {
 		const { updateToken, tokens, tokenNames, updateFontStyle } = this.props;
-		const links = sections.map(section => {
-			return {
-				label: section.title,
-				anchor: section.title.replace(' ','-')
-			}
-		});
 		
 		return (
 			<>

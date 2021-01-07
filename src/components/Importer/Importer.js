@@ -4,6 +4,7 @@ import stripJsonComments from 'strip-json-comments';
 
 import {dark} from '../../tokens/theme';
 import {allTokens} from '../../tokens/index';
+// import {allTokens as nightOwlTokens} from '../../tokens/night-owl';
 import createRandomStarter from '../../helpers/createRandomStarter';
 import createAllTokens from '../../helpers/createAllTokens';
 import FileInput from '../FileInput';
@@ -95,9 +96,7 @@ export default class Importer extends React.Component {
 		
 		fetch(this.state.uri)
 			.then(response => {
-				console.log(response.headers);
 				if (!response.ok) {
-					console.log(response);
 					return Promise.reject({
 						error: 'There was an issue with the URL provided',
 					})
@@ -142,9 +141,14 @@ export default class Importer extends React.Component {
 				errors: []
 			});
 		} catch (error) {
-			console.log(error);
 			this.setState({error});
 		}
+	}
+	
+	loadTheme = (themeName) => {
+		// this.props.setState({
+		// 	allTokens: createAllTokens(nightOwlTokens)
+		// });
 	}
 	
 	handleChange = (e) => {
@@ -182,13 +186,12 @@ export default class Importer extends React.Component {
 				themeData
 			});
 		} catch (error) {
-			console.log(error);
 			this.setState({error: error.message});
 		}
 	}
 	
 	render() {
-		const { clearState, resetState } = this.props;
+		const { resetState } = this.props;
 		const { themeData, uri, error } = this.state;
 		return (
 			<div className="importer">
@@ -196,6 +199,7 @@ export default class Importer extends React.Component {
 					<h2>Pick a starter</h2>
 					
 					<button className="button block" onClick={resetState}>Nu Disco (default)</button>
+					{/* <button className="button block" onClick={() => this.loadTheme('night-owl')}>Night Owl by Sarah Drasner</button> */}
 					<button className="button block" onClick={this.createRandom}>Randomize!</button>
 					{/* Note: clearing all colors won't work right now because chroma-js doesn't handle empty strings... */}
 					{/* <button className="button block" onClick={clearState}>Start fresh (no colors defined)</button> */}

@@ -85,9 +85,7 @@ class ImportPage extends React.Component {
 	import = () => {
 		fetch(this.state.uri, {mode: 'no-cors'})
 			.then(response => {
-				console.log(response);
 				if (!response.ok) {
-					console.log('hi');
 					return Promise.reject({
 						error: 'There was an issue with the URL provided',
 					})

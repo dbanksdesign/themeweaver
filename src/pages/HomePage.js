@@ -28,7 +28,7 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 					<LogoWithText />
 				</div>
 				<h1 className="home-header">
-					Code editor &amp; syntax themes in your browser!
+					Create code editor &amp; syntax themes in your browser!
 				</h1>
 				
 			</section>

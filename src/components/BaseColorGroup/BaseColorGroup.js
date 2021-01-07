@@ -13,7 +13,7 @@ const BaseColorGroup = ({ h, s, l, name, handleHue, handleSaturation, handleLigh
 		
 		{children}
 		
-		{isVisible && <>
+		{isVisible ? <>
 			<label className="tw-base-color-mixer-label">Hue</label>
 			<div className="tw-base-color-mixer">
 				<input className="tw-input"
@@ -36,21 +36,21 @@ const BaseColorGroup = ({ h, s, l, name, handleHue, handleSaturation, handleLigh
 			<div className="tw-base-color-mixer">
 				<input className="tw-input"
 					type="number"
-					min="-2"
-					max="2"
-					step="0.01"
-					value={s}
+					min="0"
+					max="100"
+					step="1"
+					value={Math.round(s * 100)}
 					onChange={(e) => handleSaturation(e.target.value, name)} />
 				<input
 					type="range"
 					className="color-range saturation"
 					style={{
-						background: `linear-gradient(to right, hsl(${HSL[0]},0%,${HSL[2]*100}%) 0%, hsl(${HSL[0]},100%,${HSL[2]*100}%) 100%)`
+						background: `linear-gradient(to right, hsl(${h},0%,50%) 0%, hsl(${h},100%,50%) 100%)`
 					}}
-					min="-2"
-					max="2"
-					step="0.01"
-					value={s}
+					min="0"
+					max="100"
+					step="1"
+					value={Math.round(s * 100)}
 					onChange={(e) => handleSaturation(e.target.value, name)} />
 			</div>
 			
@@ -58,26 +58,26 @@ const BaseColorGroup = ({ h, s, l, name, handleHue, handleSaturation, handleLigh
 			<div className="tw-base-color-mixer">
 				<input className="tw-input"
 					type="number"
-					min="-1"
-					max="1"
-					step="0.01"
-					value={l}
+					min="0"
+					max="100"
+					step="1"
+					value={Math.round(l * 100)}
 					onChange={(e) => handleLightness(e.target.value, name)} />
 				<input
 					type="range"
 					className="color-range"
 					style={{
-						background: `linear-gradient(to right, hsl(${HSL[0]},${HSL[1]*100}%,10%) 0%, hsl(${HSL[0]},${HSL[1]*100}%,50%) 50%, hsl(${HSL[0]},${HSL[1]*100}%,90%) 100%)`
+						background: `linear-gradient(to right, hsl(${h},50%,0%) 0%, hsl(${h},50%,100%) 100%)`
 					}}
-					min="-1"
-					max="1"
-					value={l}
+					min="0"
+					max="100"
+					value={Math.round(l * 100)}
 					onChange={(e) => handleLightness(e.target.value, name)}
-					step="0.01"/>
+					step="1"/>
 			</div>
 				
 			<p><em>These settings will apply to all colors in this group</em></p>
-		</>}
+		</> : null}
 		</>
 	)
 };

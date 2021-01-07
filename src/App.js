@@ -14,18 +14,19 @@ import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
 import ExportPage from './pages/ExportPage';
-import ImportPage from './pages/ImportPage';
 
 import Header, {SecondaryHeader} from './components/Header';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
 import Panels from './components/Panels';
 import ScrollToTop from './components/ScrollTop';
-import ToggleButton from './components/ToggleButton';
 import Modal from './components/Modal';
 
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import RadioGrid from './components/RadioGrid';
+import TestPage from './pages/TestPage';
+import getColorSettings from './helpers/getColorSettings';
+import chroma from 'chroma-js';
 
 const themeMap = ['dark', 'light', 'hc'];
 
@@ -40,6 +41,7 @@ const defaultState = {
 		..._allTokens,
 		...theme['dark']
 	}),
+	browserTheme: 'light',
 	currentTheme: 'dark',
 	themeName: themeNameGenerator(),
 	exportModal: false,
@@ -52,6 +54,14 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		let initialState;
+		let browserTheme;
+		
+		if (window.matchMedia && window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
+			browserTheme = 'dark';
+		} else {
+			browserTheme = 'light';
+		}
+		
 		if (process.env.NODE_ENV === 'production') {
 			initialState = lsGet('state');
 		}
@@ -75,7 +85,13 @@ class App extends Component {
 			}
 		}
 		
-		this.state = Object.assign({}, defaultState, initialState);
+		const state = Object.assign({}, defaultState, initialState);
+		
+		this.state = {
+			...state,
+			browserTheme,
+			colorSettings: getColorSettings(state.allTokens)
+		}
 	}
 	
 	updateTokens = ( _tokens ) => {
@@ -162,9 +178,98 @@ class App extends Component {
 	}
 	
 	setAllTokens = (newTokens, theme) => {
+		const allTokens = createAllTokens(newTokens);
 		this.setState({
-			allTokens: createAllTokens(newTokens),
-			theme: theme ? theme : this.state.theme
+			allTokens,
+			theme: theme ? theme : this.state.theme,
+			colorSettings: getColorSettings(allTokens)
+		});
+	}
+	
+	setHue = ({colorName, value}) => {
+		const colorSettings = Object.assign({}, this.state.colorSettings, {
+			[colorName]: Object.assign({}, this.state.colorSettings[colorName], {
+				hue: value
+			})
+		});
+		const hue = value;
+		const tokens = Object.assign({}, this.state.allTokens);
+		Object.keys(this.state.allTokens)
+			.filter(key => key.includes(`base.${colorName}`))
+			.forEach(path => {
+				const token = tokens[path];
+				const hsl = [
+					hue,
+					token.hsl[1],
+					token.hsl[2],
+				];
+				const value = chroma.hsl(hsl).hex();
+				updateToken({ path, value, tokens, hsl });
+			});
+
+		this.setState({
+			colorSettings,
+			allTokens: tokens
+		});
+	}
+	
+	setLightness = ({colorName, value}) => {
+		const colorSettings = Object.assign({}, this.state.colorSettings, {
+			[colorName]: Object.assign({}, this.state.colorSettings[colorName], {
+				lightness: value
+			})
+		});
+		const delta = colorSettings[colorName].lightness - this.state.colorSettings[colorName].lightness;
+		const hue = colorSettings[colorName].hue;
+		
+		const tokens = Object.assign({}, this.state.allTokens);
+		Object.keys(this.state.allTokens)
+			.filter(key => key.includes(`base.${colorName}`))
+			.forEach(path => {
+				const token = tokens[path];
+				const lightness = delta/2 + token.hsl[2];
+				const hsl = [
+					hue,
+					token.hsl[1],
+					lightness,
+				];
+				const value = chroma.hsl(hsl).hex();
+				updateToken({ path, value, tokens, hsl });
+			});
+
+		this.setState({
+			colorSettings,
+			allTokens: tokens
+		});
+	}
+	
+	setSaturation = ({colorName, value}) => {
+		const colorSettings = Object.assign({}, this.state.colorSettings, {
+			[colorName]: Object.assign({}, this.state.colorSettings[colorName], {
+				saturation: value
+			})
+		});
+		const delta = colorSettings[colorName].saturation - this.state.colorSettings[colorName].saturation;
+		const hue = colorSettings[colorName].hue;
+		
+		const tokens = Object.assign({}, this.state.allTokens);
+		Object.keys(this.state.allTokens)
+			.filter(key => key.includes(`base.${colorName}`))
+			.forEach(path => {
+				const token = tokens[path];
+				const saturation = delta/2 + token.hsl[1];
+				const hsl = [
+					hue,
+					saturation < 0 ? 0 : saturation,
+					token.hsl[2]
+				];
+				const value = chroma.hsl(hsl).hex();
+				updateToken({ path, value, tokens, hsl });
+			});
+
+		this.setState({
+			colorSettings,
+			allTokens: tokens
 		});
 	}
 	
@@ -178,7 +283,7 @@ class App extends Component {
 		// save state to localstorage
 		lsSet('state', this.state);
 		
-		const { allTokens, currentTheme, theme, themeName, exportModal } = this.state;
+		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings } = this.state;
 		
 		const tokenNames = Object.keys(allTokens);
 		const cssProperties = tokenNames.reduce((obj, name) => {
@@ -188,6 +293,9 @@ class App extends Component {
 			}
 			return obj;
 		}, {});
+		
+		// TODO: finish dark mode
+		// document.body.className = this.state.browserTheme;
 		
 		return (
 			<Router>
@@ -205,6 +313,7 @@ class App extends Component {
 								clearState={this.clearState}
 								resetState={this.resetState} />
 						</Route>
+						<Route path="/test" component={TestPage} />
 						<Route path="/editor">
 							<Header showExport={() => this.setState({exportModal: true})}
 								themeName={themeName}
@@ -212,33 +321,16 @@ class App extends Component {
 						
 							<Panels>
 								<div className="editor-pane">
-									<Route path="/export">
-										<ExportPage
-											theme={theme}
-											themeName={themeName}
-											updateThemeName={this.updateThemeName}
-											currentTheme={currentTheme}
-											allTokens={allTokens} />
-									</Route>
-									<Route path="/import">
-										<ImportPage
-											allTokens={allTokens}
-											tokenNames={tokenNames}
-											importTheme={this.importTheme}
-											updateTokens={this.updateTokens}
-											clearState={this.clearState}
-											resetState={this.resetState}
-											setAllTokens={this.setAllTokens}
-											setState={this.setState.bind(this)}
-											showToast={this.showToast} />
-									</Route>
-									
 									<Route path="/editor">
 										<SecondaryHeader clearState={this.clearState} resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
 										<Switch>
 										<Route path="/editor/base">
 											<BasePage
 												tokens={allTokens}
+												setHue={this.setHue}
+												setSaturation={this.setSaturation}
+												setLightness={this.setLightness}
+												colorSettings={colorSettings}
 												updateTokens={this.updateTokens}
 												updateToken={this.updateToken}
 												resetState={this.resetState} />

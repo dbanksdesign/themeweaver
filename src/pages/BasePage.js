@@ -2,12 +2,9 @@ import React from 'react';
 import chroma from 'chroma-js';
 import { Helmet } from 'react-helmet';
 
-import baseTokens from '../tokens/base';
-import TOC from '../components/TOC';
-import ToggleButton from '../components/ToggleButton';
 import BaseColorGroup from '../components/BaseColorGroup';
 import {BaseToken} from '../components/Token';
-import RadioGrid, { ColorRadioItem } from '../components/RadioGrid';
+import { ColorRadioItem } from '../components/RadioGrid';
 
 const sections = [{
 	title: `Grey`,
@@ -197,147 +194,9 @@ const sections = [{
 }];
 
 const colors = ['red','orange','yellow','lime','green','teal','blue','purple','pink'];
-
-const GREY = [
-	{value: baseTokens[`base.grey.100`], path: `base.grey.100`},
-	{value: baseTokens[`base.grey.90`], path: `base.grey.90`},
-	{value: baseTokens[`base.grey.80`], path: `base.grey.80`},
-	{value: baseTokens[`base.grey.60`], path: `base.grey.60`},
-	{value: baseTokens[`base.grey.40`], path: `base.grey.40`},
-	{value: baseTokens[`base.grey.20`], path: `base.grey.20`},
-	{value: baseTokens[`base.grey.10`], path: `base.grey.10`},
-	{value: baseTokens[`base.grey.5`], path: `base.grey.5`},
-	{value: baseTokens[`base.grey.0`], path: `base.grey.0`},
-];
-
-const RED = [
-	{value: baseTokens[`base.red.10`], path: `base.red.10`},
-	{value: baseTokens[`base.red.20`], path: `base.red.20`},
-	{value: baseTokens[`base.red.90`], path: `base.red.90`},
-	{value: baseTokens[`base.red.100`], path: `base.red.100`},
-];
-
-const ORANGE = [
-	{value: baseTokens[`base.orange.10`], path: `base.orange.10`},
-	{value: baseTokens[`base.orange.20`], path: `base.orange.20`},
-	{value: baseTokens[`base.orange.90`], path: `base.orange.90`},
-	{value: baseTokens[`base.orange.100`], path: `base.orange.100`},
-];
-
-const YELLOW = [
-	{value: baseTokens[`base.yellow.10`], path: `base.yellow.10`},
-	{value: baseTokens[`base.yellow.20`], path: `base.yellow.20`},
-	{value: baseTokens[`base.yellow.90`], path: `base.yellow.90`},
-	{value: baseTokens[`base.yellow.100`], path: `base.yellow.100`},
-];
-
-const LIME = [
-	{value: baseTokens[`base.lime.10`], path: `base.lime.10`},
-	{value: baseTokens[`base.lime.20`], path: `base.lime.20`},
-	{value: baseTokens[`base.lime.90`], path: `base.lime.90`},
-	{value: baseTokens[`base.lime.100`], path: `base.lime.100`},
-];
-
-const GREEN = [
-	{value: baseTokens[`base.green.10`], path: `base.green.10`},
-	{value: baseTokens[`base.green.20`], path: `base.green.20`},
-	{value: baseTokens[`base.green.90`], path: `base.green.90`},
-	{value: baseTokens[`base.green.100`], path: `base.green.100`},
-];
-
-const TEAL = [
-	{value: baseTokens[`base.teal.10`], path: `base.teal.10`},
-	{value: baseTokens[`base.teal.20`], path: `base.teal.20`},
-	{value: baseTokens[`base.teal.90`], path: `base.teal.90`},
-	{value: baseTokens[`base.teal.100`], path: `base.teal.100`},
-];
-
-const BLUE = [
-	{value: baseTokens[`base.blue.10`], path: `base.blue.10`},
-	{value: baseTokens[`base.blue.20`], path: `base.blue.20`},
-	{value: baseTokens[`base.blue.90`], path: `base.blue.90`},
-	{value: baseTokens[`base.blue.100`], path: `base.blue.100`},
-];
-
-const PURPLE = [
-	{value: baseTokens[`base.purple.10`], path: `base.purple.10`},
-	{value: baseTokens[`base.purple.20`], path: `base.purple.20`},
-	{value: baseTokens[`base.purple.90`], path: `base.purple.90`},
-	{value: baseTokens[`base.purple.100`], path: `base.purple.100`},
-];
-
-const PINK = [
-	{value: baseTokens[`base.pink.10`], path: `base.pink.10`},
-	{value: baseTokens[`base.pink.20`], path: `base.pink.20`},
-	{value: baseTokens[`base.pink.90`], path: `base.pink.90`},
-	{value: baseTokens[`base.pink.100`], path: `base.pink.100`},
-];
-
 class BasePage extends React.Component {
-	// Keep these arrays outside of state because when we update
-	// saturation we need to saturate based on original color
-	// or everything turns 100 or 0% saturated
-	GREY = GREY
-	RED = RED
-	ORANGE = ORANGE
-	YELLOW = YELLOW
-	LIME = LIME
-	GREEN = GREEN
-	TEAL = TEAL
-	BLUE = BLUE
-	PURPLE = PURPLE
-	PINK = PINK
-	
-	state = {
-		grey: this.GREY,
-		greyHue: chroma(GREY[3].value).hsl()[0],
-		greySaturation: 0,
-		greyLightness: 0,
-		red: this.RED,
-		redHue: chroma(RED[3].value).hsl()[0],
-		redSaturation: 0,
-		redLightness: 0,
-		orange: this.ORANGE,
-		orangeHue: chroma(ORANGE[3].value).hsl()[0],
-		orangeSaturation: 0,
-		orangeLightness: 0,
-		yellow: this.YELLOW,
-		yellowHue: chroma(YELLOW[3].value).hsl()[0],
-		yellowSaturation: 0,
-		yellowLightness: 0,
-		lime: this.LIME,
-		limeHue: chroma(LIME[3].value).hsl()[0],
-		limeSaturation: 0,
-		limeLightness: 0,
-		green: this.GREEN,
-		greenHue: chroma(GREEN[3].value).hsl()[0],
-		greenSaturation: 0,
-		greenLightness: 0,
-		teal: this.TEAL,
-		tealHue: chroma(TEAL[3].value).hsl()[0],
-		tealSaturation: 0,
-		tealLightness: 0,
-		blue: this.BLUE,
-		blueHue: chroma(BLUE[3].value).hsl()[0],
-		blueSaturation: 0,
-		blueLightness: 0,
-		purple: this.PURPLE,
-		purpleHue: chroma(PURPLE[3].value).hsl()[0],
-		purpleSaturation: 0,
-		purpleLightness: 0,
-		pink: this.PINK,
-		pinkHue: chroma(PINK[3].value).hsl()[0],
-		pinkSaturation: 0,
-		pinkLightness: 0,
-	}
-	
-	constructor(props) {
-		super(props);
-		this.pageRef = React.createRef();
-	}
 	
 	changeColor = (level, value) => {
-		console.log(level, value);
 		this.setState({
 			[level]: value
 		});
@@ -350,74 +209,24 @@ class BasePage extends React.Component {
 	}
 	
 	handleHue = (hue, name) => {
-		const newColors = this.state[name].map(color => {
-			return {
-				...color,
-				value: chroma(color.value).set(`hsl.h`, hue).hex()
-			}
-		});
-		
-		this[name.toUpperCase()] = newColors;
-		
-		this.setState({
-			...this.state,
-			[`${name}Hue`]: hue,
-			[name]: newColors
-		});
-		
-		this.props.updateTokens( newColors );
+		this.props.setHue({colorName: name, value: hue});
 	}
 	
+	// TODO: Break this logic into a separate file maybe this class is very large
+	// TODO: Store color values as HSL and only convert to Hex when needed. This will
+	// get rid of weirdness when editing lightness/contrast for a color group
 	handleLightness = (value, name) => {
-		const saturation = this.state[`${name}Saturation`];
-		const newState = {
-			[name]: this[name.toUpperCase()].map(color => {
-				return {
-					...color,
-					value: chroma(color.value).brighten(value).saturate(saturation).hex()
-				}
-			})
-		}
-		this.setState({
-			...this.state,
-			[`${name}Lightness`]: value,
-			...newState
-		});
-		
-		this.props.updateTokens(
-			newState[name]
-		)
+		const newGroupLightness = (value/100);
+		this.props.setLightness({colorName: name, value: newGroupLightness});
 	}
 	
 	handleSaturation = (value, name) => {
-		const lightness = this.state[`${name}Lightness`];
-		const newState = {
-			[name]: this[name.toUpperCase()].map(color => {
-				return {
-					...color,
-					value: chroma(color.value).brighten(lightness).saturate(value).hex()
-				}
-			})
-		}
-		this.setState({
-			...this.state,
-			[`${name}Saturation`]: value,
-			...newState
-		});
-		
-		this.props.updateTokens(
-			newState[name]
-		)
+		const newGroupSaturation = (value/100);
+		this.props.setSaturation({colorName: name, value: newGroupSaturation});
 	}
 	
 	render() {
-		const { updateToken, tokens } = this.props;
-		const links = sections.map(section => {
-			return {
-				label: section.title,
-				anchor: section.title.replace(' ','-')
-			}
-		});
+		const { updateToken, tokens, colorSettings } = this.props;
 		
 		if (tokens['base.grey.100']) {
 			return (
@@ -428,7 +237,6 @@ class BasePage extends React.Component {
 
 				<div className="page-content" id="page-content">
 				<div className="page-content-inner flow">
-					<h1>Base</h1>
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
 					
 					<section id="brand" className="token-group flow">
@@ -481,9 +289,9 @@ class BasePage extends React.Component {
 							id={section.title.replace(' ','-')}>
 							<BaseColorGroup
 								title={section.title}
-								h={this.state[`${section.name}Hue`]}
-								s={this.state[`${section.name}Saturation`]}
-								l={this.state[`${section.name}Lightness`]}
+								h={colorSettings[section.name].hue}
+								s={colorSettings[section.name].saturation}
+								l={colorSettings[section.name].lightness}
 								name={section.name}
 								HSL={chroma(tokens[`base.${section.name}.90`].value).hsl()}
 								handleHue={this.handleHue}
@@ -494,10 +302,11 @@ class BasePage extends React.Component {
 							<div className="base-color-group">
 								{section.tokens.map(({ path, description }) => {
 									if (!tokens[path]) { console.log(path); }
-									const {computedValue, reverseLookup} = tokens[path];
+									const {computedValue, reverseLookup, hsl} = tokens[path];
 									return (
 										<BaseToken key={path}
 											path={path}
+											hsl={hsl}
 											reverseLookup={reverseLookup}
 											value={computedValue}
 											onChange={updateToken} />

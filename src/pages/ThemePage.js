@@ -209,8 +209,9 @@ const sections = [{
 class ThemePage extends React.Component {
 
 	render() {
-		const { updateToken, tokens, changeTheme, currentTheme } = this.props;
+		const { updateToken, tokens } = this.props;
 		
+		// TODO: show both light and dark mode tokens
 		return (
 			<>
 				<Helmet>

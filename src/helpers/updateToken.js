@@ -1,7 +1,7 @@
 import createToken from './createToken';
 import resolveReference from './resolveReference';
 
-const updateToken = ({ path, value, secondaryKey, tokens }) => {
+const updateToken = ({ path, value, secondaryKey, tokens, hsl }) => {
 	let newToken = tokens[path];
 	let [computedValue, refs] = resolveReference(value, tokens);
 	let undefinedToken;
@@ -25,7 +25,8 @@ const updateToken = ({ path, value, secondaryKey, tokens }) => {
 	newToken = Object.assign({}, newToken, {
 		value,
 		refs,
-		computedValue
+		computedValue,
+		hsl
 	});
 	
 	if (secondaryKey) {

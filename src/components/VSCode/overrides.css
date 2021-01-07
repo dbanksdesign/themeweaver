@@ -721,4 +721,30 @@
 .monaco-select-box {
 	border-width: 1px;
 	border-style: solid;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 11px;
+}
+
+.monaco-action-bar .action-item.select-container {
+	overflow: hidden;
+	flex: 1;
+	max-width: 170px;
+	min-width: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+}
+
+.monaco-workbench .part.statusbar.status-border-top:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	pointer-events: none;
+	background-color: var(--application-statusBar-border);
+	width: 100%;
+	height: 1px;
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Token from '../components/Token';
 import TokenGroup from '../components/TokenGroup';
-import TOC from '../components/TOC';
 import Search from '../components/Search';
 
 const sections = [{
@@ -978,12 +977,6 @@ class ApplicationPage extends React.Component {
 	render() {
 		const { updateToken, tokens, tokenNames } = this.props;
 		const { filteredSections } = this.state;
-		const links = filteredSections.map(section => {
-			return {
-				label: section.title,
-				anchor: section.title.replace(' ','-')
-			}
-		});
 
 		return (
 			<>

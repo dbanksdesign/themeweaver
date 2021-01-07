@@ -1,4 +1,5 @@
 import resolveReference from './resolveReference';
+import chroma from 'chroma-js';
 
 const createToken = (key, value, tokenObject, reverse = {}) => {
 	const [computedValue, refs] = resolveReference(value, tokenObject);
@@ -21,11 +22,18 @@ const createToken = (key, value, tokenObject, reverse = {}) => {
 	if (value && typeof value !== 'string') {
 		value = value.value;
 	}
-	return {
+	
+	let token = {
 		refs,
 		computedValue,
-		value
+		value,
 	}
+	
+	if (!refs && token.value.length) {
+		token.hsl = chroma(token.value).hsl();
+	}
+	
+	return token;
 }
 
 export default createToken;

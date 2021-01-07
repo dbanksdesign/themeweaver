@@ -24,6 +24,8 @@ const createRandomStarter = () => {
 		Math.round((Math.random() * 40) + 300), // pink 300-340
 	];
 
+	// TODO: Make this logic a bit more robust and mathematical...
+	// and also not rely on tweaking the default tokens
 	const starter = Object.assign({}, baseTokens);
 	colors.forEach((color,i) => {
 		shades.forEach(shade => {
