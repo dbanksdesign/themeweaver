@@ -32,7 +32,7 @@ import './overrides.css';
 class Workbench extends React.Component {
 	state = {
 		activeTab: 0,
-		debug: false
+		debug: false,
 	}
 	
 	changeTab = (index) => {
@@ -44,9 +44,11 @@ class Workbench extends React.Component {
 	}
 	
 	render() {
-		const { children, theme } = this.props;
+		const { children, theme, activityBarInactive } = this.props;
 		const { activeTab, debug } = this.state;
 		return (
+			<>
+			<div tabIndex="-1" className="vscode" id="vscode">
 			<div className={clsx("monaco-workbench mac chromium fullscreen", debug && 'debug', theme)}>
 				<div className="monaco-grid-view">
 					<div className="monaco-grid-branch-node">
@@ -60,7 +62,7 @@ class Workbench extends React.Component {
 												<div className="split-view-view visible" style={{
 													width: '48px'
 												}}>
-													<ActivityBar activeTab={activeTab} onClick={this.changeTab} />
+													<ActivityBar activityBarInactive={activityBarInactive} activeTab={activeTab} onClick={this.changeTab} />
 												</div>
 												{/* Explorer */}
 												<div className="split-view-view visible" style={{
@@ -94,66 +96,10 @@ class Workbench extends React.Component {
 				</div>
 				{debug && <DebugPanel />}
 			</div>
+			</div>
+			</>
 		)
 	}
 }
-
-// const Workbench = ({ children }) => (
-// 	<div className="monaco-workbench mac chromium fullscreen" style={{
-// 		position: 'absolute',
-// 		top: 0,
-// 		right: 0,
-// 		bottom: 0,
-// 		left: 0,
-// 	}}>
-// 		<div className="monaco-grid-view">
-// 			<div className="monaco-grid-branch-node">
-// 				<div className="monaco-split-view2 vertical">
-// 					<div className="split-view-container">
-// 						<div className="split-view-view visible" style={{flex:'1'}}>
-// 							<div className="monaco-grid-branch-node">
-// 								<div className="monaco-split-view2 horizontal">
-// 									<div className="split-view-container">
-// 										{/* Activity Bar */}
-// 										<div className="split-view-view visible" style={{
-// 											width: '48px'
-// 										}}>
-// 											<ActivityBar />
-// 										</div>
-// 										{/* Explorer */}
-// 										<div className="split-view-view visible" style={{
-// 											width: '150px'
-// 										}}>
-// 											<SideBar />
-// 										</div>
-// 										{/* Editor */}
-// 										<div className="split-view-view visible" style={{flex:'1', overflow:'hidden'}}>
-// 											<div className="monaco-split-view2 vertical">
-// 												<div className="split-view-container">
-// 													<div className="split-view visible" style={{flex:'1'}}>
-// 														{children}
-// 													</div>
-// 													<div className="split-view visible" style={{height:'200px'}}>
-// 														<Panel />
-// 													</div>
-// 												</div>
-// 											</div>
-// 										</div>
-// 									</div>
-// 								</div>
-// 							</div>
-// 						</div>
-// 						<div className="split-view-view visible" style={{height:'22px'}}>
-// 							<StatusBar />
-// 						</div>
-// 					</div>
-// 				</div>
-				
-
-				
-// 			</div>
-// 		</div>
-// 	</div>
-// );
 
 export default Workbench

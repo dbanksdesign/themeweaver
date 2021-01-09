@@ -2,15 +2,23 @@ import React from 'react';
 import clsx from 'clsx';
 import './ActivityBar.css';
 
-const ActionItem = ({ label, icon, active, onClick, index, badge }) => (
-	<li className={clsx("action-item", active && "checked")} role="button" draggable="true" tabIndex="0" aria-label={label} title={label} onClick={() => onClick(index)}>
-		<span className={`action-label codicon-${icon} codicon`} aria-label={label} title={label} />
-		{badge && <div className="badge scm-viewlet-label" aria-label={label} title={label}>
-			<div className="badge-content">{badge}</div>
-		</div>}
-		<div className="active-item-indicator"></div>
-	</li>
-);
+const ActionItem = ({ label, icon, active, onClick, index, badge }) => {
+	return (
+		<li className={clsx("action-item", active && "checked")}
+			role="button"
+			draggable="true"
+			tabIndex="0"
+			aria-label={label}
+			title={label}
+			onClick={() => onClick(index)}>
+			<span className={`action-label codicon-${icon} codicon`} aria-label={label} title={label} />
+			{badge && <div className="badge scm-viewlet-label" aria-label={label} title={label}>
+				<div className="badge-content">{badge}</div>
+			</div>}
+			<div className="active-item-indicator"></div>
+		</li>
+	);
+};
 
 const actionItems = [{
 	label: `Explorer (⇧⌘E)`,
@@ -30,8 +38,11 @@ const actionItems = [{
 	icon: `debug-alt`
 }]
 
-const ActivityBar = ({ onClick, activeTab }) => (
-	<div className="part activitybar left" id="workbench.parts.activitybar" role="navigation">
+const ActivityBar = ({ onClick, activeTab, activityBarInactive }) => (
+	<div className={clsx(
+		"part activitybar left",
+		activityBarInactive ? "has-inactive-foreground" : null
+		)} id="workbench.parts.activitybar" role="navigation">
 		<div className="content">
 			<div className="composite-bar">
 				<div className="monaco-action-bar vertical">

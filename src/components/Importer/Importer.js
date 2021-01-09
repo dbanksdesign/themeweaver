@@ -2,13 +2,14 @@ import React from 'react';
 import chroma from 'chroma-js';
 import stripJsonComments from 'strip-json-comments';
 
-import {dark} from '../../tokens/theme';
+import {dark, light} from '../../tokens/theme';
 import {allTokens} from '../../tokens/index';
 // import {allTokens as nightOwlTokens} from '../../tokens/night-owl';
 import createRandomStarter from '../../helpers/createRandomStarter';
 import createAllTokens from '../../helpers/createAllTokens';
 import FileInput from '../FileInput';
 import Alert from '../Alert';
+import vscodeToTheme from '../../helpers/vscodeToTheme';
 
 // This doesn't handle nested scopes (scopes with spaces) like:
 // source.elixir support.type.elixir
@@ -79,6 +80,45 @@ const ThemeData = ({ name, tokenColors, colors, allTokens, type }) => {
 	}
 }
 
+const randomThemeSettings = {
+	bordered: {
+		'application.sideBar.border': '{theme.border.primary}',
+		'application.activityBar.border': '{theme.border.primary}',
+		'application.panel.border': '{theme.border.primary}',
+		'application.statusBar.border': '{theme.border.primary}'
+	},
+	singleBackground: {
+		'application.sideBar.background': '{theme.background.primary}',
+		'application.activityBar.background': '{theme.background.primary}',
+		'application.panel.background': '{theme.background.primary}',
+		'application.statusBar.background': '{theme.background.primary}',
+	},
+	highlightedTab: {
+		'application.tab.activeBackground': '{theme.background.interactive.base}'
+	},
+	borderedTab: {
+		'application.tab.activeBorderTop': '{theme.border.active}'
+	},
+	coloredStatusBar: {
+		'application.statusBar.background': '{theme.background.selection.secondary.active}',
+		'application.statusBar.foreground': '{theme.font.primary}',
+		'application.statusBar.border': '{theme.border.info}',
+	}
+}
+
+const getRandom = (arr, n) => {
+	var result = new Array(n),
+			len = arr.length,
+			taken = new Array(len);
+	if (n > len)
+			throw new RangeError("getRandom: more elements taken than available");
+	while (n--) {
+			var x = Math.floor(Math.random() * len);
+			result[n] = arr[x in taken ? taken[x] : x];
+			taken[x] = --len in taken ? taken[len] : len;
+	}
+	return result;
+}
 
 export default class Importer extends React.Component {
 	state = {
@@ -130,17 +170,21 @@ export default class Importer extends React.Component {
 					type = chroma(data.tokenColors['editor.background']).luminence() < 0.5 ? 'dark' : 'light';
 				}
 			}
+			const newTheme = vscodeToTheme(data);
+			console.log(newTheme);
 			
 			this.props.importTheme({
 				syntax: massageSyntax(data.tokenColors),
 				application: massageApplication(data.colors),
+				base: newTheme,
 				type
 			});
 			this.setState({
 				themeData: data,
-				errors: []
+				error: null
 			});
 		} catch (error) {
+			console.log(error);
 			this.setState({error});
 		}
 	}
@@ -161,7 +205,23 @@ export default class Importer extends React.Component {
 	}
 	
 	createRandom = () => {
-		const newTokens = Object.assign({}, allTokens, {...dark}, createRandomStarter());
+		const theme = this.props.currentTheme === 'dark' ? dark : light;
+		const configurations = Object.keys(randomThemeSettings);
+		const configsLength = Math.round(Math.random() * configurations.length);
+		const selectedConfigs = getRandom(configurations, configsLength);
+		const themeSettings = selectedConfigs.reduce((acc, key) => {
+			return {
+				...acc,
+				...randomThemeSettings[key]
+			}
+		}, {});
+		console.log(themeSettings);
+		const newTokens = Object.assign({},
+			allTokens,
+			{...theme},
+			createRandomStarter(),
+			{...themeSettings},
+		);
 		this.props.setAllTokens(newTokens);
 	}
 	
@@ -178,13 +238,13 @@ export default class Importer extends React.Component {
 					theme,
 					themeName: name
 				});
+				this.setState({
+					themeData,
+					error: null
+				});
 			} else {
 				this.importVSCode(themeData);
 			}
-
-			this.setState({
-				themeData
-			});
 		} catch (error) {
 			this.setState({error: error.message});
 		}

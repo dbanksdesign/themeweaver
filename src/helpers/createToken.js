@@ -29,7 +29,7 @@ const createToken = (key, value, tokenObject, reverse = {}) => {
 		value,
 	}
 	
-	if (!refs && token.value.length) {
+	if (!refs && token.value && token.value.length) {
 		token.hsl = chroma(token.value).hsl();
 	}
 	

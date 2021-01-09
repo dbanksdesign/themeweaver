@@ -8,10 +8,11 @@ import Alert from '../components/Alert';
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import {LogoWithText} from '../components/Logo';
 import Importer from '../components/Importer';
+import RadioGrid from '../components/RadioGrid';
 
 import './Home.scss';
 
-const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState, resetState, importTheme }) => {
+const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState, resetState, importTheme, changeTheme }) => {
 	return (
 		<>
 		
@@ -38,12 +39,19 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 					<Importer
 						setAllTokens={setAllTokens}
 						setState={setState}
+						currentTheme={currentTheme}
 						clearState={clearState}
 						resetState={resetState}
 						importTheme={importTheme} />
 					<Link className="button block primary large" to="/editor/base">Get started</Link>
 				</div>
 				<div className="home-split-panel" style={{height: '100vh'}}>
+					<RadioGrid items={[{
+							value: 'dark', checked: currentTheme === 'dark'
+						},{
+							value: 'light', checked: currentTheme === 'light'
+						}]}
+						onChange={(e) => changeTheme({value: e.target.value})} />
 					<div tabIndex="-1" className="preview-pane vscode">
 						<Workbench>
 							<VSCodeEditor

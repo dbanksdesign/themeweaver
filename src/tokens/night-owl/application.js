@@ -1,4 +1,5 @@
 export default {
+	"application.activityBar.inactiveForeground": null,
 	"application.contrastBorder": "#122d42",
 	"application.focusBorder": "#122d42",
 	"application.foreground": "{theme.font.secondary}",
@@ -180,7 +181,7 @@ export default {
 	"application.terminal.ansiBlack": "#011627",
 	"application.terminal.ansiBlue": "#82AAFF",
 	"application.terminal.ansiCyan": "#21c7a8",
-	"application.terminal.ansiGreen": "#22da6e",
+	"application.terminal.ansiGreen": "{base.green.90}",
 	"application.terminal.ansiMagenta": "#C792EA",
 	"application.terminal.ansiRed": "#EF5350",
 	"application.terminal.ansiYellow": "#c5e478",
@@ -188,7 +189,7 @@ export default {
 	"application.terminal.ansiBrightBlack": "#575656",
 	"application.terminal.ansiBrightBlue": "#82AAFF",
 	"application.terminal.ansiBrightCyan": "#7fdbca",
-	"application.terminal.ansiBrightGreen": "#22da6e",
+	"application.terminal.ansiBrightGreen": "{base.green.90}",
 	"application.terminal.ansiBrightMagenta": "#C792EA",
 	"application.terminal.ansiBrightRed": "#EF5350",
 	"application.terminal.ansiBrightYellow": "#ffeb95",

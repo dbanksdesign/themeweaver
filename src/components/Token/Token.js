@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import ColorEditor from '../ColorEditor';
 import ToggleButton from '../ToggleButton';
 import ReverseLookup from './ReverseLookup';
+import tokenToCSS from '../../helpers/tokenToCSS';
 
 const regex = new RegExp(
 	'\\{([^}]+)\\}', 'g'
@@ -39,6 +40,7 @@ const CustomTab = (props) => {
 
 const TokenTab = (props) => {
 	const { visible, allTokens, computedValue, onChange, value } = props;
+	console.log(value);
 
 	if (visible) {
 		const theme = theme => ({
@@ -121,9 +123,7 @@ const TokenTab = (props) => {
 					styles={colorStyles}
 					theme={theme}
 					value={_value}
-					defaultInputValue={_value.label}
 					onCreateOption={(value) => onChange({value})}
-					// onInputChange={value => onChange({value})}
 					onChange={onChange}
 					options={Object.keys(allTokens).map(label => ({label, value: `{${label}}`}))} />
 				<div className="token-alpha">
@@ -145,22 +145,33 @@ const TokenTab = (props) => {
 }
 
 const TokenEditor = (props) => {
-	const { visible, reverseLookup, value } = props;
+	const { visible, reverseLookup, value, onChange } = props;
 	const defaultIndex = value && value.indexOf('#') < 0 ? 0 : 1;
 	const [tabIndex, setTabIndex] = useState(defaultIndex);
 
+	const onClick = ({index}) => {
+		if (index === 2) {
+			// null out the token
+			onChange();
+		}
+		setTabIndex(index);
+	}
+	
 	if (visible) {
 		return (
 			<div className="tw-color-picker">
 				<ToggleButton
 					className="tw-color-picker-tabs"
-					onClick={({index}) => setTabIndex(index)}
+					onClick={onClick}
 					buttons={[{
 						label: 'Token',
 						selected: tabIndex === 0
 					},{
 						label: 'Custom',
 						selected: tabIndex === 1
+					},{
+						label: 'None',
+						selected: tabIndex === 2
 					}]} />
 				<div>
 					<TokenTab {...props} visible={tabIndex === 0} />
@@ -209,10 +220,48 @@ class Token extends React.Component {
 		});
 	}
 	
+	// TODO: clean up this logic?
+	highlightVar = () => {
+		const { path, reverseLookup, computedValue } = this.props;
+		document.getElementById('app').style.setProperty(
+			`--${path.replace(/\./g,'-')}`,
+			`var(--tw-color-brand-primary-1)`
+		);
+		if (reverseLookup && reverseLookup.length && computedValue && computedValue.length > 7) {
+			reverseLookup.forEach(name => {
+				const varName = `--${name.replace(/\./g,'-')}`;
+				if (!this[name]) {
+					this[name] = document.getElementById('app').style.getPropertyValue(varName);
+				}
+				document.getElementById('app').style.setProperty(
+					varName,
+					`var(--tw-color-brand-primary-1)`
+				);
+			})
+		}
+	}
+	
+	unHighlight = () => {
+		const { path, reverseLookup, computedValue } = this.props;
+		document.getElementById('app').style.setProperty(
+			`--${path.replace(/\./g,'-')}`,
+			tokenToCSS(this.props)
+		);
+		
+		if (reverseLookup && reverseLookup.length && computedValue && computedValue.length > 7) {
+			reverseLookup.forEach(name => {
+				const varName = `--${name.replace(/\./g,'-')}`;
+				document.getElementById('app').style.setProperty(
+					varName,
+					this[name]
+				);
+			})
+		}
+	}
+	
 	render() {
 		const { computedValue, path, id, description, children, reverseLookup } = this.props;
 		const { expanded } = this.state;
-		
 		const sectionId = (id || path).replace(/\./g,'-');
 
 		return (
@@ -220,7 +269,9 @@ class Token extends React.Component {
 				"token",
 				expanded && "expanded"
 				)}>
-				<header className="token-header" onClick={this.toggleEditor}>
+				<header className="token-header" onClick={this.toggleEditor}
+					onMouseOut={this.unHighlight}
+					onMouseOver={this.highlightVar}>
 					<div className="token-swatch-wrapper">
 						<div className={clsx(
 							"token-swatch",

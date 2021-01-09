@@ -36,6 +36,8 @@
 	cursor: pointer;
 }
 
+/* if activityBar-inactiveForeground is set it is used, if not the 'inactive' state is
+	40% opacity */
 .activitybar .monaco-action-bar .action-label {
 	position: relative;
 	z-index: 1;
@@ -49,9 +51,15 @@
 	color: var(--application-activityBar-foreground);
 }
 
+.activitybar.has-inactive-foreground .action-label {
+	opacity: 1;
+	color: var(--application-activityBar-inactiveForeground);
+}
+
 .content .monaco-action-bar .action-item:hover .action-label,
 .content .monaco-action-bar .action-item.checked .action-label {
 	opacity: 1;
+	color: var(--application-activityBar-foreground);
 }
 
 .action-label.codicon {

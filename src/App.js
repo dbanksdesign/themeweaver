@@ -27,6 +27,7 @@ import RadioGrid from './components/RadioGrid';
 import TestPage from './pages/TestPage';
 import getColorSettings from './helpers/getColorSettings';
 import chroma from 'chroma-js';
+import tokenToCSS from './helpers/tokenToCSS';
 
 const themeMap = ['dark', 'light', 'hc'];
 
@@ -105,6 +106,7 @@ class App extends Component {
 	}
 	
 	updateToken = ({ path, value, secondaryKey }) => {
+		console.log(value);
 		// if it is a theme token, update the current theme object
 		const {currentTheme} = this.state;
 		const newTheme = Object.assign({}, this.state.theme[currentTheme]);
@@ -150,10 +152,11 @@ class App extends Component {
 		})
 	}
 	
-	importTheme = ({ application, syntax, type='light'}) => {
+	importTheme = ({ application={}, syntax={}, type='light', base={} }) => {
 		const allTokens = createAllTokens({
 			...application,
 			...syntax,
+			...base
 		});
 
 		this.setState({
@@ -285,12 +288,14 @@ class App extends Component {
 		
 		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings } = this.state;
 		
+		const activityBar = allTokens[`application.activityBar.inactiveForeground`] && allTokens[`application.activityBar.inactiveForeground`].value;
 		const tokenNames = Object.keys(allTokens);
 		const cssProperties = tokenNames.reduce((obj, name) => {
-			const value = allTokens[name].computedValue;
-			if (value) {
-				obj[`--${name.replace('.value','').replace(/\./g,'-')}`] = allTokens[name].computedValue;
-			}
+			const token = allTokens[name];
+			if (!token) { return obj }
+			
+			obj[`--${name.replace(/\./g,'-')}`] = tokenToCSS(token);
+			
 			return obj;
 		}, {});
 		
@@ -299,7 +304,7 @@ class App extends Component {
 		
 		return (
 			<Router>
-				<div className={`app ${currentTheme}`} style={cssProperties}>
+				<div id="app" className={`app ${currentTheme}`} style={cssProperties}>
 					
 					<ScrollToTop />
 					<Switch>
@@ -310,6 +315,7 @@ class App extends Component {
 								setAllTokens={this.setAllTokens}
 								importTheme={this.importTheme}
 								setState={this.setState.bind(this)}
+								changeTheme={this.changeTheme}
 								clearState={this.clearState}
 								resetState={this.resetState} />
 						</Route>
@@ -380,16 +386,14 @@ class App extends Component {
 												onChange={(e) => this.changeTheme({value: e.target.value})} />
 										</div>
 
-										<div tabIndex="-1" className="vscode">
-											<Workbench theme={currentTheme}>
-												<VSCodeEditor
-													windowWidth={windowWidth}
-													mainWidth={mainWidth}
-													currentTheme={currentTheme}
-													syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
-													applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
-											</Workbench>
-										</div>
+										<Workbench theme={currentTheme} activityBarInactive={activityBar}>
+											<VSCodeEditor
+												windowWidth={windowWidth}
+												mainWidth={mainWidth}
+												currentTheme={currentTheme}
+												syntaxTokens={createResolvedTokenObject(allTokens, `syntax`)}
+												applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
+										</Workbench>
 									</div>
 								)}
 							</Panels>

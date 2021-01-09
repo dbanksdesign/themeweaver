@@ -249,6 +249,7 @@ class BasePage extends React.Component {
 								<ColorRadioItem
 									checked={this.props.tokens['base.primary.10'].value.includes(color)}
 									name="primary"
+									key={color}
 									value={color}
 									color={color}
 									onChange={(e) => this.changeColor('primary', e.target.value)} />
@@ -261,6 +262,7 @@ class BasePage extends React.Component {
 								<ColorRadioItem
 									checked={this.props.tokens['base.secondary.10'].value.includes(color)}
 									name="secondary"
+									key={color}
 									value={color}
 									color={color}
 									onChange={(e) => this.changeColor('secondary', e.target.value)} />
@@ -273,6 +275,7 @@ class BasePage extends React.Component {
 								<ColorRadioItem
 									checked={this.props.tokens['base.tertiary.10'].value.includes(color)}
 									name="tertiary"
+									key={color}
 									value={color}
 									color={color}
 									onChange={(e) => this.changeColor('tertiary', e.target.value)} />

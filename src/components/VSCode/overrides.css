@@ -2,6 +2,7 @@
 	height: 100%;
 	background-color: var(--application-sideBar-background);
 	color: var(--application-sideBar-foreground);
+	border-right: 1px solid var(--application-sideBar-border);
 }
 
 .activitybar {
@@ -14,6 +15,10 @@
 .monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked .active-item-indicator:before {
 	/* if activityBar.activeBorder isn't set, vscode uses activityBar.foreground */
 	border-left-color: var(--application-activityBar-activeBorder, var(--application-activityBar-foreground));
+}
+
+.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item.checked:focus .active-item-indicator::before {
+	visibility: visible;
 }
 
 .monaco-action-bar .action-item.checked {
@@ -747,4 +752,30 @@
 	background-color: var(--application-statusBar-border);
 	width: 100%;
 	height: 1px;
+}
+
+.tab-border-top-container,
+.tab-border-bottom-container {
+	display: block;
+	position: absolute;
+	left: 0;
+	z-index: 6;
+	pointer-events: none;
+	width: 100%;
+	height: 1px;
+	background-color: var(--application-tab-activeBorder);
+}
+
+.tab-border-top-container {
+	top: 0;
+	background-color: var(--application-tab-activeBorderTop);
+}
+
+.tab-border-bottom-container {
+	bottom: 0;
+}
+
+.monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active>.tab-border-bottom-container,
+.monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active>.tab-border-top-container {
+	display: block;
 }

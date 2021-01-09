@@ -19,7 +19,7 @@ const updateToken = ({ path, value, secondaryKey, tokens, hsl }) => {
 	if (!computedValue) {
 		console.log(`tried to update ${path} but it did not resolve to anything`);
 		undefinedToken = true;
-		computedValue = newToken.computedValue;
+		// computedValue = newToken.computedValue;
 	}
 	
 	newToken = Object.assign({}, newToken, {
