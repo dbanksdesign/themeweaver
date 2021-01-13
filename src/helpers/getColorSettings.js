@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 
-const colors = ['red','orange','yellow','lime','green','teal','blue','purple','pink','grey'];
+const colors = ['neutral','red','orange','yellow','lime','green','teal','blue','purple','pink'];
 
 const getColorSettings = (allTokens) => {
 	const colorSettings = {};

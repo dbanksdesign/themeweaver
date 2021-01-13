@@ -4,43 +4,12 @@ import stripJsonComments from 'strip-json-comments';
 
 import {dark, light} from '../../tokens/theme';
 import {allTokens} from '../../tokens/index';
-// import {allTokens as nightOwlTokens} from '../../tokens/night-owl';
-import createRandomStarter from '../../helpers/createRandomStarter';
+import {starters, createRandomStarter} from '../../helpers/createStarter';
 import createAllTokens from '../../helpers/createAllTokens';
 import FileInput from '../FileInput';
 import Alert from '../Alert';
 import vscodeToTheme from '../../helpers/vscodeToTheme';
-
-// This doesn't handle nested scopes (scopes with spaces) like:
-// source.elixir support.type.elixir
-const massageSyntax = (tokenColors) => {
-	const syntaxObject = {};
-	const ignoredScopes = {};
-	tokenColors.forEach(({scope, settings}) => {
-		if (typeof scope === 'string') {
-			syntaxObject[`syntax.${scope}`] = settings;
-		} else {
-			if (scope && scope.length) {
-				scope.forEach(scope => {
-					if (scope.indexOf(' ') < 0) {
-						syntaxObject[`syntax.${scope}`] = settings;
-					} else {
-						ignoredScopes[scope] = settings;
-					}
-				});
-			}
-		}
-	});
-	return syntaxObject;
-}
-
-const massageApplication = (colors) => {
-	const tokenObject = {};
-	Object.keys(colors).forEach(key => {
-		tokenObject[`application.${key}`] = colors[key];
-	});
-	return tokenObject;
-}
+import getColorSettings from '../../helpers/getColorSettings';
 
 const Errors = ({error}) => {
 	if (error) {
@@ -80,45 +49,6 @@ const ThemeData = ({ name, tokenColors, colors, allTokens, type }) => {
 	}
 }
 
-const randomThemeSettings = {
-	bordered: {
-		'application.sideBar.border': '{theme.border.primary}',
-		'application.activityBar.border': '{theme.border.primary}',
-		'application.panel.border': '{theme.border.primary}',
-		'application.statusBar.border': '{theme.border.primary}'
-	},
-	singleBackground: {
-		'application.sideBar.background': '{theme.background.primary}',
-		'application.activityBar.background': '{theme.background.primary}',
-		'application.panel.background': '{theme.background.primary}',
-		'application.statusBar.background': '{theme.background.primary}',
-	},
-	highlightedTab: {
-		'application.tab.activeBackground': '{theme.background.interactive.base}'
-	},
-	borderedTab: {
-		'application.tab.activeBorderTop': '{theme.border.active}'
-	},
-	coloredStatusBar: {
-		'application.statusBar.background': '{theme.background.selection.secondary.active}',
-		'application.statusBar.foreground': '{theme.font.primary}',
-		'application.statusBar.border': '{theme.border.info}',
-	}
-}
-
-const getRandom = (arr, n) => {
-	var result = new Array(n),
-			len = arr.length,
-			taken = new Array(len);
-	if (n > len)
-			throw new RangeError("getRandom: more elements taken than available");
-	while (n--) {
-			var x = Math.floor(Math.random() * len);
-			result[n] = arr[x in taken ? taken[x] : x];
-			taken[x] = --len in taken ? taken[len] : len;
-	}
-	return result;
-}
 
 export default class Importer extends React.Component {
 	state = {
@@ -171,13 +101,12 @@ export default class Importer extends React.Component {
 				}
 			}
 			const newTheme = vscodeToTheme(data);
-			console.log(newTheme);
+			const allTokens = createAllTokens(newTheme);
 			
-			this.props.importTheme({
-				syntax: massageSyntax(data.tokenColors),
-				application: massageApplication(data.colors),
-				base: newTheme,
-				type
+			this.props.setState({
+				allTokens,
+				colorSettings: getColorSettings(allTokens),
+				currentTheme: type
 			});
 			this.setState({
 				themeData: data,
@@ -190,9 +119,15 @@ export default class Importer extends React.Component {
 	}
 	
 	loadTheme = (themeName) => {
-		// this.props.setState({
-		// 	allTokens: createAllTokens(nightOwlTokens)
-		// });
+		const newTokens = starters[themeName];
+		const theme = this.props.currentTheme === 'dark' ? dark : light;
+		if (newTokens) {
+			this.props.setAllTokens({
+				...allTokens,
+				...theme,
+				...newTokens
+			});
+		}
 	}
 	
 	handleChange = (e) => {
@@ -206,23 +141,12 @@ export default class Importer extends React.Component {
 	
 	createRandom = () => {
 		const theme = this.props.currentTheme === 'dark' ? dark : light;
-		const configurations = Object.keys(randomThemeSettings);
-		const configsLength = Math.round(Math.random() * configurations.length);
-		const selectedConfigs = getRandom(configurations, configsLength);
-		const themeSettings = selectedConfigs.reduce((acc, key) => {
-			return {
-				...acc,
-				...randomThemeSettings[key]
-			}
-		}, {});
-		console.log(themeSettings);
-		const newTokens = Object.assign({},
-			allTokens,
-			{...theme},
-			createRandomStarter(),
-			{...themeSettings},
-		);
-		this.props.setAllTokens(newTokens);
+		console.log(theme);
+		this.props.setAllTokens({
+			...allTokens,
+			...theme,
+			...createRandomStarter()
+		});
 	}
 	
 	onUpload = (content) => {
@@ -259,10 +183,9 @@ export default class Importer extends React.Component {
 					<h2>Pick a starter</h2>
 					
 					<button className="button block" onClick={resetState}>Nu Disco (default)</button>
-					{/* <button className="button block" onClick={() => this.loadTheme('night-owl')}>Night Owl by Sarah Drasner</button> */}
+					<button className="button block" onClick={() => this.loadTheme('oneDark')}>Neutral Conclusion</button>
+					<button className="button block" onClick={() => this.loadTheme('azure')}>Azure Dreams</button>
 					<button className="button block" onClick={this.createRandom}>Randomize!</button>
-					{/* Note: clearing all colors won't work right now because chroma-js doesn't handle empty strings... */}
-					{/* <button className="button block" onClick={clearState}>Start fresh (no colors defined)</button> */}
 					
 					<h2>Import an existing theme</h2>
 					<p>You can import a previously made Themeweaver theme by importing the <code>themweaver.config.json</code> file. You can also import a VSCode theme file.</p>

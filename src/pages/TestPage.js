@@ -1,9 +1,5 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import nearestColor from 'nearest-color';
-import defaultTokens from '../tokens/index';
-import {dark, light} from '../tokens/theme';
-import createAllTokens from '../helpers/createAllTokens';
 import nightOwlTokens from '../tokens/night-owl/nightowl.json';
 import nightOwlSyntax from '../tokens/night-owl/syntax';
 import lightOwlTokens from '../tokens/night-owl/lightowl.json';
@@ -126,18 +122,6 @@ Object.keys(newColors).forEach(colorGroup => {
 		const colorName = colorGroup === 'grey' ? greyShades[i] : shades[i];
 		newBase[`base.${colorGroup}.${colorName}`] = colorValue;
 	})
-});
-
-console.log(newBase);
-
-// need to find out primary,secondary,tertiary colors...
-
-const newTheme = createAllTokens({
-	...defaultTokens.base,
-	...defaultTokens.application,
-	...defaultTokens.syntax,
-	...newBase,
-	...dark
 });
 
 // now would need to iterate over each color in the original theme

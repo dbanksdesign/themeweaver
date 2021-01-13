@@ -82,7 +82,7 @@ const TokenTab = (props) => {
 		const alpha = computedValue ? chroma(computedValue).alpha() : 1;
 		
 		// kinda jank logic, need to clean up
-		if (value.indexOf('{') > -1) {
+		if (value && value.indexOf('{') > -1) {
 			value.replace(regex, function(match, variable) {
 				_value.value = variable;
 				_value.label = variable;

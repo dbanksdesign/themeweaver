@@ -301,6 +301,21 @@ class SyntaxPage extends React.Component {
 	render() {
 		const { updateToken, tokens, tokenNames, updateFontStyle } = this.props;
 		
+		const _sections = sections.map(({title, description}) => {
+			return {
+				title,
+				description,
+				tokens: Object.keys(tokens)
+					.filter(key => key.startsWith(`syntax.${title.toLowerCase()}`))
+					.map(key => ({
+						path: key
+					}))
+			}
+		});
+		console.log(_sections.reduce((acc, curr) => {
+			return acc + curr.tokens.length;
+		}, 0));
+		
 		return (
 			<>
 				<Helmet>
@@ -331,7 +346,7 @@ class SyntaxPage extends React.Component {
 					<Alert>
 						To inspect scopes, click inside the editor and press F1, then search for "Developer: Inspect Tokens"
 					</Alert>
-				{sections.map(section => (
+				{_sections.map(section => (
 					<TokenGroup {...section}
 						key={section.title}
 						id={section.title.replace(' ','-')}>

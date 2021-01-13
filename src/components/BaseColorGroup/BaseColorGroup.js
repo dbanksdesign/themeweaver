@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const BaseColorGroup = ({ h, s, l, name, handleHue, handleSaturation, handleLightness, HSL, title, children }) => {
+const BaseColorGroup = ({ h, s, l, name, handleHue, handleSaturation, handleLightness, title, children }) => {
 	const [isVisible, setVisible] = useState(false);
 	return (
 		<>

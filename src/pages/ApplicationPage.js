@@ -956,7 +956,7 @@ class ApplicationPage extends React.Component {
 		const filteredSections = [];
 		sections.forEach(section => {
 			const tokens = section.tokens
-				.filter(token => token.path.indexOf(e.target.value) >= 0);
+				.filter(token => token.path.toLowerCase().indexOf(e.target.value) >= 0);
 			if (tokens.length) {
 				filteredSections.push(Object.assign({}, section, { tokens }))
 			}

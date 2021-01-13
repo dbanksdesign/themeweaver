@@ -1,8 +1,5 @@
 import chroma from 'chroma-js';
-import nearestColor from 'nearest-color';
-import defaultBaseTokens from '../tokens/base';
-import {dark, light} from '../tokens/theme';
-import createAllTokens from '../helpers/createAllTokens';
+import {dark} from '../tokens/theme';
 
 const sortByLuminance = (a,b) => {
 	const AL = chroma(a).luminance();
@@ -17,9 +14,38 @@ const sortByLuminance = (a,b) => {
 	}
 }
 
+// This doesn't handle nested scopes (scopes with spaces) like:
+// source.elixir support.type.elixir
+// TODO: handle nested scopes
+const massageSyntax = (tokenColors) => {
+	const syntaxObject = {};
+	const ignoredScopes = {};
+	tokenColors.forEach(({scope, settings}) => {
+		if (typeof scope === 'string') {
+			syntaxObject[`syntax.${scope}`] = settings;
+		} else {
+			if (scope && scope.length) {
+				scope.forEach(scope => {
+					if (scope.indexOf(' ') < 0) {
+						syntaxObject[`syntax.${scope}`] = settings;
+					} else {
+						ignoredScopes[scope] = settings;
+					}
+				});
+			}
+		}
+	});
+	return syntaxObject;
+}
+
 const vscodeToTheme = (vscodeTheme) => {
 	const applicationTokens = Object.values(vscodeTheme.colors);
-	
+	const syntaxTokens = vscodeTheme.tokenColors
+		.filter(token => token.settings.foreground && token.settings.foreground.length)
+		.map(token => {
+			return token.settings.foreground;
+		});
+
 	const oldColors = {
 		neutral: [],
 		red: [],
@@ -33,17 +59,9 @@ const vscodeToTheme = (vscodeTheme) => {
 		pink: [],
 	}
 	
-	applicationTokens
+	applicationTokens.concat(syntaxTokens)
 		.filter((value, index, array) => value && value.length && array.indexOf(value) === index)
 		.forEach(value => {
-			if (value.length > 7) {
-				value = value.substring(0,7);
-			}
-			if (value.length === 5) {
-				console.log(value);
-				value = value.substring(0,4);
-			}
-	
 			const [h,s,l] = chroma(value).hsl();
 			if (s < 0.25 || l < 0.15 || l > 0.95) {
 				oldColors.neutral.push(value)
@@ -70,67 +88,72 @@ const vscodeToTheme = (vscodeTheme) => {
 			}
 		});
 	
-	const colors = ['red','orange','yellow','lime','green','teal','blue','purple','pink'];
+	const colors = ['neutral','red','orange','yellow','lime','green','teal','blue','purple','pink'];
 	const newColors = {};
 	
 	colors.forEach(colorName => {
-		let scale;
-		if (oldColors[colorName].length < 1) {
-			scale = chroma.scale(
-				Object.keys(defaultBaseTokens)
-					.filter(key => key.includes(colorName))
-					.map(key => defaultBaseTokens[key])
-					.sort(sortByLuminance)
-			);
-		} else {
-			scale = chroma.scale(oldColors[colorName].sort(sortByLuminance));
-		}
-		newColors[colorName] = [scale(0), scale(0.1), scale(0.9), scale(1)].map(c => c.hex());
+		newColors[colorName] = oldColors[colorName].sort(sortByLuminance);
 	});
 	
-	const neutralScale = chroma.scale(oldColors['neutral'].sort(sortByLuminance))
-	newColors['grey'] = [
-		neutralScale(0),
-		neutralScale(0.05),
-		neutralScale(0.1),
-		neutralScale(0.2),
-		neutralScale(0.4),
-		neutralScale(0.6),
-		neutralScale(0.8),
-		neutralScale(0.9),
-		neutralScale(1),
-	].map(c => c.hex());
-	
 	const newBase = {};
-	const shades = ['100','90','20','10'];
-	const greyShades = ['100','90','80','60','40','20','10','5','0'];
 	
 	Object.keys(newColors).forEach(colorGroup => {
 		newColors[colorGroup].forEach((colorValue,i) => {
-			const colorName = colorGroup === 'grey' ? greyShades[i] : shades[i];
-			newBase[`base.${colorGroup}.${colorName}`] = colorValue;
+			newBase[`base.${colorGroup}.${i}`] = colorValue;
 		})
 	});
 	
-	return {
-		...defaultBaseTokens,
-		...dark,
-		...newBase,
-	};
-	// need to find out primary,secondary,tertiary colors...
+	const baseReverseLookup = Object.keys(newBase).reduce((acc, curr) => {
+		acc[newBase[curr]] = curr;
+		return acc;
+	}, {});
 
-	// const newTheme = createAllTokens({
-	// 	...defaultTokens.base,
-	// 	...defaultTokens.application,
-	// 	...defaultTokens.syntax,
-	// 	...newBase,
-	// 	...dark
-	// });
-
-	// now would need to iterate over each color in the original theme
-	// and find the nearest to the computed theme values...
+	const newAppTokens = {}
+	Object.keys(vscodeTheme.colors).forEach(key => {
+		const color = vscodeTheme.colors[key];
+		const name = baseReverseLookup[color];
+		if (!color) {
+			newAppTokens[`application.${key}`] = null;
+		} else {
+			newAppTokens[`application.${key}`] = `{${name}}`;
+		}
+	});
 	
-	// return newTheme;
+	const oldSyntaxTokens = massageSyntax(vscodeTheme.tokenColors);
+	const newSyntaxTokens = {}
+	Object.keys(oldSyntaxTokens).forEach(key => {
+		const token = Object.assign({}, oldSyntaxTokens[key]);
+		let {foreground, background} = token;
+		if (foreground) {
+			const name = baseReverseLookup[foreground];
+			if (name) {
+				token.foreground = `{${name}}`;
+			}
+		}
+		newSyntaxTokens[key] = token;
+	});
+	
+	// Create a set of empty theme tokens
+	const theme = Object.keys(dark).reduce((acc, curr) => {
+		acc[curr] = "";
+		return acc;
+	}, {});
+	
+	return {
+		...theme,
+		...newBase,
+		...newAppTokens,
+		...newSyntaxTokens
+	};
 }
+
+// how do we match up theme tokens to newly created base tokens?
+// if we take the default application tokens as the base, we could
+// find which theme token each default app token references
+// and have the theme token reference the base token of the exact hex
+// in the imported theme. This won't work because if 2 app tokens share the same
+// theme reference, but the imported theme uses different colors for them
+// one will override the other. Creating 'theme' tokens if you are importing a single theme
+// doesn't really matter as much?
 
 export default vscodeToTheme;

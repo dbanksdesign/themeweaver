@@ -1,201 +1,12 @@
 import React from 'react';
-import chroma from 'chroma-js';
 import { Helmet } from 'react-helmet';
 
 import BaseColorGroup from '../components/BaseColorGroup';
 import {BaseToken} from '../components/Token';
 import { ColorRadioItem } from '../components/RadioGrid';
 
-const sections = [{
-	title: `Grey`,
-	name: 'grey',
-	description: `Greys are used in the base backgrounds and font colors throughout the application and syntax styling.`,
-	tokens: [{
-		path: `base.grey.100`,
-		description: ``
-	},{
-		path: `base.grey.90`,
-		description: ``
-	},{
-		path: `base.grey.80`,
-		description: ``
-	},{
-		path: `base.grey.60`,
-		description: ``
-	},{
-		path: `base.grey.40`,
-		description: ``
-	},{
-		path: `base.grey.20`,
-		description: ``
-	},{
-		path: `base.grey.10`,
-		description: ``
-	},{
-		path: `base.grey.5`,
-		description: ``
-	},{
-		path: `base.grey.0`,
-		description: ``
-	}]
-},{
-	title: `Red`,
-	name: 'red',
-	description: ``,
-	tokens: [{
-		path: `base.red.100`,
-		description: ``
-	},{
-		path: `base.red.90`,
-		description: ``
-	},{
-		path: `base.red.20`,
-		description: ``
-	},{
-		path: `base.red.10`,
-		description: ``
-	}]
-},{
-	title: `Orange`,
-	name: 'orange',
-	description: ``,
-	tokens: [{
-		path: `base.orange.100`,
-		description: ``
-	},{
-		path: `base.orange.90`,
-		description: ``
-	},{
-		path: `base.orange.20`,
-		description: ``
-	},{
-		path: `base.orange.10`,
-		description: ``
-	}]
-},{
-	title: `Yellow`,
-	name: 'yellow',
-	description: ``,
-	tokens: [{
-		path: `base.yellow.100`,
-		description: ``
-	},{
-		path: `base.yellow.90`,
-		description: ``
-	},{
-		path: `base.yellow.20`,
-		description: ``
-	},{
-		path: `base.yellow.10`,
-		description: ``
-	}]
-},{
-	title: `Lime`,
-	name: 'lime',
-	description: ``,
-	tokens: [{
-		path: `base.lime.100`,
-		description: ``
-	},{
-		path: `base.lime.90`,
-		description: ``
-	},{
-		path: `base.lime.20`,
-		description: ``
-	},{
-		path: `base.lime.10`,
-		description: ``
-	}]
-},{
-	title: `Green`,
-	name: 'green',
-	description: ``,
-	tokens: [{
-		path: `base.green.100`,
-		description: ``
-	},{
-		path: `base.green.90`,
-		description: ``
-	},{
-		path: `base.green.20`,
-		description: ``
-	},{
-		path: `base.green.10`,
-		description: ``
-	}]
-},{
-	title: `Teal`,
-	name: 'teal',
-	description: ``,
-	tokens: [{
-		path: `base.teal.100`,
-		description: ``
-	},{
-		path: `base.teal.90`,
-		description: ``
-	},{
-		path: `base.teal.20`,
-		description: ``
-	},{
-		path: `base.teal.10`,
-		description: ``
-	}]
-},{
-	title: `Blue`,
-	name: 'blue',
-	description: ``,
-	tokens: [{
-		path: `base.blue.100`,
-		description: ``
-	},{
-		path: `base.blue.90`,
-		description: ``
-	},{
-		path: `base.blue.20`,
-		description: ``
-	},{
-		path: `base.blue.10`,
-		description: ``
-	}]
-},{
-	title: `Purple`,
-	name: 'purple',
-	description: ``,
-	tokens: [{
-		path: `base.purple.100`,
-		description: ``
-	},{
-		path: `base.purple.90`,
-		description: ``
-	},{
-		path: `base.purple.20`,
-		description: ``
-	},{
-		path: `base.purple.10`,
-		description: ``
-	}]
-},{
-	title: `Pink`,
-	name: 'pink',
-	description: ``,
-	tokens: [{
-		path: `base.pink.100`,
-		description: ``
-	},{
-		path: `base.pink.90`,
-		description: ``
-	},{
-		path: `base.pink.20`,
-		description: ``
-	},{
-		path: `base.pink.10`,
-		description: ``
-	}]
-}];
-
-const colors = ['red','orange','yellow','lime','green','teal','blue','purple','pink'];
+const colors = ['neutral','red','orange','yellow','lime','green','teal','blue','purple','pink'];
 class BasePage extends React.Component {
-	
 	changeColor = (level, value) => {
 		this.setState({
 			[level]: value
@@ -227,9 +38,19 @@ class BasePage extends React.Component {
 	
 	render() {
 		const { updateToken, tokens, colorSettings } = this.props;
-		
-		if (tokens['base.grey.100']) {
-			return (
+		const sections = colors.map(color => {
+			return {
+				title: color.toLocaleUpperCase(),
+				name: color,
+				tokens: Object.keys(tokens)
+					.filter(key => key.startsWith(`base.${color}`))
+					.map(key => ({
+						path: key
+					}))
+			}
+		}).filter(section => section.tokens.length);
+
+		return (
 				<>
 				<Helmet>
 					<title>Base Tokens | Themeweaver</title>
@@ -239,7 +60,7 @@ class BasePage extends React.Component {
 				<div className="page-content-inner flow">
 					<p>Base tokens are what all other tokens reference. Think of this as your starting color palette. Pick primary, secondary, and tertiary brand colors (don't worry you can adjust the specific colors later). </p>
 					
-					<section id="brand" className="token-group flow">
+					{tokens['base.primary.100'] ? <section id="brand" className="token-group flow">
 						<h3>Brand Colors</h3>
 						<p>These colors will be used in the application/UI/workbench styles. They are used in things like the activity bar and badges in VSCode. Don't worry, you can edit the actual colors below.</p>
 						
@@ -281,7 +102,7 @@ class BasePage extends React.Component {
 									onChange={(e) => this.changeColor('tertiary', e.target.value)} />
 							))}
 						</div>
-					</section>
+					</section>: null}
 					
 					<hr />
 					
@@ -296,7 +117,6 @@ class BasePage extends React.Component {
 								s={colorSettings[section.name].saturation}
 								l={colorSettings[section.name].lightness}
 								name={section.name}
-								HSL={chroma(tokens[`base.${section.name}.90`].value).hsl()}
 								handleHue={this.handleHue}
 								handleSaturation={this.handleSaturation}
 								handleLightness={this.handleLightness}>
@@ -322,20 +142,6 @@ class BasePage extends React.Component {
 				</div>
 			</>
 			)
-		} else {
-			return (
-				<>
-					<Helmet>
-						<title>Base Tokens | Themeweaver</title>
-					</Helmet>
-					<div className="page-content" id="page-content">
-						<div className="page-content-inner flow">
-							<p>Imported themes don't have base colors...</p>
-						</div>
-					</div>
-				</>
-			)
-		}
 	}
 }
 

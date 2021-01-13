@@ -14,6 +14,7 @@ import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
 import ExportPage from './pages/ExportPage';
+// import TestPage from './pages/TestPage';
 
 import Header, {SecondaryHeader} from './components/Header';
 import Workbench from './components/VSCode/Workbench';
@@ -24,7 +25,6 @@ import Modal from './components/Modal';
 
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import RadioGrid from './components/RadioGrid';
-import TestPage from './pages/TestPage';
 import getColorSettings from './helpers/getColorSettings';
 import chroma from 'chroma-js';
 import tokenToCSS from './helpers/tokenToCSS';
@@ -319,7 +319,7 @@ class App extends Component {
 								clearState={this.clearState}
 								resetState={this.resetState} />
 						</Route>
-						<Route path="/test" component={TestPage} />
+						{/* <Route path="/test" component={TestPage} /> */}
 						<Route path="/editor">
 							<Header showExport={() => this.setState({exportModal: true})}
 								themeName={themeName}

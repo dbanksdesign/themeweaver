@@ -110,7 +110,7 @@
 	}
 }
 
-$colors: red, orange, yellow, lime, green, teal, blue, purple, pink;
+$colors: neutral, red, orange, yellow, lime, green, teal, blue, purple, pink;
 
 @each $color in $colors {
 	.tw-radio.#{$color} { .tw-radio-label::before { background-color: var(--base-#{$color}-90); } }
