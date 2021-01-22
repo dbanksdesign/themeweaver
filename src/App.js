@@ -44,6 +44,7 @@ const defaultState = {
 	}),
 	browserTheme: 'light',
 	currentTheme: 'dark',
+	multiTheme: true,
 	themeName: themeNameGenerator(),
 	exportModal: false,
 	importModal: false,
@@ -106,7 +107,6 @@ class App extends Component {
 	}
 	
 	updateToken = ({ path, value, secondaryKey }) => {
-		console.log(value);
 		// if it is a theme token, update the current theme object
 		const {currentTheme} = this.state;
 		const newTheme = Object.assign({}, this.state.theme[currentTheme]);
@@ -286,8 +286,9 @@ class App extends Component {
 		// save state to localstorage
 		lsSet('state', this.state);
 		
-		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings } = this.state;
+		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings, multiTheme } = this.state;
 		
+		// 
 		const activityBar = allTokens[`application.activityBar.inactiveForeground`] && allTokens[`application.activityBar.inactiveForeground`].value;
 		const tokenNames = Object.keys(allTokens);
 		const cssProperties = tokenNames.reduce((obj, name) => {
@@ -312,6 +313,7 @@ class App extends Component {
 							<HomePage
 								currentTheme={currentTheme}
 								allTokens={allTokens}
+								multiTheme={multiTheme}
 								setAllTokens={this.setAllTokens}
 								importTheme={this.importTheme}
 								setState={this.setState.bind(this)}
@@ -378,12 +380,12 @@ class App extends Component {
 									<div className="preview-pane">
 										<div className="preview-pane-controls columns">
 											<div>Preview:</div>
-											<RadioGrid items={[{
+											{multiTheme ? <RadioGrid items={[{
 													value: 'dark', checked: currentTheme === 'dark'
 												},{
 													value: 'light', checked: currentTheme === 'light'
 												}]}
-												onChange={(e) => this.changeTheme({value: e.target.value})} />
+												onChange={(e) => this.changeTheme({value: e.target.value})} />: null}
 										</div>
 
 										<Workbench theme={currentTheme} activityBarInactive={activityBar}>

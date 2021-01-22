@@ -5,7 +5,7 @@
 }
 
 .tw-radio-grid-item {
-	padding-right: var(--tw-size-padding-small);
+	padding-right: var(--tw-size-padding-base);
 	padding-bottom: var(--tw-size-padding-small);
 	// flex-basis: 20%;
 	margin: 0;
@@ -22,7 +22,7 @@
 .tw-radio-label {
 	position: relative;
 	display: inline-block;
-	padding-left: 2rem;
+	padding-left: 1.5rem;
 	margin: 0;
 	
 	&::before,
@@ -71,6 +71,14 @@
 	.tw-radio-input:focus + &::before,
 	.tw-radio-input:hover + &::before {
 		border-color: var(--tw-color-border-focus);
+	}
+	
+	.tw-radio-input:disabled + & {
+		color: var(--tw-color-font-tertiary);
+	}
+	
+	.tw-radio-input:disabled + &::before {
+		opacity: 0.5;
 	}
 }
 

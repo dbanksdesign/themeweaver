@@ -12,7 +12,7 @@ import RadioGrid from '../components/RadioGrid';
 
 import './Home.scss';
 
-const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState, resetState, importTheme, changeTheme }) => {
+const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState, resetState, importTheme, changeTheme, multiTheme }) => {
 	return (
 		<>
 		
@@ -46,12 +46,13 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 					<Link className="button block primary large" to="/editor/base">Get started</Link>
 				</div>
 				<div className="home-split-panel" style={{height: '100vh'}}>
-					<RadioGrid items={[{
+					{multiTheme ? <RadioGrid items={[{
 							value: 'dark', checked: currentTheme === 'dark'
 						},{
 							value: 'light', checked: currentTheme === 'light'
 						}]}
-						onChange={(e) => changeTheme({value: e.target.value})} />
+						onChange={(e) => changeTheme({value: e.target.value})} />: null}
+
 					<div tabIndex="-1" className="preview-pane vscode">
 						<Workbench>
 							<VSCodeEditor

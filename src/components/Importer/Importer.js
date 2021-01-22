@@ -106,6 +106,7 @@ export default class Importer extends React.Component {
 			this.props.setState({
 				allTokens,
 				colorSettings: getColorSettings(allTokens),
+				multiTheme: false,
 				currentTheme: type
 			});
 			this.setState({
@@ -141,7 +142,6 @@ export default class Importer extends React.Component {
 	
 	createRandom = () => {
 		const theme = this.props.currentTheme === 'dark' ? dark : light;
-		console.log(theme);
 		this.props.setAllTokens({
 			...allTokens,
 			...theme,

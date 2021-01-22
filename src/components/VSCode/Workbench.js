@@ -32,20 +32,28 @@ import './overrides.css';
 class Workbench extends React.Component {
 	state = {
 		activeTab: 0,
+		showSidebar: true,
 		debug: false,
 	}
 	
 	changeTab = (index) => {
 		const debug = index === 4 ? true : false;
+		let {showSidebar, activeTab} = this.state;
+		if (index === activeTab && showSidebar) {
+			showSidebar = false;
+		} else {
+			showSidebar = true;
+		}
 		this.setState({
 			activeTab: index,
+			showSidebar,
 			debug
 		});
 	}
 	
 	render() {
 		const { children, theme, activityBarInactive } = this.props;
-		const { activeTab, debug } = this.state;
+		const { activeTab, debug, showSidebar } = this.state;
 		return (
 			<>
 			<div tabIndex="-1" className="vscode" id="vscode">
@@ -65,11 +73,12 @@ class Workbench extends React.Component {
 													<ActivityBar activityBarInactive={activityBarInactive} activeTab={activeTab} onClick={this.changeTab} />
 												</div>
 												{/* Explorer */}
-												<div className="split-view-view visible" style={{
-													width: '250px'
-												}}>
-													<SideBar activeTab={activeTab} />
-												</div>
+												{showSidebar ? <div className="split-view-view visible" style={{
+														width: '250px'
+													}}>
+														<SideBar activeTab={activeTab} />
+													</div> : null}
+												
 												{/* Editor */}
 												<div className="split-view-view visible" style={{flex:'1', overflow:'hidden'}}>
 													<div className="monaco-split-view2 vertical">

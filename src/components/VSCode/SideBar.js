@@ -626,7 +626,7 @@ const SearchSidebar = (
 
 const ExplorerSidebar = (
 	<>
-				<div className="composite title">
+		<div className="composite title">
 			<div className="title-label">
 				<h2 title="Explorer (⇧⌘E)">
 					Explorer
