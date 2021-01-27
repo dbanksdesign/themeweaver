@@ -5,9 +5,8 @@
 }
 
 .tw-radio-grid-item {
-	padding-right: var(--tw-size-padding-base);
+	padding-right: var(--tw-size-padding-small);
 	padding-bottom: var(--tw-size-padding-small);
-	// flex-basis: 20%;
 	margin: 0;
 }
 
@@ -118,7 +117,7 @@
 	}
 }
 
-$colors: neutral, red, orange, yellow, lime, green, teal, blue, purple, pink;
+$colors: "neutral", "red", "orange", "yellow", "lime", "green", "teal", "blue", "purple", "pink";
 
 @each $color in $colors {
 	.tw-radio.#{$color} { .tw-radio-label::before { background-color: var(--base-#{$color}-90); } }
