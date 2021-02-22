@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/theme",
+            "lambdaFunction": "themeweaverThemeApi",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/theme"
+        }
+    ],
+    "resourceName": "theme",
+    "apiName": "theme",
+    "functionArns": [
+        {
+            "lambdaFunction": "themeweaverThemeApi"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-themeweaver-dev-202151-authRole",
+        "unAuthRoleName": "amplify-themeweaver-dev-202151-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "themeweaverThemeApi",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
