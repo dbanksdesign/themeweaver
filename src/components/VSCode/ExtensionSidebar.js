@@ -172,7 +172,7 @@ const ExtensionSidebar = (
 																<div className="monaco-action-bar">
 																	<ul className="actions-container" role="toolbar">
 																		<li class="action-item" role="presentation">
-																			<span class="action-label codicon extension-action label reload" role="button" title="Please reload Visual Studio Code to enable the updated extension.">Reload Required</span>
+																			<span class="action-label extension-action label reload" role="button" title="Please reload Visual Studio Code to enable the updated extension.">Reload Required</span>
 																		</li>
 																		<li className="action-item" role="presentation">
 																			<span className="action-label codicon extension-action icon manage codicon-gear" role="button" title="Manage" />

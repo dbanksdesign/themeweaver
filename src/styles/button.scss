@@ -7,36 +7,40 @@ button,
 	text-align: center;
 	padding: var(--tw-size-padding-small) var(--tw-size-padding-base);
 	font-size: var(--tw-size-font-base);
-	color: var(--tw-color-font-link);
 	color: var(--tw-color-font-primary);
 	background-color: var(--tw-color-background-primary);
-	border: var(--tw-size-border-base) solid var(--tw-color-border-primary);
+	border: var(--tw-size-border-base) solid var(--tw-color-border-secondary);
 	font-weight: bold;
 	border-radius: var(--tw-size-border-radius);
 	
 	&:hover,
 	&:focus {
 		color: var(--tw-color-font-link-hover);
-		border-color: var(--tw-color-brand-primary-2);
-		box-shadow: 0 0 0 2px var(--tw-color-brand-primary-2);
+		border-color: var(--tw-color-border-focus);
+		box-shadow: 0 0 0 4px var(--tw-color-border-focus);
 	}
 	
 	&:active {
 		background-color: var(--tw-color-grey-10);
 	}
+	
+	& > .codicon[class] {
+		padding-right: var(--tw-size-padding-tiny);
+		font-weight: bold;
+		&:only-child {
+			padding-right: 0;
+		}
+	}
 }
 
 button.primary,
 .button.primary {
-	background-color: var(--tw-color-brand-primary-1);
-	background-image: linear-gradient(to bottom right, var(--tw-color-brand-primary-2) 0%, var(--tw-color-brand-primary-1) 100%);
-	border: none;
-	color: #fff;
-	text-shadow: var(--tw-text-shadow);
-	box-shadow: var(--tw-shadow-primary);
+	background-color: var(--tw-color-background-inverse);
+	border-color: var(--tw-color-background-inverse);
+	color: var(--tw-color-font-inverse);
 	
 	&:hover {
-		box-shadow: var(--tw-shadow-hover);
+		// box-shadow: var(--tw-shadow-hover);
 	}
 }
 
@@ -70,13 +74,6 @@ button.small,
 	padding: var(--tw-size-padding-tiny) var(--tw-size-padding-small);
 }
 
-
-button.primary:hover,
-.button.primary:hover {
-	background-color: var(--tw-color-brand-primary-2);
-	color: #fff;
-	border-color: var(--tw-color-brand-primary-2);
-}
 
 button.link-button,
 .link-button {

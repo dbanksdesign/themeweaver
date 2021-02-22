@@ -7,7 +7,9 @@
 	--tw-size-padding-large: 1.5rem;
 	--tw-size-padding-xl: 4.5rem;
 
-	--tw-size-border-base: 1px;
+	--tw-size-border-base: 2px;
+	--tw-size-border-large: 4px;
+	--tw-size-border-radius-small: 0;
 	--tw-size-border-radius: 0.25rem;
 	--tw-size-border-radius-large: 1rem;
 	--tw-size-border-radius-xl: 10rem;
@@ -118,17 +120,18 @@
 	);
 	
 	// Border colors
-	--tw-color-border-primary: var(--tw-color-grey-60);
-	--tw-color-border-secondary: var(--tw-color-grey-40);
-	--tw-color-border-tertiary: var(--tw-color-grey-20);
+	--tw-color-border-primary: var(--tw-color-grey-40);
+	--tw-color-border-secondary: var(--tw-color-grey-20);
+	--tw-color-border-tertiary: var(--tw-color-grey-10);
 	--tw-color-border-hover: var(--tw-color-border-primary);
-	--tw-color-border-focus: var(--tw-color-brand-primary-2);
-	--tw-color-border-active: var(--tw-color-brand-primary-2);
+	--tw-color-border-focus: var(--tw-color-brand-primary-1);
+	--tw-color-border-active: var(--tw-color-brand-primary-1);
 	
 	// Background colors
 	--tw-color-background-primary: #fff;
 	--tw-color-background-secondary: var(--tw-color-grey-5);
 	--tw-color-background-tertiary: var(--tw-color-grey-10);
+	--tw-color-background-inverse: var(--tw-color-grey-100);
 	
 	// Font colors
 	--tw-color-font-primary: var(--tw-color-grey-100);
@@ -136,8 +139,8 @@
 	--tw-color-font-tertiary: var(--tw-color-grey-80);
 	--tw-color-font-quaternary: var(--tw-color-grey-60);
 	--tw-color-font-link: var(--tw-color-brand-primary-1);
-	--tw-color-font-link-hover: var(--tw-color-brand-primary-2);
-	--tw-color-font-link-active: var(--tw-color-brand-primary-2);
+	--tw-color-font-link-hover: var(--tw-color-brand-grey-100);
+	--tw-color-font-link-active: var(--tw-color-brand-grey-100);
 }
 
 
@@ -176,9 +179,10 @@ body {
 	--tw-shadow-secondary: 0 0 0.25rem var(--tw-color-shadow-secondary);
 	--tw-shadow-secondary-inset: 0 0 0.25rem var(--tw-color-shadow-secondary) inset;
 	--tw-text-shadow: 0 1px var(--tw-color-shadow-secondary);
+	--tw-shadow-thumb: 0 0 0 var(--tw-size-border-large) var(--tw-color-background-primary);
 	
 	--tw-color-font-nav: var(--tw-color-font-tertiary);
 	--tw-color-font-nav-hover: var(--tw-color-font-primary);
-	--tw-color-font-nav-active: var(--tw-color-brand-primary-1);
+	--tw-color-font-nav-active: var(--tw-color-font-primary);
 	--tw-color-font-inverse: var(--tw-color-background-primary);
 }

@@ -1,0 +1,32 @@
+.starter-button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	// padding: var(--tw-size-padding-small);
+	padding: 0;
+}
+
+.starter-button-label {
+	// display: block;
+	// line-height: 2rem;
+	
+}
+
+.starter-button-colors {
+	width: 50%;
+	display: flex;
+	flex: 1;
+	padding: var(--tw-size-padding-small);
+	display: block;
+	justify-content: center;
+}
+
+.starter-color {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 2rem;
+	margin-left: -0.5rem;
+	border: var(--tw-size-border-base) solid var(--tw-color-background-primary);
+}

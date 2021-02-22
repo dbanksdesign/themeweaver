@@ -325,6 +325,8 @@ class App extends Component {
 						<Route path="/editor">
 							<Header showExport={() => this.setState({exportModal: true})}
 								themeName={themeName}
+								theme={theme}
+								allTokens={allTokens}
 								updateThemeName={this.updateThemeName} />
 						
 							<Panels>

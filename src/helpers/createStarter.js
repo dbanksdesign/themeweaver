@@ -48,7 +48,11 @@ const applicationSettings = {
 
 // This will take a limited set of inputs to create a set of design tokens
 const createStarter = ({ primary, secondary, tertiary, colors=[], neutral={}, overrides={} }) => {
-	const starter = {};
+	const starter = {
+		...base,
+		...application,
+		...syntax,
+	};
 	
 	if (colors.length) {
 		colors.forEach(color => {
@@ -83,12 +87,22 @@ const createStarter = ({ primary, secondary, tertiary, colors=[], neutral={}, ov
 		});
 	}
 	
+	
 	return {
-		...base,
-		...application,
-		...syntax,
 		...starter,
-		...overrides
+		...overrides,
+		info: {
+			darkColors: [
+				starter[`base.${primary}.10`],
+				starter[`base.${secondary}.10`],
+				starter[`base.${tertiary}.10`],
+			],
+			colors: [
+				starter[`base.${primary}.100`],
+				starter[`base.${secondary}.100`],
+				starter[`base.${tertiary}.100`],
+			]
+		}
 	}
 };
 
@@ -123,9 +137,108 @@ const azure = createStarter({
 	}
 });
 
+const forest = createStarter({
+	primary: 'green',
+	secondary: 'orange',
+	tertiary: 'red',
+	colors: [{
+		name: 'neutral',
+		h: 177
+	},{
+		name: 'red',
+		h: 359,
+		s: -0.5
+	},{
+		name: 'orange',
+		h: 36,
+		s: -0.5
+	}]
+});
+
+const pastel = createStarter({
+	primary: 'pink',
+	secondary: 'blue',
+	tertiary: 'teal',
+	colors: [{
+		name: 'neutral',
+		h: 229,
+		s: 0.25,
+		l: 1
+	},{
+		name: 'red',
+		l: 1,
+		s: -0.25,
+		h: 0
+	},{
+		name: 'orange',
+		l: 1,
+		s: -0.25,
+		h: 40
+	},{
+		name: 'yellow',
+		l: 1,
+		s: -0.25,
+		h: 60
+	},{
+		name: 'lime',
+		l: 1,
+		s: -0.25,
+		h: 90
+	},{
+		name: 'green',
+		l: 1,
+		s: -0.25,
+		h: 140
+	},{
+		name: 'teal',
+		l: 0.5,
+		s: -0.25,
+		h: 180
+	},{
+		name: 'blue',
+		l: 1,
+		s: -0.25,
+		h: 220
+	},{
+		name: 'purple',
+		l: 1,
+		s: -0.25,
+		h: 280
+	},{
+		name: 'pink',
+		l: 1,
+		s: -0.25,
+		h: 350
+	}],
+	overrides: {
+		...applicationSettings.bordered,
+		...applicationSettings.singleBackground,
+		...applicationSettings.coloredStatusBar,
+	}
+});
+
 const starters = {
 	oneDark,
-	azure
+	azure,
+	pastel,
+	forest,
+	nuDisco: {
+		...base,
+		...application,
+		...syntax,
+		info: {
+			darkColors: [
+				base[`base.pink.10`],
+				base[`base.teal.10`],
+				base[`base.purple.10`],
+			],
+			colors: [
+				base[`base.pink.100`],
+				base[`base.teal.100`],
+				base[`base.purple.100`],
+			]
+		}
+	}
 }
 
 const createRandomStarter = () => {

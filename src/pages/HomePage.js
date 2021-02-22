@@ -61,13 +61,10 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 								applicationTokens={createResolvedTokenObject(allTokens, `application`)} />
 						</Workbench>
 					</div>
+					<Alert variant="info">
+						The code editor above actually works, you can edit those files! The VSCode application around it is just a prototype, you can click on the activity bar tabs, but it is not functional other than that.
+					</Alert>
 				</div>
-			</section>
-			
-			<section className="home-hero">
-				<Alert variant="info">
-					The code editor above actually works, you can edit those files! The VSCode application around it is just a prototype, you can click on the activity bar tabs, but it is not functional other than that.
-				</Alert>
 			</section>
 			
 			<section className="home-hero flow">

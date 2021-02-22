@@ -664,6 +664,10 @@
 	color: var(--application-button-foreground);
 }
 
+.extension-list-item .monaco-action-bar .action-item .action-label.extension-action.label:hover {
+	background-color: var(--application-button-backgroundHover);
+}
+
 .monaco-icon-label:after {
 	opacity: .75;
 	font-size: 90%;
@@ -778,4 +782,8 @@
 .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active>.tab-border-bottom-container,
 .monaco-workbench .part.editor>.content .editor-group-container>.title .tabs-container>.tab.active>.tab-border-top-container {
 	display: block;
+}
+
+.monaco-action-bar .action-label {
+	font-size: 11px;
 }

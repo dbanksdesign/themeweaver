@@ -40,7 +40,6 @@ const CustomTab = (props) => {
 
 const TokenTab = (props) => {
 	const { visible, allTokens, computedValue, onChange, value } = props;
-	console.log(value);
 
 	if (visible) {
 		const theme = theme => ({
@@ -80,6 +79,7 @@ const TokenTab = (props) => {
 		}
 		const _value = {}
 		const alpha = computedValue ? chroma(computedValue).alpha() : 1;
+		const opaqueComputedValue = chroma(computedValue).alpha(1);
 		
 		// kinda jank logic, need to clean up
 		if (value && value.indexOf('{') > -1) {
@@ -134,6 +134,9 @@ const TokenTab = (props) => {
 							max="1"
 							step="0.01"
 							value={alpha}
+							style={{
+								background: `linear-gradient(to right, transparent 0%, ${opaqueComputedValue} 100%), url("data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==")`
+							}}
 							onChange={(e) => onChange({value: alphaToHex(e.target.value)})} />
 					</div>
 				</div>

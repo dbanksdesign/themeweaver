@@ -38,35 +38,31 @@ input[type="file"] {
 }
 
 @mixin range-thumb {
-	height: 1.4rem;
-	width: 1.4rem;
-	border-radius: 1.4rem;
-	background: #fff;
+	height: 1.5rem;
+	width: 1.5rem;
+	border-radius: 1.5rem;
+	background-color: var(--tw-color-border-primary);
+	background-color: transparent;
 	cursor: pointer;
 	appearance: none;
-	border: var(--tw-border-secondary);
-	box-shadow: var(--tw-shadow-secondary);
+	box-shadow: var(--tw-shadow-thumb);
 	
 	&:hover {
-		box-shadow: var(--tw-shadow-primary);
-		border-color: var(--tw-color-border-hover);
+		background-color: var(--tw-color-border-hover);
 	}
 	
-	&:active { border-color: var(--tw-color-border-active); }
+	&:active { background-color: var(--tw-color-border-active); }
 }
 
 input[type=range] {
   -webkit-appearance: none;
+	border: none;
 	width: 100%;
 	background-color: var(--tw-color-background-primary);
-	box-shadow: 0 0 0.25rem var(--tw-color-shadow-secondary) inset;
-	border-radius: 1rem;
-	padding: 0 var(--tw-size-padding-tiny);
-	border: var(--tw-border-secondary);
-	height: 2rem;
+	border-radius: 1.5rem;
+	height: 1.5rem;
 	
 	&.color-range {
-		border: none;
 		&::-webkit-slider-thumb,
 		&::-moz-range-thumb,
 		&::-ms-thumb { border: none; }
@@ -125,16 +121,35 @@ input[type=range] {
 		background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0
 	33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
 	}
+	
+	&.small {
+		border-radius: 1rem;
+		height: 1rem;
+		&::-webkit-slider-thumb {
+			height: 1rem;
+			width: 1rem;
+		}
+		&::-moz-range-thumb {
+			height: 1rem;
+			width: 1rem;
+		}
+		&::-ms-thumb {
+			height: 1rem;
+			width: 1rem;
+		}
+	}
 }
 
 
 .tw-input {
 	display: block;
 	flex: 1;
-	border: var(--tw-size-border-base) solid var(--tw-color-border-primary);
-	padding: var(--tw-size-padding-small) var(--tw-size-padding-base);
+	border-width: 0 0 var(--tw-size-border-base) 0;
+	border-style: solid;
+	border-color: var(--tw-color-border-secondary);
+	padding: var(--tw-size-padding-small);
 	height: 3rem;
-	border-radius: var(--tw-size-border-radius);
+	border-radius: var(--tw-size-border-radius-small);
 	font-size: 1rem;
 	width: 100%;
 	box-sizing: border-box;
@@ -146,13 +161,13 @@ input[type=range] {
 	
 	&:hover {
 		border-color: var(--tw-color-border-focus);
-		box-shadow: 0 0 0 2px var(--tw-color-border-focus);
+		// box-shadow: 0 0 0 2px var(--tw-color-border-focus);
 	}
 	
 	&:focus {
 		border-color: var(--tw-color-border-focus);
-		box-shadow: 0 0 0 2px var(--tw-color-border-focus);
-		outline: none;
+		// box-shadow: 0 0 0 2px var(--tw-color-border-focus);
+		// outline: none;
 	}
 	
 	&:active { border-color: var(--tw-color-border-active); }

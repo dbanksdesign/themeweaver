@@ -32,12 +32,12 @@
 	&::after {
 		content: '';
 		position: absolute;
-		width: 1px;
+		width: 2px;
 		top: 0;
 		bottom: 0;
 		left: 50%;
 		margin-left: -1px;
-		background-color: var(--tw-color-border-tertiary);
+		background-color: var(--tw-color-border-primary);
 	}
 	
 	&:hover::after {

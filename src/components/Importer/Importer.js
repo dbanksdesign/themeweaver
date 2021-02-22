@@ -8,6 +8,7 @@ import {starters, createRandomStarter} from '../../helpers/createStarter';
 import createAllTokens from '../../helpers/createAllTokens';
 import FileInput from '../FileInput';
 import Alert from '../Alert';
+import StarterButton from '../StarterButton';
 import vscodeToTheme from '../../helpers/vscodeToTheme';
 import getColorSettings from '../../helpers/getColorSettings';
 
@@ -182,10 +183,23 @@ export default class Importer extends React.Component {
 				<section className="flow">
 					<h2>Pick a starter</h2>
 					
-					<button className="button block" onClick={resetState}>Nu Disco (default)</button>
-					<button className="button block" onClick={() => this.loadTheme('oneDark')}>Neutral Conclusion</button>
-					<button className="button block" onClick={() => this.loadTheme('azure')}>Azure Dreams</button>
-					<button className="button block" onClick={this.createRandom}>Randomize!</button>
+					{Object.keys(starters).map(starterName => {
+						const starter = starters[starterName];
+						console.log(starter.info.colors)
+						return (
+							<StarterButton onClick={() => this.loadTheme(starterName)}
+								key={starterName}
+								label={starterName}
+								bg={starter[`base.neutral.0`]}
+								darkBg={starter[`base.neutral.100`]}
+								darkColors={starter.info.darkColors}
+								colors={starter.info.colors} />
+						)
+					})}
+					<button className="button block" onClick={this.createRandom}>
+						<span className="codicon" role="img" aria-label="">🎲</span>
+						Randomize!
+					</button>
 					
 					<h2>Import an existing theme</h2>
 					<p>You can import a previously made Themeweaver theme by importing the <code>themweaver.config.json</code> file. You can also import a VSCode theme file.</p>

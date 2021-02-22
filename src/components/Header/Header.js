@@ -3,6 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import Logo from '../Logo';
 import themeNameGenerator from '../../helpers/themeNameGenerator';
+import generatePermaLink from '../../generators/permalink';
+import getCompressedState from '../../helpers/getCompressedState';
 
 const NavItem = React.memo(({to, label, className}) => (
 	<NavLink className={clsx(
@@ -53,7 +55,7 @@ const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme, cle
 	)
 });
 
-const Header = React.memo(({showExport, themeName, updateThemeName}) => {
+const Header = React.memo(({showExport, themeName, updateThemeName, allTokens, theme}) => {
 	return (
 	<>
 		
@@ -76,7 +78,18 @@ const Header = React.memo(({showExport, themeName, updateThemeName}) => {
 			</nav>
 			
 			<nav className="tw-header-secondary-nav">
-				<button className="primary" onClick={showExport}>Export</button>
+				{/* <button className="small" onClick={() => {navigator.clipboard.writeText(generatePermaLink({allTokens, theme, themeName}))}}>
+					<span className="codicon codicon-link" />
+					Shareererer
+				</button>
+				<button className="small primary">
+					<span className="codicon codicon-link" />
+					Share
+				</button> */}
+				<button className="small primary" onClick={showExport}>
+					<span className="codicon codicon-cloud-download" />
+					Download
+				</button>
 				{/* <Github /> */}
 			</nav>
 		</header>
