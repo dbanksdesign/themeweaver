@@ -1,10 +1,31 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import clsx from 'clsx';
+import md5 from 'crypto-js/md5';
+import { API } from 'aws-amplify';
 import Logo from '../Logo';
 import themeNameGenerator from '../../helpers/themeNameGenerator';
-import generatePermaLink from '../../generators/permalink';
 import getCompressedState from '../../helpers/getCompressedState';
+import downloadTheme from '../../helpers/downloadTheme';
+
+const share = ({theme, allTokens, themeName}) => {
+	const body = {
+		theme: theme,
+		allTokens: getCompressedState(allTokens),
+		name: themeName,
+	};
+	body.id = md5(JSON.stringify(body)).toString();
+
+	API.post('theme', '/theme', {body})
+		.then(response => {
+			window.history.replaceState(null, '', `/editor/${body.id}`);
+			// TODO: show a toast
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+}
 
 const NavItem = React.memo(({to, label, className}) => (
 	<NavLink className={clsx(
@@ -27,38 +48,8 @@ const Github = React.memo(() => {
 	)
 });
 
-const SecondaryHeader = React.memo(({ resetState, changeTheme, currentTheme, clearState }) => {
-	return (
-		<header className="tw-header secondary">
-			<nav className="tw-header-primary-nav">
-				
-				<NavItem to="/editor/base" label="Base" />
-				<NavItem to="/editor/theme" label="Theme" />
-				<NavItem to="/editor/application" label="Application" />
-				<NavItem to="/editor/syntax" label="Syntax" />
-				
-				{/* <ToggleButton
-					onClick={changeTheme}
-					buttons={[{
-						label: 'Dark',
-						selected: currentTheme === 'dark'
-					},{
-						label: 'Light',
-						selected: currentTheme === 'light'
-					}]} /> */}
-			</nav>
-			{/* <nav className="tw-header-secondary-nav">
-				<button className="tw-header-button danger" onClick={resetState}>Reset</button>
-				<button className="tw-header-button danger" onClick={clearState}>Clear</button>
-			</nav> */}
-		</header>
-	)
-});
-
 const Header = React.memo(({showExport, themeName, updateThemeName, allTokens, theme}) => {
 	return (
-	<>
-		
 		<header className="tw-header">
 			<Link className="tw-logo-link" to="/">
 				<Logo />
@@ -78,24 +69,15 @@ const Header = React.memo(({showExport, themeName, updateThemeName, allTokens, t
 			</nav>
 			
 			<nav className="tw-header-secondary-nav">
-				{/* <button className="small" onClick={() => {navigator.clipboard.writeText(generatePermaLink({allTokens, theme, themeName}))}}>
-					<span className="codicon codicon-link" />
-					Shareererer
-				</button>
-				<button className="small primary">
-					<span className="codicon codicon-link" />
+				<button className="small" onClick={() => share({allTokens, theme, themeName})}>
 					Share
-				</button> */}
-				<button className="small primary" onClick={showExport}>
-					<span className="codicon codicon-cloud-download" />
+				</button>
+				<button className="small primary" onClick={() => downloadTheme({allTokens, theme, themeName})}>
 					Download
 				</button>
-				{/* <Github /> */}
 			</nav>
 		</header>
-	</>
 	)}
 )
 
 export default Header
-export {SecondaryHeader}

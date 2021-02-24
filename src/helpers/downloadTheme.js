@@ -1,13 +1,12 @@
-import React from 'react';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
-import lzString from 'lz-string';
 
 import createResolvedTokenObject from '../helpers/createResolvedTokenObject';
 import createTextmateRules from '../helpers/createTextmateRules';
 import createTmPlist from '../helpers/createTmPlist';
 import createAllTokens from '../helpers/createAllTokens';
 import themeNameGenerator from '../helpers/themeNameGenerator';
+import getCompressedState from '../helpers/getCompressedState';
 
 import generateiTerm from '../generators/iTerm';
 import generateSlack from '../generators/slack';
@@ -16,8 +15,6 @@ import generateJetbrainsJSON from '../generators/jetbrainsJSON';
 import generateJetbrainsXML from '../generators/jetbrainsXML';
 // import generateJetbrainsPluginXML from '../generators/jetbrainsPluginXML';
 import generateJetbrainsMaterial from '../generators/jetbrainsMaterial';
-
-import CopyCode from '../components/CopyCode';
 
 const readme = ({themeName, slack}) => `Thank you for using Themeweaver!
 
@@ -112,28 +109,7 @@ const createSyntaxColors = (allTokens) => {
 	);
 }
 
-const getCompressedState = (allTokens, theme, themeName) => {
-	return JSON.stringify({
-		allTokens: Object.keys(allTokens).reduce((obj, key) => {
-			const token = allTokens[key];
-			if (token.hasOwnProperty('foreground')) {
-				obj[key] = {
-					foreground: token.foreground.value,
-					fontStyle: token.fontStyle,
-					background: token.background.value
-				};
-			} else {
-				obj[key] = allTokens[key].value;
-			}
-			
-			return obj;
-		}, {}),
-		theme,
-		name: themeName
-	}, null, 2);
-}
-
-const downloadTheme = (allTokens, theme, themeName) => {
+const downloadTheme = ({allTokens, theme, themeName}) => {
 	const zip = new JSZip();
 	zip.folder(`vscode`);
 	zip.folder(`jetbrains`);
@@ -144,7 +120,7 @@ const downloadTheme = (allTokens, theme, themeName) => {
 
 	const src = getCompressedState(allTokens, theme, themeName);
 	
-	zip.file(`themeweaver.config.json`, src);
+	zip.file(`themeweaver.config.json`, JSON.stringify(src, null, 2));
 	const slack = {};
 	['dark','light'].forEach(themeType => {
 		const _allTokens = createAllTokens({
@@ -198,120 +174,4 @@ const downloadTheme = (allTokens, theme, themeName) => {
 		});
 }
 
-const generatePermaLink = ({ theme, allTokens, themeName }) => {
-	const data = getCompressedState(allTokens, theme, themeName);
-	return `${window.location.href}#?theme=${lzString.compressToEncodedURIComponent(data)}`;
-}
-
-const DownloadPage = ({ allTokens, theme, themeName, updateThemeName }) => (
-	<div className="page-content">
-		<div className="page-content-inner flow">
-		
-		<h1>Export your theme</h1>
-		
-		<div className="columns">
-			<div className="column">
-				<section>
-					<label htmlFor="themeName">
-						Name for your beautiful creation
-					</label>
-					<div className="tw-input-with-button">
-						<input type="text"
-							id="themeName"
-							className="tw-input"
-							value={themeName}
-							onChange={(e) => updateThemeName(e.target.value)} />
-						<button onClick={() => updateThemeName(themeNameGenerator())}>
-							Make me a random name!
-						</button>
-					</div>
-				</section>
-				
-				<section className="flow">
-					<button className="primary block large"
-						onClick={() => downloadTheme(allTokens, theme, themeName)}>
-						Download
-					</button>
-					
-					<CopyCode
-						buttonLabel="Copy share-able link"
-						text={generatePermaLink({allTokens, theme, themeName})} />
-						
-					<CopyCode
-						buttonLabel="Copy slack code"
-						text={generateSlack(allTokens)} />
-				</section>
-			</div>
-			
-			<div className="column">
-				<section>
-					<p>The download will include a light and dark theme for:</p>
-					<ul>
-						<li>VSCode</li>
-						<li>TextMate (syntax highlighting only) <strong>work-in-progress</strong></li>
-						<li>Slack</li>
-						<li>Xcode</li>
-						<li>iTerm</li>
-						<li>Jetbrains (Android Studio, WebStorm, etc.) <strong>work-in-progress</strong></li>
-						<li><em>More coming soon</em> <a href="https://github.com/dbanksdesign/themeweaver">Help contribute</a>!</li>
-					</ul>
-				</section>
-			</div>
-		</div>
-		
-		{/* <section className="flow">
-			<h2>VSCode</h2>
-			<ol>
-				<li>Unzip the contents into <strong>~/.vscode/extensions/</strong>.</li>
-				<li>Restart VSCode or reload the window with the <strong>Developer: Reload Window</strong> action.</li>
-				<li>Open the theme switcher with <strong>⌘/ctrl K + T</strong>. There should be a light and dark themes with the name you entered above.</li>
-			</ol>
-		</section>
-		
-		<section className="flow">
-			<h2>Jetbrains</h2>
-			<p><em>Full Jetbrains integration is in the works...</em></p>
-			
-			<h3>Syntax highlighting</h3>
-			<ol>
-				<li>Unzip the contents anywhere</li>
-				<li>In the Jetbrains application (Android studio, Webstorm, etc.) open the preferences</li>
-				<li>Go to <strong>Editor > Color Scheme > General</strong></li>
-				<li>Click on the button with 3 dots in the top and click on <strong>Import Scheme</strong></li>
-				<li>Select one of the .icls files <strong>jetbrains/{themeName}-light.icls</strong> and <strong>jetbrains/{themeName}-dark.icls</strong></li>
-			</ol>
-		</section>
-		
-		<section className="flow">
-			<h2>Xcode</h2>
-			<ol>
-				<li>Unzip the contents anywhere</li>
-				<li>Copy <strong>{themeName}-light.xccolortheme</strong> and <strong>{themeName}-dark.xccolortheme</strong> into <strong>~/Library/Developer/Xcode/UserData/FontAndColorThemes</strong>.</li>
-			</ol>
-		</section>
-
-		<section className="flow">
-			<h2>iTerm</h2>
-			<ol>
-				<li>Unzip the contents anywhere</li>
-				<li>Launch iTerm 2</li>
-				<li>Press <code>CMD+i</code></li>
-				<li>Go to the <strong>Colors</strong> tab</li>
-				<li>Click on <strong>Color Presets</strong></li>
-				<li>Click on <strong>Import</strong></li>
-				<li>Select the <strong>{themeName}-light.itermcolors</strong> and <strong>{themeName}-dark.itermcolors</strong> files in the <strong>iterm</strong> folder you unzipped in step 1</li>
-			</ol>
-		</section>
-
-		<section className="flow">
-			<h2>Slack</h2>
-			<p>Slack theme customizations are pretty limited, but here is a Slack theme based on the theme you built! Copy and paste the code into the custom theme section of the Slack preferences.</p>
-			<CopyCode
-				buttonLabel="Copy slack code"
-				text={generateSlack(allTokens)} />
-		</section> */}
-	</div>
-	</div>
-)
-
-export default DownloadPage
+export default downloadTheme;

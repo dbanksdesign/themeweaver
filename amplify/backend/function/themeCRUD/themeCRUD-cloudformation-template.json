@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "themeweaverThemeApi",
+            "themeCRUD",
             {
               "Fn::Join": [
                 "",
                 [
-                  "themeweaverThemeApi",
+                  "themeCRUD",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "themeweaverLambdaRoled20dbb06",
+            "themeweaverLambdaRoled3bf3e96",
             {
               "Fn::Join": [
                 "",
                 [
-                  "themeweaverLambdaRoled20dbb06",
+                  "themeweaverLambdaRoled3bf3e96",
                   "-",
                   {
                     "Ref": "env"

@@ -1,22 +1,49 @@
 {
-  "dev": {
+  "prod": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-themeweaver-dev-202151-authRole",
-      "UnauthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-dev-202151-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-dev-202151-authRole",
+      "AuthRoleName": "amplify-themeweaver-prod-121014-authRole",
+      "UnauthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-prod-121014-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-prod-121014-authRole",
       "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-themeweaver-dev-202151-deployment",
-      "UnauthRoleName": "amplify-themeweaver-dev-202151-unauthRole",
-      "StackName": "amplify-themeweaver-dev-202151",
-      "StackId": "arn:aws:cloudformation:us-west-2:401409742514:stack/amplify-themeweaver-dev-202151/7eaabc70-74c5-11eb-a1c3-02c1d3373d61",
+      "DeploymentBucketName": "amplify-themeweaver-prod-121014-deployment",
+      "UnauthRoleName": "amplify-themeweaver-prod-121014-unauthRole",
+      "StackName": "amplify-themeweaver-prod-121014",
+      "StackId": "arn:aws:cloudformation:us-west-2:401409742514:stack/amplify-themeweaver-prod-121014/faae6e50-7549-11eb-b3b2-0604ff757123",
       "AmplifyAppId": "d2nuyomtzs1flh"
     },
     "categories": {
       "function": {
-        "themeweaverThemeApi": {
-          "deploymentBucketName": "amplify-themeweaver-dev-202151-deployment",
-          "s3Key": "amplify-builds/themeweaverThemeApi-4571742b654a51485669-build.zip"
+        "themeCRUD": {
+          "deploymentBucketName": "amplify-themeweaver-prod-121014-deployment",
+          "s3Key": "amplify-builds/themeCRUD-506d726d4d56686c2b65-build.zip"
         }
+      },
+      "auth": {
+        "cognito6cdd76a7": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-themeweaver-dev-124300-authRole",
+      "UnauthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-dev-124300-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::401409742514:role/amplify-themeweaver-dev-124300-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-themeweaver-dev-124300-deployment",
+      "UnauthRoleName": "amplify-themeweaver-dev-124300-unauthRole",
+      "StackName": "amplify-themeweaver-dev-124300",
+      "StackId": "arn:aws:cloudformation:us-west-2:401409742514:stack/amplify-themeweaver-dev-124300/e2f17940-76e0-11eb-b6d9-06b8c56c9d47",
+      "AmplifyAppId": "d2nuyomtzs1flh"
+    },
+    "categories": {
+      "function": {
+        "themeCRUD": {
+          "deploymentBucketName": "amplify-themeweaver-dev-124300-deployment",
+          "s3Key": "amplify-builds/themeCRUD-506d726d4d56686c2b65-build.zip"
+        }
+      },
+      "auth": {
+        "cognito6cdd76a7": {}
       }
     }
   }

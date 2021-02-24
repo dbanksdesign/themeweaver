@@ -43,7 +43,7 @@ const HomePage = ({ currentTheme, allTokens, setAllTokens, setState, clearState,
 						clearState={clearState}
 						resetState={resetState}
 						importTheme={importTheme} />
-					<Link className="button block primary large" to="/editor/base">Get started</Link>
+					<Link className="button block primary large" to="/editor">Get started</Link>
 				</div>
 				<div className="home-split-panel" style={{height: '100vh'}}>
 					{multiTheme ? <RadioGrid items={[{

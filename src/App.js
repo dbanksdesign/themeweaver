@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import lzString from 'lz-string';
+import { Route, Switch } from 'react-router-dom';
+
 import {dark, light, hc} from './tokens/theme';
 import {allTokens as _allTokens} from './tokens/index';
 import createAllTokens from './helpers/createAllTokens';
@@ -13,10 +13,8 @@ import BasePage from './pages/BasePage';
 import ThemePage from './pages/ThemePage';
 import ApplicationPage from './pages/ApplicationPage';
 import SyntaxPage from './pages/SyntaxPage';
-import ExportPage from './pages/ExportPage';
-// import TestPage from './pages/TestPage';
 
-import Header, {SecondaryHeader} from './components/Header';
+import Header from './components/Header';
 import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
 import Panels from './components/Panels';
@@ -28,6 +26,7 @@ import RadioGrid from './components/RadioGrid';
 import getColorSettings from './helpers/getColorSettings';
 import chroma from 'chroma-js';
 import tokenToCSS from './helpers/tokenToCSS';
+import EditorPage from './pages/EditorPage';
 
 const themeMap = ['dark', 'light', 'hc'];
 
@@ -58,6 +57,7 @@ class App extends Component {
 		let initialState;
 		let browserTheme;
 		
+		
 		if (window.matchMedia && window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
 			browserTheme = 'dark';
 		} else {
@@ -68,22 +68,13 @@ class App extends Component {
 			initialState = lsGet('state');
 		}
 		
-		// We encode a simplified version of the state in the hash
-		// if there is a hash in the URL, try to decode it
-		const hash = window.location.hash;
-		if( hash && hash.length ) {
-			try {
-				const {allTokens, theme, themeName} = JSON.parse(
-					lzString.decompressFromEncodedURIComponent(hash.split("=")[1])
-				);
-				initialState = {
-					allTokens: createAllTokens(allTokens),
-					currentTheme: 'dark',
-					theme,
-					themeName
-				}
-			} catch (error) {
-				console.log(error);
+		if (props.loadedTheme) {
+			const { allTokens, theme, themeName } = props.loadedTheme;
+			initialState = {
+				allTokens: createAllTokens(allTokens),
+				currentTheme: 'dark',
+				theme,
+				themeName
 			}
 		}
 		
@@ -288,7 +279,6 @@ class App extends Component {
 		
 		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings, multiTheme } = this.state;
 		
-		// 
 		const activityBar = allTokens[`application.activityBar.inactiveForeground`] && allTokens[`application.activityBar.inactiveForeground`].value;
 		const tokenNames = Object.keys(allTokens);
 		const cssProperties = tokenNames.reduce((obj, name) => {
@@ -304,7 +294,7 @@ class App extends Component {
 		// document.body.className = this.state.browserTheme;
 		
 		return (
-			<Router>
+			
 				<div id="app" className={`app ${currentTheme}`} style={cssProperties}>
 					
 					<ScrollToTop />
@@ -321,63 +311,43 @@ class App extends Component {
 								clearState={this.clearState}
 								resetState={this.resetState} />
 						</Route>
-						{/* <Route path="/test" component={TestPage} /> */}
-						<Route path="/editor">
-							<Header showExport={() => this.setState({exportModal: true})}
-								themeName={themeName}
+
+						<Route path="/editor/:id?">
+							<Header themeName={themeName}
 								theme={theme}
 								allTokens={allTokens}
 								updateThemeName={this.updateThemeName} />
 						
 							<Panels>
-								<div className="editor-pane">
-									<Route path="/editor">
-										<SecondaryHeader clearState={this.clearState} resetState={this.resetState} changeTheme={this.changeTheme} currentTheme={currentTheme} />
-										<Switch>
-										<Route path="/editor/base">
-											<BasePage
-												tokens={allTokens}
-												setHue={this.setHue}
-												setSaturation={this.setSaturation}
-												setLightness={this.setLightness}
-												colorSettings={colorSettings}
-												updateTokens={this.updateTokens}
-												updateToken={this.updateToken}
-												resetState={this.resetState} />
-										</Route>
-										<Route path="/editor/theme">
-											<ThemePage
-												tokens={allTokens}
-												tokenNames={tokenNames}
-												currentTheme={currentTheme}
-												changeTheme={this.changeTheme}
-												updateToken={this.updateToken} />
-										</Route>
-										<Route path="/editor/application">
-											<ApplicationPage
-												tokens={allTokens}
-												tokenNames={tokenNames}
-												updateToken={this.updateToken} />
-										</Route>
-										<Route path="/editor/syntax">
-											<SyntaxPage
-												tokens={allTokens}
-												tokenNames={tokenNames}
-												updateFontStyle={this.updateFontStyle}
-												updateToken={this.updateToken} />
-										</Route>
-										{/* Default route */}
-										<Route>
-											<BasePage
-												tokens={allTokens}
-												updateTokens={this.updateTokens}
-												updateToken={this.updateToken}
-												resetState={this.resetState} />
-										</Route>
-									</Switch>
-									</Route>
-								</div>
-								
+								<EditorPage tabs={['Base','Theme','Application','Syntax']}
+									setAllTokens={this.setAllTokens}
+									updateThemeName={this.updateThemeName}>
+									<BasePage
+										tokens={allTokens}
+										setHue={this.setHue}
+										setSaturation={this.setSaturation}
+										setLightness={this.setLightness}
+										colorSettings={colorSettings}
+										updateTokens={this.updateTokens}
+										updateToken={this.updateToken}
+										resetState={this.resetState} />
+									<ThemePage
+										tokens={allTokens}
+										tokenNames={tokenNames}
+										currentTheme={currentTheme}
+										changeTheme={this.changeTheme}
+										updateToken={this.updateToken} />
+									<ApplicationPage
+										tokens={allTokens}
+										tokenNames={tokenNames}
+										updateToken={this.updateToken} />
+									<SyntaxPage
+										tokens={allTokens}
+										tokenNames={tokenNames}
+										updateFontStyle={this.updateFontStyle}
+										updateToken={this.updateToken} />
+								</EditorPage>
+
 								{({windowWidth,mainWidth}) => (
 									<div className="preview-pane">
 										<div className="preview-pane-controls columns">
@@ -403,16 +373,9 @@ class App extends Component {
 							</Panels>
 						</Route>
 					</Switch>
-					{exportModal ? <Modal hideModal={() => this.setState({exportModal: false})}><ExportPage
-											theme={theme}
-											themeName={themeName}
-											updateThemeName={this.updateThemeName}
-											currentTheme={currentTheme}
-											allTokens={allTokens} /></Modal> : null}
 				</div>
-			</Router>
 		)
 	}
 }
 
-export default App
+export default App;

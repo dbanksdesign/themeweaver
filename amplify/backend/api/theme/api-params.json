@@ -2,7 +2,7 @@
     "paths": [
         {
             "name": "/theme",
-            "lambdaFunction": "themeweaverThemeApi",
+            "lambdaFunction": "themeCRUD",
             "privacy": {
                 "open": true
             },
@@ -13,19 +13,19 @@
     "apiName": "theme",
     "functionArns": [
         {
-            "lambdaFunction": "themeweaverThemeApi"
+            "lambdaFunction": "themeCRUD"
         }
     ],
     "privacy": {
         "auth": 0,
         "unauth": 0,
-        "authRoleName": "amplify-themeweaver-dev-202151-authRole",
-        "unAuthRoleName": "amplify-themeweaver-dev-202151-unauthRole"
+        "authRoleName": "amplify-themeweaver-prod-121014-authRole",
+        "unAuthRoleName": "amplify-themeweaver-prod-121014-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "themeweaverThemeApi",
+            "resourceName": "themeCRUD",
             "attributes": [
                 "Name",
                 "Arn"

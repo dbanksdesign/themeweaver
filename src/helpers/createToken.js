@@ -30,7 +30,13 @@ const createToken = (key, value, tokenObject, reverse = {}) => {
 	}
 	
 	if (!refs && token.value && token.value.length) {
-		token.hsl = chroma(token.value).hsl();
+		try {
+			token.hsl = chroma(token.value).hsl();
+		} catch (error) {
+			// console.log(token, key);
+			console.log(error);
+		}
+		
 	}
 	
 	return token;

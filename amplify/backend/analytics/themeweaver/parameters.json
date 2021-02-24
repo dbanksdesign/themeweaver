@@ -1,0 +1,21 @@
+{
+    "appName": "themeweaver",
+    "roleName": "pinpointLambdaRole1e163628",
+    "cloudformationPolicyName": "cloudformationPolicy1e163628",
+    "cloudWatchPolicyName": "cloudWatchPolicy1e163628",
+    "pinpointPolicyName": "pinpointPolicy1e163628",
+    "authPolicyName": "pinpoint_amplify_1e163628",
+    "unauthPolicyName": "pinpoint_amplify_1e163628",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

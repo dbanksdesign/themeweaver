@@ -176,7 +176,6 @@ export default class Importer extends React.Component {
 	}
 	
 	render() {
-		const { resetState } = this.props;
 		const { themeData, uri, error } = this.state;
 		return (
 			<div className="importer">
@@ -185,7 +184,6 @@ export default class Importer extends React.Component {
 					
 					{Object.keys(starters).map(starterName => {
 						const starter = starters[starterName];
-						console.log(starter.info.colors)
 						return (
 							<StarterButton onClick={() => this.loadTheme(starterName)}
 								key={starterName}

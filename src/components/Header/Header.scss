@@ -50,11 +50,17 @@
 	height: var(--tw-size-height-nav);
 	display: inline-block;
 	padding: 0 var(--tw-size-padding-base);
-	border-bottom: 2px solid transparent;
+	border-radius: 0;
+	border-width: 0 0 var(--tw-size-border-base) 0;
+	border-color: transparent;
 	box-sizing: border-box;
 	vertical-align: top;
 	color: var(--tw-color-font-nav);
 	font-weight: bold;
+	
+	&:hover {
+		box-shadow: none;
+	}
 	
 	&.active {
 		color: var(--tw-color-font-nav-active);

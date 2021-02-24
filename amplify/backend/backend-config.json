@@ -6,7 +6,7 @@
     }
   },
   "function": {
-    "themeweaverThemeApi": {
+    "themeCRUD": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
@@ -33,13 +33,26 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "themeweaverThemeApi",
+          "resourceName": "themeCRUD",
           "attributes": [
             "Name",
             "Arn"
           ]
         }
       ]
+    }
+  },
+  "auth": {
+    "cognito6cdd76a7": {
+      "service": "Cognito",
+      "serviceType": "managed",
+      "providerPlugin": "awscloudformation"
+    }
+  },
+  "analytics": {
+    "themeweaver": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
     }
   }
 }

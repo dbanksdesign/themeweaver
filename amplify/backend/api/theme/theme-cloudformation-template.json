@@ -14,15 +14,15 @@
         },
     
     
-          "functionthemeweaverThemeApiName": {
+          "functionthemeCRUDName": {
             "Type": "String",
-            "Default": "functionthemeweaverThemeApiName"
+            "Default": "functionthemeCRUDName"
           },
         
           
-          "functionthemeweaverThemeApiArn": {
+          "functionthemeCRUDArn": {
             "Type": "String",
-            "Default": "functionthemeweaverThemeApiArn"
+            "Default": "functionthemeCRUDArn"
           }
         
           
@@ -176,7 +176,7 @@
                             
                             {
                                 
-                                "Ref": "functionthemeweaverThemeApiArn"
+                                "Ref": "functionthemeCRUDArn"
                             },
                             
                             "/invocations"
@@ -275,7 +275,7 @@
                           
                           {
                             
-                            "Ref": "functionthemeweaverThemeApiArn"
+                            "Ref": "functionthemeCRUDArn"
                           },
                           
                           "/invocations"
@@ -332,12 +332,12 @@
                   
         
         
-        "functionthemeweaverThemeApiPermissiontheme": {
+        "functionthemeCRUDPermissiontheme": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionthemeweaverThemeApiName"
+                        "Ref":  "functionthemeCRUDName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
