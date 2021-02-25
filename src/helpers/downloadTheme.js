@@ -16,6 +16,9 @@ import generateJetbrainsXML from '../generators/jetbrainsXML';
 // import generateJetbrainsPluginXML from '../generators/jetbrainsPluginXML';
 import generateJetbrainsMaterial from '../generators/jetbrainsMaterial';
 
+import icon from '../icon.png';
+console.log(icon);
+
 const readme = ({themeName, slack}) => `Thank you for using Themeweaver!
 
 ## Instructions
@@ -117,6 +120,8 @@ const downloadTheme = ({allTokens, theme, themeName}) => {
 	zip.folder(`xcode`);
 	zip.folder(`textmate`);
 	zip.folder(`slack`);
+	// icon is a base64 string, grab only the data and decode it
+	zip.file(`images/icon.png`, window.atob(icon.split(',')[1]), {binary: true});
 
 	const src = getCompressedState(allTokens, theme, themeName);
 	

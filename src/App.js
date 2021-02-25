@@ -19,7 +19,8 @@ import Workbench from './components/VSCode/Workbench';
 import VSCodeEditor from './components/VSCode/Editor';
 import Panels from './components/Panels';
 import ScrollToTop from './components/ScrollTop';
-import Modal from './components/Modal';
+import Toast from './components/Toast';
+import Loader from './components/Loader';
 
 import createResolvedTokenObject from './helpers/createResolvedTokenObject';
 import RadioGrid from './components/RadioGrid';
@@ -27,6 +28,7 @@ import getColorSettings from './helpers/getColorSettings';
 import chroma from 'chroma-js';
 import tokenToCSS from './helpers/tokenToCSS';
 import EditorPage from './pages/EditorPage';
+
 
 const themeMap = ['dark', 'light', 'hc'];
 
@@ -47,16 +49,14 @@ const defaultState = {
 	themeName: themeNameGenerator(),
 	exportModal: false,
 	importModal: false,
-	theme
+	theme,
 }
 
 class App extends Component {
-	
 	constructor(props) {
 		super(props);
 		let initialState;
 		let browserTheme;
-		
 		
 		if (window.matchMedia && window.matchMedia(`(prefers-color-scheme: dark)`).matches) {
 			browserTheme = 'dark';
@@ -273,11 +273,34 @@ class App extends Component {
 		});
 	}
 	
+	showLoading = () => {
+		this.setState({
+			loading: true
+		});
+	}
+	
+	hideLoading = () => {
+		this.setState({
+			loading: false
+		});
+	}
+	
+	showToast = ( toast ) => {
+		this.setState({
+			toast
+		});
+		setTimeout(() => {
+			this.setState({
+				toast: null
+			});
+		}, 4000);
+	}
+	
 	render() {
 		// save state to localstorage
 		lsSet('state', this.state);
 		
-		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings, multiTheme } = this.state;
+		const { allTokens, currentTheme, theme, themeName, exportModal, colorSettings, multiTheme, loading, toast } = this.state;
 		
 		const activityBar = allTokens[`application.activityBar.inactiveForeground`] && allTokens[`application.activityBar.inactiveForeground`].value;
 		const tokenNames = Object.keys(allTokens);
@@ -316,6 +339,9 @@ class App extends Component {
 							<Header themeName={themeName}
 								theme={theme}
 								allTokens={allTokens}
+								showLoading={this.showLoading}
+								hideLoading={this.hideLoading}
+								showToast={this.showToast}
 								updateThemeName={this.updateThemeName} />
 						
 							<Panels>
@@ -373,6 +399,9 @@ class App extends Component {
 							</Panels>
 						</Route>
 					</Switch>
+					{loading ? <Loader /> : null}
+					{toast ? <Toast type={toast.type}>{toast.message}</Toast> : null}
+					<input id="hidden-clipboard" />
 				</div>
 		)
 	}

@@ -6,6 +6,15 @@ import {BaseToken} from '../components/Token';
 import { ColorRadioItem } from '../components/RadioGrid';
 
 const colors = ['neutral','red','orange','yellow','lime','green','teal','blue','purple','pink'];
+
+const tokenSort = (a,b) => {
+	if (parseInt(a.path.replace(/[^0-9]/ig,'')) > parseInt(b.path.replace(/[^0-9]/ig,''))) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+
 class BasePage extends React.Component {
 	changeColor = (level, value) => {
 		this.setState({
@@ -123,7 +132,9 @@ class BasePage extends React.Component {
 									<p>{section.description}</p>
 							</BaseColorGroup>
 							<div className="base-color-group">
-								{section.tokens.map(({ path, description }) => {
+								{section.tokens
+									.sort(tokenSort)
+									.map(({ path, description }) => {
 									if (!tokens[path]) { console.log(path); }
 									const {computedValue, reverseLookup, hsl} = tokens[path];
 									return (

@@ -6,6 +6,7 @@ import awsconfig from './aws-exports';
 import { loadWASM } from "onigasm"; // peer dependency of 'monaco-textmate'
 import 'react-monaco-editor'; // need to import this to get styles
 import App from './App';
+import Loader from './components/Loader';
 import * as serviceWorker from './serviceWorker';
 
 import './styles/index.scss';
@@ -22,14 +23,16 @@ Analytics.autoTrack('pageView', {
 // app's state. We can't do this within a Route because it will cause
 // an infinite loop of re-renders. Unless I'm doing something really dumb.
 const AppWrapper = () => {
+	let id;
 	const match = useRouteMatch("/editor/:id");
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [state, setState] = useState(null);
-	
+	if (match && match.params && match.params.id) {
+		id = match.params.id;
+	}
 	useEffect(() => {
-		if (match && match.params && match.params.id) {
-		
-			API.get('theme', `/theme/${match.params.id}`)
+		if (id) {
+			API.get('theme', `/theme/${id}`)
 				.then(response => {
 					if (response && response.length) {
 						Analytics.record({ name: 'dynamoHit' });
@@ -48,7 +51,6 @@ const AppWrapper = () => {
 					} else {
 						Analytics.record({ name: 'dynamoMiss' });
 					}
-
 					setIsLoaded(true);
 				})
 				.catch(error => {
@@ -58,10 +60,10 @@ const AppWrapper = () => {
 		} else {
 			setIsLoaded(true);
 		}
-	}, [match]);
+	}, [id]);
 
 	if (!isLoaded) {
-		return <div>Loading...</div>
+		return <Loader />
 	} else {
 		return (
 			<App loadedTheme={state} />

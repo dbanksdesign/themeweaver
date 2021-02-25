@@ -233,3 +233,10 @@ label {
 	--application-gitDecoration-conflictingResourceForeground: #6c6cc4;
 	--application-gitDecoration-submoduleResourceForeground: #8db9e2;
 }
+
+
+#hidden-clipboard {
+	position: fixed;
+	z-index: -1;
+	opacity: 0;
+}

@@ -8,7 +8,8 @@ import themeNameGenerator from '../../helpers/themeNameGenerator';
 import getCompressedState from '../../helpers/getCompressedState';
 import downloadTheme from '../../helpers/downloadTheme';
 
-const share = ({theme, allTokens, themeName}) => {
+const share = ({theme, allTokens, themeName, showLoading, hideLoading, showToast}) => {
+	showLoading();
 	const body = {
 		theme: theme,
 		allTokens: getCompressedState(allTokens),
@@ -19,9 +20,17 @@ const share = ({theme, allTokens, themeName}) => {
 	API.post('theme', '/theme', {body})
 		.then(response => {
 			window.history.replaceState(null, '', `/editor/${body.id}`);
-			// TODO: show a toast
+			hideLoading();
+			document.getElementById('hidden-clipboard').value = window.location.href;
+			document.getElementById('hidden-clipboard').select();
+			document.execCommand("copy");
+			showToast({
+				type: 'success',
+				message: 'Your theme is now accessible at the current URL. The URL has been copied as well!'
+			})
 		})
 		.catch(error => {
+			hideLoading();
 			console.log(error);
 		});
 
@@ -48,7 +57,8 @@ const Github = React.memo(() => {
 	)
 });
 
-const Header = React.memo(({showExport, themeName, updateThemeName, allTokens, theme}) => {
+const Header = React.memo(({showToast, showLoading, hideLoading, themeName, updateThemeName, allTokens, theme}) => {
+	
 	return (
 		<header className="tw-header">
 			<Link className="tw-logo-link" to="/">
@@ -69,7 +79,7 @@ const Header = React.memo(({showExport, themeName, updateThemeName, allTokens, t
 			</nav>
 			
 			<nav className="tw-header-secondary-nav">
-				<button className="small" onClick={() => share({allTokens, theme, themeName})}>
+				<button className="small" onClick={() => share({allTokens, theme, themeName, showLoading, hideLoading, showToast})}>
 					Share
 				</button>
 				<button className="small primary" onClick={() => downloadTheme({allTokens, theme, themeName})}>
