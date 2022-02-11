@@ -18,7 +18,7 @@
     "monaco-editor-webpack-plugin": "^1.9.0",
     "monaco-textmate": "^3.0.1",
     "nearest-color": "^0.4.4",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "onigasm": "^2.2.4",
     "raw-loader": "^4.0.0",
     "react": "^16.13.1",
