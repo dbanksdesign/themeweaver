@@ -10,7 +10,7 @@
     "clsx": "^1.1.0",
     "crypto-js": "^4.0.0",
     "file-saver": "^2.0.2",
-    "jszip": "^3.2.2",
+    "jszip": "^3.7.0",
     "lodash": "^4.17.19",
     "lz-string": "^1.4.4",
     "monaco-editor": "^0.20.0",
